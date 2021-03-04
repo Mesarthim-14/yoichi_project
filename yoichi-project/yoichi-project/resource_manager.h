@@ -17,6 +17,7 @@
 //=============================================================================
 class CTexture;
 class CXfile;
+class CSound;
 
 //=============================================================================
 // リソースマネージャークラス
@@ -35,12 +36,14 @@ public:
 	// Get関数
 	CTexture *GetTextureClass(void) { return m_pTexture; }	// テクスチャの情報
 	CXfile *GetXfileClass(void) { return m_pXFile; }	// テクスチャの情報
+	CSound *GetSoundClass(void) { return m_pSound; }			// サウンドの情報
 
 private:
 	CResourceManager();								// コンストラクタ
 	static CResourceManager *m_pResourceManager;	// 自身のポインタ
 	CTexture *m_pTexture;					// テクスチャのポインタ
 	CXfile *m_pXFile;						// Xファイルのポインタ
+	CSound *m_pSound;					// サウンドのポインタ
 };
 
 #endif

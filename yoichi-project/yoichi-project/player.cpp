@@ -223,7 +223,7 @@ void CPlayer::Walk(void)
 {
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();	// キーボード更新
 	DIJOYSTATE js = CInputJoypad::GetStick(0);				// ジョイパッドの取得
-	CSound *pSound = CManager::GetSound();					// サウンドの情報
+	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
 
 	// カメラ角度取得
 	float fAngle = CGame::GetCamera()->Getφ();

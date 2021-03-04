@@ -23,7 +23,6 @@ class CTutorial;
 class CGame;
 class CResult;
 class CInputJoypad;
-class CSound;
 class CScene;
 class CResourceManager;
 
@@ -68,7 +67,6 @@ public:
 	static CInputKeyboard *GetKeyboard(void);											// キーボード情報
 	static CFade *GetFade(void);														// フェード情報
 	static CInputJoypad *GetJoypad(void);												// ジョイパッドコントローラの情報
-	static CSound *GetSound(void);														// サウンド情報
 	static CScene *GetScene(void) { return m_pScene; }									// シーン情報
 	static CResourceManager *GetResourceManager (void) { return m_pResourceManager; }	// リソースマネージャのポインタ
 private:
@@ -81,7 +79,6 @@ private:
 	static CGame *m_pGame;							// ゲームのポインタ
 	static CResult *m_pResult;						// リザルトのポインタ
 	static CInputJoypad *m_pJoypad;					// ジョイパッドコントローrのポインタ
-	static CSound *m_pSound;						// サウンドのポインタ
 	static CScene *m_pScene;						// シーンのポインタ
 	static CResourceManager *m_pResourceManager;	// リソースマネージャのポインタ
 };

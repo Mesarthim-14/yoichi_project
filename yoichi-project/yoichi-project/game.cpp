@@ -24,6 +24,7 @@
 #include "quest_logo.h"
 #include "effect_factory.h"
 #include "mesh_3d.h"
+#include "resource_manager.h"
 
 //=======================================================================================
 // static初期化
@@ -157,10 +158,19 @@ void CGame::Uninit(void)
 		m_pPlayer = NULL;
 	}
 
-	//サウンド情報取得
-	//CSound *pSound = CManager::GetSound();
-	////ゲームBGM停止
-	//pSound->Stop(CSound::SOUND_LABEL_BGM_GAME);
+	// !nullcheck
+	if (CManager::GetResourceManager() != NULL)
+	{
+		//サウンド情報取得
+		CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
+
+		// !nullcheck
+		if (pSound != NULL)
+		{
+			//ゲームBGM停止
+		//	pSound->Stop(CSound::SOUND_LABEL_BGM_GAME);
+		}
+	}
 
 	//オブジェクトの破棄
 	Release();

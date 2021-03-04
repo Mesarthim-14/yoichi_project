@@ -17,6 +17,7 @@
 #include "fade.h"
 #include "sound.h"
 #include "joypad.h"
+#include "resource_manager.h"
 
 //=======================================================================================
 //Ã“Iƒƒ“ƒo•Ï”éŒ¾
@@ -77,7 +78,7 @@ HRESULT CTutorial::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 		m_pScene->BindTexture(m_pTexture[0]);
 	}
 	
-	CSound *pSound = CManager::GetSound();
+	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
 	//pSound->Play(CSound::SOUND_LABEL_BGM_TITLE);
 
 	return S_OK;

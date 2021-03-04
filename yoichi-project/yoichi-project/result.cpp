@@ -16,6 +16,7 @@
 #include "fade.h"
 #include "keyboard.h"
 #include "joypad.h"
+#include "resource_manager.h"
 
 //=============================================================================
 //静的メンバ変数宣言
@@ -121,7 +122,7 @@ void CResult::Update(void)
 {
 	CInputKeyboard* pKey = CManager::GetKeyboard();
 	CFade::FADE_MODE mode = CManager::GetFade()->GetFade();
-	CSound *pSound = CManager::GetSound();
+	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
 
 	// コントローラのstartを押したときか、エンターキーを押したとき
 	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_START, 0) && mode == CFade::FADE_MODE_NONE
