@@ -336,7 +336,7 @@ void CScene2D::SetRotation(float rotasion)
 	rotasion += m_fRotasion;
 
 	float r = sqrtf(powf(GetSize().x / 2, 2.0) + powf(GetSize().x / 2, 2.0));	//半径
-	float fTheta = atan2(GetSize().x / 2, GetSize().x / 2);					//シータ
+	float fTheta = atan2(GetSize().x / 2, GetSize().x / 2);						//シータ
 
 	float XAngle = r*cos(fTheta + rotasion);	//Xの角度
 	float YAngle = r*sin(fTheta + rotasion);	//Yの角度

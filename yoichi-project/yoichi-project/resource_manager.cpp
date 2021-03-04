@@ -11,6 +11,7 @@
 #include "resource_manager.h"
 #include "texture.h"
 #include "xfile.h"
+#include "sound.h"
 
 //=============================================================================
 // static初期化宣言
@@ -22,8 +23,9 @@ CResourceManager *CResourceManager::m_pResourceManager = NULL;	// 自身のポインタ
 //=============================================================================
 CResourceManager::CResourceManager()
 {
-	m_pTexture = NULL;					// テクスチャのポインタ
-	m_pXFile = NULL;						// Xファイルのポインタ
+	m_pTexture = NULL;		// テクスチャのポインタ
+	m_pXFile = NULL;		// Xファイルのポインタ
+	m_pSound = NULL;		// サウンドのポインタ
 }
 
 //=============================================================================
@@ -49,6 +51,17 @@ CResourceManager::~CResourceManager()
 		delete m_pXFile;
 		m_pXFile = NULL;
 	}
+
+	// nullcheck
+	if (m_pSound != NULL)
+	{
+		// 終了処理
+		m_pSound->Uninit();
+
+		// サウンドポインタ開放
+		delete m_pSound;
+		m_pSound = NULL;
+	}
 }
 
 //=============================================================================
@@ -68,6 +81,13 @@ HRESULT CResourceManager::Init(void)
 	{
 		// テクスチャのインスタンス生成
 		m_pXFile = CXfile::Create();
+	}
+
+	// nullcheck
+	if (m_pSound == NULL)
+	{
+		// サウンドのインスタンス生成
+		m_pSound = CSound::Create();
 	}
 
 	return S_OK;

@@ -42,7 +42,6 @@ CTutorial *CManager::m_pTutorial = NULL;
 CGame *CManager::m_pGame = NULL;
 CResult *CManager::m_pResult = NULL;
 CInputJoypad *CManager::m_pJoypad = NULL;
-CSound *CManager::m_pSound = NULL;
 CScene *CManager::m_pScene = NULL;
 CResourceManager *CManager::m_pResourceManager = NULL;
 
@@ -238,15 +237,6 @@ void CManager::Uninit(void)
 
 	// シーン情報のリリース
 	CScene::ReleaseAll();
-
-	// サウンドの終了処理
-	if (m_pSound != NULL)
-	{
-		m_pSound->Uninit();
-		delete m_pSound;
-		m_pSound = NULL;
-	}
-
 }
 
 //=============================================================================
@@ -332,7 +322,7 @@ void CManager::UnLoadAll(void)
 //=============================================================================
 void CManager::SetMode(MODE_TYPE mode)
 {
-	CSound *pSound = CManager::GetSound();
+	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
 
 	//現在モードの終了
 	switch (m_mode)
@@ -465,12 +455,4 @@ CFade * CManager::GetFade(void)
 CInputJoypad * CManager::GetJoypad(void)
 {
 	return m_pJoypad;
-}
-
-//=============================================================================
-//ジョイパッド情報取得
-//=============================================================================
-CSound * CManager::GetSound(void)
-{
-	return m_pSound;
 }
