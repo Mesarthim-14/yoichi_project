@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="00_main">
       <UniqueIdentifier>{87135e9e-9146-43ff-9b62-3f016f68ee8a}</UniqueIdentifier>
     </Filter>
@@ -37,95 +25,23 @@
     <Filter Include="07_resource">
       <UniqueIdentifier>{f6fbcecc-fe21-4322-ae64-5fa5c43b355a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08_3D">
+      <UniqueIdentifier>{e43183ff-1990-4dfe-a141-e713ef913064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09_2D">
+      <UniqueIdentifier>{3dbac6b7-ebca-4548-bd14-a68c78a6eea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10_UI">
+      <UniqueIdentifier>{1fb8f824-d21f-47eb-ae70-394c784fa449}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="11_common">
+      <UniqueIdentifier>{88a79338-f985-4147-b6ba-856baeac103d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="12_effect">
+      <UniqueIdentifier>{d8808717-5001-422b-afc6-c5b9fcca9afe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bg.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="billboard.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="character.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="collision.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="effect_3d.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="effect_factory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="fade.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="light.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="manager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh_3d.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="meshfield.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="model.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="modelanime.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="number_2d.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="number_3d.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="particle.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="polygon.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="quest_logo.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="renderer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="resource_manager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="result.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="sound.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="title.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="tutorial.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ui.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="xfile.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="player.h">
       <Filter>05_player</Filter>
     </ClInclude>
@@ -153,83 +69,95 @@
     <ClInclude Include="scene3D.h">
       <Filter>03_scene</Filter>
     </ClInclude>
+    <ClInclude Include="bg.h">
+      <Filter>11_common</Filter>
+    </ClInclude>
+    <ClInclude Include="billboard.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="character.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="collision.h">
+      <Filter>11_common</Filter>
+    </ClInclude>
+    <ClInclude Include="effect_3d.h">
+      <Filter>12_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="effect_factory.h">
+      <Filter>12_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="fade.h">
+      <Filter>11_common</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>00_main</Filter>
+    </ClInclude>
+    <ClInclude Include="manager.h">
+      <Filter>01_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh_3d.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="meshfield.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="modelanime.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="number_2d.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="number_3d.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="particle.h">
+      <Filter>12_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="polygon.h">
+      <Filter>11_common</Filter>
+    </ClInclude>
+    <ClInclude Include="quest_logo.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>11_common</Filter>
+    </ClInclude>
+    <ClInclude Include="resource_manager.h">
+      <Filter>01_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="sound.h">
+      <Filter>07_resource</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>07_resource</Filter>
+    </ClInclude>
+    <ClInclude Include="tutorial.h">
+      <Filter>04_mode</Filter>
+    </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>04_mode</Filter>
+    </ClInclude>
+    <ClInclude Include="xfile.h">
+      <Filter>07_resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ui.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>04_mode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="xfile.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ui.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="tutorial.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="texture.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="sound.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="resource_manager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="renderer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="quest_logo.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="polygon.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="particle.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="number_3d.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="number_2d.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="modelanime.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="model.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="meshfield.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh_3d.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="light.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="fade.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="effect_factory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="effect_3d.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="collision.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="character.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="billboard.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="bg.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="player.cpp">
       <Filter>05_player</Filter>
     </ClCompile>
@@ -268,6 +196,81 @@
     </ClCompile>
     <ClCompile Include="title.cpp">
       <Filter>04_mode</Filter>
+    </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>07_resource</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="billboard.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="collision.cpp">
+      <Filter>11_common</Filter>
+    </ClCompile>
+    <ClCompile Include="fade.cpp">
+      <Filter>11_common</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="number_2d.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="number_3d.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="quest_logo.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="resource_manager.cpp">
+      <Filter>01_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon.cpp">
+      <Filter>11_common</Filter>
+    </ClCompile>
+    <ClCompile Include="ui.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>07_resource</Filter>
+    </ClCompile>
+    <ClCompile Include="xfile.cpp">
+      <Filter>07_resource</Filter>
+    </ClCompile>
+    <ClCompile Include="tutorial.cpp">
+      <Filter>04_mode</Filter>
+    </ClCompile>
+    <ClCompile Include="effect_3d.cpp">
+      <Filter>12_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="particle.cpp">
+      <Filter>12_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="effect_factory.cpp">
+      <Filter>12_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>11_common</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh_3d.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="meshfield.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="character.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="bg.cpp">
+      <Filter>11_common</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="modelanime.cpp">
+      <Filter>08_3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
