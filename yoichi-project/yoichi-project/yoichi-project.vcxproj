@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)yoichi-project/00_main;$(SolutionDir)yoichi-project/01_manager;$(SolutionDir)yoichi-project/02_input;$(SolutionDir)yoichi-project/03_scene;$(SolutionDir)yoichi-project/04_mode;$(SolutionDir)yoichi-project/05_player;$(SolutionDir)yoichi-project/06_item;$(SolutionDir)yoichi-project/07_resource;$(SolutionDir)yoichi-project/08_3D;$(SolutionDir)yoichi-project/09_2D;$(SolutionDir)yoichi-project/10_UI;$(SolutionDir)yoichi-project/11_common;$(SolutionDir)yoichi-project/12_effect;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -79,6 +79,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>../00_main/;../01_manager;../02_input/;../03_scene/;../04_mode/;../05_player/;../06_item/;../07_resource/;../08_3D/;../09_2D/;../10_UI/;../11_common/;../12_effect/;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath);$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -91,6 +93,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -121,6 +124,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../00_main;../01_manager;../02_input;../03_scene;../04_mode;../05_player;../06_item;../07_resource;../08_3D;../09_2D;../10_UI;../11_common;../12_effect;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -148,84 +152,84 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="bg.h" />
-    <ClInclude Include="billboard.h" />
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="character.h" />
-    <ClInclude Include="collision.h" />
-    <ClInclude Include="effect_3d.h" />
-    <ClInclude Include="effect_factory.h" />
-    <ClInclude Include="fade.h" />
-    <ClInclude Include="game.h" />
-    <ClInclude Include="input.h" />
-    <ClInclude Include="joypad.h" />
-    <ClInclude Include="keyboard.h" />
-    <ClInclude Include="light.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="manager.h" />
-    <ClInclude Include="meshfield.h" />
-    <ClInclude Include="mesh_3d.h" />
-    <ClInclude Include="model.h" />
-    <ClInclude Include="modelanime.h" />
-    <ClInclude Include="number_2d.h" />
-    <ClInclude Include="number_3d.h" />
-    <ClInclude Include="particle.h" />
-    <ClInclude Include="player.h" />
-    <ClInclude Include="polygon.h" />
-    <ClInclude Include="quest_logo.h" />
-    <ClInclude Include="renderer.h" />
-    <ClInclude Include="resource_manager.h" />
-    <ClInclude Include="result.h" />
-    <ClInclude Include="scene.h" />
-    <ClInclude Include="scene2d.h" />
-    <ClInclude Include="scene3D.h" />
-    <ClInclude Include="scene_base.h" />
-    <ClInclude Include="sound.h" />
-    <ClInclude Include="texture.h" />
-    <ClInclude Include="title.h" />
-    <ClInclude Include="tutorial.h" />
-    <ClInclude Include="ui.h" />
-    <ClInclude Include="xfile.h" />
+    <ClInclude Include="00_main\main.h" />
+    <ClInclude Include="01_manager\manager.h" />
+    <ClInclude Include="01_manager\resource_manager.h" />
+    <ClInclude Include="02_input\input.h" />
+    <ClInclude Include="02_input\joypad.h" />
+    <ClInclude Include="02_input\keyboard.h" />
+    <ClInclude Include="03_scene\scene.h" />
+    <ClInclude Include="03_scene\scene2d.h" />
+    <ClInclude Include="03_scene\scene3D.h" />
+    <ClInclude Include="03_scene\scene_base.h" />
+    <ClInclude Include="04_mode\game.h" />
+    <ClInclude Include="04_mode\result.h" />
+    <ClInclude Include="04_mode\title.h" />
+    <ClInclude Include="04_mode\tutorial.h" />
+    <ClInclude Include="05_player\player.h" />
+    <ClInclude Include="07_resource\sound.h" />
+    <ClInclude Include="07_resource\texture.h" />
+    <ClInclude Include="07_resource\xfile.h" />
+    <ClInclude Include="08_3D\billboard.h" />
+    <ClInclude Include="08_3D\camera.h" />
+    <ClInclude Include="08_3D\character.h" />
+    <ClInclude Include="08_3D\light.h" />
+    <ClInclude Include="08_3D\meshfield.h" />
+    <ClInclude Include="08_3D\mesh_3d.h" />
+    <ClInclude Include="08_3D\model.h" />
+    <ClInclude Include="08_3D\modelanime.h" />
+    <ClInclude Include="10_UI\number_2d.h" />
+    <ClInclude Include="10_UI\number_3d.h" />
+    <ClInclude Include="10_UI\quest_logo.h" />
+    <ClInclude Include="10_UI\ui.h" />
+    <ClInclude Include="11_common\bg.h" />
+    <ClInclude Include="11_common\collision.h" />
+    <ClInclude Include="11_common\fade.h" />
+    <ClInclude Include="11_common\polygon.h" />
+    <ClInclude Include="11_common\renderer.h" />
+    <ClInclude Include="12_effect\effect_3d.h" />
+    <ClInclude Include="12_effect\effect_factory.h" />
+    <ClInclude Include="12_effect\particle.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bg.cpp" />
-    <ClCompile Include="billboard.cpp" />
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="character.cpp" />
-    <ClCompile Include="collision.cpp" />
-    <ClCompile Include="effect_3d.cpp" />
-    <ClCompile Include="effect_factory.cpp" />
-    <ClCompile Include="fade.cpp" />
-    <ClCompile Include="game.cpp" />
-    <ClCompile Include="input.cpp" />
-    <ClCompile Include="joypad.cpp" />
-    <ClCompile Include="keyboard.cpp" />
-    <ClCompile Include="light.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="manager.cpp" />
-    <ClCompile Include="meshfield.cpp" />
-    <ClCompile Include="mesh_3d.cpp" />
-    <ClCompile Include="model.cpp" />
-    <ClCompile Include="modelanime.cpp" />
-    <ClCompile Include="number_2d.cpp" />
-    <ClCompile Include="number_3d.cpp" />
-    <ClCompile Include="particle.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="polygon.cpp" />
-    <ClCompile Include="quest_logo.cpp" />
-    <ClCompile Include="renderer.cpp" />
-    <ClCompile Include="resource_manager.cpp" />
-    <ClCompile Include="result.cpp" />
-    <ClCompile Include="scene.cpp" />
-    <ClCompile Include="scene2d.cpp" />
-    <ClCompile Include="scene3D.cpp" />
-    <ClCompile Include="scene_base.cpp" />
-    <ClCompile Include="sound.cpp" />
-    <ClCompile Include="texture.cpp" />
-    <ClCompile Include="title.cpp" />
-    <ClCompile Include="tutorial.cpp" />
-    <ClCompile Include="ui.cpp" />
-    <ClCompile Include="xfile.cpp" />
+    <ClCompile Include="00_main\main.cpp" />
+    <ClCompile Include="01_manager\manager.cpp" />
+    <ClCompile Include="01_manager\resource_manager.cpp" />
+    <ClCompile Include="02_input\input.cpp" />
+    <ClCompile Include="02_input\joypad.cpp" />
+    <ClCompile Include="02_input\keyboard.cpp" />
+    <ClCompile Include="03_scene\scene.cpp" />
+    <ClCompile Include="03_scene\scene2d.cpp" />
+    <ClCompile Include="03_scene\scene3D.cpp" />
+    <ClCompile Include="03_scene\scene_base.cpp" />
+    <ClCompile Include="04_mode\game.cpp" />
+    <ClCompile Include="04_mode\result.cpp" />
+    <ClCompile Include="04_mode\title.cpp" />
+    <ClCompile Include="04_mode\tutorial.cpp" />
+    <ClCompile Include="05_player\player.cpp" />
+    <ClCompile Include="07_resource\sound.cpp" />
+    <ClCompile Include="07_resource\texture.cpp" />
+    <ClCompile Include="07_resource\xfile.cpp" />
+    <ClCompile Include="08_3D\billboard.cpp" />
+    <ClCompile Include="08_3D\camera.cpp" />
+    <ClCompile Include="08_3D\character.cpp" />
+    <ClCompile Include="08_3D\light.cpp" />
+    <ClCompile Include="08_3D\meshfield.cpp" />
+    <ClCompile Include="08_3D\mesh_3d.cpp" />
+    <ClCompile Include="08_3D\model.cpp" />
+    <ClCompile Include="08_3D\modelanime.cpp" />
+    <ClCompile Include="10_UI\number_2d.cpp" />
+    <ClCompile Include="10_UI\number_3d.cpp" />
+    <ClCompile Include="10_UI\quest_logo.cpp" />
+    <ClCompile Include="10_UI\ui.cpp" />
+    <ClCompile Include="11_common\bg.cpp" />
+    <ClCompile Include="11_common\collision.cpp" />
+    <ClCompile Include="11_common\fade.cpp" />
+    <ClCompile Include="11_common\polygon.cpp" />
+    <ClCompile Include="11_common\renderer.cpp" />
+    <ClCompile Include="12_effect\effect_3d.cpp" />
+    <ClCompile Include="12_effect\effect_factory.cpp" />
+    <ClCompile Include="12_effect\particle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
