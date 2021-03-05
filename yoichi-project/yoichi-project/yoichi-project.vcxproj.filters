@@ -13,6 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="00_main">
+      <UniqueIdentifier>{87135e9e-9146-43ff-9b62-3f016f68ee8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_manager">
+      <UniqueIdentifier>{10658699-5a6d-4eaa-94f8-c3e13787c321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02_input">
+      <UniqueIdentifier>{9bb4618b-25d7-4325-bc77-650580e23b02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_scene">
+      <UniqueIdentifier>{8e1b01e6-918f-41f1-b5dc-ed33e2f967d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04_mode">
+      <UniqueIdentifier>{48f3bbe9-cb40-44e6-9bd7-9d16413eae86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05_player">
+      <UniqueIdentifier>{41b492dc-86ec-4614-902b-0fcd544d4554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06_item">
+      <UniqueIdentifier>{bd1643e2-6666-4f38-babb-ee34e2c95d1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07_resource">
+      <UniqueIdentifier>{f6fbcecc-fe21-4322-ae64-5fa5c43b355a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bg.h">
@@ -37,18 +61,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="fade.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="input.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="joypad.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="keyboard.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="light.h">
@@ -81,9 +93,6 @@
     <ClInclude Include="particle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="polygon.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -97,18 +106,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="result.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="scene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="scene_base.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="scene2d.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="scene3D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="sound.h">
@@ -129,6 +126,33 @@
     <ClInclude Include="xfile.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>05_player</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>04_mode</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>02_input</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard.h">
+      <Filter>02_input</Filter>
+    </ClInclude>
+    <ClInclude Include="joypad.h">
+      <Filter>02_input</Filter>
+    </ClInclude>
+    <ClInclude Include="scene2d.h">
+      <Filter>03_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>03_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene_base.h">
+      <Filter>03_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene3D.h">
+      <Filter>03_scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="xfile.cpp">
@@ -140,28 +164,10 @@
     <ClCompile Include="tutorial.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="title.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="texture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="sound.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="scene3D.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="scene2d.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="scene_base.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="scene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="result.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="resource_manager.cpp">
@@ -174,9 +180,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="polygon.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="particle.cpp">
@@ -200,25 +203,7 @@
     <ClCompile Include="mesh_3d.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="manager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="light.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="keyboard.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="joypad.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="input.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="fade.cpp">
@@ -244,6 +229,45 @@
     </ClCompile>
     <ClCompile Include="bg.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>05_player</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>00_main</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>04_mode</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.cpp">
+      <Filter>01_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="joypad.cpp">
+      <Filter>02_input</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard.cpp">
+      <Filter>02_input</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>02_input</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>03_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene_base.cpp">
+      <Filter>03_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene2d.cpp">
+      <Filter>03_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene3D.cpp">
+      <Filter>03_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>04_mode</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>04_mode</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
