@@ -45,16 +45,16 @@
 #define WEAPON_TIP_NUM					(20)				// 剣先のパーツ番号
 #define WEAPON_ROOT_NUM					(21)				// 剣の根元のパーツ番号
 
-// モデルネーム
-#define LBX_XFAILE_NAME		"data/Text/motion_LBX.txt"		// LBXのファイルパス
-
 //=============================================================================
 // クリエイト
 //=============================================================================
-CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nCount)
 {
 	// 初期化処理
 	CPlayer *pPlayer = new CPlayer;
+
+	// 番号の設定
+	pPlayer->m_nNumber = nCount;
 
 	// 初期化処理
 	pPlayer->Init(pos, size);
@@ -229,11 +229,11 @@ void CPlayer::PlayerControl()
 void CPlayer::Walk(void)
 {
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();	// キーボード更新
-	DIJOYSTATE js = CInputJoypad::GetStick(0);				// ジョイパッドの取得
+	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);				// ジョイパッドの取得
 	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
 
 	// カメラ角度取得
-	float fAngle = CGame::GetCamera()->Getφ();
+	float fAngle = CGame::GetCamera(m_nNumber)->Getφ();
 	D3DXVECTOR3 pos = GetPos();
 
 	//入力が存在する
@@ -252,10 +252,10 @@ void CPlayer::Walk(void)
 			SetMotion(MOTION_WALK);
 		}
 
-		DIJOYSTATE js = CInputJoypad::GetStick(0);				// ジョイパッドの取得
+		DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);				// ジョイパッドの取得
 		float fAngle3 = atan2f((float)js.lX, -(float)js.lY);	// コントローラの角度
 		float fAngle2 = atan2f(-(float)js.lX, (float)js.lY);	// コントローラの角度
-		float fAngle = CGame::GetCamera()->Getφ();				// カメラの角度
+		float fAngle = CGame::GetCamera(m_nNumber)->Getφ();				// カメラの角度
 
 		// 移動量設定
 		pos.x += sinf(fAngle + (fAngle2))* GetSpeed();
@@ -282,10 +282,10 @@ void CPlayer::Walk(void)
 		SetMotion(MOTION_WALK);
 
 		// 移動量・角度の設定
-		pos.x -= sinf((CGame::GetCamera()->Getφ()))*GetSpeed();
-		pos.z -= cosf((CGame::GetCamera()->Getφ()))*GetSpeed();
-		m_rotDest.y = CGame::GetCamera()->Getφ();
-		SetRot(D3DXVECTOR3(GetRot().x, CGame::GetCamera()->Getφ(), GetRot().z));
+		pos.x -= sinf((CGame::GetCamera(m_nNumber)->Getφ()))*GetSpeed();
+		pos.z -= cosf((CGame::GetCamera(m_nNumber)->Getφ()))*GetSpeed();
+		m_rotDest.y = CGame::GetCamera(m_nNumber)->Getφ();
+		SetRot(D3DXVECTOR3(GetRot().x, CGame::GetCamera(m_nNumber)->Getφ(), GetRot().z));
 	}
 	// 後ろに移動
 	if (pKeyboard->GetPress(DIK_S))
@@ -294,10 +294,10 @@ void CPlayer::Walk(void)
 		SetMotion(MOTION_WALK);
 
 		// 移動量・角度の設定
-		pos.x += sinf((CGame::GetCamera()->Getφ()))*GetSpeed();
-		pos.z += cosf((CGame::GetCamera()->Getφ()))*GetSpeed();
-		m_rotDest.y = CGame::GetCamera()->Getφ();
-		SetRot(D3DXVECTOR3(GetRot().x, CGame::GetCamera()->Getφ() + D3DXToRadian(-180.0f), GetRot().z));
+		pos.x += sinf((CGame::GetCamera(m_nNumber)->Getφ()))*GetSpeed();
+		pos.z += cosf((CGame::GetCamera(m_nNumber)->Getφ()))*GetSpeed();
+		m_rotDest.y = CGame::GetCamera(m_nNumber)->Getφ();
+		SetRot(D3DXVECTOR3(GetRot().x, CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(-180.0f), GetRot().z));
 
 	}
 	// 左に移動
@@ -307,10 +307,10 @@ void CPlayer::Walk(void)
 		SetMotion(MOTION_WALK);
 
 		// 移動量・角度の設定
-		pos.x += sinf((CGame::GetCamera()->Getφ() + D3DXToRadian(90.0f)))*GetSpeed();
-		pos.z += cosf((CGame::GetCamera()->Getφ() + D3DXToRadian(90.0f)))*GetSpeed();
-		m_rotDest.y = CGame::GetCamera()->Getφ();
-		SetRot(D3DXVECTOR3(GetRot().x, CGame::GetCamera()->Getφ() + D3DXToRadian(-90.0f), GetRot().z));
+		pos.x += sinf((CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(90.0f)))*GetSpeed();
+		pos.z += cosf((CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(90.0f)))*GetSpeed();
+		m_rotDest.y = CGame::GetCamera(m_nNumber)->Getφ();
+		SetRot(D3DXVECTOR3(GetRot().x, CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(-90.0f), GetRot().z));
 
 	}
 	// 右に移動
@@ -320,10 +320,10 @@ void CPlayer::Walk(void)
 		SetMotion(MOTION_WALK);
 
 		// 移動量・角度の設定
-		pos.x += sinf((CGame::GetCamera()->Getφ() + D3DXToRadian(-90.0f)))*GetSpeed();
-		pos.z += cosf((CGame::GetCamera()->Getφ() + D3DXToRadian(-90.0f)))*GetSpeed();
-		m_rotDest.y = CGame::GetCamera()->Getφ();
-		SetRot(D3DXVECTOR3(GetRot().x, CGame::GetCamera()->Getφ() + D3DXToRadian(90.0f), GetRot().z));
+		pos.x += sinf((CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(-90.0f)))*GetSpeed();
+		pos.z += cosf((CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(-90.0f)))*GetSpeed();
+		m_rotDest.y = CGame::GetCamera(m_nNumber)->Getφ();
+		SetRot(D3DXVECTOR3(GetRot().x, CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(90.0f), GetRot().z));
 
 	}
 
@@ -350,7 +350,7 @@ void CPlayer::Jump(void)
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 
 	// SPACEキーを押したとき・コントローラのYを押したとき
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_A, 0) && GetJump() == false
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_A, m_nNumber) && GetJump() == false
 		|| pKeyboard->GetTrigger(DIK_SPACE) && GetJump() == false)
 	{
 		// 移動量設定

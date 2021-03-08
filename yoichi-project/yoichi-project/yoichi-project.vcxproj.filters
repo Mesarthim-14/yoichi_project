@@ -156,6 +156,9 @@
     <ClInclude Include="12_effect\particle.h">
       <Filter>12_effect</Filter>
     </ClInclude>
+    <ClInclude Include="08_3D\motion.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="12_effect\particle.cpp">
       <Filter>12_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\motion.cpp">
+      <Filter>08_3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

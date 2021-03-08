@@ -42,7 +42,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -76,6 +76,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)yoichi-project/00_main;$(SolutionDir)yoichi-project/01_manager;$(SolutionDir)yoichi-project/02_input;$(SolutionDir)yoichi-project/03_scene;$(SolutionDir)yoichi-project/04_mode;$(SolutionDir)yoichi-project/05_player;$($(SolutionDir)yoichi-project/06_item;$(SolutionDir)yoichi-project/07_resource;$(SolutionDir)yoichi-project/08_3D;$(SolutionDir)yoichi-project/09_2D;$(SolutionDir)yoichi-project/10_UI;$(SolutionDir)yoichi-project/11_common;$(SolutionDir)yoichi-project/12_effect;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -178,6 +180,7 @@
     <ClInclude Include="08_3D\mesh_3d.h" />
     <ClInclude Include="08_3D\model.h" />
     <ClInclude Include="08_3D\modelanime.h" />
+    <ClInclude Include="08_3D\motion.h" />
     <ClInclude Include="10_UI\number_2d.h" />
     <ClInclude Include="10_UI\number_3d.h" />
     <ClInclude Include="10_UI\quest_logo.h" />
@@ -218,6 +221,7 @@
     <ClCompile Include="08_3D\mesh_3d.cpp" />
     <ClCompile Include="08_3D\model.cpp" />
     <ClCompile Include="08_3D\modelanime.cpp" />
+    <ClCompile Include="08_3D\motion.cpp" />
     <ClCompile Include="10_UI\number_2d.cpp" />
     <ClCompile Include="10_UI\number_3d.cpp" />
     <ClCompile Include="10_UI\quest_logo.cpp" />

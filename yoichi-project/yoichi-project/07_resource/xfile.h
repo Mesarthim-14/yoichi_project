@@ -31,9 +31,9 @@ public:
 	typedef struct
 	{
 		char xFileName[MAX_NAME_NUM];	// ファイルネーム
-		D3DXVECTOR3 offsetPos;	// 位置のオフセット情報
-		D3DXVECTOR3 offsetRot;	// 向きのオフセット情報
-		int nParent;			// 親情報
+		D3DXVECTOR3 offsetPos;			// 位置のオフセット情報
+		D3DXVECTOR3 offsetRot;			// 向きのオフセット情報
+		int nParent;					// 親情報
 	}MODELFILE;
 
 	// テクスチャの番号の列挙型

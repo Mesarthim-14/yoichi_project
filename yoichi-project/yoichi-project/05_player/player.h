@@ -96,7 +96,7 @@ public:
 	CPlayer(PRIORITY Priority = PRIORITY_CHARACTER);			// コンストラクタ
 	~CPlayer();													// デストラクタ
 
-	static CPlayer*Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);	// クリエイト
+	static CPlayer*Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nCount);	// クリエイト
 
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);			// 初期化処理
 	void Uninit(void);											// 終了処理
@@ -115,5 +115,6 @@ private:
 	bool m_bWalk;									// 歩いているフラグ
 	bool m_bDraw;									// 描画のフラグ
 	int m_nEndCounter;								// 死んだ後のカウンター
+	int m_nNumber;									// プレイヤーの番号
 };
 #endif

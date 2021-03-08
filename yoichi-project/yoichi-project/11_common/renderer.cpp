@@ -192,23 +192,66 @@ void CRenderer::Draw(void)
 	// Direct3Dによる描画の開始
 	if (SUCCEEDED(m_pD3DDevice->BeginScene()))
 	{
-		// 射影行列/ビュー/ワールド
-		D3DXMATRIX matProj, matView, matWorld;
-		D3DXMATRIX trans;
-
-		// カメラが使われていたら
-		if (CGame::GetCamera() != NULL)
+		// 選択した人数分回す
+		for (int nCount = 0; nCount < CGame::GetPlayerNum(); nCount++)
 		{
-			// カメラのポインタ取得
-			CCamera *pCamera = CGame::GetCamera();
-			pCamera->SetCamera();
+			// 射影行列/ビュー/ワールド
+			D3DXMATRIX matProj, matView, matWorld;
+			D3DXMATRIX trans;
 
-			// バックバッファ＆Ｚバッファのクリア
-			m_pD3DDevice->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DCOLOR_RGBA(0, 255, 255, 0), 1.0f, 0);
+			if (CGame::GetCamera(nCount) != NULL)
+			{
+				CCamera *pCamera = CGame::GetCamera(nCount);
+				pCamera->SetCamera();
+
+				D3DXVECTOR3 posV = pCamera->GetposV();
+				D3DXVECTOR3 posR = pCamera->GetposR();
+
+				D3DXMatrixLookAtLH(&matView,
+					&posV,								// カメラ座標
+					&posR,								// 注視点座標
+					&D3DXVECTOR3(0.0f, 1.0f, 0.0f));	// カメラの上の向きのベクトル
+
+				// ビューポートの設定
+				SetUpViewport(nCount);
+
+				// バックバッファ＆Ｚバッファのクリア
+				m_pD3DDevice->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DCOLOR_RGBA(0, 255, 255, 0), 1.0f, 0);
+			}
+			else
+			{
+				D3DVIEWPORT9 ViewPortClear;
+
+				ViewPortClear.X = 0;
+				ViewPortClear.Y = 0;
+				ViewPortClear.Width = SCREEN_WIDTH;
+				ViewPortClear.Height = SCREEN_HEIGHT;
+				ViewPortClear.MinZ = 0;
+				ViewPortClear.MaxZ = 1;
+
+				m_pD3DDevice->SetViewport(&ViewPortClear);
+			}
+
+			CScene::DrawAll();
 		}
 
-		//オブジェクトクラスの全描画処理呼び出し
-		CScene::DrawAll();
+		if (CGame::GetPlayerNum() == 3)
+		{
+			// ビューポートの設定
+		//	SetUpViewport(3);
+		//	CScene::DrawAll();
+		}
+
+		D3DVIEWPORT9 ViewPortClear;
+
+		ViewPortClear.X = 0;
+		ViewPortClear.Y = 0;
+		ViewPortClear.Width = SCREEN_WIDTH;
+		ViewPortClear.Height = SCREEN_HEIGHT;
+		ViewPortClear.MinZ = 0;
+		ViewPortClear.MaxZ = 1;
+
+		m_pD3DDevice->SetViewport(&ViewPortClear);
 
 		//環境光（アンビエント）の設定
 		D3DMATERIAL9 material;
@@ -241,6 +284,198 @@ void CRenderer::Draw(void)
 
 	// バックバッファとフロントバッファの入れ替え
 	m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
+}
+
+//=============================================================================
+// ビューポートの設定
+//=============================================================================
+bool CRenderer::SetUpViewport(int nNumber)
+{
+	int nPlayerNum = CGame::GetPlayerNum();
+
+	// プレイヤーの人数
+	switch (nPlayerNum)
+	{
+	case 1:
+		// プレイヤーの番号
+		switch (nNumber)
+		{
+		case 0:
+			// ビューポートの左上座標
+			m_view_port[nNumber].X = 0;
+			m_view_port[nNumber].Y = 0;
+
+			// ビューポートの幅
+			m_view_port[nNumber].Width = SCREEN_WIDTH;
+
+			// ビューポートの高さ
+			m_view_port[nNumber].Height = SCREEN_HEIGHT;
+
+			// ビューポート深度設定
+			m_view_port[nNumber].MinZ = 0.0f;
+			m_view_port[nNumber].MaxZ = 1.0f;
+
+			// ビューポート設定
+			if (FAILED(m_pD3DDevice->SetViewport(&m_view_port[nNumber])))
+			{
+				return false;
+			}
+			break;
+		}
+		break;
+
+	case 2:
+		// プレイヤーの番号
+		switch (nNumber)
+		{
+		case 0:
+			// ビューポートの左上座標
+			m_view_port[nNumber].X = 0;
+			m_view_port[nNumber].Y = 0;
+
+			// ビューポートの幅
+			m_view_port[nNumber].Width = SCREEN_WIDTH;
+
+			// ビューポートの高さ
+			m_view_port[nNumber].Height = SCREEN_HEIGHT / 2;
+
+			// ビューポート深度設定
+			m_view_port[nNumber].MinZ = 0.0f;
+			m_view_port[nNumber].MaxZ = 1.0f;
+
+			// ビューポート設定
+			if (FAILED(m_pD3DDevice->SetViewport(&m_view_port[nNumber])))
+			{
+				return false;
+			}
+			break;
+
+		case 1:
+			// ビューポートの左上座標
+			m_view_port[nNumber].X = 0;
+			m_view_port[nNumber].Y = SCREEN_HEIGHT / 2;
+
+			// ビューポートの幅
+			m_view_port[nNumber].Width = SCREEN_WIDTH;
+
+			// ビューポートの高さ
+			m_view_port[nNumber].Height = SCREEN_HEIGHT / 2;
+
+			// ビューポート深度設定
+			m_view_port[nNumber].MinZ = 0.0f;
+			m_view_port[nNumber].MaxZ = 1.0f;
+
+			// ビューポート設定
+			if (FAILED(m_pD3DDevice->SetViewport(&m_view_port[nNumber])))
+			{
+				return false;
+			}
+
+			break;
+		default:
+			break;
+		}
+		break;
+	case 3:
+	case 4:
+		// プレイヤーの番号
+		switch (nNumber)
+		{
+		case 0:
+			// ビューポートの左上座標
+			m_view_port[nNumber].X = 0;
+			m_view_port[nNumber].Y = 0;
+
+			// ビューポートの幅
+			m_view_port[nNumber].Width = SCREEN_WIDTH / 2;
+
+			// ビューポートの高さ
+			m_view_port[nNumber].Height = SCREEN_HEIGHT / 2;
+
+			// ビューポート深度設定
+			m_view_port[nNumber].MinZ = 0.0f;
+			m_view_port[nNumber].MaxZ = 1.0f;
+
+			// ビューポート設定
+			if (FAILED(m_pD3DDevice->SetViewport(&m_view_port[nNumber])))
+			{
+				return false;
+			}
+			break;
+
+		case 1:
+			// ビューポートの左上座標
+			m_view_port[nNumber].X = SCREEN_WIDTH / 2;
+			m_view_port[nNumber].Y = 0;
+
+			// ビューポートの幅
+			m_view_port[nNumber].Width = SCREEN_WIDTH / 2;
+
+			// ビューポートの高さ
+			m_view_port[nNumber].Height = SCREEN_HEIGHT / 2;
+
+			// ビューポート深度設定
+			m_view_port[nNumber].MinZ = 0.0f;
+			m_view_port[nNumber].MaxZ = 1.0f;
+
+			// ビューポート設定
+			if (FAILED(m_pD3DDevice->SetViewport(&m_view_port[nNumber])))
+			{
+				return false;
+			}
+			break;
+		case 2:
+			// ビューポートの左上座標
+			m_view_port[nNumber].X = 0.0f;
+			m_view_port[nNumber].Y = SCREEN_HEIGHT / 2;
+
+			// ビューポートの幅
+			m_view_port[nNumber].Width = SCREEN_WIDTH / 2;
+
+			// ビューポートの高さ
+			m_view_port[nNumber].Height = SCREEN_HEIGHT / 2;
+
+			// ビューポート深度設定
+			m_view_port[nNumber].MinZ = 0.0f;
+			m_view_port[nNumber].MaxZ = 1.0f;
+
+			// ビューポート設定
+			if (FAILED(m_pD3DDevice->SetViewport(&m_view_port[nNumber])))
+			{
+				return false;
+			}
+			break;
+
+		case 3:
+			// ビューポートの左上座標
+			m_view_port[nNumber].X = SCREEN_WIDTH / 2;
+			m_view_port[nNumber].Y = SCREEN_HEIGHT / 2;
+
+			// ビューポートの幅
+			m_view_port[nNumber].Width = SCREEN_WIDTH / 2;
+
+			// ビューポートの高さ
+			m_view_port[nNumber].Height = SCREEN_HEIGHT / 2;
+
+			// ビューポート深度設定
+			m_view_port[nNumber].MinZ = 0.0f;
+			m_view_port[nNumber].MaxZ = 1.0f;
+
+			// ビューポート設定
+			if (FAILED(m_pD3DDevice->SetViewport(&m_view_port[nNumber])))
+			{
+				return false;
+			}
+			break;
+		default:
+			break;
+		}							// プレイヤーの人数の終了
+
+		return true;
+	}
+
+	return false;
+
 }
 
 //=============================================================================
