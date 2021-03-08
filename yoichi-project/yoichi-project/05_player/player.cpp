@@ -25,6 +25,9 @@
 #include "effect_factory.h"
 #include "texture.h"
 #include "resource_manager.h"
+#include "xfile.h"
+#include "character.h"
+#include "motion.h"
 
 //=============================================================================
 // マクロ定義
@@ -44,11 +47,6 @@
 
 // モデルネーム
 #define LBX_XFAILE_NAME		"data/Text/motion_LBX.txt"		// LBXのファイルパス
-
-//=============================================================================
-// グローバル変数宣言
-//=============================================================================
-MODELFILE g_modelfile[PLAYER_PARTS];	//モデルパーツ情報
 
 //=============================================================================
 // クリエイト
@@ -87,8 +85,17 @@ CPlayer::~CPlayer()
 //=============================================================================
 HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 {
+	// モデル情報取得
+	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();
+
+	// !nullcheck
+	if (pXfile != NULL)
+	{
+		// モデルの情報を渡す
+		ModelCreate(CXfile::HIERARCHY_XFILE_NUM_PLAYER);
+	}
+
 	// 初期化処理
-	CCharacter::SetCharaModel(LBX_XFAILE_NAME, PLAYER_PARTS, MOTION_MAX);	// モデルパーツ
 	CCharacter::Init(pos, rot);												// 座標　角度
 	SetRadius(PLAYER_RADIUS);												// 半径の設定
 	SetSpeed(PLAYER_SPEED);													// 速度の設定
@@ -192,7 +199,7 @@ void CPlayer::UpdateState(void)
 //=============================================================================
 void CPlayer::UpdateMotionState(void)
 {
-	MOTION_STATE MotionState = (MOTION_STATE)GetMotionState();
+	MOTION_STATE MotionState = (MOTION_STATE)GetMotion()->GetMotionState();
 
 	// モーション情報
 	switch (MotionState)

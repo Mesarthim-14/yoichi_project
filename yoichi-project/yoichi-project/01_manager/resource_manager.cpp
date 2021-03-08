@@ -111,6 +111,12 @@ void CResourceManager::LoadAll(void)
 	{
 		// モデルロード
 		m_pXFile->ModelLoad();
+
+		// 階層構造のファイル読み込み
+		m_pXFile->HierarchyReadFile();
+
+		// 階層構造のモデル読み込み
+		m_pXFile->HierarchyModelLoad();
 	}
 }
 

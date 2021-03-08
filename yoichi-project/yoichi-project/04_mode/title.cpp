@@ -26,11 +26,6 @@
 #define ROTATION_NUM		(0.1f)		// 回転の速さ
 
 //=============================================================================
-//静的メンバ変数宣言
-//=============================================================================
-LPDIRECT3DTEXTURE9 CTitle::m_pTexture[MAX_TITLE_UI_NUM] = {};
-
-//=============================================================================
 //リザルトクラスのコンストラクタ
 //=============================================================================
 CTitle::CTitle(PRIORITY Priority) : CScene(Priority)
@@ -67,35 +62,6 @@ CTitle * CTitle::Create(void)
 }
 
 //=============================================================================
-// タイトルクラスのテクスチャ読み込み処理
-//=============================================================================
-HRESULT CTitle::Load(void)
-{
-	//デバイス情報の取得
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
-
-	D3DXCreateTextureFromFile(pDevice, "data/Texture/magic22.jpg", &m_pTexture[0]);
-	D3DXCreateTextureFromFile(pDevice, "data/Texture/StartLogo.png", &m_pTexture[1]);
-	D3DXCreateTextureFromFile(pDevice, "data/Texture/title_name.png", &m_pTexture[2]);
-
-	return S_OK;
-}
-
-void CTitle::UnLoad(void)
-{
-	for (int nCount = 0; nCount < MAX_TITLE_UI_NUM; nCount++)
-	{
-		//テクスチャの破棄
-		if (m_pTexture[nCount] != NULL)
-		{
-			m_pTexture[nCount]->Release();
-			m_pTexture[nCount] = NULL;
-		}
-	}
-
-}
-
-//=============================================================================
 //リザルトクラスの初期化処理
 //=============================================================================
 HRESULT CTitle::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
@@ -107,7 +73,7 @@ HRESULT CTitle::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 
 		if (m_pScene2D != NULL)
 		{
-			m_pScene2D->BindTexture(m_pTexture[0]);
+			m_pScene2D->BindTexture(NULL);
 		}
 	}
 
@@ -115,7 +81,7 @@ HRESULT CTitle::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	if (m_pPress == NULL)
 	{
 		m_pPress = CScene2D::Create(D3DXVECTOR3(pos.x, pos.y + TITLE_PRESS_POS_Y, 0.0f), D3DXVECTOR3(TITLE_PRESS_SIZE_X, TITLE_PRESS_SIZE_Y, 0.0f));
-		m_pPress->BindTexture(m_pTexture[1]);
+		m_pPress->BindTexture(NULL);
 	}
 
 	if (m_pTitleName == NULL)
@@ -125,7 +91,7 @@ HRESULT CTitle::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 
 		if (m_pTitleName != NULL)
 		{
-			m_pTitleName->BindTexture(m_pTexture[2]);
+			m_pTitleName->BindTexture(NULL);
 		}
 
 	}

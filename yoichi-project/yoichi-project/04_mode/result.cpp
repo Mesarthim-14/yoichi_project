@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// リザルトクラス処理 [result.cpp]
+// リザルトクラス [result.cpp]
 // Author : Konishi Yuuto
 //
 //=============================================================================
@@ -17,11 +17,6 @@
 #include "keyboard.h"
 #include "joypad.h"
 #include "resource_manager.h"
-
-//=============================================================================
-//静的メンバ変数宣言
-//=============================================================================
-LPDIRECT3DTEXTURE9 CResult::m_pTexture[2] = {};
 
 //=============================================================================
 //リザルトクラスのコンストラクタ
@@ -58,34 +53,6 @@ CResult * CResult::Create(void)
 }
 
 //=============================================================================
-//リザルトクラスのテクスチャ読み込み処理
-//=============================================================================
-HRESULT CResult::Load(void)
-{
-	//デバイス情報の取得
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
-	
-	D3DXCreateTextureFromFile(pDevice, "data/Texture/Result.png", &m_pTexture[0]);
-
-	return S_OK;
-}
-
-void CResult::UnLoad(void)
-{
-	for (int nCount = 0; nCount < 1; nCount++)
-	{
-		//テクスチャの破棄
-		if (m_pTexture[nCount] != NULL)
-		{
-			m_pTexture[nCount]->Release();
-			m_pTexture[nCount] = NULL;
-		}
-	}
-
-}
-
-
-//=============================================================================
 //リザルトクラスの初期化処理
 //=============================================================================
 HRESULT CResult::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
@@ -94,7 +61,7 @@ HRESULT CResult::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	m_pScene2D = CScene2D::Create(pos, size);
 	if (m_pScene2D != NULL)
 	{
-		m_pScene2D->BindTexture(m_pTexture[0]);
+		m_pScene2D->BindTexture(NULL);
 	}
 
 	return E_NOTIMPL;

@@ -294,9 +294,7 @@ void CManager::LoadAll(void)
 		m_pResourceManager->LoadAll();
 	}
 
-	CResult::Load();
 	CTutorial::Load();
-	CTitle::Load();
 	CEffectFactory::ReadFile();
 	CMesh3d::ReadFile();
 }
@@ -312,9 +310,6 @@ void CManager::UnLoadAll(void)
 		// リソースのロード
 		m_pResourceManager->UnLoadAll();
 	}
-
-	CTitle::UnLoad();
-	CResult::UnLoad();
 }
 
 //=============================================================================

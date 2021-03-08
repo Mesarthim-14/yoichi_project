@@ -46,15 +46,12 @@ public:
 	~CTitle();												// デストラクタ
 
 	static CTitle* Create(void);							// インスタンス生成
-	static HRESULT Load(void);								// テクスチャロード
-	static void UnLoad(void);								// テクスチャアンロード
 
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);		// 初期化処理
 	void Uninit(void);										// 終了処理
 	void Update(void);										// 更新処理
 	void Draw(void);										// 描画処理
 private:
-	static LPDIRECT3DTEXTURE9 m_pTexture[MAX_TITLE_UI_NUM];	// テクスチャのポインタ
 	CScene2D* m_pScene2D;									// シーン2Dのポインタ
 	CScene2D* m_pPress;										// シーン2Dのポインタ
 	CScene2D* m_pTitleName;									// シーン2Dのポインタ

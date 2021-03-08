@@ -11,6 +11,8 @@
 #include "modelanime.h"
 #include "manager.h"
 #include "renderer.h"
+#include "resource_manager.h"
+#include "xfile.h"
 
 //=============================================================================
 //階層モデルクラスのコンストラクタ
@@ -21,10 +23,10 @@ CModelAnime::CModelAnime()
 
 	//各メンバ変数のクリア
 	memset(&m_model, 0, sizeof(m_model));
-	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_posAnime = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_rotAnime = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_pos = ZeroVector3;
+	m_rot = ZeroVector3;
+	m_posAnime = ZeroVector3;
+	m_rotAnime = ZeroVector3;
 	m_pParent = NULL;
 }
 
@@ -38,7 +40,7 @@ CModelAnime::~CModelAnime()
 //=============================================================================
 //階層モデルクラスのクリエイト処理
 //=============================================================================
-CModelAnime * CModelAnime::Create(char *xfilename, D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+CModelAnime * CModelAnime::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 {
 	//階層モデルクラスのポインタ変数
 	CModelAnime *pModelAnime = NULL;
@@ -50,7 +52,7 @@ CModelAnime * CModelAnime::Create(char *xfilename, D3DXVECTOR3 pos, D3DXVECTOR3 
 	if (pModelAnime != NULL)
 	{
 		//初期化処理呼び出し
-		pModelAnime->Init(xfilename, pos, rot);
+		pModelAnime->Init(pos, rot);
 	}
 	//失敗していた場合
 	else
@@ -64,38 +66,8 @@ CModelAnime * CModelAnime::Create(char *xfilename, D3DXVECTOR3 pos, D3DXVECTOR3 
 //=============================================================================
 //階層モデルクラスの初期化処理
 //=============================================================================
-HRESULT CModelAnime::Init(char *xfilename, D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+HRESULT CModelAnime::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 {
-	//デバイス情報の取得
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
-
-	//モデルの読み込み
-	D3DXLoadMeshFromX(xfilename,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&m_model.pBuffMat,
-		NULL,
-		&m_model.dwNumMat,
-		&m_model.pMesh);
-
-	//マテリアル情報の解析
-	D3DXMATERIAL *materials = (D3DXMATERIAL*)m_model.pBuffMat->GetBufferPointer();
-
-	for (int nCntMat = 0; nCntMat < (int)m_model.dwNumMat; nCntMat++)
-	{
-		if (materials[nCntMat].pTextureFilename != NULL)
-		{
-			// ファイルネームの取得
-			char cData[256] = {};
-
-			sprintf(cData, "data/model/Texture/%s", materials[nCntMat].pTextureFilename);
-
-			// テクスチャの読み込み
-			D3DXCreateTextureFromFile(pDevice, cData, &m_apTexture[nCntMat]);
-		}
-	}
-
 	//位置の設定
 	m_pos = pos;
 
@@ -110,19 +82,6 @@ HRESULT CModelAnime::Init(char *xfilename, D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 //=============================================================================
 void CModelAnime::Uninit(void)
 {
-	//マテリアル情報の破棄
-	if (m_model.pBuffMat != NULL)
-	{
-		m_model.pBuffMat->Release();
-		m_model.pBuffMat = nullptr;
-	}
-
-	//メッシュ情報の破棄
-	if (m_model.pMesh != NULL)
-	{
-		m_model.pMesh->Release();
-		m_model.pMesh = nullptr;
-	}
 }
 
 //=============================================================================
@@ -240,6 +199,14 @@ void CModelAnime::SetParent(CModelAnime * pParent)
 void CModelAnime::SetPosAnime(const D3DXVECTOR3 posAnime)
 {
 	m_posAnime = posAnime;
+}
+
+//=============================================================================
+//モデル情報を取得
+//=============================================================================
+void CModelAnime::SetModel(CXfile::MODEL model)
+{
+	m_model = model;
 }
 
 //=============================================================================
