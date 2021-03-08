@@ -47,6 +47,8 @@ public:
 	static CLight *GetLight(void);						// ライトのポインタ情報
 	static CPlayer *GetPlayer(void);					// プレイヤーのポインタ情報
 	static CPause *GetPause(void);						// ポーズ画面のポインタ情報
+
+    void GameEnd(void) { m_IsGameEnd = true; }          // ゲーム終了フラグをオン
 private:	
 	static CCamera *m_pCamera;			// カメラのポインタ	
 	static CLight *m_pLight;			// ライトのポインタ
@@ -56,6 +58,6 @@ private:
 	static CPause *m_pPause;			// ポーズのポインタ
 	LPD3DXFONT m_pFont;					// デバック用フォント
 	int m_nTimeCounter;					// ゲームのカウンター
-	bool m_bGameEnd;					// ゲームのエンドフラグ
+	bool m_IsGameEnd;					// ゲームのエンドフラグ
 };
 #endif

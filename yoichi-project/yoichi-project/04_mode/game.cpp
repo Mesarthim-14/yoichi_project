@@ -25,6 +25,7 @@
 #include "effect_factory.h"
 #include "mesh_3d.h"
 #include "resource_manager.h"
+#include "fade.h"
 
 //=======================================================================================
 // static初期化
@@ -41,7 +42,7 @@ CPause *CGame::m_pPause = NULL;
 //=======================================================================================
 CGame::CGame(PRIORITY Priority) : CScene(Priority)
 {
-	m_bGameEnd = false;
+    m_IsGameEnd = false;
 	m_nTimeCounter = 0;
 }
 
@@ -181,14 +182,34 @@ void CGame::Uninit(void)
 //=======================================================================================
 void CGame::Update(void)
 {
+    CInputKeyboard* pKey = CManager::GetKeyboard();
+    CFade::FADE_MODE mode = CManager::GetFade()->GetFade();
+    //キー入力でフラグON 
+    if ( pKey->GetTrigger(DIK_TAB))
+    {
+        GameEnd();// ゲームを終了
+    }
+
 	if (m_pCamera != NULL)
 	{
 		//カメラクラスの更新処理
 		m_pCamera->Update();
 	}
 
-	// ゲームの設定
-	SetGame();
+    if (m_nTimeCounter>=300)
+    {
+        GameEnd();// ゲームを終了
+    }
+
+    // ゲームの設定
+    SetGame();
+
+    if (m_IsGameEnd && mode == CFade::FADE_MODE_NONE)
+    {
+        CFade *pFade = CManager::GetFade();
+        pFade->SetFade(CManager::MODE_TYPE_RESULT);
+    }
+
 }
 
 //=======================================================================================
@@ -249,3 +270,8 @@ CPause * CGame::GetPause(void)
 {
 	return m_pPause;
 }
+
+#if _DEBUG
+
+#endif // _DEBUG
+

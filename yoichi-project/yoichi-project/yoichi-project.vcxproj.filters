@@ -16,9 +16,6 @@
     <Filter Include="04_mode">
       <UniqueIdentifier>{48f3bbe9-cb40-44e6-9bd7-9d16413eae86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05_player">
-      <UniqueIdentifier>{41b492dc-86ec-4614-902b-0fcd544d4554}</UniqueIdentifier>
-    </Filter>
     <Filter Include="06_item">
       <UniqueIdentifier>{bd1643e2-6666-4f38-babb-ee34e2c95d1a}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,9 @@
     </Filter>
     <Filter Include="12_effect">
       <UniqueIdentifier>{d8808717-5001-422b-afc6-c5b9fcca9afe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05_character">
+      <UniqueIdentifier>{41b492dc-86ec-4614-902b-0fcd544d4554}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -83,9 +83,6 @@
     </ClInclude>
     <ClInclude Include="04_mode\tutorial.h">
       <Filter>04_mode</Filter>
-    </ClInclude>
-    <ClInclude Include="05_player\player.h">
-      <Filter>05_player</Filter>
     </ClInclude>
     <ClInclude Include="07_resource\sound.h">
       <Filter>07_resource</Filter>
@@ -156,6 +153,12 @@
     <ClInclude Include="12_effect\particle.h">
       <Filter>12_effect</Filter>
     </ClInclude>
+    <ClInclude Include="08_3D\motion.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="05_character\player.h">
+      <Filter>05_character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp">
@@ -199,9 +202,6 @@
     </ClCompile>
     <ClCompile Include="04_mode\tutorial.cpp">
       <Filter>04_mode</Filter>
-    </ClCompile>
-    <ClCompile Include="05_player\player.cpp">
-      <Filter>05_player</Filter>
     </ClCompile>
     <ClCompile Include="07_resource\sound.cpp">
       <Filter>07_resource</Filter>
@@ -271,6 +271,12 @@
     </ClCompile>
     <ClCompile Include="12_effect\particle.cpp">
       <Filter>12_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\motion.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="05_character\player.cpp">
+      <Filter>05_character</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

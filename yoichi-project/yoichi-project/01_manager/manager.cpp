@@ -344,9 +344,14 @@ void CManager::SetMode(MODE_TYPE mode)
 
 		// ƒQ[ƒ€
 	case MODE_TYPE_GAME:
+        if (pSound != NULL)
+        {
+            //pSound->Stop(CSound::SOUND_LABEL_BGM_GAME);
+        }
+
 		if (m_pGame != NULL)
 		{
-			pSound->Stop(CSound::SOUND_LABEL_BGM_GAME);
+
 			m_pGame = NULL;
 		}
 		break;
