@@ -274,4 +274,3 @@ CPause * CGame::GetPause(void)
 #if _DEBUG
 
 #endif // _DEBUG
-
