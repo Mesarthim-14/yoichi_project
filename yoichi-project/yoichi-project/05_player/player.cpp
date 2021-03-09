@@ -39,7 +39,7 @@
 #define PLAYER_RADIUS					(50.0f)				// 半径の大きさ
 #define PLAYER_PARTS					(22)				// プレイヤーのパーツ数
 #define GAME_END_FLAME					(100)				// ゲームが終わるフレーム
-
+#define PLAYER_FLY_SPEED				(30.0f)				// 飛行時のプレイヤーの移動量
 // エフェクトパーツ
 #define BLADE_EFFECT_INTER				(190)				// 刀身のパーティクルの間隔
 #define WEAPON_TIP_NUM					(20)				// 剣先のパーツ番号
@@ -69,6 +69,7 @@ CPlayer::CPlayer(PRIORITY Priority)
 {
 	m_rotDest = ZeroVector3;
 	m_bWalk = false;
+	m_bFly = false;
 	m_bDraw = true;
 	m_nEndCounter = 0;
 }
@@ -216,11 +217,19 @@ void CPlayer::UpdateMotionState(void)
 //=============================================================================
 void CPlayer::PlayerControl()
 {
-	// プレイヤーの移動処理
-	Walk();
+	if (m_bFly)
+	{
+		// 飛行処理
+		Fly();
+	}
+	else
+	{
+		// プレイヤーの移動処理
+		Walk();
 
-	// ジャンプの処理
-	Jump();
+		// ジャンプの処理
+		Jump();
+	}
 }
 
 //=============================================================================
@@ -228,117 +237,104 @@ void CPlayer::PlayerControl()
 //=============================================================================
 void CPlayer::Walk(void)
 {
-	CInputKeyboard *pKeyboard = CManager::GetKeyboard();	// キーボード更新
-	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);				// ジョイパッドの取得
-	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
+	CInputKeyboard *pKeyboard = CManager::GetKeyboard();				// キーボード取得
+	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);					// ジョイパッドの取得
+	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();	// サウンドポインタ取得
+	float fSpeed = GetSpeed();											// 速度取得
+	float fCameraAngle = CGame::GetCamera(m_nNumber)->Getφ();			// カメラ角度取得
+	float fMoveAngle = 0.0f; //移動角度
+	D3DXVECTOR3 rot = GetRot();											// 回転取得
+	D3DXVECTOR3 pos = GetPos();											// 座標取得
+	D3DXMATRIX mtxRot;
+	ZeroMemory(&mtxRot, sizeof(mtxRot));
 
-	// カメラ角度取得
-	float fAngle = CGame::GetCamera(m_nNumber)->Getφ();
-	D3DXVECTOR3 pos = GetPos();
-
-	//入力が存在する
+	// 入力が存在する
 	if ((js.lX != 0.0f || js.lY != 0.0f))
 	{
-		//ダメージを受けていないときのみ移動する
-		bool bJump = GetJump();
+		m_bWalk = true;
 
-		//ジャンプしていないとき
-		if (bJump == false)
-		{
-			// 歩き状態にする
-			m_bWalk = true;
-
-			//歩行モーションの再生
-			SetMotion(MOTION_WALK);
-		}
-
-		DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);				// ジョイパッドの取得
-		float fAngle3 = atan2f((float)js.lX, -(float)js.lY);	// コントローラの角度
-		float fAngle2 = atan2f(-(float)js.lX, (float)js.lY);	// コントローラの角度
-		float fAngle = CGame::GetCamera(m_nNumber)->Getφ();				// カメラの角度
-
-		// 移動量設定
-		pos.x += sinf(fAngle + (fAngle2))* GetSpeed();
-		pos.z += cosf(fAngle + (fAngle2))* GetSpeed();
+		DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);		// ジョイパッドの取得
+		fMoveAngle = atan2f((float)js.lX, -(float)js.lY);
 
 		// 角度の設定
-		m_rotDest.y = fAngle + (fAngle3);
+		m_rotDest.y = fCameraAngle + fMoveAngle;
 	}
 	else
 	{
-		// 歩いていたら
-		if (m_bWalk == true)
+		// 左に移動
+		if (pKeyboard->GetPress(DIK_A))
 		{
-			//待機モーションを再生
-			SetMotion(MOTION_IDOL);
+			fMoveAngle = D3DXToRadian(-90.0f);
+		}
+		// 右に移動
+		if (pKeyboard->GetPress(DIK_D))
+		{
+			fMoveAngle = D3DXToRadian(90.0f);
+		}
+		// 後ろに移動
+		if (pKeyboard->GetPress(DIK_S))
+		{
+			fMoveAngle = D3DXToRadian(180.0f);
+
+			// 同時押し用の処理
+			if (pKeyboard->GetPress(DIK_A))
+			{
+				fMoveAngle += D3DXToRadian(45.0f);
+			}
+			if (pKeyboard->GetPress(DIK_D))
+			{
+				fMoveAngle += D3DXToRadian(-45.0f);
+			}
+		}
+		// 前に移動
+		if (pKeyboard->GetPress(DIK_W))
+		{
+			fMoveAngle = D3DXToRadian(0.0f);
+
+			if(pKeyboard->GetPress(DIK_A))
+			{
+				fMoveAngle += D3DXToRadian(-45.0f);
+			}
+			if (pKeyboard->GetPress(DIK_D))
+			{
+				fMoveAngle += D3DXToRadian(45.0f);
+			}
+		}
+		// 移動キーが押されていれば
+		if (pKeyboard->GetPress(DIK_W) || pKeyboard->GetPress(DIK_A) || pKeyboard->GetPress(DIK_S) || pKeyboard->GetPress(DIK_D))
+		{
+			m_bWalk = true;
+		}
+		else
+		{
 			m_bWalk = false;
 		}
 	}
 
-	// 前に移動
-	if (pKeyboard->GetPress(DIK_W))
-	{
-		// 歩きモーション
-		SetMotion(MOTION_WALK);
-
-		// 移動量・角度の設定
-		pos.x -= sinf((CGame::GetCamera(m_nNumber)->Getφ()))*GetSpeed();
-		pos.z -= cosf((CGame::GetCamera(m_nNumber)->Getφ()))*GetSpeed();
-		m_rotDest.y = CGame::GetCamera(m_nNumber)->Getφ();
-		SetRot(D3DXVECTOR3(GetRot().x, CGame::GetCamera(m_nNumber)->Getφ(), GetRot().z));
+	if (m_bWalk)
+	{	// 歩いている時
+		if (!GetJump())
+		{
+			// 歩きモーション
+			SetMotion(MOTION_WALK);
+		}
+		// 移動
+		D3DXVECTOR3 move = D3DXVECTOR3(0.0f, 0.0f, -PLAYER_SPEED);
+		fMoveAngle += fCameraAngle;
+		m_rotDest.y = fMoveAngle;
+		D3DXMatrixRotationY(&mtxRot, fMoveAngle);
+		D3DXVec3TransformNormal(&move, &move, &mtxRot);
+		pos += move;
 	}
-	// 後ろに移動
-	if (pKeyboard->GetPress(DIK_S))
-	{
-		// 歩きモーション
-		SetMotion(MOTION_WALK);
-
-		// 移動量・角度の設定
-		pos.x += sinf((CGame::GetCamera(m_nNumber)->Getφ()))*GetSpeed();
-		pos.z += cosf((CGame::GetCamera(m_nNumber)->Getφ()))*GetSpeed();
-		m_rotDest.y = CGame::GetCamera(m_nNumber)->Getφ();
-		SetRot(D3DXVECTOR3(GetRot().x, CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(-180.0f), GetRot().z));
-
-	}
-	// 左に移動
-	if (pKeyboard->GetPress(DIK_A))
-	{
-		// 歩きモーション
-		SetMotion(MOTION_WALK);
-
-		// 移動量・角度の設定
-		pos.x += sinf((CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(90.0f)))*GetSpeed();
-		pos.z += cosf((CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(90.0f)))*GetSpeed();
-		m_rotDest.y = CGame::GetCamera(m_nNumber)->Getφ();
-		SetRot(D3DXVECTOR3(GetRot().x, CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(-90.0f), GetRot().z));
-
-	}
-	// 右に移動
-	if (pKeyboard->GetPress(DIK_D))
-	{
-		// 歩きモーション
-		SetMotion(MOTION_WALK);
-
-		// 移動量・角度の設定
-		pos.x += sinf((CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(-90.0f)))*GetSpeed();
-		pos.z += cosf((CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(-90.0f)))*GetSpeed();
-		m_rotDest.y = CGame::GetCamera(m_nNumber)->Getφ();
-		SetRot(D3DXVECTOR3(GetRot().x, CGame::GetCamera(m_nNumber)->Getφ() + D3DXToRadian(90.0f), GetRot().z));
-
+	else
+	{	// 歩いていない時
+		// 通常モーション
+		SetMotion(MOTION_IDOL);
 	}
 
 	// 座標設定
 	SetPos(pos);
 
-	// 古い座標取得
-	D3DXVECTOR3 OldPos = GetOldPos();
-
-	// 動いていなかったら
-	if (OldPos == pos)
-	{
-		// 通常モーション
-		SetMotion(MOTION_IDOL);
-	}
 }
 
 //=============================================================================
@@ -350,22 +346,78 @@ void CPlayer::Jump(void)
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 
 	// SPACEキーを押したとき・コントローラのYを押したとき
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_A, m_nNumber) && GetJump() == false
-		|| pKeyboard->GetTrigger(DIK_SPACE) && GetJump() == false)
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_A, m_nNumber)
+		|| pKeyboard->GetTrigger(DIK_SPACE))
 	{
-		// 移動量設定
-		D3DXVECTOR3 move = GetMove();
-		move.y = PLAYER_JUMP;
-		SetMove(move);
-		SetJump(true);
-		m_bWalk = false;
+		if (GetJump())
+		{
+			m_bFly = true;
+		}
+		else
+		{
+			// 移動量設定
+			D3DXVECTOR3 move = GetMove();
+			move.y = PLAYER_JUMP;
+			SetMove(move);
+			SetJump(true);
+			m_bWalk = false;
 
-		//ジャンプモーションの再生
-		SetMotion(MOTION_JUMP);
-		SetLanding(false);
+			//ジャンプモーションの再生
+			SetMotion(MOTION_JUMP);
+			SetLanding(false);
+		}
 	}
 }
 
+//=============================================================================
+// 飛行処理
+//=============================================================================
+void CPlayer::Fly(void)
+{
+	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
+	D3DXVECTOR3 move = ZeroVector3;
+	D3DXMATRIX mtxRot;
+	if (pKeyboard->GetPress(DIK_W))
+	{
+		m_rotDest.x = D3DXToRadian(PLAYER_ROT_SPEED);
+	}
+	if (pKeyboard->GetPress(DIK_S))
+	{
+		m_rotDest.x = -D3DXToRadian(PLAYER_ROT_SPEED);
+	}
+	if (pKeyboard->GetPress(DIK_A))
+	{
+		move.x -= PLAYER_FLY_SPEED;
+	}
+	if (pKeyboard->GetPress(DIK_D))
+	{
+		move.x += PLAYER_FLY_SPEED;
+	}
+
+	////上下の角度制限
+	//if (D3DXToDegree(m_rot.x) < -PITCH_LIMIT)
+	//{
+	//	m_rot.x = D3DXToRadian(-PITCH_LIMIT);
+	//}
+	//if (D3DXToDegree(m_rot.x) > PITCH_LIMIT)
+	//{
+	//	m_rot.x = D3DXToRadian(PITCH_LIMIT);
+	//}
+
+	m_rotDest.y = CGame::GetCamera(m_nNumber)->Getφ();
+	//移動量を行列変換
+	move += D3DXVECTOR3(0.0f, 0.0f, PLAYER_FLY_SPEED);
+	move *= -1;
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rotDest.y, m_rotDest.x, m_rotDest.z);
+	D3DXVec3TransformNormal(&move, &move, &mtxRot);
+	SetPos(GetPos()+move);
+
+	if (pKeyboard->GetTrigger(DIK_SPACE))
+	{
+		m_bFly = false;
+	}
+
+}
 //=============================================================================
 // 死んだときの処理
 //=============================================================================

@@ -107,12 +107,14 @@ public:
 	void PlayerControl(void);									// プレイヤーの制御
 	void Walk(void);											// プレイヤーの歩く処理
 	void Jump(void);											// ジャンプの処理
+	void Fly(void);												// 飛行処理
 	void Death(void);											// 死んだときの処理
 	void MapLimit(void);										// マップの制限
 
 private:
 	D3DXVECTOR3 m_rotDest;							// 回転(目標値)
 	bool m_bWalk;									// 歩いているフラグ
+	bool m_bFly;									// 飛行フラグ
 	bool m_bDraw;									// 描画のフラグ
 	int m_nEndCounter;								// 死んだ後のカウンター
 	int m_nNumber;									// プレイヤーの番号
