@@ -26,6 +26,7 @@
 #include "mesh_3d.h"
 #include "resource_manager.h"
 #include "fade.h"
+#include "timer.h"
 
 //=======================================================================================
 // static初期化
@@ -37,6 +38,7 @@ CMeshField *CGame::m_pMeshField = NULL;
 CBg *CGame::m_pBg = NULL;
 CPause *CGame::m_pPause = NULL;
 int CGame::m_nPlayerNum = 1;
+CTimer *CGame::m_Timer = nullptr;
 
 //=======================================================================================
 // コンストラクタ
@@ -44,7 +46,6 @@ int CGame::m_nPlayerNum = 1;
 CGame::CGame(PRIORITY Priority) : CScene(Priority)
 {
     m_IsGameEnd = false;
-	m_nTimeCounter = 0;
 
 	// 0だったら
 	if (m_nPlayerNum == 0)
@@ -124,6 +125,9 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	{
 		m_pBg = CBg::Create(BG_POS, BG_SIZE);
 	}
+    // タイマーをセット
+    m_Timer = CTimer::Create();
+    m_Timer->SetTimer(5);
 
 	//BGM
 //	CSound *pSound = CManager::GetSound();
@@ -226,13 +230,14 @@ void CGame::Update(void)
             }
         }
     }
-    if (m_nTimeCounter>=300)
+    // タイマー更新
+    m_Timer->Updete();
+
+    // 時間切れだったら
+    if (m_Timer->IsTimeOver())
     {
         GameEnd();// ゲームを終了
     }
-
-    // ゲームの設定
-    SetGame();
 
     if (m_IsGameEnd && mode == CFade::FADE_MODE_NONE)
     {
@@ -261,18 +266,9 @@ void CGame::Draw(void)
 }
 
 //=======================================================================================
-// ゲームの設定
-//=======================================================================================
-void CGame::SetGame(void)
-{
-	// ゲームのタイムカウンター
-	m_nTimeCounter++;
-}
-
-//=======================================================================================
 // カメラの情報
 //=======================================================================================
-CCamera * CGame::GetCamera(int nCount)
+CCamera *CGame::GetCamera(int nCount)
 {
 	return m_pCamera[nCount];
 }
@@ -300,7 +296,3 @@ CPause * CGame::GetPause(void)
 {
 	return m_pPause;
 }
-
-#if _DEBUG
-
-#endif // _DEBUG

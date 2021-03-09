@@ -21,6 +21,7 @@ class CMeshField;
 class CBg;
 class CPlayer;
 class CPause;
+class CTimer;
 
 //***************************************************************************************
 // ゲームクラス
@@ -35,7 +36,6 @@ public:
 	void Uninit(void);									// 終了処理
 	void Update(void);									// 更新処理
 	void Draw(void);									// 描画処理
-	void SetGame(void);									// ゲームの設定
 	static CGame* Create(void);							// ゲーム生成情報
 
 	// Set関数
@@ -56,8 +56,9 @@ private:
 	static CBg *m_pBg;							// 背景のポインタ
 	static CPlayer *m_pPlayer[MAX_PLAYER_NUM];	// プレイヤーのポインタ
 	static CPause *m_pPause;					// ポーズのポインタ
+    static CTimer *m_Timer;                     // タイマーのポインタ
+
 	LPD3DXFONT m_pFont;							// デバック用フォント
-	int m_nTimeCounter;							// ゲームのカウンター
 	bool m_IsGameEnd;							// ゲームのエンドフラグ
 	static int m_nPlayerNum;					// プレイヤーの人数
 };
