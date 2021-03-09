@@ -32,15 +32,27 @@
 #define STICK_INPUT_CONVERSION		(D3DXToRadian(2.0f))			// スティック入力変化量
 
 //=============================================================================
+// static初期化宣言
+//=============================================================================
+int CCamera::m_nAllNum = 0;
+
+//=============================================================================
 // インスタンス生成
 //=============================================================================
-CCamera * CCamera::Create(void)
+CCamera * CCamera::Create(int nCount)
 {
 	// メモリ確保
 	CCamera *pCamera = new CCamera;
 
-	// 初期化処理
-	pCamera->Init();
+	// !nullcheck
+	if (pCamera != NULL)
+	{
+		// 自身の番号を取得
+		pCamera->m_nNumber = nCount;
+
+		// 初期化処理
+		pCamera->Init();
+	}
 
 	return pCamera;
 }
@@ -51,14 +63,15 @@ CCamera * CCamera::Create(void)
 CCamera::CCamera()
 {
 	//各メンバ変数のクリア
-	m_posV = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// カメラの座標
-	m_posVDest = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// カメラの座標（目的地）
-	m_posR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 注視点
-	m_posRDest = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 注視点（目的地）
-	m_posU = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 上方向ベクトル
-	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 向き
-	m_fDistance = 0.0f;							// 視点～注視点の距離
-	m_fMove = 0.0f;								// 移動量
+	m_posV = ZeroVector3;		// カメラの座標
+	m_posVDest = ZeroVector3;	// カメラの座標（目的地）
+	m_posR = ZeroVector3;		// 注視点
+	m_posRDest = ZeroVector3;	// 注視点（目的地）
+	m_posU = ZeroVector3;		// 上方向ベクトル
+	m_rot = ZeroVector3;		// 向き
+	m_fDistance = 0.0f;			// 視点～注視点の距離
+	m_fMove = 0.0f;				// 移動量
+	m_nNumber = ++m_nAllNum;	// カメラの番号の設定
 }
 
 //=============================================================================
@@ -66,6 +79,7 @@ CCamera::CCamera()
 //=============================================================================
 CCamera::~CCamera()
 {
+	m_nAllNum = 0;
 }
 
 //=============================================================================
@@ -110,13 +124,13 @@ void CCamera::Update(void)
 	D3DXVECTOR3 PlayerRot;	//プレイヤー角度
 
 	// プレイヤーが使われていたら
-	if (CGame::GetPlayer() != NULL)
+	if (CGame::GetPlayer(m_nNumber) != NULL)
 	{
 		//プレイヤー1位置取得
-		PlayerPos = CGame::GetPlayer()->GetPos();
+		PlayerPos = CGame::GetPlayer(m_nNumber)->GetPos();
 
 		//プレイヤー1角度取得
-		PlayerRot = CGame::GetPlayer()->GetRot();
+		PlayerRot = CGame::GetPlayer(m_nNumber)->GetRot();
 
 		// 通常状態のカメラ移動
 		NomalUpdate(PlayerPos, PlayerRot);

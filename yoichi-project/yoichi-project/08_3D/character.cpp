@@ -219,9 +219,7 @@ void CCharacter::ModelCreate(CXfile::HIERARCHY_XFILE_NUM FileNum)
 					m_apModelAnime[nCntModel]->SetParent(m_apModelAnime[ModelFile.nParent]);
 				}
 			}
-
 		}
-
 
 		// nullcheck
 		if (m_pMotion == NULL)

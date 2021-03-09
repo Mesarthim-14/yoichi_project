@@ -26,12 +26,17 @@ public:
 	void Update(void);							// 更新処理
 	void Draw(void);							// 描画処理
 
+	// ビューポート関数
+	bool SetUpViewport(int nNumber);
+	D3DVIEWPORT9 GetViewPort(int nCount) { return m_view_port[nCount]; };
+
 	LPDIRECT3DDEVICE9 GetDevice(void);			// デバイス情報
 private:
 	LPDIRECT3DDEVICE9 m_pD3DDevice;				// Deviceオブジェクト(描画に必要)
 	LPDIRECT3D9	m_pD3D;							// Direct3Dオブジェクト
 	LPDIRECT3D9 m_pD3DInterface;				// DirectXインターフェース
 	D3DFILLMODE m_fillMode;						// ワイヤーフレーム
+	D3DVIEWPORT9 m_view_port[MAX_PLAYER_NUM];	// ビューポート
 
 };
 

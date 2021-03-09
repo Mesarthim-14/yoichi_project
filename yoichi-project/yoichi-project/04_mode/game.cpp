@@ -30,12 +30,13 @@
 //=======================================================================================
 // static初期化
 //=======================================================================================
-CCamera *CGame::m_pCamera = NULL;
+CCamera *CGame::m_pCamera[MAX_PLAYER_NUM] = {};
+CPlayer *CGame::m_pPlayer[MAX_PLAYER_NUM] = {};
 CLight *CGame::m_pLight = NULL;
 CMeshField *CGame::m_pMeshField = NULL;
 CBg *CGame::m_pBg = NULL;
-CPlayer *CGame::m_pPlayer = NULL;
 CPause *CGame::m_pPause = NULL;
+int CGame::m_nPlayerNum = 1;
 
 //=======================================================================================
 // コンストラクタ
@@ -44,6 +45,12 @@ CGame::CGame(PRIORITY Priority) : CScene(Priority)
 {
     m_IsGameEnd = false;
 	m_nTimeCounter = 0;
+
+	// 0だったら
+	if (m_nPlayerNum == 0)
+	{
+		m_nPlayerNum = 1;
+	}
 }
 
 //=======================================================================================
@@ -51,7 +58,8 @@ CGame::CGame(PRIORITY Priority) : CScene(Priority)
 //=======================================================================================
 CGame::~CGame()
 {
-
+	// static変数初期化
+	m_nPlayerNum = 0;
 }
 
 //=======================================================================================
@@ -63,7 +71,7 @@ CGame* CGame::Create(void)
 	CGame* pGame = new CGame();
 
 	// 初期化処理
-	pGame->Init(D3DXVECTOR3(0.0f,0.0f,0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	pGame->Init(ZeroVector3, ZeroVector3);
 
 	return pGame;
 }
@@ -76,8 +84,25 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	// キーボード情報
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 
-	// カメラクラスのクリエイト
-	m_pCamera = CCamera::Create();
+	// プレイヤーの数分ループ
+	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+	{	
+		// nullcheck
+		if (m_pCamera[nCount] == NULL)
+		{
+			// カメラクラスのクリエイト
+			m_pCamera[nCount] = CCamera::Create(nCount);
+		}
+
+		// nullcheck
+		if (m_pPlayer[nCount] == NULL)
+		{
+			// プレイヤーの生成
+			m_pPlayer[nCount] = CPlayer::Create(
+				ZeroVector3, D3DXVECTOR3(PLAYER_SIZE_X, PLAYER_SIZE_Y, PLAYER_SIZE_Z), 
+				nCount);
+		}
+	}
 
 	//ライトクラスの生成
 	m_pLight = new CLight;
@@ -89,12 +114,6 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 		{
 			return -1;
 		}
-	}
-
-	// プレイヤーの生成
-	if (m_pPlayer == NULL)
-	{
-		m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(PLAYER_SIZE_X, PLAYER_SIZE_Y, PLAYER_SIZE_Z));	
 	}
 
 	// メッシュフィールド
@@ -125,18 +144,6 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 //=======================================================================================
 void CGame::Uninit(void)
 {
-	if (m_pCamera != NULL)
-	{
-		//カメラクラスの終了処理呼び出す
-		m_pCamera->Uninit();
-
-		//メモリの破棄
-		delete m_pCamera;
-
-		//メモリのクリア
-		m_pCamera = NULL;
-	}
-
 	// 背景
 	if (m_pBg != NULL)
 	{
@@ -152,11 +159,27 @@ void CGame::Uninit(void)
 		m_pLight = NULL;
 	}
 
-	// プレイヤーの終了処理
-	if (m_pPlayer != NULL)
+	// プレイヤーの数
+	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
 	{
-		m_pPlayer->Uninit();
-		m_pPlayer = NULL;
+		if (m_pCamera[nCount] != NULL)
+		{
+			//カメラクラスの終了処理呼び出す
+			m_pCamera[nCount]->Uninit();
+
+			//メモリの破棄
+			delete m_pCamera[nCount];
+
+			//メモリのクリア
+			m_pCamera[nCount] = NULL;
+		}
+
+		// プレイヤーの終了処理
+		if (m_pPlayer[nCount] != NULL)
+		{
+			m_pPlayer[nCount]->Uninit();
+			m_pPlayer[nCount] = NULL;
+		}
 	}
 
 	// !nullcheck
@@ -182,20 +205,27 @@ void CGame::Uninit(void)
 //=======================================================================================
 void CGame::Update(void)
 {
-    CInputKeyboard* pKey = CManager::GetKeyboard();
-    CFade::FADE_MODE mode = CManager::GetFade()->GetFade();
-    //キー入力でフラグON 
-    if ( pKey->GetTrigger(DIK_TAB))
+        CInputKeyboard* pKey = CManager::GetKeyboard();
+        CFade::FADE_MODE mode = CManager::GetFade()->GetFade();
+	// プレイヤー分
+    for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
     {
-        GameEnd();// ゲームを終了
+        //キー入力でフラグON 
+        if (pKey->GetTrigger(DIK_TAB))
+        {
+            GameEnd();// ゲームを終了
+        }
+
+        if (m_pCamera != NULL)
+        {
+            // !nullcheck
+            if (m_pCamera != NULL)
+            {
+                //カメラクラスの更新処理
+                m_pCamera[nCount]->Update();
+            }
+        }
     }
-
-	if (m_pCamera != NULL)
-	{
-		//カメラクラスの更新処理
-		m_pCamera->Update();
-	}
-
     if (m_nTimeCounter>=300)
     {
         GameEnd();// ゲームを終了
@@ -242,9 +272,9 @@ void CGame::SetGame(void)
 //=======================================================================================
 // カメラの情報
 //=======================================================================================
-CCamera * CGame::GetCamera(void)
+CCamera * CGame::GetCamera(int nCount)
 {
-	return m_pCamera;
+	return m_pCamera[nCount];
 }
 
 //=======================================================================================
@@ -258,9 +288,9 @@ CLight * CGame::GetLight(void)
 //=======================================================================================
 // プレイヤーの情報
 //=======================================================================================
-CPlayer * CGame::GetPlayer(void)
+CPlayer * CGame::GetPlayer(int nCount)
 {
-	return m_pPlayer;
+	return m_pPlayer[nCount];
 }
 
 //=======================================================================================

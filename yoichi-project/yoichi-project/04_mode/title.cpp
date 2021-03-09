@@ -19,6 +19,7 @@
 #include "sound.h"
 #include "joypad.h"
 #include "resource_manager.h"
+#include "game.h"
 
 //=============================================================================
 // マクロ定義
@@ -142,11 +143,8 @@ void CTitle::Update(void)
 		pFade->SetFade(CManager::MODE_TYPE_GAME);
 	}
 
-	if (m_pPress != NULL)
-	{
-	//	m_pPress->SetRotation(ROTATION_NUM);
-	}
-
+	// プレイヤーのナンバー設定
+	SetPlayerNum();
 }
 
 //=============================================================================
@@ -154,4 +152,34 @@ void CTitle::Update(void)
 //=============================================================================
 void CTitle::Draw(void)
 {
+}
+
+//=============================================================================
+// プレイヤーの数を設定
+//=============================================================================
+void CTitle::SetPlayerNum(void)
+{
+	CInputKeyboard* pKey = CManager::GetKeyboard();
+
+	// コントローラのstartを押したときか、エンターキーを押したとき
+	if (pKey->GetTrigger(DIK_1))
+	{
+		// プレイヤーの設定
+		CGame::SetPlayerNum(1);
+	}
+	else if (pKey->GetTrigger(DIK_2))
+	{
+		// プレイヤーの設定
+		CGame::SetPlayerNum(2);
+	}
+	else if (pKey->GetTrigger(DIK_3))
+	{
+		// プレイヤーの設定
+		CGame::SetPlayerNum(3);
+	}
+	else if (pKey->GetTrigger(DIK_4))
+	{
+		// プレイヤーの設定
+		CGame::SetPlayerNum(4);
+	}
 }

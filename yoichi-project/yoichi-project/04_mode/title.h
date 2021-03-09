@@ -51,6 +51,8 @@ public:
 	void Uninit(void);										// 終了処理
 	void Update(void);										// 更新処理
 	void Draw(void);										// 描画処理
+
+	void SetPlayerNum(void);								// プレイヤー数の設定
 private:
 	CScene2D* m_pScene2D;									// シーン2Dのポインタ
 	CScene2D* m_pPress;										// シーン2Dのポインタ
