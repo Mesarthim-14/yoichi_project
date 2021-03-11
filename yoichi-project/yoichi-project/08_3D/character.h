@@ -85,7 +85,7 @@ public:
 	void SetStateCounter(int nStateCounter);						// 状態カウンターの設定
 	void SetCType(CHARACTER_TYPE Ctype);							// タイプの設定
 	void SetMotion(int nMotionState);								// モーションの設定
-
+	void SetUseGravity(bool bUseGravity);
 	// Get関数
 	D3DXVECTOR3 GetPos(void) { return m_pos; }									// 現在の座標情報
 	D3DXVECTOR3 GetOldPos(void) { return m_posOld; }							// 古い座標情報
@@ -100,6 +100,7 @@ public:
 	CModelAnime *GetModelAnime(int nCount) { return m_apModelAnime[nCount]; }	// モーションのカウント情報
 	bool GetJump(void) { return m_bJump; }										// ジャンプ
 	bool GetLanding(void) { return m_bLanding; }								// 着地のフラグ
+	bool GetUseGravity(void) { return m_bUseGravity; }
 	STATE GetState(void) { return m_State; }									// ステート情報
 	CMotion *GetMotion(void) { return m_pMotion; }								// モーションのポインタ情報
 private:
@@ -125,7 +126,7 @@ private:
 	float m_fRadius;								// 半径
 	bool m_bJump;									// ジャンプしているフラグ
 	bool m_bLanding;								// 着地のフラグ
-
+	bool m_bUseGravity;								// 重力を適用するか
 	// 静的メンバ変数
 	static int m_nAllNum;							// キャラクターの総数
 };

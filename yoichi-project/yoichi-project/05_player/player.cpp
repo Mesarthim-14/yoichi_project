@@ -248,67 +248,17 @@ void CPlayer::Walk(void)
 	D3DXMATRIX mtxRot;
 	ZeroMemory(&mtxRot, sizeof(mtxRot));
 
-	// 入力が存在する
-	if ((js.lX != 0.0f || js.lY != 0.0f))
+	m_rotDest.x = 0.0f;
+
+	// 移動入力がされていれば
+	if (pKeyboard->GetPress(DIK_W) || pKeyboard->GetPress(DIK_A) || pKeyboard->GetPress(DIK_S) || pKeyboard->GetPress(DIK_D) || js.lX != 0.0f || js.lY != 0.0f)
 	{
+		fMoveAngle = InputToAngle();
 		m_bWalk = true;
-
-		DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);		// ジョイパッドの取得
-		fMoveAngle = atan2f((float)js.lX, -(float)js.lY);
-
-		// 角度の設定
-		m_rotDest.y = fCameraAngle + fMoveAngle;
 	}
 	else
 	{
-		// 左に移動
-		if (pKeyboard->GetPress(DIK_A))
-		{
-			fMoveAngle = D3DXToRadian(-90.0f);
-		}
-		// 右に移動
-		if (pKeyboard->GetPress(DIK_D))
-		{
-			fMoveAngle = D3DXToRadian(90.0f);
-		}
-		// 後ろに移動
-		if (pKeyboard->GetPress(DIK_S))
-		{
-			fMoveAngle = D3DXToRadian(180.0f);
-
-			// 同時押し用の処理
-			if (pKeyboard->GetPress(DIK_A))
-			{
-				fMoveAngle += D3DXToRadian(45.0f);
-			}
-			if (pKeyboard->GetPress(DIK_D))
-			{
-				fMoveAngle += D3DXToRadian(-45.0f);
-			}
-		}
-		// 前に移動
-		if (pKeyboard->GetPress(DIK_W))
-		{
-			fMoveAngle = D3DXToRadian(0.0f);
-
-			if(pKeyboard->GetPress(DIK_A))
-			{
-				fMoveAngle += D3DXToRadian(-45.0f);
-			}
-			if (pKeyboard->GetPress(DIK_D))
-			{
-				fMoveAngle += D3DXToRadian(45.0f);
-			}
-		}
-		// 移動キーが押されていれば
-		if (pKeyboard->GetPress(DIK_W) || pKeyboard->GetPress(DIK_A) || pKeyboard->GetPress(DIK_S) || pKeyboard->GetPress(DIK_D))
-		{
-			m_bWalk = true;
-		}
-		else
-		{
-			m_bWalk = false;
-		}
+		m_bWalk = false;
 	}
 
 	if (m_bWalk)
@@ -351,6 +301,7 @@ void CPlayer::Jump(void)
 	{
 		if (GetJump())
 		{
+			SetMove(ZeroVector3);
 			m_bFly = true;
 		}
 		else
@@ -374,50 +325,48 @@ void CPlayer::Jump(void)
 //=============================================================================
 void CPlayer::Fly(void)
 {
-	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
-	D3DXVECTOR3 move = ZeroVector3;
-	D3DXMATRIX mtxRot;
-	if (pKeyboard->GetPress(DIK_W))
+	CInputKeyboard *pKeyboard = CManager::GetKeyboard();	// キーボードを取得
+	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);		// ジョイパッドを取得
+	D3DXVECTOR3 move = ZeroVector3;							// 移動量
+	D3DXMATRIX mtxRot;										// 回転計算用行列
+	float fMoveAngle = NULL;								// 移動角度
+
+	//重力を無効化
+	if (GetUseGravity())
 	{
-		m_rotDest.x = D3DXToRadian(PLAYER_ROT_SPEED);
-	}
-	if (pKeyboard->GetPress(DIK_S))
-	{
-		m_rotDest.x = -D3DXToRadian(PLAYER_ROT_SPEED);
-	}
-	if (pKeyboard->GetPress(DIK_A))
-	{
-		move.x -= PLAYER_FLY_SPEED;
-	}
-	if (pKeyboard->GetPress(DIK_D))
-	{
-		move.x += PLAYER_FLY_SPEED;
+		SetUseGravity(false);
 	}
 
-	////上下の角度制限
-	//if (D3DXToDegree(m_rot.x) < -PITCH_LIMIT)
-	//{
-	//	m_rot.x = D3DXToRadian(-PITCH_LIMIT);
-	//}
-	//if (D3DXToDegree(m_rot.x) > PITCH_LIMIT)
-	//{
-	//	m_rot.x = D3DXToRadian(PITCH_LIMIT);
-	//}
-
+	// プレイヤーの角度をカメラの角度に合わせる
 	m_rotDest.y = CGame::GetCamera(m_nNumber)->Getφ();
-	//移動量を行列変換
-	move += D3DXVECTOR3(0.0f, 0.0f, PLAYER_FLY_SPEED);
-	move *= -1;
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rotDest.y, m_rotDest.x, m_rotDest.z);
-	D3DXVec3TransformNormal(&move, &move, &mtxRot);
-	SetPos(GetPos()+move);
+	m_rotDest.x = CGame::GetCamera(m_nNumber)->Getθ() - D3DXToRadian(90.0f);
 
+	// 入力がある間移動する
+	if (pKeyboard->GetPress(DIK_W) || pKeyboard->GetPress(DIK_A) || pKeyboard->GetPress(DIK_S) || pKeyboard->GetPress(DIK_D) || js.lX != 0.0f || js.lY != 0.0f)
+	{
+		move = D3DXVECTOR3(0.0f, 0.0f, -PLAYER_FLY_SPEED);
+		// 入力角度を取得
+		fMoveAngle = InputToAngle();
+		// 取得した角度で移動を行列変換
+		D3DXMatrixRotationY(&mtxRot, fMoveAngle);
+		D3DXVec3TransformNormal(&move, &move, &mtxRot);
+		// カメラ角度で移動を行列変換
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rotDest.y, m_rotDest.x, m_rotDest.z);
+		D3DXVec3TransformNormal(&move, &move, &mtxRot);
+		//移動量を足す
+		SetPos(GetPos() + move);
+	}
+	//入力された角度
 	if (pKeyboard->GetTrigger(DIK_SPACE))
 	{
 		m_bFly = false;
+		if (!GetUseGravity())
+		{
+			SetUseGravity(true);
+		}
 	}
-
 }
+
 //=============================================================================
 // 死んだときの処理
 //=============================================================================
@@ -431,27 +380,78 @@ void CPlayer::Death(void)
 //=============================================================================
 void CPlayer::MapLimit(void)
 {
-	//右
-	if (GetPos().x > MAP_LIMIT)
+	D3DXVECTOR3 pos = GetPos();
+
+	if (pos.x > MAP_LIMIT)
 	{
-		SetPos(D3DXVECTOR3(MAP_LIMIT, GetPos().y, GetPos().z));
+		SetPos(D3DXVECTOR3(MAP_LIMIT, pos.y, pos.z));
+	}
+	if (pos.x < -MAP_LIMIT)
+	{
+		SetPos(D3DXVECTOR3(-MAP_LIMIT, pos.y, pos.z));
+	}
+	if (pos.z > MAP_LIMIT)
+	{
+		SetPos(D3DXVECTOR3(pos.x, pos.y, MAP_LIMIT));
+	}
+	if (pos.z < -MAP_LIMIT)
+	{
+		SetPos(D3DXVECTOR3(pos.x, pos.y, -MAP_LIMIT));
+	}
+}
+
+//=============================================================================
+// 入力情報を角度に変換する
+//=============================================================================
+float CPlayer::InputToAngle(void)
+{
+	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);					// ジョイスティックの取得
+	CInputKeyboard *pKeyboard = CManager::GetKeyboard();				// キーボードの取得
+	float fInputAngle = NULL;											//移動アングル
+	//コントローラー入力がある場合
+	if (js.lX != 0.0f || js.lY != 0.0f)
+	{
+		fInputAngle = atan2f((float)js.lX, -(float)js.lY);
+	}
+	else
+	{
+		//キーボード入力を角度に変換
+		if (pKeyboard->GetPress(DIK_A))
+		{
+			fInputAngle = D3DXToRadian(-90.0f);
+		}
+		if (pKeyboard->GetPress(DIK_D))
+		{
+			fInputAngle = D3DXToRadian(90.0f);
+		}
+		if (pKeyboard->GetPress(DIK_S))
+		{
+			fInputAngle = D3DXToRadian(180.0f);
+
+			// 同時押し用の処理
+			if (pKeyboard->GetPress(DIK_A))
+			{
+				fInputAngle += D3DXToRadian(45.0f);
+			}
+			if (pKeyboard->GetPress(DIK_D))
+			{
+				fInputAngle += D3DXToRadian(-45.0f);
+			}
+		}
+		if (pKeyboard->GetPress(DIK_W))
+		{
+			fInputAngle = D3DXToRadian(0.0f);
+
+			if (pKeyboard->GetPress(DIK_A))
+			{
+				fInputAngle += D3DXToRadian(-45.0f);
+			}
+			if (pKeyboard->GetPress(DIK_D))
+			{
+				fInputAngle += D3DXToRadian(45.0f);
+			}
+		}
 	}
 
-	//左
-	if (GetPos().x <-MAP_LIMIT)
-	{
-		SetPos(D3DXVECTOR3(-MAP_LIMIT, GetPos().y, GetPos().z));
-	}
-
-	//奥
-	if (GetPos().z > MAP_LIMIT)
-	{
-		SetPos(D3DXVECTOR3(GetPos().x, GetPos().y, MAP_LIMIT));
-	}
-
-	//手前
-	if (GetPos().z <-MAP_LIMIT)
-	{
-		SetPos(D3DXVECTOR3(GetPos().x, GetPos().y, -MAP_LIMIT));
-	}
+	return fInputAngle;
 }

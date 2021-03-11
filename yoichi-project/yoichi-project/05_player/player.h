@@ -112,6 +112,8 @@ public:
 	void MapLimit(void);										// マップの制限
 
 private:
+
+	float InputToAngle(void);
 	D3DXVECTOR3 m_rotDest;							// 回転(目標値)
 	bool m_bWalk;									// 歩いているフラグ
 	bool m_bFly;									// 飛行フラグ
