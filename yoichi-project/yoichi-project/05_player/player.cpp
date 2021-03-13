@@ -301,6 +301,7 @@ void CPlayer::Jump(void)
 	{
 		if (GetJump())
 		{
+			m_rotDest.x -= D3DXToRadian(90.0f);
 			SetMove(ZeroVector3);
 			m_bFly = true;
 		}
@@ -329,35 +330,29 @@ void CPlayer::Fly(void)
 	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);		// ジョイパッドを取得
 	D3DXVECTOR3 move = ZeroVector3;							// 移動量
 	D3DXMATRIX mtxRot;										// 回転計算用行列
-	float fMoveAngle = NULL;								// 移動角度
-
-	//重力を無効化
+	CCamera* pCamera = CGame::GetCamera(m_nNumber);
+	// 重力を無効化
 	if (GetUseGravity())
 	{
 		SetUseGravity(false);
 	}
+	
+	//プレイヤーの上方向に移動
+	move = D3DXVECTOR3(0.0f, PLAYER_FLY_SPEED, 0.0f);
 
-	// プレイヤーの角度をカメラの角度に合わせる
-	m_rotDest.y = CGame::GetCamera(m_nNumber)->Getφ();
-	m_rotDest.x = CGame::GetCamera(m_nNumber)->Getθ() - D3DXToRadian(90.0f);
+	//コントローラーの入力を変換
+	m_rotDest.y += D3DXToRadian(js.lX / 1000);
+	m_rotDest.x += D3DXToRadian(js.lY / 1000);
 
-	// 入力がある間移動する
-	if (pKeyboard->GetPress(DIK_W) || pKeyboard->GetPress(DIK_A) || pKeyboard->GetPress(DIK_S) || pKeyboard->GetPress(DIK_D) || js.lX != 0.0f || js.lY != 0.0f)
-	{
-		move = D3DXVECTOR3(0.0f, 0.0f, -PLAYER_FLY_SPEED);
-		// 入力角度を取得
-		fMoveAngle = InputToAngle();
-		// 取得した角度で移動を行列変換
-		D3DXMatrixRotationY(&mtxRot, fMoveAngle);
-		D3DXVec3TransformNormal(&move, &move, &mtxRot);
-		// カメラ角度で移動を行列変換
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rotDest.y, m_rotDest.x, m_rotDest.z);
-		D3DXVec3TransformNormal(&move, &move, &mtxRot);
-		//移動量を足す
-		SetPos(GetPos() + move);
-	}
-	//入力された角度
-	if (pKeyboard->GetTrigger(DIK_SPACE))
+	//コントローラー入力を利用してプレイヤーの向きを変換
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rotDest.y, m_rotDest.x, m_rotDest.z);
+	D3DXVec3TransformNormal(&move, &move, &mtxRot);
+
+	// 移動量を足す
+	SetPos(GetPos() + move);
+	
+	// 入力された角度
+	if (pKeyboard->GetTrigger(DIK_SPACE)||CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_A, m_nNumber))
 	{
 		m_bFly = false;
 		if (!GetUseGravity())
