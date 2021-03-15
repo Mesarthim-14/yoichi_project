@@ -41,9 +41,9 @@ public:
 private:
 	CResourceManager();								// コンストラクタ
 	static CResourceManager *m_pResourceManager;	// 自身のポインタ
-	CTexture *m_pTexture;					// テクスチャのポインタ
-	CXfile *m_pXFile;						// Xファイルのポインタ
-	CSound *m_pSound;					// サウンドのポインタ
+	CTexture *m_pTexture;							// テクスチャのポインタ
+	CXfile *m_pXFile;								// Xファイルのポインタ
+	CSound *m_pSound;								// サウンドのポインタ
 };
 
 #endif

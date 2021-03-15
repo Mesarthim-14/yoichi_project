@@ -32,15 +32,7 @@ public:
 	void Draw(void);											// 描画処理
 
 	static CUi *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);		// インスタンス生成
-
-	// Set関数
-	void SetUse(bool bUse);										// 使用フラグの設定
-	
-	// Get関数
-	bool GetUse(void) { return m_bUse; }						// 使用フラグの情報
-
 private:
-	bool m_bUse;		// 使用するフラグ
 };
 
 #endif

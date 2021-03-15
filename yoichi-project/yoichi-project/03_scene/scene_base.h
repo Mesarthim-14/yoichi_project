@@ -27,21 +27,23 @@ public:
 	virtual void Update(void) = 0;															// 更新処理
 	virtual void Draw(void) = 0;															// 描画処理
 
+	void BindTexture(const LPDIRECT3DTEXTURE9 pTexture) { m_pTexture = pTexture; }		// テクスチャの設定
+
+protected:
 	// Set関数
-	virtual void SetPos(D3DXVECTOR3 pos)					{ m_pos = pos; }				// 座標
-	virtual void SetSize(D3DXVECTOR3 size)					{ m_size = size; }				// サイズ
-	virtual void SetColor(D3DXCOLOR col)					{ m_col = col; }				// 色
-	virtual void SetRot(D3DXVECTOR3 rot)					{ m_rot = rot; }				// 角度		
-	void BindTexture(LPDIRECT3DTEXTURE9 pTexture)			{ m_pTexture = pTexture; }		// テクスチャの設定
-	void BindVtxBuff(LPDIRECT3DVERTEXBUFFER9 pVtxBuff)		{ m_pVtxBuff = pVtxBuff; }		// 頂点バッファ
+	virtual void SetPos(const D3DXVECTOR3 pos)					{ m_pos = pos; }				// 座標
+	virtual void SetSize(const D3DXVECTOR3 size)				{ m_size = size; }				// サイズ
+	virtual void SetRot(const D3DXVECTOR3 rot)					{ m_rot = rot; }				// 角度		
+	void BindVtxBuff(const LPDIRECT3DVERTEXBUFFER9 pVtxBuff) { m_pVtxBuff = pVtxBuff; }		// 頂点バッファ
+	virtual void SetColor(const D3DXCOLOR col) { m_col = col; }				// 色
 
 	// Get関数
-	D3DXVECTOR3 GetPos(void)					{ return m_pos; }							// 座標
-	D3DXVECTOR3 GetSize(void)					{ return m_size; }							// サイズ
-	D3DXCOLOR GetColor(void)					{ return m_col; };							// 色
-	D3DXVECTOR3 GetRot(void)					{ return m_rot; };							// 回転量
-	LPDIRECT3DTEXTURE9 GetTexture(void)			{ return m_pTexture; }						// テクスチャ
-	LPDIRECT3DVERTEXBUFFER9 GetVtxBuff(void)	{ return m_pVtxBuff; }						// バッファ情報
+	D3DXVECTOR3 GetPos(void) const					{ return m_pos; }							// 座標
+	D3DXVECTOR3 GetSize(void) const					{ return m_size; }							// サイズ
+	D3DXVECTOR3 GetRot(void) const					{ return m_rot; };							// 回転量
+	D3DXCOLOR GetColor(void) const					{ return m_col; };							// 色
+	LPDIRECT3DTEXTURE9 GetTexture(void) const		{ return m_pTexture; }						// テクスチャ
+	LPDIRECT3DVERTEXBUFFER9 GetVtxBuff(void) const	{ return m_pVtxBuff; }						// バッファ情報
 
 private:
 	LPDIRECT3DTEXTURE9 m_pTexture;			// テクスチャポインタ

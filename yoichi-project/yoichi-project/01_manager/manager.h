@@ -60,7 +60,7 @@ public:
 
 	// Set関数
 	static void SetMode(MODE_TYPE mode);							// モードの設定
-
+	
 	// Get関数
 	static MODE_TYPE GetMode(void);														// モードの情報
 	static CRenderer *GetRenderer(void);												// レンダラー情報

@@ -20,7 +20,7 @@
 #define TITLE_UI_POS_Y			(360.0f)	// UIのY座標
 
 #define TITLE_SIZE_X			(500.0f)	// タイトルのXサイズ
-#define TITLE_SIZE_Y			(170.0f)	// タイトルのYサイズ
+#define TITLE_SIZE_Y			(200.0f)	// タイトルのYサイズ
 #define TITLE_POS_X				(640.0f)	// タイトルのX座標
 #define TITLE_POS_Y				(350.0f)	// タイトルのY座標
 

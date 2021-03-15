@@ -28,6 +28,7 @@
 #include "xfile.h"
 #include "character.h"
 #include "motion.h"
+#include "item.h"
 
 //=============================================================================
 // マクロ定義
@@ -36,7 +37,7 @@
 #define PLAYER_JUMP						(17.0f)				// ジャンプの処理
 #define STICK_SENSITIVITY				(50.0f)				// スティック感度
 #define PLAYER_ROT_SPEED				(0.1f)				// キャラクターの回転する速度
-#define PLAYER_RADIUS					(50.0f)				// 半径の大きさ
+#define PLAYER_RADIUS					(200.0f)			// 半径の大きさ
 #define PLAYER_PARTS					(22)				// プレイヤーのパーツ数
 #define GAME_END_FLAME					(100)				// ゲームが終わるフレーム
 
@@ -71,6 +72,9 @@ CPlayer::CPlayer(PRIORITY Priority)
 	m_bWalk = false;
 	m_bDraw = true;
 	m_nEndCounter = 0;
+	m_pItem = NULL;
+	m_fBaseSpeed = 0.0f;
+	m_bArmor = false;
 }
 
 //=============================================================================
@@ -99,8 +103,8 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	CCharacter::Init(pos, rot);												// 座標　角度
 	SetRadius(PLAYER_RADIUS);												// 半径の設定
 	SetSpeed(PLAYER_SPEED);													// 速度の設定
-	SetWeaponTipNum(PARTS_NUM_COLLISION);									// 剣先のパーツ番号
-	SetWeaponRootNum(PARTS_NUM_ROOT);										// 剣の根本のパーツ番号
+
+	m_fBaseSpeed = PLAYER_SPEED;		// 元のスピード保持
 
 	return S_OK;
 }
@@ -137,6 +141,17 @@ void CPlayer::Update(void)
 
 	// プレイヤーの制御
 	PlayerControl();
+
+	// アイテムが使われていたら
+	if (m_pItem != nullptr)
+	{
+		// アイテムの削除フラグが立ったら
+		if (m_pItem->GetEnd() == true)
+		{
+			m_pItem->Uninit();
+			m_pItem = nullptr;
+		}
+	}
 
 	// 角度の取得
 	D3DXVECTOR3 rot = GetRot();
@@ -221,6 +236,9 @@ void CPlayer::PlayerControl()
 
 	// ジャンプの処理
 	Jump();
+
+	// アイテムの使用
+	UseItem();
 }
 
 //=============================================================================
@@ -401,5 +419,41 @@ void CPlayer::MapLimit(void)
 	if (GetPos().z <-MAP_LIMIT)
 	{
 		SetPos(D3DXVECTOR3(GetPos().x, GetPos().y, -MAP_LIMIT));
+	}
+}
+
+//=============================================================================
+// アイテムの使用処理
+//=============================================================================
+void CPlayer::UseItem(void)
+{
+	// キーボード情報
+	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
+
+	// SPACEキーを押したとき・コントローラのYを押したとき
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, m_nNumber)
+		|| pKeyboard->GetTrigger(DIK_I))
+	{
+		// !nullcheck
+		if (m_pItem != nullptr)
+		{
+			if (m_pItem->GetUse() == false)
+			{
+				// アイテムを使う
+				m_pItem->SetItem();
+			}
+		}
+	}
+}
+
+//=============================================================================
+// アイテムのデータを渡す
+//=============================================================================
+void CPlayer::AcquiredItem(CItem *pItem)
+{
+	// nullcheck
+	if (m_pItem == nullptr)
+	{
+		m_pItem = pItem;
 	}
 }

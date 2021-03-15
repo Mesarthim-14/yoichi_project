@@ -42,7 +42,9 @@ public:
 	void UpdateAnimation(void);											// アニメーションの更新
 	void ScaleUp(float fScale);											// 拡大処理
 	
-	void SetColor(D3DXCOLOR color);										// カラーの設定
+protected:
+	void SetColor(const D3DXCOLOR color);										// カラーの設定
+
 private:
 	D3DXMATRIX	m_mtxWorld;						// ワールドマトリクス
 	D3DXVECTOR3 m_move;							// 移動量

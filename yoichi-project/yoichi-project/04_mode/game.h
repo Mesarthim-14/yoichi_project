@@ -21,6 +21,7 @@ class CMeshField;
 class CBg;
 class CPlayer;
 class CPause;
+class CItemBoxManager;
 
 //***************************************************************************************
 // ゲームクラス
@@ -42,11 +43,12 @@ public:
 	static void SetPlayerNum(int nPlayerNum) { m_nPlayerNum = nPlayerNum; }	// プレイヤーの数の設定
 
 	// Get関数
-	static CCamera *GetCamera(int nCount);										// カメラのポインタ情報
-	static CLight *GetLight(void);											// ライトのポインタ情報
-	static CPlayer *GetPlayer(int nCount);										// プレイヤーのポインタ情報
-	static CPause *GetPause(void);											// ポーズ画面のポインタ情報
-	static int GetPlayerNum(void) { return m_nPlayerNum; }					// プレイヤーの数
+	static CCamera *GetCamera(int nCount);					// カメラのポインタ情報
+	static CLight *GetLight(void);							// ライトのポインタ情報
+	static CPlayer *GetPlayer(int nCount);					// プレイヤーのポインタ情報
+	static CPause *GetPause(void);							// ポーズ画面のポインタ情報
+	static int GetPlayerNum(void) { return m_nPlayerNum; }	// プレイヤーの数
+	static CItemBoxManager *GetItemManager(void) { return m_pItemManager; }	// リソースマネージャのポインタ
 
 private:	
 	static CCamera *m_pCamera[MAX_PLAYER_NUM];	// カメラのポインタ	
@@ -54,6 +56,7 @@ private:
 	static CMeshField *m_pMeshField;			// メッシュフィールドのポインタ
 	static CBg *m_pBg;							// 背景のポインタ
 	static CPlayer *m_pPlayer[MAX_PLAYER_NUM];	// プレイヤーのポインタ
+	static CItemBoxManager *m_pItemManager;		// アイテムマネージャのポインタ
 	static CPause *m_pPause;					// ポーズのポインタ
 	LPD3DXFONT m_pFont;							// デバック用フォント
 	int m_nTimeCounter;							// ゲームのカウンター

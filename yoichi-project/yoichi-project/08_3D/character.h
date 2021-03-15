@@ -44,14 +44,6 @@ public:
 		STATE_MAX,			// 最大値
 	}STATE;
 
-	typedef enum
-	{
-		CHARACTER_TYPE_NONE = 0,	// 初期値
-		CHARACTER_TYPE_PLAYER,		// プレイヤー
-		CHARACTER_TYPE_ENEMY,		// エネミー
-		CHARACTER_TYPE_MAX,			// 最大数
-	}CHARACTER_TYPE;
-
 	CCharacter(PRIORITY Priority = PRIORITY_CHARACTER);				// コンストラクタ
 	virtual ~CCharacter();											// デストラクタ
 
@@ -80,10 +72,7 @@ public:
 	void SetLanding(bool bLanding);									// 着地の設定
 	void SetRadius(float fRadius);									// 半径の設定
 	void SetSpeed(float fSpeed);									// 速度の設定
-	void SetWeaponTipNum(int nWeaponTipNum);						// 剣先のパーツ番号
-	void SetWeaponRootNum(int nWeaponRootNum);						// 剣の根本のパーツ番号
 	void SetStateCounter(int nStateCounter);						// 状態カウンターの設定
-	void SetCType(CHARACTER_TYPE Ctype);							// タイプの設定
 	void SetMotion(int nMotionState);								// モーションの設定
 
 	// Get関数
@@ -92,8 +81,6 @@ public:
 	D3DXVECTOR3 GetRot(void) { return m_rot; }									// 角度情報
 	D3DXVECTOR3 GetMove(void) { return m_move; }								// 移動量の情報
 	int GetLife(void) { return m_nLife; }										// ライフの情報
-	int GetWeaponPartsNum(void) { return m_nWeaponTipNum; }						// 剣先のパーツ番号の情報
-	int GetWeaponRootNum(void) { return m_nWeaponTipNum; }						// 剣先のパーツ番号の情報
 	int GetStateCounter(void) { return m_nStateCounter; }						// 状態カウンターの情報
 	float GetSpeed(void) { return m_fSpeed; }									// スピードの情報
 	float GetRadius(void) { return m_fRadius; }									// 半径の情報
@@ -107,7 +94,6 @@ private:
 	CModelAnime *m_apModelAnime[MAX_MODEL_PARTS];	// モデルパーツ用のポインタ
 	CMotion *m_pMotion;								// モーションクラスのポインタ
 	STATE m_State;									// ステート
-	CHARACTER_TYPE m_Ctype;							// キャラクターのタイプ
 	D3DXVECTOR3 m_pos;								// 座標
 	D3DXVECTOR3 m_posOld;							// 古い座標
 	D3DXVECTOR3 m_move;								// 移動量
@@ -116,8 +102,6 @@ private:
 	int m_nLife;									// 体力
 	int m_nMaxLife;									// ライフの最大量
 	int m_nCharaNum;								// キャラクターのナンバー
-	int m_nWeaponTipNum;							// 剣先のパーツ番号
-	int m_nWeaponRootNum;							// 剣の根本のパーツ
 	int m_nStateCounter;							// 状態のカウンター
 	int m_nParts;									// パーツ数
 	float m_fSpeed;									// 移動量

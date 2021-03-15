@@ -38,7 +38,7 @@ public:
 	void SetRotation(float rotasion);									// ‰ñ“]‚Ìİ’è
 	void SetScale(const float &fScale);									// Šg‘å‚Ì’lİ’è
 
-																		// GetŠÖ”
+	// GetŠÖ”
 	float GetScale(void) { return m_fScaleNum; }						// Šg‘å‚Ì’lî•ñ
 
 private:
