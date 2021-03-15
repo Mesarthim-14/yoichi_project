@@ -90,6 +90,9 @@ HRESULT CItemVortex::Init(void)
 //=============================================================================
 void CItemVortex::Update(void)
 {
+	// アイテムの更新処理
+	CItem::Update();
+
 	// アイテムが使われたら
 	if (GetUse() == true)
 	{

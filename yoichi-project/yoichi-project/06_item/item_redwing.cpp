@@ -89,6 +89,9 @@ HRESULT CItemRedWing::Init(void)
 //=============================================================================
 void CItemRedWing::Update(void)
 {
+	// アイテムの更新処理
+	CItem::Update();
+
 	// アイテムが使われたら
 	if (GetUse() == true)
 	{

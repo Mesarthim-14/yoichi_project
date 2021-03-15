@@ -87,6 +87,9 @@ HRESULT CItemBomb::Init(void)
 //=============================================================================
 void CItemBomb::Update(void)
 {
+	// アイテムの更新処理
+	CItem::Update();
+
 	// アイテムが使われたら
 	if (GetUse() == true)
 	{

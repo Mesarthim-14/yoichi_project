@@ -16,8 +16,8 @@
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define FIELD_WIDTH					(4)				// 分割数
-#define FIELD_HEIGHT				(4)				// 分割数
+#define FIELD_WIDTH					(6)				// 分割数
+#define FIELD_HEIGHT				(6)				// 分割数
 #define FIELD_WIDTH_SIZE			(16000.0f)		// サイズ
 #define FIELD_HEIGHT_SIZE			(16000.0f)		// サイズ
 
@@ -27,8 +27,8 @@
 class CMeshField : public CMesh3d
 {
 public:
-	CMeshField(PRIORITY = PRIORITY_0);			// コンストラクタ
-	~CMeshField();			// デストラクタ
+	CMeshField(PRIORITY = PRIORITY_0);	// コンストラクタ
+	~CMeshField();						// デストラクタ
 
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);	// 初期化処理
 	void Uninit(void);									// 終了処理

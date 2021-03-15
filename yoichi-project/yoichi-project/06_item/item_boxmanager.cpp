@@ -97,7 +97,6 @@ void CItemBoxManager::CreateItemBox(void)
 
 	// アイテムボックスのメモリを確保
 	m_pItemBox.push_back(CItemBox::Create(D3DXVECTOR3(-4000.0f, 500.0f, -7000.0f), D3DXVECTOR3(MODEL_DEFAULT_SIZE)));
-
 }
 
 //=============================================================================

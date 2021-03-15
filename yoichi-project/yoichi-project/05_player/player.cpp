@@ -72,7 +72,6 @@ CPlayer::CPlayer(PRIORITY Priority)
 	m_bWalk = false;
 	m_bDraw = true;
 	m_nEndCounter = 0;
-	m_pItem = NULL;
 	m_fBaseSpeed = 0.0f;
 	m_bArmor = false;
 }
@@ -114,6 +113,25 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 //=============================================================================
 void CPlayer::Uninit(void)
 {	
+	// メモリ確保
+	for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
+	{
+		// !nullcheck
+		if (m_apItem[nCount] != nullptr)
+		{
+			// 終了処理
+			m_apItem[nCount]->Uninit();
+			m_apItem[nCount] = nullptr;
+		}
+	}
+
+	// 配列があれば
+	if (m_apItem.size() != NULL)
+	{
+		// 配列のクリア
+		m_apItem.clear();
+	}
+
 	// 終了処理
 	CCharacter::Uninit();
 }
@@ -142,14 +160,18 @@ void CPlayer::Update(void)
 	// プレイヤーの制御
 	PlayerControl();
 
-	// アイテムが使われていたら
-	if (m_pItem != nullptr)
+	// メモリ確保
+	for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
 	{
-		// アイテムの削除フラグが立ったら
-		if (m_pItem->GetEnd() == true)
+		// !nullcheck
+		if (m_apItem[nCount] != nullptr)
 		{
-			m_pItem->Uninit();
-			m_pItem = nullptr;
+			// アイテムの削除フラグが立ったら
+			if (m_apItem[nCount]->GetEnd() == true)
+			{
+				// 配列を空にする
+				m_apItem.erase(m_apItem.begin() + nCount);
+			}
 		}
 	}
 
@@ -434,15 +456,21 @@ void CPlayer::UseItem(void)
 	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, m_nNumber)
 		|| pKeyboard->GetTrigger(DIK_I))
 	{
-		// !nullcheck
-		if (m_pItem != nullptr)
+		for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
 		{
-			if (m_pItem->GetUse() == false)
+			// !nullcheck
+			if (m_apItem[nCount] != nullptr)
 			{
-				// アイテムを使う
-				m_pItem->SetItem();
+				if (m_apItem[nCount]->GetUse() == false)
+				{
+					// アイテムを使う
+					m_apItem[nCount]->SetItem();
+
+					break;
+				}
 			}
 		}
+
 	}
 }
 
@@ -451,9 +479,18 @@ void CPlayer::UseItem(void)
 //=============================================================================
 void CPlayer::AcquiredItem(CItem *pItem)
 {
-	// nullcheck
-	if (m_pItem == nullptr)
+	if (m_apItem.size() == 0)
 	{
-		m_pItem = pItem;
+		// アイテムのポインタ
+		m_apItem.push_back(pItem);
+	}
+	else if (m_apItem[0] != nullptr)
+	{
+		// 使われている状態なら
+		if (m_apItem[0]->GetUse() == true)
+		{
+			// アイテムのポインタ
+			m_apItem.push_back(pItem);
+		}
 	}
 }

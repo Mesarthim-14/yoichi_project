@@ -125,20 +125,20 @@ public:
 	void SetArmor(bool bArmor) { m_bArmor = bArmor; }			// 無敵状態の設定
 
 	// Get関数
-	CItem *GetItem(void)		{ return m_pItem; }				// アイテムのポインタ
-	bool HasItem(void)			{ return m_pItem != nullptr; }	// ポインタを持っているか
-	float GetBaseSpeed(void)	{ return m_fBaseSpeed; }		// 元のスピード
-	bool GetArmor(void)			{ return m_bArmor; }			// 無敵状態
+	CItem *GetItem(void)				{ return m_apItem[0]; }				// アイテムのポインタ
+	float GetBaseSpeed(void)			{ return m_fBaseSpeed; }			// 元のスピード
+	bool GetArmor(void)					{ return m_bArmor; }				// 無敵状態
+	int GetItemNum(void)				{ return m_apItem.size(); }			// アイテムのサイズ
 
 private:
-	D3DXVECTOR3 m_rotDest;		// 回転(目標値)
-	bool m_bWalk;				// 歩いているフラグ
-	bool m_bDraw;				// 描画のフラグ
-	bool m_bArmor;				// 無敵状態
-	int m_nEndCounter;			// 死んだ後のカウンター
-	int m_nNumber;				// プレイヤーの番号
-	float m_fBaseSpeed;			// 元のスピード
-	CItem *m_pItem;				// アイテムのポインタ
+	D3DXVECTOR3 m_rotDest;			// 回転(目標値)
+	bool m_bWalk;					// 歩いているフラグ
+	bool m_bDraw;					// 描画のフラグ
+	bool m_bArmor;					// 無敵状態
+	int m_nEndCounter;				// 死んだ後のカウンター
+	int m_nNumber;					// プレイヤーの番号
+	float m_fBaseSpeed;				// 元のスピード
+	std::vector<CItem*> m_apItem;	// アイテムボックスのポインタ
+
 };
 #endif
-

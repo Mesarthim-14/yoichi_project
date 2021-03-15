@@ -32,6 +32,7 @@
 #define ITEMBOX_ROTATION_NUM_ALL	(D3DXVECTOR3(ITEMBOX_ROTATION_NUM, ITEMBOX_ROTATION_NUM, ITEMBOX_ROTATION_NUM))	// 回転の値
 #define ITEMBOX_RADIUS				(100.0f)																		// 当たり判定の半径
 #define ITEMBOX_GENERATE_INTER		(300.0f)																		// 再生成フレーム
+#define ITEM_HAVE_NUM				(1)																				// アイテムの所持数
 
 //=============================================================================
 // インスタンス生成
@@ -169,10 +170,21 @@ void CItemBox::Collision(void)
 			// 見えなくする
 			m_bDraw = false;
 
-			if (pPlayer->GetItem() == nullptr)
+			// アイテムを持っていなかったら
+			if (pPlayer->GetItemNum() == 0)
 			{
 				// アイテム生成
 				ItemCreate(nCount);
+			}
+			else if (pPlayer->GetItem()->GetUse() == true)
+			{// アイテムを持っていたら
+
+				// 二つ以上にならないように
+				if (pPlayer->GetItemNum() <= ITEM_HAVE_NUM)
+				{
+					// アイテム生成
+					ItemCreate(nCount);
+				}
 			}
 		}
 	}
@@ -189,38 +201,38 @@ void CItemBox::ItemCreate(int nCount)
 		// プレイヤーの関数
 	CPlayer *pPlayer = CGame::GetPlayer(nCount);
 
-		// ナンバー
-		switch ((ITEM_TYPE)nNumber)
-		{
-		case ITEM_TYPE_BLUE_WING:
-			pPlayer->AcquiredItem(CItemBlueWing::Create(nCount));
-			break;
+	// ナンバー
+	switch ((ITEM_TYPE)nNumber)
+	{
+	case ITEM_TYPE_BLUE_WING:
+		pPlayer->AcquiredItem(CItemBlueWing::Create(nCount));
+		break;
 
-		case ITEM_TYPE_RED_WING:
-			pPlayer->AcquiredItem(CItemRedWing::Create(nCount));
-			break;
+	case ITEM_TYPE_RED_WING:
+		pPlayer->AcquiredItem(CItemRedWing::Create(nCount));
+		break;
 
-		case ITEM_TYPE_BARRIER:
-			pPlayer->AcquiredItem(CItemBarrier::Create(nCount));
-			break;
+	case ITEM_TYPE_BARRIER:
+		pPlayer->AcquiredItem(CItemBarrier::Create(nCount));
+		break;
 
-		case ITEM_TYPE_BOMB:
-			pPlayer->AcquiredItem(CItemBomb::Create(nCount));
-			break;
+	case ITEM_TYPE_BOMB:
+		pPlayer->AcquiredItem(CItemBomb::Create(nCount));
+		break;
 
-		case ITEM_TYPE_THUNDER:
-			pPlayer->AcquiredItem(CItemThunder::Create(nCount));
-			break;
+	case ITEM_TYPE_THUNDER:
+		pPlayer->AcquiredItem(CItemThunder::Create(nCount));
+		break;
 
-		case ITEM_TYPE_VORTEX:
-			pPlayer->AcquiredItem(CItemVortex::Create(nCount));
-			break;
+	case ITEM_TYPE_VORTEX:
+		pPlayer->AcquiredItem(CItemVortex::Create(nCount));
+		break;
 
-		case ITEM_TYPE_MHAND:
-			pPlayer->AcquiredItem(CItemMhand::Create(nCount));
-			break;
+	case ITEM_TYPE_MHAND:
+		pPlayer->AcquiredItem(CItemMhand::Create(nCount));
+		break;
 
-		default:
-			break;
-		}
+	default:
+		break;
+	}
 }

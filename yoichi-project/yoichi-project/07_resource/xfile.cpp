@@ -20,7 +20,7 @@
 #define XFILE_NAME_ITEM_BOX					("data/model/item_box.x")		// アイテムボックス
 #define XFILE_NAME_BOMB_BOX					("data/model/item_bombbox.x")		// 偽ボックス
 // 階層構造モデルのファイル
-#define HIERARCHY_FILENAME_PLAYER			("data/Text/motion_LBX.txt")	// プレイヤーのファイルネーム
+#define HIERARCHY_FILENAME_PLAYER			("data/Text/motion_PLAYER.txt")	// プレイヤーのファイルネーム
 
 //=============================================================================
 // コンストラクタ

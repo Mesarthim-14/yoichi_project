@@ -88,6 +88,9 @@ HRESULT CItemBlueWing::Init(void)
 //=============================================================================
 void CItemBlueWing::Update(void)
 {
+	// アイテムの更新処理
+	CItem::Update();
+
 	// アイテムが使われたら
 	if (GetUse() == true)
 	{

@@ -100,6 +100,9 @@ HRESULT CItemMhand::Init(void)
 //=============================================================================
 void CItemMhand::Update(void)
 {
+	// アイテムの更新処理
+	CItem::Update();
+
 	// アイテムが使われたら
 	if (GetUse() == true)
 	{
