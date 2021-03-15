@@ -192,6 +192,8 @@
     <ClInclude Include="08_3D\model.h" />
     <ClInclude Include="08_3D\modelanime.h" />
     <ClInclude Include="08_3D\motion.h" />
+    <ClInclude Include="08_3D\star.h" />
+    <ClInclude Include="08_3D\star_factory.h" />
     <ClInclude Include="10_UI\number_2d.h" />
     <ClInclude Include="10_UI\number_3d.h" />
     <ClInclude Include="10_UI\ui.h" />
@@ -243,6 +245,8 @@
     <ClCompile Include="08_3D\model.cpp" />
     <ClCompile Include="08_3D\modelanime.cpp" />
     <ClCompile Include="08_3D\motion.cpp" />
+    <ClCompile Include="08_3D\star.cpp" />
+    <ClCompile Include="08_3D\star_factory.cpp" />
     <ClCompile Include="10_UI\number_2d.cpp" />
     <ClCompile Include="10_UI\number_3d.cpp" />
     <ClCompile Include="10_UI\ui.cpp" />

@@ -22,6 +22,7 @@ class CBg;
 class CPlayer;
 class CPause;
 class CItemBoxManager;
+class CStarFactory;
 
 //***************************************************************************************
 // ゲームクラス
@@ -49,7 +50,6 @@ public:
 	static CPause *GetPause(void);							// ポーズ画面のポインタ情報
 	static int GetPlayerNum(void) { return m_nPlayerNum; }	// プレイヤーの数
 	static CItemBoxManager *GetItemManager(void) { return m_pItemManager; }	// リソースマネージャのポインタ
-
 private:	
 	static CCamera *m_pCamera[MAX_PLAYER_NUM];	// カメラのポインタ	
 	static CLight *m_pLight;					// ライトのポインタ
@@ -57,6 +57,7 @@ private:
 	static CBg *m_pBg;							// 背景のポインタ
 	static CPlayer *m_pPlayer[MAX_PLAYER_NUM];	// プレイヤーのポインタ
 	static CItemBoxManager *m_pItemManager;		// アイテムマネージャのポインタ
+	CStarFactory *m_pStarFactory;				// 星生成クラスのポインタ
 	static CPause *m_pPause;					// ポーズのポインタ
 	LPD3DXFONT m_pFont;							// デバック用フォント
 	int m_nTimeCounter;							// ゲームのカウンター

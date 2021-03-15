@@ -26,6 +26,7 @@
 #include "resource_manager.h"
 #include "itembox.h"
 #include "item_boxmanager.h"
+#include "star_factory.h"
 
 //=======================================================================================
 // static初期化
@@ -46,6 +47,7 @@ CGame::CGame(PRIORITY Priority) : CScene(Priority)
 {
 	m_bGameEnd = false;
 	m_nTimeCounter = 0;
+	m_pStarFactory = nullptr;
 
 	// 0だったら
 	if (m_nPlayerNum == 0)
@@ -130,6 +132,13 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 //	CSound *pSound = CManager::GetSound();
 //	pSound->Play(CSound::SOUND_LABEL_BGM_GAME);
 
+	// !nullcheck
+	if (m_pStarFactory == nullptr)
+	{
+		// インスタンス生成
+		m_pStarFactory = CStarFactory::Create();
+	}
+
 	// nullcheck
 	if (m_pItemManager == nullptr)
 	{
@@ -197,11 +206,22 @@ void CGame::Uninit(void)
 		}
 	}
 
+
+	// nullcheck
+	if (m_pStarFactory != nullptr)
+	{
+		// 終了処理
+		m_pStarFactory->Uninit();
+		delete m_pStarFactory;
+		m_pStarFactory = nullptr;
+	}
+
 	// nullcheck
 	if (m_pItemManager != nullptr)
 	{
 		// 終了処理
 		m_pItemManager->Uninit();
+		m_pItemManager = nullptr;
 	}
 
 	// !nullcheck
@@ -236,6 +256,13 @@ void CGame::Update(void)
 			//カメラクラスの更新処理
 			m_pCamera[nCount]->Update();
 		}
+	}
+
+	// nullcheck
+	if (m_pStarFactory != nullptr)
+	{
+		// 更新処理
+		m_pStarFactory->Update();
 	}
 
 	// ゲームの設定

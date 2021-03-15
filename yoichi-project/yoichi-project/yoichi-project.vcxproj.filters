@@ -189,6 +189,12 @@
     <ClInclude Include="06_item\item_bombbox.h">
       <Filter>06_item</Filter>
     </ClInclude>
+    <ClInclude Include="08_3D\star.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="08_3D\star_factory.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp">
@@ -337,6 +343,12 @@
     </ClCompile>
     <ClCompile Include="06_item\item_boxmanager.cpp">
       <Filter>06_item</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\star.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\star_factory.cpp">
+      <Filter>08_3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

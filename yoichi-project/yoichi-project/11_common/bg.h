@@ -18,9 +18,9 @@
 //=============================================================================
 #define BG_POS		(ZeroVector3)	// НјХW
 
-#define BG_SIZE_X	(30.0f)			// СеВЂВ≥
-#define BG_SIZE_Y	(30.0f)			// СеВЂВ≥
-#define BG_SIZE_Z	(30.0f)			// СеВЂВ≥
+#define BG_SIZE_X	(35.0f)			// СеВЂВ≥
+#define BG_SIZE_Y	(35.0f)			// СеВЂВ≥
+#define BG_SIZE_Z	(35.0f)			// СеВЂВ≥
 #define BG_SIZE		(D3DXVECTOR3(BG_SIZE_X, BG_SIZE_Y, BG_SIZE_Z))		// СеВЂВ≥
 
 //=============================================================================

@@ -32,7 +32,6 @@
 #define WEAPON_COLLISION_X			(150)		// 武器の当たり判定
 #define WEAPON_COLLISION_Y			(150)		// 武器の当たり判定
 #define WEAPON_COLLISION_Z			(150)		// 武器の当たり判定
-#define MAP_LIMIT					(11000)		// マップ上限
 
 //=============================================================================
 // 前方宣言
