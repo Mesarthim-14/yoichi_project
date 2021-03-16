@@ -15,22 +15,26 @@
 #include "player.h"
 #include "game.h"
 #include "collision.h"
-#include "star_factory.h"
+#include "star_manager.h"
 
 //=============================================================================================
 // マクロ定義
 //=============================================================================================
-#define STAR_COLOR_RED		(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f))						// 赤
-#define STAR_COLOR_BLUE		(D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f))						// 青
-#define STAR_COLOR_YELLOW	(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f))						// 黄
-#define STAR_COLOR_GREEN	(D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f))						// 緑
+#define STAR_COLOR_RED			(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f))						// 赤
+#define STAR_COLOR_BLUE			(D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f))						// 青
+#define STAR_COLOR_YELLOW		(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f))						// 黄
+#define STAR_COLOR_GREEN		(D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f))						// 緑
 
-#define STAR_SIZE_X			(100.0f)												// 横幅
-#define STAR_SIZE_Y			(100.0f)												// 縦幅
-#define STAR_SIZE_Z			(0.0f)													// 奥行
-#define STAR_SIZE			(D3DXVECTOR3(STAR_SIZE_X, STAR_SIZE_Y, STAR_SIZE_Z))	// サイズ
+#define STAR_SIZE_X				(150.0f)												// 横幅
+#define STAR_SIZE_Y				(150.0f)												// 縦幅
+#define STAR_SIZE_Z				(0.0f)													// 奥行
+#define STAR_SIZE				(D3DXVECTOR3(STAR_SIZE_X, STAR_SIZE_Y, STAR_SIZE_Z))	// サイズ
 
-#define STAR_RADIUS			(STAR_SIZE_X)											// 星の半径
+#define STAR_RADIUS				(STAR_SIZE_X)											// 星の半径
+#define STAR_ALPHA_NUM			(10)													// アルファテストの値
+
+#define DEFAULT_ADD_STAR_NUM	(1)														// 通常の星獲得数
+#define SUITABLE_ADD_STAR_NUM	(5)														// ゲーム状態に適した色の場合
 
 //=============================================================================================
 // コンストラクタ
@@ -85,8 +89,11 @@ HRESULT CStar::Init(D3DXVECTOR3 pos)
 		BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_EFFECT));
 	}
 
-	// 色の種類設定
+	// 色の設定
 	SetColorType();
+
+	// アルファテストの値
+	SetAlphaNum(STAR_ALPHA_NUM);
 
 	return S_OK;
 }
@@ -125,6 +132,21 @@ bool CStar::Collision(void)
 			GetPos(), pPlayer->GetPos(),
 			STAR_RADIUS, pPlayer->GetRadius()) == true)
 		{
+			// 色が適した
+			if (CStarManager::GetGameStarColor() == m_ColorType)
+			{
+				// 星の加算
+				pPlayer->AddStarNum(SUITABLE_ADD_STAR_NUM);
+			}
+			else
+			{
+				// 星の加算
+				pPlayer->AddStarNum(DEFAULT_ADD_STAR_NUM);
+			}
+
+			// 終了処理
+			Uninit();
+
 			return true;
 		}
 	}
@@ -140,6 +162,7 @@ void CStar::SetColorType(void)
 	int nColorType = rand() % (int)STAR_COLOR_TYPE_MAX;
 
 	m_ColorType = (STAR_COLOR_TYPE)nColorType;
+
 	// 色の設定
 	switch (m_ColorType)
 	{
@@ -163,4 +186,5 @@ void CStar::SetColorType(void)
 		SetColor(STAR_COLOR_YELLOW);
 		break;
 	}
+
 }

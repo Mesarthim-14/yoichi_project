@@ -106,6 +106,9 @@ void CItemBombBox::Update(void)
 	// 更新処理
 	CModel::Update();
 
+	 // 当たり判定
+	Collision();
+
 	// 使用中だったら
 	if (m_bUse == true)
 	{
@@ -125,11 +128,12 @@ void CItemBombBox::Update(void)
 //=============================================================================
 void CItemBombBox::Draw(void)
 {
-	// Rendererクラスからデバイスを取得
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
+	if (m_bUse == false)
+	{
+		// 描画処理
+		CModel::Draw();
 
-	// 描画処理
-	CModel::Draw();
+	}
 }
 
 //=============================================================================
@@ -162,7 +166,7 @@ void CItemBombBox::Collision(void)
 	// プレイヤー分回る
 	for (int nCount = 0; nCount < nPlayerNum; nCount++)
 	{
-		if (m_nPlayerNum != nPlayerNum)
+		if (m_nPlayerNum != nCount)
 		{
 			// プレイヤーの関数
 			CPlayer *pPlayer = CGame::GetPlayer(nCount);
@@ -186,6 +190,10 @@ void CItemBombBox::Collision(void)
 
 						// Armorが無ければ
 						pPlayer->SetArmor(true);
+
+						// 飛ぶときの処理
+						pPlayer->SetFly(false);
+						pPlayer->SetUseGravity(true);
 
 						// 使用中
 						m_bUse = true;

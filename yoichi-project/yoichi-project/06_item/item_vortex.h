@@ -19,7 +19,7 @@ class CItemVortex : public CItem
 {
 public:
 	CItemVortex(PRIORITY Priority = PRIORITY_1);		// コンストラクタ
-	~CItemVortex();									// デストラクタ
+	~CItemVortex();										// デストラクタ
 
 	HRESULT Init(void);		// 初期化処理
 	void Update(void);		// 更新処理
@@ -31,7 +31,7 @@ public:
 
 private:
 	int m_nCounter;			// フレームカウンター
-	float m_fRadiusNum;	// プレイヤーの半径保持
+	float m_fRadiusNum;		// プレイヤーの半径保持
 };
 
 #endif

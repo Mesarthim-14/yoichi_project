@@ -157,7 +157,7 @@ void CItemMhand::UndoItem(void)
 	if (pPlayer != nullptr)
 	{
 		// ”¼Œa‚ğ–ß‚·
-		pPlayer->SetRadius(m_fPlayerRadius);
+		pPlayer->SetRadius(pPlayer->GetBaseRadius());
 	}
 
 	// I—¹ƒtƒ‰ƒO‚ğ—§‚Ä‚é

@@ -28,7 +28,7 @@
 #define TEXTURE_NAME_ITEM_VORTEX	("data/Texture/item_vortex.png")	// アイテム渦
 
 // 分割テクスチャの名前
-#define SEPARATE_TEX_NAME_NUMBER	("data/Texture/number000.png")	// ナンバー
+#define SEPARATE_TEX_NAME_NUMBER	("data/Texture/sharp_effect.png")	// ナンバー
 
 //=============================================================================
 // コンストラクタ
