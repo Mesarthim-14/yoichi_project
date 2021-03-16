@@ -204,6 +204,9 @@
     <ClInclude Include="08_3D\star_factory.h">
       <Filter>08_3D</Filter>
     </ClInclude>
+    <ClInclude Include="10_UI\player_ui.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp">
@@ -364,6 +367,9 @@
     </ClCompile>
     <ClCompile Include="08_3D\star_factory.cpp">
       <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\player_ui.cpp">
+      <Filter>10_UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
