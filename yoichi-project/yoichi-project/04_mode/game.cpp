@@ -24,12 +24,9 @@
 #include "effect_factory.h"
 #include "mesh_3d.h"
 #include "resource_manager.h"
-#include "fade.h"
-#include "time_ui.h"
-#include "timer.h"
 #include "itembox.h"
 #include "item_boxmanager.h"
-#include "star_factory.h"
+#include "star_manager.h"
 
 //=======================================================================================
 // static初期化
@@ -42,15 +39,15 @@ CBg *CGame::m_pBg = nullptr;
 CPause *CGame::m_pPause = nullptr;
 CItemBoxManager *CGame::m_pItemManager = nullptr;
 int CGame::m_nPlayerNum = 1;
-CTime_UI *CGame::m_pTimeUI=nullptr;
 
 //=======================================================================================
 // コンストラクタ
 //=======================================================================================
 CGame::CGame(PRIORITY Priority) : CScene(Priority)
 {
-    m_IsGameEnd = false;
-	m_pStarFactory = nullptr;
+	m_bGameEnd = false;
+	m_nTimeCounter = 0;
+	m_pStarManager = nullptr;
 
 	// 0だったら
 	if (m_nPlayerNum == 0)
@@ -131,16 +128,15 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 		m_pBg = CBg::Create(BG_POS, BG_SIZE);
 	}
 
-    m_pTimeUI = CTime_UI::Create();
 	//BGM
 //	CSound *pSound = CManager::GetSound();
 //	pSound->Play(CSound::SOUND_LABEL_BGM_GAME);
 
 	// !nullcheck
-	if (m_pStarFactory == nullptr)
+	if (m_pStarManager == nullptr)
 	{
 		// インスタンス生成
-		m_pStarFactory = CStarFactory::Create();
+		m_pStarManager = CStarManager::Create();
 	}
 
 	// nullcheck
@@ -212,12 +208,12 @@ void CGame::Uninit(void)
 
 
 	// nullcheck
-	if (m_pStarFactory != nullptr)
+	if (m_pStarManager != nullptr)
 	{
 		// 終了処理
-		m_pStarFactory->Uninit();
-		delete m_pStarFactory;
-		m_pStarFactory = nullptr;
+		m_pStarManager->Uninit();
+		delete m_pStarManager;
+		m_pStarManager = nullptr;
 	}
 
 	// nullcheck
@@ -251,16 +247,7 @@ void CGame::Uninit(void)
 //=======================================================================================
 void CGame::Update(void)
 {
-        CInputKeyboard* pKey = CManager::GetKeyboard();
-        CFade::FADE_MODE mode = CManager::GetFade()->GetFade();
 	// プレイヤー分
-    for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
-    {
-        //キー入力でフラグON 
-        if (pKey->GetTrigger(DIK_TAB))
-        {
-            GameEnd();// ゲームを終了
-        }
 	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
 	{
 		// !nullcheck
@@ -272,36 +259,14 @@ void CGame::Update(void)
 	}
 
 	// nullcheck
-	if (m_pStarFactory != nullptr)
+	if (m_pStarManager != nullptr)
 	{
 		// 更新処理
-		m_pStarFactory->Update();
+		m_pStarManager->Update();
 	}
 
 	// ゲームの設定
-        if (m_pCamera != NULL)
-        {
-            // !nullcheck
-            if (m_pCamera != NULL)
-            {
-                //カメラクラスの更新処理
-                m_pCamera[nCount]->Update();
-            }
-        }
-    }
-
-    // 時間切れだったら
-    if (m_pTimeUI->GetTimer()->IsTimeOver())
-    {
-        GameEnd();// ゲームを終了
-    }
-
-    if (m_IsGameEnd && mode == CFade::FADE_MODE_NONE)
-    {
-        CFade *pFade = CManager::GetFade();
-        pFade->SetFade(CManager::MODE_TYPE_RESULT);
-    }
-
+	SetGame();
 }
 
 //=======================================================================================
@@ -323,9 +288,18 @@ void CGame::Draw(void)
 }
 
 //=======================================================================================
+// ゲームの設定
+//=======================================================================================
+void CGame::SetGame(void)
+{
+	// ゲームのタイムカウンター
+	m_nTimeCounter++;
+}
+
+//=======================================================================================
 // カメラの情報
 //=======================================================================================
-CCamera *CGame::GetCamera(int nCount)
+CCamera * CGame::GetCamera(int nCount)
 {
 	return m_pCamera[nCount];
 }

@@ -146,7 +146,7 @@ void CCamera::NomalUpdate(D3DXVECTOR3 PlayerPos, D3DXVECTOR3 PlayerRot)
 	CInputKeyboard *pKeyInput = CManager::GetKeyboard();
 
 	// ジョイパッドの取得
-	DIJOYSTATE js = CInputJoypad::GetStick(0);
+	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);
 
 	//視点（カメラ座標）の左旋回
 	if (pKeyInput->GetPress(DIK_LEFT) || js.lZ > STICK_SENSITIVITY)
@@ -210,13 +210,24 @@ void CCamera::SetCamera(void)
 	//プロジェクションマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxProjection);
 
-	//プロジェクションマトリックスの作成
-	D3DXMatrixPerspectiveFovLH(&m_mtxProjection,
-		D3DXToRadian(45.0f),
-		(float)SCREEN_WIDTH / (float)SCREEN_HEIGHT,
-		10.0f,
-		100000.0f);
-
+	if (CGame::GetPlayerNum() == 2)
+	{
+		//プロジェクションマトリックスの作成
+		D3DXMatrixPerspectiveFovLH(&m_mtxProjection,
+			D3DXToRadian(45.0f),
+			(float)SCREEN_WIDTH/2 / (float)SCREEN_HEIGHT,
+			10.0f,
+			100000.0f);
+	}
+	else
+	{
+		//プロジェクションマトリックスの作成
+		D3DXMatrixPerspectiveFovLH(&m_mtxProjection,
+			D3DXToRadian(45.0f),
+			(float)SCREEN_WIDTH / (float)SCREEN_HEIGHT,
+			10.0f,
+			100000.0f);
+	}
 	//プロジェクションマトリックスの設定
 	pDevice->SetTransform(D3DTS_PROJECTION,
 		&m_mtxProjection);

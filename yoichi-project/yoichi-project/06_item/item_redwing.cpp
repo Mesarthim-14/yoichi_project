@@ -21,8 +21,8 @@
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define RED_WING_SPEED_DOWN_NUM	(2)		// 速度の情報
-#define RED_WING_TIME	(180)			// 速度アップのカウント
+#define RED_WING_SPEED_DOWN_NUM	(2)				// 速度の情報
+#define RED_WING_TIME			(180)			// 速度アップのカウント
 
 //=============================================================================
 // コンストラクタ
@@ -133,9 +133,6 @@ void CItemRedWing::SetItem(void)
 					{
 						// 相手の速度を低下
 						pPlayer->SetSpeed(pPlayer->GetBaseSpeed() / RED_WING_SPEED_DOWN_NUM);
-
-						// 無敵状態の設定
-						pPlayer->SetArmor(true);
 
 						// 効果を有効にする
 						m_bValid[nCount] = true;
