@@ -282,7 +282,7 @@ void CPlayer::Walk(void)
 	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();	// サウンドポインタ取得
 	float fSpeed = GetSpeed();											// 速度取得
 	float fCameraAngle = CGame::GetCamera(m_nNumber)->Getφ();			// カメラ角度取得
-	float fMoveAngle = 0.0f; //移動角度
+	float fMoveAngle = 0.0f;											// 移動角度
 	D3DXVECTOR3 rot = GetRot();											// 回転取得
 	D3DXVECTOR3 pos = GetPos();											// 座標取得
 	D3DXMATRIX mtxRot;
@@ -354,7 +354,7 @@ void CPlayer::Jump(void)
 			SetJump(true);
 			m_bWalk = false;
 
-			//ジャンプモーションの再生
+			// ジャンプモーションの再生
 			SetMotion(MOTION_JUMP);
 			SetLanding(false);
 		}
@@ -370,6 +370,7 @@ void CPlayer::Fly(void)
 	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);		// ジョイパッドを取得
 	D3DXVECTOR3 move = ZeroVector3;							// 移動量
 	D3DXMATRIX mtxRot;										// 回転計算用行列
+	ZeroMemory(&mtxRot, sizeof(mtxRot));
 	CCamera* pCamera = CGame::GetCamera(m_nNumber);
 	// 重力を無効化
 	if (GetUseGravity())
@@ -377,14 +378,14 @@ void CPlayer::Fly(void)
 		SetUseGravity(false);
 	}
 	
-	//プレイヤーの上方向に移動
+	// プレイヤーの上方向に移動
 	move = D3DXVECTOR3(0.0f, PLAYER_FLY_SPEED, 0.0f);
 
-	//コントローラーの入力を変換
+	// コントローラーの入力を変換
 	m_rotDest.y += D3DXToRadian(js.lX / 1000);
 	m_rotDest.x += D3DXToRadian(js.lY / 1000);
 
-	//コントローラー入力を利用してプレイヤーの向きを変換
+	// コントローラー入力を利用してプレイヤーの向きを変換
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rotDest.y, m_rotDest.x, m_rotDest.z);
 	D3DXVec3TransformNormal(&move, &move, &mtxRot);
 
