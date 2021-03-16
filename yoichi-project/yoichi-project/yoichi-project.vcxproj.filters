@@ -165,6 +165,9 @@
     <ClInclude Include="11_common\timer.h">
       <Filter>11_common</Filter>
     </ClInclude>
+    <ClInclude Include="10_UI\time_ui.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp">
@@ -286,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="11_common\timer.cpp">
       <Filter>11_common</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\time_ui.cpp">
+      <Filter>10_UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

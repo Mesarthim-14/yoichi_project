@@ -21,7 +21,7 @@ class CMeshField;
 class CBg;
 class CPlayer;
 class CPause;
-class CTimer;
+class CTime_UI;
 
 //***************************************************************************************
 // ゲームクラス
@@ -56,7 +56,7 @@ private:
 	static CBg *m_pBg;							// 背景のポインタ
 	static CPlayer *m_pPlayer[MAX_PLAYER_NUM];	// プレイヤーのポインタ
 	static CPause *m_pPause;					// ポーズのポインタ
-    static CTimer *m_Timer;                     // タイマーのポインタ
+    static CTime_UI *m_pTimeUI;                 // タイマーへのポインタ
 
 	LPD3DXFONT m_pFont;							// デバック用フォント
 	bool m_IsGameEnd;							// ゲームのエンドフラグ

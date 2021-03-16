@@ -26,6 +26,7 @@
 #include "mesh_3d.h"
 #include "resource_manager.h"
 #include "fade.h"
+#include "time_ui.h"
 #include "timer.h"
 
 //=======================================================================================
@@ -38,7 +39,7 @@ CMeshField *CGame::m_pMeshField = NULL;
 CBg *CGame::m_pBg = NULL;
 CPause *CGame::m_pPause = NULL;
 int CGame::m_nPlayerNum = 1;
-CTimer *CGame::m_Timer = nullptr;
+CTime_UI *CGame::m_pTimeUI=nullptr;
 
 //=======================================================================================
 // コンストラクタ
@@ -125,10 +126,8 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	{
 		m_pBg = CBg::Create(BG_POS, BG_SIZE);
 	}
-    // タイマーをセット
-    m_Timer = CTimer::Create();
-    m_Timer->SetTimer(5);
 
+    m_pTimeUI = CTime_UI::Create();
 	//BGM
 //	CSound *pSound = CManager::GetSound();
 //	pSound->Play(CSound::SOUND_LABEL_BGM_GAME);
@@ -230,11 +229,9 @@ void CGame::Update(void)
             }
         }
     }
-    // タイマー更新
-    m_Timer->Updete();
 
     // 時間切れだったら
-    if (m_Timer->IsTimeOver())
+    if (m_pTimeUI->GetTimer()->IsTimeOver())
     {
         GameEnd();// ゲームを終了
     }
