@@ -279,7 +279,6 @@ void CGame::Update(void)
 	}
 
 	// ÉQÅ[ÉÄÇÃê›íË
-	SetGame();
         if (m_pCamera != NULL)
         {
             // !nullcheck
