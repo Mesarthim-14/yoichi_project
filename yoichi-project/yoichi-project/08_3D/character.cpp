@@ -54,6 +54,7 @@
 	 m_nMaxLife = 0;
 	 m_nParts = 0;
 	 m_pMotion = NULL;
+	 m_bUseGravity = true;
 	 memset(m_apModelAnime, 0, sizeof(m_apModelAnime));
  }
 
@@ -118,14 +119,16 @@ void CCharacter::Uninit()
 void CCharacter::Update()
 {
 	// èdóÕ
-	if (Gravity() == true)
+	if (m_bUseGravity)
 	{
-		if (m_bLanding == false)
+		if (Gravity() == true)
 		{
-			m_bLanding = true;
+			if (m_bLanding == false)
+			{
+				m_bLanding = true;
+			}
 		}
 	}
-
 	// à⁄ìÆó â¡éZ
 	m_pos += m_move;
 
@@ -401,4 +404,12 @@ void CCharacter::SetSpeed(float fSpeed)
 void CCharacter::SetStateCounter(int nStateCounter)
 {
 	m_nStateCounter = nStateCounter;
+}
+
+//=============================================================================
+// èdóÕÇÃê›íË
+//=============================================================================
+void CCharacter::SetUseGravity(bool bUseGravity)
+{
+	m_bUseGravity = bUseGravity;
 }
