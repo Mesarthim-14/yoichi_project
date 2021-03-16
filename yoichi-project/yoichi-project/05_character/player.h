@@ -115,6 +115,7 @@ public:
 	void PlayerControl(void);									// プレイヤーの制御
 	void Walk(void);											// プレイヤーの歩く処理
 	void Jump(void);											// ジャンプの処理
+	void Fly(void);												// 飛行処理
 	void Death(void);											// 死んだときの処理
 	void MapLimit(void);										// マップの制限
 	void UseItem(void);											// アイテムの使用処理
@@ -130,10 +131,12 @@ public:
 	int GetItemNum(void)				{ return m_apItem.size(); }			// アイテムのサイズ
 
 private:
+	float InputToAngle(void);
 	D3DXVECTOR3 m_rotDest;			// 回転(目標値)
 	bool m_bWalk;					// 歩いているフラグ
 	bool m_bDraw;					// 描画のフラグ
 	bool m_bArmor;					// 無敵状態
+	bool m_bFly;					// 飛行フラグ
 	int m_nEndCounter;				// 死んだ後のカウンター
 	int m_nNumber;					// プレイヤーの番号
 	float m_fBaseSpeed;				// 元のスピード
