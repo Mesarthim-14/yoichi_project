@@ -106,7 +106,6 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 	{
 		// リソースマネージャのインスタンス生成
 		m_pResourceManager = CResourceManager::GetInstance();
-
 	}
 
 	//サウンドのインスタンス生成
@@ -141,7 +140,7 @@ void CManager::Uninit(void)
 		if (m_pTitle != NULL)
 		{
 			// 終了処理
-			m_pTitle->Uninit();
+		//	m_pTitle->Uninit();
 			m_pTitle = NULL;
 		}
 
@@ -152,7 +151,7 @@ void CManager::Uninit(void)
 		if (m_pTutorial != NULL)
 		{
 			// 終了処理
-			m_pTutorial->Uninit();
+		//	m_pTutorial->Uninit();
 			m_pTutorial = NULL;
 		}
 		break;
@@ -172,7 +171,7 @@ void CManager::Uninit(void)
 		if (m_pResult != NULL)
 		{
 			// 終了処理
-			m_pResult->Uninit();
+		//	m_pResult->Uninit();
 			m_pResult = NULL;
 		}
 		break;
@@ -267,7 +266,6 @@ void CManager::Update(void)
 		//フェードクラスの更新処理呼び出し
 		m_pFade->Update();
 	}
-
 }
 
 //=============================================================================

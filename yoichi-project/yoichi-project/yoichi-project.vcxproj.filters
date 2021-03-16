@@ -126,9 +126,6 @@
     <ClInclude Include="10_UI\number_3d.h">
       <Filter>10_UI</Filter>
     </ClInclude>
-    <ClInclude Include="10_UI\quest_logo.h">
-      <Filter>10_UI</Filter>
-    </ClInclude>
     <ClInclude Include="10_UI\ui.h">
       <Filter>10_UI</Filter>
     </ClInclude>
@@ -167,6 +164,45 @@
     </ClInclude>
     <ClInclude Include="10_UI\time_ui.h">
       <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="06_item\item_bluewing.h">
+      <Filter>06_item</Filter>
+    </ClInclude>
+    <ClInclude Include="06_item\itembox.h">
+      <Filter>06_item</Filter>
+    </ClInclude>
+    <ClInclude Include="06_item\item.h">
+      <Filter>06_item</Filter>
+    </ClInclude>
+    <ClInclude Include="06_item\item_redwing.h">
+      <Filter>06_item</Filter>
+    </ClInclude>
+    <ClInclude Include="06_item\item_bomb.h">
+      <Filter>06_item</Filter>
+    </ClInclude>
+    <ClInclude Include="06_item\item_barrier.h">
+      <Filter>06_item</Filter>
+    </ClInclude>
+    <ClInclude Include="06_item\item_mhand.h">
+      <Filter>06_item</Filter>
+    </ClInclude>
+    <ClInclude Include="06_item\item_thunder.h">
+      <Filter>06_item</Filter>
+    </ClInclude>
+    <ClInclude Include="06_item\item_vortex.h">
+      <Filter>06_item</Filter>
+    </ClInclude>
+    <ClInclude Include="06_item\item_boxmanager.h">
+      <Filter>06_item</Filter>
+    </ClInclude>
+    <ClInclude Include="06_item\item_bombbox.h">
+      <Filter>06_item</Filter>
+    </ClInclude>
+    <ClInclude Include="08_3D\star.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="08_3D\star_factory.h">
+      <Filter>08_3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -251,9 +287,6 @@
     <ClCompile Include="10_UI\number_3d.cpp">
       <Filter>10_UI</Filter>
     </ClCompile>
-    <ClCompile Include="10_UI\quest_logo.cpp">
-      <Filter>10_UI</Filter>
-    </ClCompile>
     <ClCompile Include="10_UI\ui.cpp">
       <Filter>10_UI</Filter>
     </ClCompile>
@@ -292,6 +325,45 @@
     </ClCompile>
     <ClCompile Include="10_UI\time_ui.cpp">
       <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="06_item\itembox.cpp">
+      <Filter>06_item</Filter>
+    </ClCompile>
+    <ClCompile Include="06_item\item_bluewing.cpp">
+      <Filter>06_item</Filter>
+    </ClCompile>
+    <ClCompile Include="06_item\item.cpp">
+      <Filter>06_item</Filter>
+    </ClCompile>
+    <ClCompile Include="06_item\item_redwing.cpp">
+      <Filter>06_item</Filter>
+    </ClCompile>
+    <ClCompile Include="06_item\item_bomb.cpp">
+      <Filter>06_item</Filter>
+    </ClCompile>
+    <ClCompile Include="06_item\item_barrier.cpp">
+      <Filter>06_item</Filter>
+    </ClCompile>
+    <ClCompile Include="06_item\item_thunder.cpp">
+      <Filter>06_item</Filter>
+    </ClCompile>
+    <ClCompile Include="06_item\item_mhand.cpp">
+      <Filter>06_item</Filter>
+    </ClCompile>
+    <ClCompile Include="06_item\item_vortex.cpp">
+      <Filter>06_item</Filter>
+    </ClCompile>
+    <ClCompile Include="06_item\item_bombbox.cpp">
+      <Filter>06_item</Filter>
+    </ClCompile>
+    <ClCompile Include="06_item\item_boxmanager.cpp">
+      <Filter>06_item</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\star.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\star_factory.cpp">
+      <Filter>08_3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

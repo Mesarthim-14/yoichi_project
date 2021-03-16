@@ -18,6 +18,14 @@
 // テクスチャの名前
 #define TEXTURE_NAME_EFFECT			("data/Texture/effect000.png")		// エフェクト
 #define TEXTURE_NAME_FLOOR			("data/Texture/floor.jpg")			// 床
+#define TEXTURE_NAME_TITLE_LOGO		("data/Texture/titlelogo001.png")	// タイトルのロゴ
+#define TEXTURE_NAME_ITEM_BLUE_WING	("data/Texture/item_bluewind.png")	// アイテム青い羽根
+#define TEXTURE_NAME_ITEM_RED_WING	("data/Texture/item_redwind.png")	// アイテム赤い羽根
+#define TEXTURE_NAME_ITEM_BOMB		("data/Texture/item_bomb.png")		// アイテムボム
+#define TEXTURE_NAME_ITEM_BARRIER	("data/Texture/item_barrier.png")	// アイテムバリア
+#define TEXTURE_NAME_ITEM_THUNDER	("data/Texture/item_thunder.png")	// アイテム雷
+#define TEXTURE_NAME_ITEM_MHAND		("data/Texture/item_mhand.png")		// アイテムMハンド
+#define TEXTURE_NAME_ITEM_VORTEX	("data/Texture/item_vortex.png")	// アイテム渦
 
 // 分割テクスチャの名前
 #define SEPARATE_TEX_NAME_NUMBER	("data/Texture/number000.png")	// ナンバー
@@ -58,6 +66,14 @@ HRESULT CTexture::Load(void)
 	//テクスチャの読み込み
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_EFFECT, &m_apTexture[TEXTURE_NUM_EFFECT]);
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_FLOOR, &m_apTexture[TEXTURE_NUM_FLOOR]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_TITLE_LOGO, &m_apTexture[TEXTURE_NUM_TITLE_LOGO]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_ITEM_BLUE_WING, &m_apTexture[TEXTURE_NUM_ITEM_BLUE_WING]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_ITEM_RED_WING, &m_apTexture[TEXTURE_NUM_ITEM_RED_WING]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_ITEM_BOMB, &m_apTexture[TEXTURE_NUM_ITEM_BOMB]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_ITEM_BARRIER, &m_apTexture[TEXTURE_NUM_ITEM_BARRIER]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_ITEM_THUNDER, &m_apTexture[TEXTURE_NUM_ITEM_THUNDER]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_ITEM_MHAND, &m_apTexture[TEXTURE_NUM_ITEM_MHAND]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_ITEM_VORTEX, &m_apTexture[TEXTURE_NUM_ITEM_VORTEX]);
 
 	return S_OK;
 }

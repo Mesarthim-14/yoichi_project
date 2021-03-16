@@ -67,6 +67,9 @@ CTitle * CTitle::Create(void)
 //=============================================================================
 HRESULT CTitle::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 {
+	// テクスチャのポインタ
+	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
+
 	if (m_pScene2D == NULL)
 	{
 		//2Dオブジェクトの生成
@@ -85,14 +88,17 @@ HRESULT CTitle::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 		m_pPress->BindTexture(NULL);
 	}
 
+	// nullcheck
 	if (m_pTitleName == NULL)
 	{
 		//2Dオブジェクトの生成
-		m_pTitleName = CScene2D::Create(D3DXVECTOR3(pos.x, pos.y - 50.0f, 0.0f), D3DXVECTOR3(TITLE_SIZE_X, TITLE_SIZE_Y, 0.0f));
+		m_pTitleName = CScene2D::Create(D3DXVECTOR3(pos.x, pos.y - 125.0f, 0.0f), D3DXVECTOR3(TITLE_SIZE_X, TITLE_SIZE_Y, 0.0f));
 
+		// !nullcheck
 		if (m_pTitleName != NULL)
 		{
-			m_pTitleName->BindTexture(NULL);
+			// テクスチャのポインタ
+			m_pTitleName->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_TITLE_LOGO));
 		}
 
 	}

@@ -82,6 +82,7 @@ public:
 	static MESH_3D GetMesh3D(MESH_TYPE MeshNum) { return m_Mesh3D[MeshNum]; }				// メッシュの情報
 	MESH_TYPE GetMeshNum(void) { return m_MeshNum; }										// メッシュの番号
 	D3DXVECTOR2 GetOneSize(void) { return m_OneSize; }										// サイズ
+
 private:
 	LPDIRECT3DINDEXBUFFER9 m_pIdxBuff;			// バッファの番号
 	D3DXMATRIX m_mtxWorld;						// ワールドマトリックス

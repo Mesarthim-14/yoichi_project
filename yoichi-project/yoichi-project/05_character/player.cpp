@@ -28,6 +28,7 @@
 #include "xfile.h"
 #include "character.h"
 #include "motion.h"
+#include "item.h"
 
 //=============================================================================
 // マクロ定義
@@ -36,7 +37,7 @@
 #define PLAYER_JUMP						(17.0f)				// ジャンプの処理
 #define STICK_SENSITIVITY				(50.0f)				// スティック感度
 #define PLAYER_ROT_SPEED				(0.1f)				// キャラクターの回転する速度
-#define PLAYER_RADIUS					(50.0f)				// 半径の大きさ
+#define PLAYER_RADIUS					(200.0f)			// 半径の大きさ
 #define PLAYER_PARTS					(22)				// プレイヤーのパーツ数
 #define GAME_END_FLAME					(100)				// ゲームが終わるフレーム
 
@@ -71,6 +72,8 @@ CPlayer::CPlayer(PRIORITY Priority)
 	m_bWalk = false;
 	m_bDraw = true;
 	m_nEndCounter = 0;
+	m_fBaseSpeed = 0.0f;
+	m_bArmor = false;
 }
 
 //=============================================================================
@@ -99,8 +102,8 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	CCharacter::Init(pos, rot);												// 座標　角度
 	SetRadius(PLAYER_RADIUS);												// 半径の設定
 	SetSpeed(PLAYER_SPEED);													// 速度の設定
-	SetWeaponTipNum(PARTS_NUM_COLLISION);									// 剣先のパーツ番号
-	SetWeaponRootNum(PARTS_NUM_ROOT);										// 剣の根本のパーツ番号
+
+	m_fBaseSpeed = PLAYER_SPEED;		// 元のスピード保持
 
 	return S_OK;
 }
@@ -110,6 +113,25 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 //=============================================================================
 void CPlayer::Uninit(void)
 {	
+	// メモリ確保
+	for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
+	{
+		// !nullcheck
+		if (m_apItem[nCount] != nullptr)
+		{
+			// 終了処理
+			m_apItem[nCount]->Uninit();
+			m_apItem[nCount] = nullptr;
+		}
+	}
+
+	// 配列があれば
+	if (m_apItem.size() != NULL)
+	{
+		// 配列のクリア
+		m_apItem.clear();
+	}
+
 	// 終了処理
 	CCharacter::Uninit();
 }
@@ -137,6 +159,21 @@ void CPlayer::Update(void)
 
 	// プレイヤーの制御
 	PlayerControl();
+
+	// メモリ確保
+	for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
+	{
+		// !nullcheck
+		if (m_apItem[nCount] != nullptr)
+		{
+			// アイテムの削除フラグが立ったら
+			if (m_apItem[nCount]->GetEnd() == true)
+			{
+				// 配列を空にする
+				m_apItem.erase(m_apItem.begin() + nCount);
+			}
+		}
+	}
 
 	// 角度の取得
 	D3DXVECTOR3 rot = GetRot();
@@ -221,6 +258,9 @@ void CPlayer::PlayerControl()
 
 	// ジャンプの処理
 	Jump();
+
+	// アイテムの使用
+	UseItem();
 }
 
 //=============================================================================
@@ -401,5 +441,56 @@ void CPlayer::MapLimit(void)
 	if (GetPos().z <-MAP_LIMIT)
 	{
 		SetPos(D3DXVECTOR3(GetPos().x, GetPos().y, -MAP_LIMIT));
+	}
+}
+
+//=============================================================================
+// アイテムの使用処理
+//=============================================================================
+void CPlayer::UseItem(void)
+{
+	// キーボード情報
+	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
+
+	// SPACEキーを押したとき・コントローラのYを押したとき
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, m_nNumber)
+		|| pKeyboard->GetTrigger(DIK_I))
+	{
+		for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
+		{
+			// !nullcheck
+			if (m_apItem[nCount] != nullptr)
+			{
+				if (m_apItem[nCount]->GetUse() == false)
+				{
+					// アイテムを使う
+					m_apItem[nCount]->SetItem();
+
+					break;
+				}
+			}
+		}
+
+	}
+}
+
+//=============================================================================
+// アイテムのデータを渡す
+//=============================================================================
+void CPlayer::AcquiredItem(CItem *pItem)
+{
+	if (m_apItem.size() == 0)
+	{
+		// アイテムのポインタ
+		m_apItem.push_back(pItem);
+	}
+	else if (m_apItem[0] != nullptr)
+	{
+		// 使われている状態なら
+		if (m_apItem[0]->GetUse() == true)
+		{
+			// アイテムのポインタ
+			m_apItem.push_back(pItem);
+		}
 	}
 }

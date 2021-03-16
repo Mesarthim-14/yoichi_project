@@ -261,7 +261,6 @@ void CScene3D::SetColor(D3DXCOLOR col)
 {
 	CSceneBase::SetColor(col);
 
-
 	VERTEX_3D*pVtx = NULL;
 
 	//頂点バッファをロック
@@ -270,7 +269,7 @@ void CScene3D::SetColor(D3DXCOLOR col)
 	for (int nCount = 0; nCount < NUM_VERTEX; nCount++)
 	{
 		//頂点カラーの設定（0～255の数値で設定）
-		pVtx[nCount].col = D3DXCOLOR(GetColor().r, GetColor().g, GetColor().b, GetColor().a);
+		pVtx[nCount].col = D3DXCOLOR(col.r, col.g, col.b, col.a);
 	}
 
 	//頂点バッファのアンロック

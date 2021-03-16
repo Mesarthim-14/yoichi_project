@@ -17,17 +17,17 @@
 //=====================================================
 CBillboard::CBillboard(PRIORITY Priority) : CSceneBase(Priority)
 {
-	m_move = ZeroVector3;			// 移動量
-	m_sizeBase = ZeroVector3;		// ベースのサイズ
-	m_nLife = 0;									// 寿命
-	m_bUse = false;									// 使用判定
-	m_nCountAnim = 0;;								// アニメーションテクスチャ
-	m_nCountAnimPattern = 0;						// アニメーションのパターン
-	m_nCounterAnim = 0;								// アニメーションのカウンター
-	m_nPatternAnim = 0;								// アニメーションのパターン数
-	m_nLoop = -1;									// ループするか
-	m_nAlphaNum = 0;								// アルファテストの値
-	m_bAlpha = false;								// アルファテストのフラグ
+	m_move = ZeroVector3;		// 移動量
+	m_sizeBase = ZeroVector3;	// ベースのサイズ
+	m_nLife = 0;				// 寿命
+	m_bUse = false;				// 使用判定
+	m_nCountAnim = 0;;			// アニメーションテクスチャ
+	m_nCountAnimPattern = 0;	// アニメーションのパターン
+	m_nCounterAnim = 0;			// アニメーションのカウンター
+	m_nPatternAnim = 0;			// アニメーションのパターン数
+	m_nLoop = -1;				// ループするか
+	m_nAlphaNum = 0;			// アルファテストの値
+	m_bAlpha = false;			// アルファテストのフラグ
 }
 
 //=====================================================

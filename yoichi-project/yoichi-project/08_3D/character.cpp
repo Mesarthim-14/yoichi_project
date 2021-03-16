@@ -46,14 +46,12 @@
 	 m_rot = ZeroVector3;
 	 m_nLife = 0;
 	 m_nCharaNum = m_nAllNum++;
-	 m_nWeaponTipNum = 0;
 	 m_fAngle = 0.0f;
 	 m_fSpeed = 0.0f;
 	 m_bJump = false;
 	 m_fRadius = 0.0f;
 	 m_nStateCounter = 0;
 	 m_nMaxLife = 0;
-	 m_Ctype = CHARACTER_TYPE_NONE;
 	 m_nParts = 0;
 	 m_pMotion = NULL;
 	 memset(m_apModelAnime, 0, sizeof(m_apModelAnime));
@@ -182,6 +180,7 @@ void CCharacter::Draw()
 //=============================================================================
 void CCharacter::ModelCreate(CXfile::HIERARCHY_XFILE_NUM FileNum)
 {
+	// XFileのポインタ取得
 	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();
 
 	// !nullcheck
@@ -389,35 +388,11 @@ void CCharacter::SetRadius(float fRadius)
 }
 
 //=============================================================================
-// キャラクターのタイプ設定
-//=============================================================================
-void CCharacter::SetCType(CHARACTER_TYPE Ctype)
-{
-	m_Ctype = Ctype;
-}
-
-//=============================================================================
 // キャラクターの速度設定
 //=============================================================================
 void CCharacter::SetSpeed(float fSpeed)
 {
 	m_fSpeed = fSpeed;
-}
-
-//=============================================================================
-// 剣先のパーツ番号設定
-//=============================================================================
-void CCharacter::SetWeaponTipNum(int nWeaponTipNum)
-{
-	m_nWeaponTipNum = nWeaponTipNum;
-}
-
-//=============================================================================
-// 剣の根本のパーツ番号設定
-//=============================================================================
-void CCharacter::SetWeaponRootNum(int nWeaponRootNum)
-{
-	m_nWeaponRootNum = nWeaponRootNum;
 }
 
 //=============================================================================

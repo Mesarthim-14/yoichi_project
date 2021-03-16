@@ -21,23 +21,26 @@
 #include "time.h"
 #include "sound.h"
 #include "keyboard.h"
-#include "quest_logo.h"
 #include "effect_factory.h"
 #include "mesh_3d.h"
 #include "resource_manager.h"
 #include "fade.h"
 #include "time_ui.h"
 #include "timer.h"
+#include "itembox.h"
+#include "item_boxmanager.h"
+#include "star_factory.h"
 
 //=======================================================================================
 // static初期化
 //=======================================================================================
 CCamera *CGame::m_pCamera[MAX_PLAYER_NUM] = {};
 CPlayer *CGame::m_pPlayer[MAX_PLAYER_NUM] = {};
-CLight *CGame::m_pLight = NULL;
-CMeshField *CGame::m_pMeshField = NULL;
-CBg *CGame::m_pBg = NULL;
-CPause *CGame::m_pPause = NULL;
+CLight *CGame::m_pLight = nullptr;
+CMeshField *CGame::m_pMeshField = nullptr;
+CBg *CGame::m_pBg = nullptr;
+CPause *CGame::m_pPause = nullptr;
+CItemBoxManager *CGame::m_pItemManager = nullptr;
 int CGame::m_nPlayerNum = 1;
 CTime_UI *CGame::m_pTimeUI=nullptr;
 
@@ -47,6 +50,7 @@ CTime_UI *CGame::m_pTimeUI=nullptr;
 CGame::CGame(PRIORITY Priority) : CScene(Priority)
 {
     m_IsGameEnd = false;
+	m_pStarFactory = nullptr;
 
 	// 0だったら
 	if (m_nPlayerNum == 0)
@@ -90,14 +94,14 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
 	{	
 		// nullcheck
-		if (m_pCamera[nCount] == NULL)
+		if (m_pCamera[nCount] == nullptr)
 		{
 			// カメラクラスのクリエイト
 			m_pCamera[nCount] = CCamera::Create(nCount);
 		}
 
 		// nullcheck
-		if (m_pPlayer[nCount] == NULL)
+		if (m_pPlayer[nCount] == nullptr)
 		{
 			// プレイヤーの生成
 			m_pPlayer[nCount] = CPlayer::Create(
@@ -110,7 +114,7 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	m_pLight = new CLight;
 
 	// ライトの初期化処理
-	if (m_pLight != NULL)
+	if (m_pLight != nullptr)
 	{
 		if (FAILED(m_pLight->Init()))
 		{
@@ -122,7 +126,7 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	m_pMeshField = CMeshField::Create();
 
 	// 背景
-	if (m_pBg == NULL)
+	if (m_pBg == nullptr)
 	{
 		m_pBg = CBg::Create(BG_POS, BG_SIZE);
 	}
@@ -131,6 +135,27 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	//BGM
 //	CSound *pSound = CManager::GetSound();
 //	pSound->Play(CSound::SOUND_LABEL_BGM_GAME);
+
+	// !nullcheck
+	if (m_pStarFactory == nullptr)
+	{
+		// インスタンス生成
+		m_pStarFactory = CStarFactory::Create();
+	}
+
+	// nullcheck
+	if (m_pItemManager == nullptr)
+	{
+		// インスタンス生成
+		m_pItemManager = CItemBoxManager::GetInstance();
+
+		// !nullcheck
+		if (m_pItemManager != nullptr)
+		{
+			// アイテムボックスの生成
+			m_pItemManager->CreateItemBox();
+		}
+	}
 
 	//デバイス情報の取得
 	LPDIRECT3DDEVICE9 pD3DDevice = CManager::GetRenderer()->GetDevice();
@@ -148,24 +173,24 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 void CGame::Uninit(void)
 {
 	// 背景
-	if (m_pBg != NULL)
+	if (m_pBg != nullptr)
 	{
 		m_pBg->Uninit();
-		m_pBg = NULL;
+		m_pBg = nullptr;
 	}
 
 	// ライトの終了処理
-	if (m_pLight != NULL)
+	if (m_pLight != nullptr)
 	{
 		m_pLight->Uninit();
 		delete m_pLight;
-		m_pLight = NULL;
+		m_pLight = nullptr;
 	}
 
 	// プレイヤーの数
 	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
 	{
-		if (m_pCamera[nCount] != NULL)
+		if (m_pCamera[nCount] != nullptr)
 		{
 			//カメラクラスの終了処理呼び出す
 			m_pCamera[nCount]->Uninit();
@@ -174,25 +199,43 @@ void CGame::Uninit(void)
 			delete m_pCamera[nCount];
 
 			//メモリのクリア
-			m_pCamera[nCount] = NULL;
+			m_pCamera[nCount] = nullptr;
 		}
 
 		// プレイヤーの終了処理
-		if (m_pPlayer[nCount] != NULL)
+		if (m_pPlayer[nCount] != nullptr)
 		{
 			m_pPlayer[nCount]->Uninit();
-			m_pPlayer[nCount] = NULL;
+			m_pPlayer[nCount] = nullptr;
 		}
 	}
 
+
+	// nullcheck
+	if (m_pStarFactory != nullptr)
+	{
+		// 終了処理
+		m_pStarFactory->Uninit();
+		delete m_pStarFactory;
+		m_pStarFactory = nullptr;
+	}
+
+	// nullcheck
+	if (m_pItemManager != nullptr)
+	{
+		// 終了処理
+		m_pItemManager->Uninit();
+		m_pItemManager = nullptr;
+	}
+
 	// !nullcheck
-	if (CManager::GetResourceManager() != NULL)
+	if (CManager::GetResourceManager() != nullptr)
 	{
 		//サウンド情報取得
 		CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
 
 		// !nullcheck
-		if (pSound != NULL)
+		if (pSound != nullptr)
 		{
 			//ゲームBGM停止
 		//	pSound->Stop(CSound::SOUND_LABEL_BGM_GAME);
@@ -218,7 +261,25 @@ void CGame::Update(void)
         {
             GameEnd();// ゲームを終了
         }
+	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+	{
+		// !nullcheck
+		if (m_pCamera != nullptr)
+		{
+			//カメラクラスの更新処理
+			m_pCamera[nCount]->Update();
+		}
+	}
 
+	// nullcheck
+	if (m_pStarFactory != nullptr)
+	{
+		// 更新処理
+		m_pStarFactory->Update();
+	}
+
+	// ゲームの設定
+	SetGame();
         if (m_pCamera != NULL)
         {
             // !nullcheck
@@ -250,13 +311,13 @@ void CGame::Update(void)
 void CGame::Draw(void)
 {
 	// 背景
-	if (m_pBg != NULL)
+	if (m_pBg != nullptr)
 	{
 		m_pBg->Draw();
 	}
 
 	// ライト
-	if (m_pLight != NULL)
+	if (m_pLight != nullptr)
 	{
 		m_pLight->ShowLightInfo();
 	}

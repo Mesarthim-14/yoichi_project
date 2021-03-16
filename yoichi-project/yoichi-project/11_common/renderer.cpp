@@ -426,7 +426,7 @@ bool CRenderer::SetUpViewport(int nNumber)
 			break;
 		case 2:
 			// ビューポートの左上座標
-			m_view_port[nNumber].X = 0.0f;
+			m_view_port[nNumber].X = (DWORD)0.0f;
 			m_view_port[nNumber].Y = SCREEN_HEIGHT / 2;
 
 			// ビューポートの幅
