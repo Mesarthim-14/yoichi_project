@@ -128,6 +128,7 @@ public:
 	CItem *GetItem(void)				{ return m_apItem[0]; }				// アイテムのポインタ
 	float GetBaseSpeed(void)			{ return m_fBaseSpeed; }			// 元のスピード
 	bool GetArmor(void)					{ return m_bArmor; }				// 無敵状態
+	bool GetIsFly(void)					{ return m_bFly; }					// 飛行状態
 	int GetItemNum(void)				{ return m_apItem.size(); }			// アイテムのサイズ
 
 private:
