@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)yoichi-project/00_main;$(SolutionDir)yoichi-project/01_manager;$(SolutionDir)yoichi-project/02_input;$(SolutionDir)yoichi-project/03_scene;$(SolutionDir)yoichi-project/04_mode;$(SolutionDir)yoichi-project/05_player;$(SolutionDir)yoichi-project/06_item;$(SolutionDir)yoichi-project/07_resource;$(SolutionDir)yoichi-project/08_3D;$(SolutionDir)yoichi-project/09_2D;$(SolutionDir)yoichi-project/10_UI;$(SolutionDir)yoichi-project/11_common;$(SolutionDir)yoichi-project/12_effect;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)yoichi-project/00_main;$(SolutionDir)yoichi-project/01_manager;$(SolutionDir)yoichi-project/02_input;$(SolutionDir)yoichi-project/03_scene;$(SolutionDir)yoichi-project/04_mode;$(SolutionDir)yoichi-project/05_character;$(SolutionDir)yoichi-project/06_item;$(SolutionDir)yoichi-project/07_resource;$(SolutionDir)yoichi-project/08_3D;$(SolutionDir)yoichi-project/09_2D;$(SolutionDir)yoichi-project/10_UI;$(SolutionDir)yoichi-project/11_common;$(SolutionDir)yoichi-project/12_effect;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -168,7 +168,7 @@
     <ClInclude Include="04_mode\result.h" />
     <ClInclude Include="04_mode\title.h" />
     <ClInclude Include="04_mode\tutorial.h" />
-    <ClInclude Include="05_player\player.h" />
+    <ClInclude Include="05_character\player.h" />
     <ClInclude Include="06_item\item.h" />
     <ClInclude Include="06_item\itembox.h" />
     <ClInclude Include="06_item\item_barrier.h" />
@@ -196,12 +196,14 @@
     <ClInclude Include="08_3D\star_factory.h" />
     <ClInclude Include="10_UI\number_2d.h" />
     <ClInclude Include="10_UI\number_3d.h" />
+    <ClInclude Include="10_UI\time_ui.h" />
     <ClInclude Include="10_UI\ui.h" />
     <ClInclude Include="11_common\bg.h" />
     <ClInclude Include="11_common\collision.h" />
     <ClInclude Include="11_common\fade.h" />
     <ClInclude Include="11_common\polygon.h" />
     <ClInclude Include="11_common\renderer.h" />
+    <ClInclude Include="11_common\timer.h" />
     <ClInclude Include="12_effect\effect_3d.h" />
     <ClInclude Include="12_effect\effect_factory.h" />
     <ClInclude Include="12_effect\particle.h" />
@@ -221,7 +223,7 @@
     <ClCompile Include="04_mode\result.cpp" />
     <ClCompile Include="04_mode\title.cpp" />
     <ClCompile Include="04_mode\tutorial.cpp" />
-    <ClCompile Include="05_player\player.cpp" />
+    <ClCompile Include="05_character\player.cpp" />
     <ClCompile Include="06_item\item.cpp" />
     <ClCompile Include="06_item\itembox.cpp" />
     <ClCompile Include="06_item\item_barrier.cpp" />
@@ -249,12 +251,14 @@
     <ClCompile Include="08_3D\star_factory.cpp" />
     <ClCompile Include="10_UI\number_2d.cpp" />
     <ClCompile Include="10_UI\number_3d.cpp" />
+    <ClCompile Include="10_UI\time_ui.cpp" />
     <ClCompile Include="10_UI\ui.cpp" />
     <ClCompile Include="11_common\bg.cpp" />
     <ClCompile Include="11_common\collision.cpp" />
     <ClCompile Include="11_common\fade.cpp" />
     <ClCompile Include="11_common\polygon.cpp" />
     <ClCompile Include="11_common\renderer.cpp" />
+    <ClCompile Include="11_common\timer.cpp" />
     <ClCompile Include="12_effect\effect_3d.cpp" />
     <ClCompile Include="12_effect\effect_factory.cpp" />
     <ClCompile Include="12_effect\particle.cpp" />
