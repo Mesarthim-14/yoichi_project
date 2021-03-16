@@ -124,13 +124,14 @@ public:
 
 	// Set関数
 	void SetArmor(bool bArmor)			{ m_bArmor = bArmor; }				// 無敵状態の設定
-	void SetFly(bool bFly)				{ m_bFly = bFly; }					// 不幸状態の設定
+	void SetFly(bool bFly)				{ m_bFly = bFly; }					// 飛行状態の設定
 
 	// Get関数
 	CItem *GetItem(void)				{ return m_apItem[0]; }				// アイテムのポインタ
 	float GetBaseSpeed(void)			{ return m_fBaseSpeed; }			// 元のスピード
 	float GetBaseRadius(void)			{ return m_fBaseRadius; }			// 元の半径
 	bool GetArmor(void)					{ return m_bArmor; }				// 無敵状態
+	bool GetIsFly(void)					{ return m_bFly; }					// 飛行状態
 	int GetItemNum(void)				{ return m_apItem.size(); }			// アイテムのサイズ
 
 private:
