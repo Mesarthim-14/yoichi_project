@@ -21,7 +21,7 @@
 #include "time.h"
 #include "collision.h"
 #include "fade.h"
-#include "particle.h"
+#include "effect.h"
 #include "effect_factory.h"
 #include "texture.h"
 #include "resource_manager.h"
@@ -166,6 +166,16 @@ void CPlayer::Update(void)
 		// 死んだとき
 		Death();
 	}
+
+	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(5)->GetMtxWorld()._41,
+		GetModelAnime(5)->GetMtxWorld()._42,
+		GetModelAnime(5)->GetMtxWorld()._43),
+		CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
+
+	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(8)->GetMtxWorld()._41,
+		GetModelAnime(8)->GetMtxWorld()._42,
+		GetModelAnime(8)->GetMtxWorld()._43),
+		CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
 }
 
 //=============================================================================
@@ -361,9 +371,55 @@ void CPlayer::Jump(void)
 		m_bWalk = false;
 
 		//ジャンプモーションの再生
-		SetMotion(MOTION_JUMP);
+		SetMotion(4);
 		SetLanding(false);
+
+		CEffectFactory::CreateEffect(GetPos() + D3DXVECTOR3(0.0f, 100.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_THUNDER);
+		CEffectFactory::CreateEffect(GetPos() + D3DXVECTOR3(0.0f, 500.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_LIGHTNINGSTRIKE);
+
 	}
+
+	//=============================================================================
+	// Author : Ito Yogo
+	//=============================================================================
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_B, m_nNumber) && GetJump() == false)
+	{
+		CEffectFactory::CreateEffect(GetPos() + D3DXVECTOR3(0.0f, 100.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_THUNDER);
+		CEffectFactory::CreateEffect(GetPos() + D3DXVECTOR3(0.0f, 500.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_LIGHTNINGSTRIKE);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_Y, m_nNumber) && GetJump() == false)
+	{
+		CEffectFactory::CreateEffect(GetPos(), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STAR);
+		CEffectFactory::CreateEffect(GetPos()/* + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f)*/, CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SHOCKWAVE);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_Y, m_nNumber) && GetJump() == false)
+	{
+		CEffectFactory::CreateEffect(GetPos() + D3DXVECTOR3(0.0f, 500.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_WIND);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L_TRIGGER, m_nNumber) && GetJump() == false)
+	{
+		CEffectFactory::CreateEffect(GetPos() + D3DXVECTOR3(0.0f, 500.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWN);
+	}
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, m_nNumber) && GetJump() == false)
+	{
+		CEffectFactory::CreateEffect(GetPos(), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSUP);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L2_TRIGGER, m_nNumber) && GetJump() == false)
+	{
+		CEffectFactory::CreateEffect(D3DXVECTOR3(0.0f, 0.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSION);
+		CEffectFactory::CreateEffect(D3DXVECTOR3(0.0f, 0.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSIONCIRCLE);
+		CEffectFactory::CreateEffect(D3DXVECTOR3(0.0f, 0.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSIONSPARK);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R2_TRIGGER, m_nNumber) && GetJump() == false)
+	{
+
+	}
+	//=============================================================================
 }
 
 //=============================================================================

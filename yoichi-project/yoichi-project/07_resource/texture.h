@@ -24,6 +24,9 @@ public:
 		TEXTURE_NUM_NONE = -1,		// 初期値
 		TEXTURE_NUM_EFFECT,			// 炎
 		TEXTURE_NUM_FLOOR,			// 床テクスチャ
+		TEXTURE_NUM_STAR,			// 星
+		TEXTURE_NUM_RING,			// 輪
+		TEXTURE_NUM_SMOKE,			// 煙
 		TEXTURE_NUM_MAX
 	}TEXTURE_TYPE;
 
@@ -31,7 +34,12 @@ public:
 	typedef enum
 	{
 		SEPARATE_TEX_NONE = -1,			// 初期値
-		SEPARATE_TEX_NUMBER,		// コンボのナンバー
+		SEPARATE_TEX_NUMBER,			// コンボのナンバー
+		SEPARATE_TEX_LIGHTNINGSTRIKE,	// 落雷のテクスチャ
+		SEPARATE_TEX_THUNDER,			// 雷のテクスチャ
+		SEPARATE_TEX_SHOCKWAVE,			// 衝撃波のテクスチャ
+		SEPARATE_TEX_WIND,				// 風のテクスチャ
+		SEPARATE_TEX_EXPLOSION,			// 爆発のテクスチャ
 		SEPARATE_TEX_MAX				// 最大値
 	}SEPARATE_TEX_TYPE;
 
@@ -65,7 +73,12 @@ private:
 	// 分割テクスチャの構造体
 	SEPARATE_TEX_INFO m_apSeparateTexture[SEPARATE_TEX_MAX] =
 	{
-		nullptr, CTexture::SEPARATE_TEX_NUMBER, D3DXVECTOR2(5, 5), false,
+		nullptr, CTexture::SEPARATE_TEX_NUMBER, D3DXVECTOR2(5, 4), false,
+		nullptr, CTexture::SEPARATE_TEX_LIGHTNINGSTRIKE, D3DXVECTOR2(6, 5), false,
+		nullptr, CTexture::SEPARATE_TEX_THUNDER, D3DXVECTOR2(10, 5), false,
+		nullptr, CTexture::SEPARATE_TEX_SHOCKWAVE, D3DXVECTOR2(5, 3), false,
+		nullptr, CTexture::SEPARATE_TEX_WIND, D3DXVECTOR2(30, 1), false,
+		nullptr, CTexture::SEPARATE_TEX_WIND, D3DXVECTOR2(8, 5), false,
 	};
 	// 分割テクスチャのポインタ
 };

@@ -28,10 +28,14 @@ public:
 	
 	void InitAnimation(D3DXVECTOR2 TexInfo, int nLoop);			// アニメーション情報初期化
 	void UpdateAnimation(void);									// アニメーションの更新
+	void UpdateTransparency(void);								// 透明度の更新
 	
 	// Set関数
 	void SetMove(D3DXVECTOR3 move);								// 移動量設定
 	void SetSizeBase(D3DXVECTOR3 sizeBase);						// サイズのベース
+	void SetGravity(D3DXVECTOR3 gravity);						// 重力の設定
+	void SetScale(D3DXVECTOR3 scale);							// 拡大率の設定
+	void SetTransparency(float transparency);					// 透明度を減らす量の設定
 	void SetLife(int nLife);									// 体力の設定
 	void SetAlpha(bool bAlpha);									// アルファテストの設定
 	void SetAlphaNum(int nAlphaNum);							// アルファテストの値
@@ -44,6 +48,9 @@ public:
 private:
 	D3DXVECTOR3 m_move;							// 移動量
 	D3DXVECTOR3 m_sizeBase;						// サイズのベース
+	D3DXVECTOR3 m_gravity;						// 重力
+	D3DXVECTOR3 m_scale;						// 拡大率
+	float m_Transparency;						// 透明度を減らす量
 	D3DXMATRIX m_mtxWorld;						// 行列計算用
 	int m_nLife;								// 寿命
 	int m_nCountAnim;							// アニメーションテクスチャ

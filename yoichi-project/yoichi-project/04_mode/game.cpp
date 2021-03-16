@@ -25,6 +25,7 @@
 #include "effect_factory.h"
 #include "mesh_3d.h"
 #include "resource_manager.h"
+#include "effect_factory.h"
 
 //=======================================================================================
 // static‰Šú‰»
@@ -214,7 +215,6 @@ void CGame::Update(void)
 			m_pCamera[nCount]->Update();
 		}
 	}
-
 	// ƒQ[ƒ€‚Ìİ’è
 	SetGame();
 }

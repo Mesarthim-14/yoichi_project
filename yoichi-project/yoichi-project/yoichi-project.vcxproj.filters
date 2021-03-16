@@ -153,11 +153,11 @@
     <ClInclude Include="12_effect\effect_factory.h">
       <Filter>12_effect</Filter>
     </ClInclude>
-    <ClInclude Include="12_effect\particle.h">
-      <Filter>12_effect</Filter>
-    </ClInclude>
     <ClInclude Include="08_3D\motion.h">
       <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="12_effect\effect.h">
+      <Filter>12_effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -272,11 +272,11 @@
     <ClCompile Include="12_effect\effect_factory.cpp">
       <Filter>12_effect</Filter>
     </ClCompile>
-    <ClCompile Include="12_effect\particle.cpp">
-      <Filter>12_effect</Filter>
-    </ClCompile>
     <ClCompile Include="08_3D\motion.cpp">
       <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="12_effect\effect.cpp">
+      <Filter>12_effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

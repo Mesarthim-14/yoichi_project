@@ -19,7 +19,7 @@
 #define XFILE_NAME_BG						("data/model/bg_dome001.x")					// 背景
 
 // 階層構造モデルのファイル
-#define HIERARCHY_FILENAME_PLAYER			("data/Text/motion_LBX.txt")	// プレイヤーのファイルネーム
+#define HIERARCHY_FILENAME_PLAYER			("data/Text/motion_PLAYER.txt")	// プレイヤーのファイルネーム
 
 //=============================================================================
 // コンストラクタ
