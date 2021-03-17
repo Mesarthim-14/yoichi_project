@@ -119,14 +119,17 @@ public:
 	void Fly(void);												// 飛行処理
 	void Death(void);											// 死んだときの処理
 	void MapLimit(void);										// マップの制限
+    void AddStarNum(int nStarNum) { m_nStarNum += nStarNum; }			// 星獲得数の加算
 
 	// Set関数
 	void SetArmor(bool bArmor) { m_bArmor = bArmor; }			// 無敵状態の設定
 	void SetFly(bool bFly)				{ m_bFly = bFly; }					// 飛行状態の設定
 
-	// Get関数CPlayer_UI
+	// Get関数
     CPlayer_UI *GetPlayerUI(void)       { return m_pPlayerUI; }             // UIのポインタ
 	float GetBaseSpeed(void)			{ return m_fBaseSpeed; }			// 元のスピード
+    float GetBaseRadius(void)           { return m_fBaseRadius; }			// 元の半径
+    bool GetIsFly(void) { return m_bFly; }					// 飛行状態
 	bool  GetArmor(void)				{ return m_bArmor; }				// 無敵状態
     int   GetPlayerNum(void)            { return m_nNumber; }               // プレイヤーの番号
 
