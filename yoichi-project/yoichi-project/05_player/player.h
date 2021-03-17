@@ -141,6 +141,7 @@ private:
 	bool m_bDraw;					// 描画のフラグ
 	bool m_bArmor;					// 無敵状態
 	bool m_bFly;					// 飛行フラグ
+	bool m_bStickReverseVartical;	// ジョイスティックの上下反転フラグ
 	int m_nEndCounter;				// 死んだ後のカウンター
 	int m_nNumber;					// プレイヤーの番号
 	int m_nStarNum;					// 星の数

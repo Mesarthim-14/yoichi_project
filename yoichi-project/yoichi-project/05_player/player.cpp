@@ -396,10 +396,22 @@ void CPlayer::Fly(void)
 	
 	//プレイヤーの上方向に移動
 	move = D3DXVECTOR3(0.0f, GetSpeed(), 0.0f);
-
+	// スティックが押し込まれたら上下反転する
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L3, m_nNumber))
+	{
+		m_bStickReverseVartical = !m_bStickReverseVartical;
+	}
 	// コントローラーの入力を変換
 	m_rotDest.y += D3DXToRadian((float)js.lX / 1000.0f);
-	m_rotDest.x += D3DXToRadian((float)js.lY / 1000.0f);
+	if (m_bStickReverseVartical)
+	{
+		m_rotDest.x -= D3DXToRadian((float)js.lY / 1000.0f);
+	}
+	else
+	{
+		m_rotDest.x += D3DXToRadian((float)js.lY / 1000.0f);
+	}
+	
 	// 上下移動の制限
 	if (m_rotDest.x > FLY_ROT_X_MAX)
 	{

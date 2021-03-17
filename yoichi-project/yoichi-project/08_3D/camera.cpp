@@ -144,6 +144,12 @@ void CCamera::NomalUpdate(D3DXVECTOR3 PlayerPos)
 
 	// ジョイパッドの取得
 	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R3, m_nNumber))
+	{
+		m_bStickReverseVartical = !m_bStickReverseVartical;
+	}
+
 	if (js.lZ > STICK_DEADZONE || js.lZ < -STICK_DEADZONE || js.lRz > STICK_DEADZONE || js.lRz < -STICK_DEADZONE)
 	{
 		if (js.lZ > STICK_DEADZONE || js.lZ < -STICK_DEADZONE)
@@ -153,7 +159,14 @@ void CCamera::NomalUpdate(D3DXVECTOR3 PlayerPos)
 		//視点（カメラ座標）の上旋回
 		if (js.lRz > STICK_DEADZONE || js.lRz < -STICK_DEADZONE)
 		{
-			m_fVartical += js.lRz / (STICK_MAX_VALUE / STICK_INPUT_CONVERSION);
+			if (m_bStickReverseVartical)
+			{
+				m_fVartical -= js.lRz / (STICK_MAX_VALUE / STICK_INPUT_CONVERSION);
+			}
+			else
+			{
+				m_fVartical += js.lRz / (STICK_MAX_VALUE / STICK_INPUT_CONVERSION);
+			}
 		}
 	}
 	else

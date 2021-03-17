@@ -65,8 +65,9 @@ private:
 	D3DXMATRIX m_mtxView;					// ビューマトリックス
 	D3DXVECTOR3 m_rot;						// 向き
 	bool m_bTarget;							// ターゲット使用フラグ
-	float m_fVartical;							// 縦回転角度
-	float m_fHorizontal;							// 横回転角
+	bool m_bStickReverseVartical;			// 縦方向反転フラグ
+	float m_fVartical;						// 縦回転角度
+	float m_fHorizontal;					// 横回転角
 	float m_fDistance;						// 視点～注視点の距離
 	float m_fMove;							// 移動量
 	static int m_nAllNum;					// カメラの総数
