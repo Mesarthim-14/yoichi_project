@@ -63,15 +63,16 @@ CCamera * CCamera::Create(int nCount)
 CCamera::CCamera()
 {
 	//各メンバ変数のクリア
-	m_posV = ZeroVector3;		// カメラの座標
-	m_posVDest = ZeroVector3;	// カメラの座標（目的地）
-	m_posR = ZeroVector3;		// 注視点
-	m_posRDest = ZeroVector3;	// 注視点（目的地）
-	m_posU = ZeroVector3;		// 上方向ベクトル
-	m_rot = ZeroVector3;		// 向き
-	m_fDistance = 0.0f;			// 視点～注視点の距離
-	m_fMove = 0.0f;				// 移動量
-	m_nNumber = ++m_nAllNum;	// カメラの番号の設定
+	m_posV = ZeroVector3;				// カメラの座標
+	m_posVDest = ZeroVector3;			// カメラの座標（目的地）
+	m_posR = ZeroVector3;				// 注視点
+	m_posRDest = ZeroVector3;			// 注視点（目的地）
+	m_posU = ZeroVector3;				// 上方向ベクトル
+	m_rot = ZeroVector3;					// 向き
+	m_fDistance = 0.0f;					// 視点～注視点の距離
+	m_bStickReverseVartical = false;		//縦方向反転
+	m_fMove = 0.0f;						// 移動量
+	m_nNumber = ++m_nAllNum;				// カメラの番号の設定
 }
 
 //=============================================================================
