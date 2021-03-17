@@ -28,7 +28,7 @@
 #include "xfile.h"
 #include "character.h"
 #include "motion.h"
-#include "item.h"
+#include "player_ui.h"
 
 //=============================================================================
 // マクロ定義
@@ -106,6 +106,8 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 
 	m_fBaseSpeed = PLAYER_SPEED;		// 元のスピード保持
 
+    m_pPlayerUI = CPlayer_UI::Create();
+
 	return S_OK;
 }
 
@@ -114,25 +116,6 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 //=============================================================================
 void CPlayer::Uninit(void)
 {	
-	// メモリ確保
-	for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
-	{
-		// !nullcheck
-		if (m_apItem[nCount] != nullptr)
-		{
-			// 終了処理
-			m_apItem[nCount]->Uninit();
-			m_apItem[nCount] = nullptr;
-		}
-	}
-
-	// 配列があれば
-	if (m_apItem.size() != NULL)
-	{
-		// 配列のクリア
-		m_apItem.clear();
-	}
-
 	// 終了処理
 	CCharacter::Uninit();
 }
@@ -159,22 +142,9 @@ void CPlayer::Update(void)
 	UpdateMotionState();
 
 	// プレイヤーの制御
+
 	PlayerControl();
 
-	// メモリ確保
-	for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
-	{
-		// !nullcheck
-		if (m_apItem[nCount] != nullptr)
-		{
-			// アイテムの削除フラグが立ったら
-			if (m_apItem[nCount]->GetEnd() == true)
-			{
-				// 配列を空にする
-				m_apItem.erase(m_apItem.begin() + nCount);
-			}
-		}
-	}
 
 	// 角度の取得
 	D3DXVECTOR3 rot = GetRot();
@@ -268,8 +238,16 @@ void CPlayer::PlayerControl()
 		Jump();
 	}
 
-	// アイテムの使用
-	UseItem();
+    // キーボード情報
+    CInputKeyboard *pKeyboard = CManager::GetKeyboard();
+
+    // SPACEキーを押したとき・コントローラのYを押したとき
+    if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, GetPlayerNum())
+        || pKeyboard->GetTrigger(DIK_I))
+    {
+        // アイテムの使用
+        m_pPlayerUI->UseItem();
+    }
 }
 
 //=============================================================================
@@ -490,55 +468,4 @@ float CPlayer::InputToAngle(void)
 	}
 
 	return fInputAngle;
-}
-
-//=============================================================================
-// アイテムの使用処理
-//=============================================================================
-void CPlayer::UseItem(void)
-{
-	// キーボード情報
-	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
-
-	// SPACEキーを押したとき・コントローラのYを押したとき
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, m_nNumber)
-		|| pKeyboard->GetTrigger(DIK_I))
-	{
-		for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
-		{
-			// !nullcheck
-			if (m_apItem[nCount] != nullptr)
-			{
-				if (m_apItem[nCount]->GetUse() == false)
-				{
-					// アイテムを使う
-					m_apItem[nCount]->SetItem();
-
-					break;
-				}
-			}
-		}
-
-	}
-}
-
-//=============================================================================
-// アイテムのデータを渡す
-//=============================================================================
-void CPlayer::AcquiredItem(CItem *pItem)
-{
-	if (m_apItem.size() == 0)
-	{
-		// アイテムのポインタ
-		m_apItem.push_back(pItem);
-	}
-	else if (m_apItem[0] != nullptr)
-	{
-		// 使われている状態なら
-		if (m_apItem[0]->GetUse() == true)
-		{
-			// アイテムのポインタ
-			m_apItem.push_back(pItem);
-		}
-	}
 }

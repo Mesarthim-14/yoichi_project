@@ -36,7 +36,7 @@
 //=============================================================================
 // 前方宣言
 //=============================================================================
-class CItem;
+class CPlayer_UI;
 
 //=============================================================================
 // プレイヤークラス
@@ -118,17 +118,15 @@ public:
 	void Fly(void);												// 飛行処理
 	void Death(void);											// 死んだときの処理
 	void MapLimit(void);										// マップの制限
-	void UseItem(void);											// アイテムの使用処理
-	void AcquiredItem(CItem *pItem);							// アイテム獲得関数
 
 	// Set関数
 	void SetArmor(bool bArmor) { m_bArmor = bArmor; }			// 無敵状態の設定
 
-	// Get関数
-	CItem *GetItem(void)				{ return m_apItem[0]; }				// アイテムのポインタ
+	// Get関数CPlayer_UI
+    CPlayer_UI *GetPlayerUI(void)       { return m_pPlayerUI; }             // UIのポインタ
 	float GetBaseSpeed(void)			{ return m_fBaseSpeed; }			// 元のスピード
-	bool GetArmor(void)					{ return m_bArmor; }				// 無敵状態
-	int GetItemNum(void)				{ return m_apItem.size(); }			// アイテムのサイズ
+	bool  GetArmor(void)				{ return m_bArmor; }				// 無敵状態
+    int   GetPlayerNum(void)            { return m_nNumber; }               // プレイヤーの番号
 
 private:
 	float InputToAngle(void);
@@ -140,7 +138,6 @@ private:
 	int m_nEndCounter;				// 死んだ後のカウンター
 	int m_nNumber;					// プレイヤーの番号
 	float m_fBaseSpeed;				// 元のスピード
-	std::vector<CItem*> m_apItem;	// アイテムボックスのポインタ
-
+    CPlayer_UI *m_pPlayerUI;        // プレイヤーごとのUI
 };
 #endif
