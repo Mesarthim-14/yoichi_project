@@ -36,6 +36,7 @@
 //=============================================================================
 // 前方宣言
 //=============================================================================
+classCItem;
 class CPlayer_UI;
 
 //=============================================================================
@@ -106,6 +107,8 @@ public:
 
 	static CPlayer*Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nCount);	// クリエイト
 
+	void UseItem(void);											// アテムの使用処理
+	void AcquiredItem(CItem *pItem);							// アイテ獲得関数
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);			// 初期化処理
 	void Uninit(void);											// 終了処理
 	void Update(void);											// 更新処理
@@ -121,6 +124,8 @@ public:
 
 	// Set関数
 	void SetArmor(bool bArmor) { m_bArmor = bArmor; }			// 無敵状態の設定
+	void SetArmor(bool bArmor)			{ m_bArmor = bAror; }				// 無敵状態の設定
+	void SetFly(bool bFly)				{ m_bFly = bFly; }					// 飛行状態の設定
 
 	// Get関数CPlayer_UI
     CPlayer_UI *GetPlayerUI(void)       { return m_pPlayerUI; }             // UIのポインタ
@@ -135,9 +140,13 @@ private:
 	bool m_bDraw;					// 描画のフラグ
 	bool m_bArmor;					// 無敵状態
 	bool m_bFly;					// 飛行フラグ
+	bool m_bStickReverseVartical;	// ジョイスティックの上下反転フラグ
 	int m_nEndCounter;				// 死んだ後のカウンター
 	int m_nNumber;					// プレイヤーの番号
+	int m_nStarNum;					// 星の数
 	float m_fBaseSpeed;				// 元のスピード
+	std::vector<CItem*> m_apItem;	// アテムボックスのポインタ
     CPlayer_UI *m_pPlayerUI;        // プレイヤーごとのUI
+	float m_fBaseRadius;			// 元の半径
 };
 #endif

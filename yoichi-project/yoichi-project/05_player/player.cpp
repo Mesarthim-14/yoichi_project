@@ -33,18 +33,21 @@
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define PLAYER_SPEED					(20.0f)				// プレイヤーの移動量
-#define PLAYER_JUMP						(17.0f)				// ジャンプの処理
-#define STICK_SENSITIVITY				(50.0f)				// スティック感度
-#define PLAYER_ROT_SPEED				(0.1f)				// キャラクターの回転する速度
-#define PLAYER_RADIUS					(200.0f)			// 半径の大きさ
-#define PLAYER_PARTS					(22)				// プレイヤーのパーツ数
-#define GAME_END_FLAME					(100)				// ゲームが終わるフレーム
-#define PLAYER_FLY_SPEED				(30.0f)				// 飛行時のプレイヤーの移動量
+#define PLAYER_SPEED				(20.0f)					// プレイヤーの移動量
+#define PLAYER_JUMP				(17.0f)					// ジャンプの処理
+#define STICK_DEADZONE			(50.0f)					// スティック感度
+#define PLAYER_ROT_SPEED			(0.1f)					// キャラクターの回転する速度
+#define PLAYER_RADIUS			(200.0f)					// 半径の大きさ
+#define PLAYER_PARTS				(22)						// プレイヤーのパーツ数
+#define GAME_END_FLAME			(100)					// ゲームが終わるフレーム
+#define PLAYER_FLY_SPEED			(30.0f)					// 飛行時のプレイヤーの移動量
+#define FLY_ROT_X_MAX			(-D3DXToRadian(10.0f))	// 飛行の最大角
+#define FLY_ROT_X_MIN			(-D3DXToRadian(170.0f))	// 飛行の最小角
+
 // エフェクトパーツ
-#define BLADE_EFFECT_INTER				(190)				// 刀身のパーティクルの間隔
-#define WEAPON_TIP_NUM					(20)				// 剣先のパーツ番号
-#define WEAPON_ROOT_NUM					(21)				// 剣の根元のパーツ番号
+#define BLADE_EFFECT_INTER		(190)					// 刀身のパーティクルの間隔
+#define WEAPON_TIP_NUM			(20)					// 剣先のパーツ番号
+#define WEAPON_ROOT_NUM			(21)					// 剣の根元のパーツ番号
 
 //=============================================================================
 // クリエイト
@@ -71,10 +74,12 @@ CPlayer::CPlayer(PRIORITY Priority)
 	m_rotDest = ZeroVector3;
 	m_bWalk = false;
 	m_bFly = false;
+	m_bStickReverseVartical = false;
 	m_bDraw = true;
 	m_nEndCounter = 0;
 	m_fBaseSpeed = 0.0f;
 	m_bArmor = false;
+	m_nStarNum = 0;
 }
 
 //=============================================================================
@@ -100,11 +105,12 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	}
 
 	// 初期化処理
-	CCharacter::Init(pos, rot);												// 座標　角度
-	SetRadius(PLAYER_RADIUS);												// 半径の設定
-	SetSpeed(PLAYER_SPEED);													// 速度の設定
+	CCharacter::Init(pos, rot);				// 座標 角度
+	SetRadius(PLAYER_RADIUS);				// 半径の設定
+	SetSpeed(PLAYER_FLY_SPEED);				// 速度の設定
 
-	m_fBaseSpeed = PLAYER_SPEED;		// 元のスピード保持
+	m_fBaseSpeed = PLAYER_FLY_SPEED;		// 元のスピード保持
+	m_fBaseRadius = PLAYER_RADIUS;			// 半径
 
     m_pPlayerUI = CPlayer_UI::Create();
 
@@ -157,6 +163,16 @@ void CPlayer::Update(void)
 	while (m_rotDest.y - rot.y < D3DXToRadian(-180))
 	{
 		m_rotDest.y += D3DXToRadian(360);
+	}
+
+	while (m_rotDest.x - rot.x > D3DXToRadian(180))
+	{
+		m_rotDest.x -= D3DXToRadian(360);
+	}
+
+	while (m_rotDest.x - rot.x < D3DXToRadian(-180))
+	{
+		m_rotDest.x += D3DXToRadian(360);
 	}
 
 	// キャラクター回転の速度
@@ -259,8 +275,8 @@ void CPlayer::Walk(void)
 	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);					// ジョイパッドの取得
 	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();	// サウンドポインタ取得
 	float fSpeed = GetSpeed();											// 速度取得
-	float fCameraAngle = CGame::GetCamera(m_nNumber)->Getφ();			// カメラ角度取得
-	float fMoveAngle = 0.0f;											// 移動角度
+	float fCameraAngle = CGame::GetCamera(m_nNumber)->GetHorizontal();	// カメラ角度取得
+	float fMoveAngle = 0.0f; 											// 移動角度
 	D3DXVECTOR3 rot = GetRot();											// 回転取得
 	D3DXVECTOR3 pos = GetPos();											// 座標取得
 	D3DXMATRIX mtxRot;
@@ -344,25 +360,46 @@ void CPlayer::Jump(void)
 //=============================================================================
 void CPlayer::Fly(void)
 {
-	CInputKeyboard *pKeyboard = CManager::GetKeyboard();	// キーボードを取得
+	CInputKeyboard *pKeyboard = CManager::GetKeyboard();		// キーボードを取得
 	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);		// ジョイパッドを取得
 	D3DXVECTOR3 move = ZeroVector3;							// 移動量
 	D3DXMATRIX mtxRot;										// 回転計算用行列
 	ZeroMemory(&mtxRot, sizeof(mtxRot));
 	CCamera* pCamera = CGame::GetCamera(m_nNumber);
+
 	// 重力を無効化
 	if (GetUseGravity())
 	{
 		SetUseGravity(false);
 	}
 	
-	// プレイヤーの上方向に移動
-	move = D3DXVECTOR3(0.0f, PLAYER_FLY_SPEED, 0.0f);
-
+	//プレイヤーの上方向に移動
+	move = D3DXVECTOR3(0.0f, GetSpeed(), 0.0f);
+	// スティックが押し込まれたら上下反転する
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L3, m_nNumber))
+	{
+		m_bStickReverseVartical = !m_bStickReverseVartical;
+	}
 	// コントローラーの入力を変換
-	m_rotDest.y += D3DXToRadian(js.lX / 1000);
-	m_rotDest.x += D3DXToRadian(js.lY / 1000);
-
+	m_rotDest.y += D3DXToRadian((float)js.lX / 1000.0f);
+	if (m_bStickReverseVartical)
+	{
+		m_rotDest.x -= D3DXToRadian((float)js.lY / 1000.0f);
+	}
+	else
+	{
+		m_rotDest.x += D3DXToRadian((float)js.lY / 1000.0f);
+	}
+	
+	// 上下移動の制限
+	if (m_rotDest.x > FLY_ROT_X_MAX)
+	{
+		m_rotDest.x = FLY_ROT_X_MAX;
+	}
+	if (m_rotDest.x < FLY_ROT_X_MIN)
+	{
+		m_rotDest.x = FLY_ROT_X_MIN;
+	}
 	// コントローラー入力を利用してプレイヤーの向きを変換
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rotDest.y, m_rotDest.x, m_rotDest.z);
 	D3DXVec3TransformNormal(&move, &move, &mtxRot);

@@ -17,17 +17,17 @@
 //=======================================================================
 //マクロ定義
 //=======================================================================
-#define MAX_JOYSTICK_NUM 4// JOYPAD接続上限
-#define	NUM_JOY_MAX 32   // ボタンの最大数
-#define CROSS_KEY_UP	0				//十字キー上
-#define CROSS_KEY_TOP_RIGHT 4500		//十字キー右上
-#define CROSS_KEY_RIGHT	9000			//十字キー右
-#define CROSS_KEY_BOTTOM_RIGHT 13500	//十字キー右下
-#define CROSS_KEY_DOWN	18000			//十字キー下
-#define CROSS_KEY_BOTTOM_LEFT 22500		//十字キー左下
-#define CROSS_KEY_LEFT	27000			//十字キー左
-#define CROSS_KEY_TOP_LEFT	31500		//十字キー左上
-
+#define MAX_JOYSTICK_NUM		(4)			// JOYPAD接続上限
+#define	NUM_JOY_MAX				(32)		// ボタンの最大数
+#define CROSS_KEY_UP			(0)			// 十字キー上
+#define CROSS_KEY_TOP_RIGHT		(4500)		// 十字キー右上
+#define CROSS_KEY_RIGHT			(9000)		// 十字キー右
+#define CROSS_KEY_BOTTOM_RIGHT	(13500)		// 十字キー右下
+#define CROSS_KEY_DOWN			(18000)		// 十字キー下
+#define CROSS_KEY_BOTTOM_LEFT	(22500)		// 十字キー左下
+#define CROSS_KEY_LEFT			(27000)		// 十字キー左
+#define CROSS_KEY_TOP_LEFT		(31500)		// 十字キー左上
+#define STICK_MAX_VALUE			(1000.0f)	// スティック入力の最大値
 //=======================================================================
 //ジョイパッドクラス
 //=======================================================================

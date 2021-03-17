@@ -131,9 +131,6 @@ void CItemThunder::SetItem(void)
 					// 相手の速度を無くす
 					pPlayer->SetSpeed(THUNDER_SPEED_NUM);
 
-					// Armor付与
-					pPlayer->SetArmor(true);
-
 					// アイテムの有効フラグ
 					m_bValid[nCount] = true;
 

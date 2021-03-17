@@ -90,6 +90,7 @@ public:
 	bool GetUseGravity(void) { return m_bUseGravity; }
 	STATE GetState(void) { return m_State; }									// ステート情報
 	CMotion *GetMotion(void) { return m_pMotion; }								// モーションのポインタ情報
+
 private:
 	// モデル用変数
 	CModelAnime *m_apModelAnime[MAX_MODEL_PARTS];	// モデルパーツ用のポインタ

@@ -22,8 +22,7 @@ class CBg;
 class CPlayer;
 class CPause;
 class CItemBoxManager;
-class CStarFactory;
-class CTime_UI;
+class CStarManager;
 
 //***************************************************************************************
 // ゲームクラス
@@ -38,19 +37,20 @@ public:
 	void Uninit(void);									// 終了処理
 	void Update(void);									// 更新処理
 	void Draw(void);									// 描画処理
+	void SetGame(void);									// ゲームの設定
 	static CGame* Create(void);							// ゲーム生成情報
 
 	// Set関数
 	static void SetPlayerNum(int nPlayerNum) { m_nPlayerNum = nPlayerNum; }	// プレイヤーの数の設定
 
 	// Get関数
-	static CCamera *GetCamera(int nCount);					// カメラのポインタ情報
-	static CLight *GetLight(void);							// ライトのポインタ情報
-	static CPlayer *GetPlayer(int nCount);					// プレイヤーのポインタ情報
-	static CPause *GetPause(void);							// ポーズ画面のポインタ情報
-	static int GetPlayerNum(void) { return m_nPlayerNum; }	// プレイヤーの数
+	static CCamera *GetCamera(int nCount);									// カメラのポインタ情報
+	static CLight *GetLight(void);											// ライトのポインタ情報
+	static CPlayer *GetPlayer(int nCount);									// プレイヤーのポインタ情報
+	static CPause *GetPause(void);											// ポーズ画面のポインタ情報
+	static int GetPlayerNum(void) { return m_nPlayerNum; }					// プレイヤーの数
 	static CItemBoxManager *GetItemManager(void) { return m_pItemManager; }	// リソースマネージャのポインタ
-    void GameEnd(void) { m_IsGameEnd = true; }
+
 private:	
 	static CCamera *m_pCamera[MAX_PLAYER_NUM];	// カメラのポインタ	
 	static CLight *m_pLight;					// ライトのポインタ
@@ -58,12 +58,11 @@ private:
 	static CBg *m_pBg;							// 背景のポインタ
 	static CPlayer *m_pPlayer[MAX_PLAYER_NUM];	// プレイヤーのポインタ
 	static CItemBoxManager *m_pItemManager;		// アイテムマネージャのポインタ
-	CStarFactory *m_pStarFactory;				// 星生成クラスのポインタ
+	CStarManager *m_pStarManager;				// 星生成クラスのポインタ
 	static CPause *m_pPause;					// ポーズのポインタ
-    static CTime_UI *m_pTimeUI;                 // タイマーへのポインタ
-
 	LPD3DXFONT m_pFont;							// デバック用フォント
-	bool m_IsGameEnd;							// ゲームのエンドフラグ
+	int m_nTimeCounter;							// ゲームのカウンター
+	bool m_bGameEnd;							// ゲームのエンドフラグ
 	static int m_nPlayerNum;					// プレイヤーの人数
 };
 #endif
