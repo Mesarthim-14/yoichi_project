@@ -253,7 +253,7 @@ void CGame::Update(void)
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 	if(m_bGameEnd)
 	{
-		//リザルトが生成されていなければ生成する
+		// リザルトが生成されていなければ生成する
 		if (m_apResult[0] == nullptr)
 		{
 			D3DXVECTOR3 pos;
@@ -269,10 +269,10 @@ void CGame::Update(void)
 					pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2) * (nCount % 2), SCREEN_HEIGHT / 4 + (SCREEN_HEIGHT / 2) * (nCount / 2), 0.0f);
 				}
 				size = SCREEN_SIZE / 2;
-				m_apResult[nCount] = CResult::Create(pos, size, nCount);
+				m_apResult[nCount] = CResult::Create(pos, size, nCount);	// TODO 順位が設定できるようになったら順位を取得して第3引数をそれにする
 			}
 		}
-
+		// リザルトのアップデート
 		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
 		{
 			m_apResult[nCount]->Update();
