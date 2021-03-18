@@ -129,5 +129,5 @@ void CTutorial::Update(void)
 //=======================================================================================
 void CTutorial::Draw(void)
 {
-
+	CScene::DrawAll();
 }

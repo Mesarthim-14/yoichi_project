@@ -129,7 +129,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 void CManager::Uninit(void)
 {
 	//全テクスチャの破棄
-	UnLoadAll();
+	UnloadAll();
 
 	//現在モードの終了
 	switch (m_mode)
@@ -312,13 +312,13 @@ void CManager::LoadAll(void)
 //=============================================================================
 //テクスチャの全アンロード処理
 //=============================================================================
-void CManager::UnLoadAll(void)
+void CManager::UnloadAll(void)
 {
 	// !nullcheck
 	if (m_pResourceManager != NULL)
 	{
 		// リソースのロード
-		m_pResourceManager->UnLoadAll();
+		m_pResourceManager->UnloadAll();
 	}
 }
 

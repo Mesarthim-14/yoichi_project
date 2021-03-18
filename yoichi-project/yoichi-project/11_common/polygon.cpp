@@ -11,7 +11,7 @@
 #include "polygon.h"
 #include "manager.h"
 #include "renderer.h"
-
+#include "texture.h"
 //=============================================================================
 //ポリゴンクラスのコンストラクタ
 //=============================================================================
@@ -21,7 +21,7 @@ CPolygon::CPolygon()
 	m_pVtxBuff = NULL;
 	m_pos = ZeroVector3;
 	m_size = ZeroVector3;
-	m_Type = TEX_TYPE_NONE;
+	m_pTexture = NULL;
 }
 
 //=============================================================================
@@ -34,7 +34,7 @@ CPolygon::~CPolygon()
 //=============================================================================
 //ポリゴンクラスのクリエイト処理
 //=============================================================================
-CPolygon * CPolygon::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 size, const TEX_TYPE type)
+CPolygon * CPolygon::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 {
 	// ポリゴンクラスのポインタ変数
 	CPolygon *pPolygon = NULL;
@@ -45,8 +45,10 @@ CPolygon * CPolygon::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 size, const
 	// !nullcheck
 	if (pPolygon != NULL)
 	{
+		pPolygon->SetPos(pos);
+		pPolygon->SetSize(size);
 		//初期化処理呼び出し
-		pPolygon->Init(pos, size, type);
+		pPolygon->Init();
 	}
 	else
 	{
@@ -59,22 +61,13 @@ CPolygon * CPolygon::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 size, const
 //=============================================================================
 //ポリゴンクラスの初期化処理
 //=============================================================================
-HRESULT CPolygon::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size, const TEX_TYPE type)
+HRESULT CPolygon::Init(void)
 {
 	//デバイスの取得
 	LPDIRECT3DDEVICE9 pD3DDevice = CManager::GetRenderer()->GetDevice();
 
 	//頂点情報へのポインタ
 	VERTEX_2D *pVtx;
-
-	//初期位置の設定
-	m_pos = pos;
-
-	//大きさの設定
-	m_size = size;
-
-	//テクスチャの設定
-	m_Type = type;
 
 	//頂点バッファの作成
 	pD3DDevice->CreateVertexBuffer(
@@ -154,7 +147,7 @@ void CPolygon::Draw(void)
 	pD3DDevice->SetFVF(FVF_VERTEX_2D);
 
 	//テクスチャの設定
-	pD3DDevice->SetTexture(0, NULL);
+	pD3DDevice->SetTexture(0, m_pTexture);
 
 	// ポリゴンの描画
 	pD3DDevice->DrawPrimitive(
@@ -164,14 +157,6 @@ void CPolygon::Draw(void)
 
 	//テクスチャの設定を元に戻す
 	pD3DDevice->SetTexture(0, NULL);
-}
-
-//=============================================================================
-// 種類の設定
-//=============================================================================
-void CPolygon::SetType(const TEX_TYPE type)
-{
-	m_Type = type;
 }
 
 //=============================================================================
@@ -193,4 +178,12 @@ void CPolygon::SetColor(const D3DXCOLOR color)
 
 	//頂点バッファのアンロック
 	m_pVtxBuff->Unlock();
+}
+
+//=============================================================================
+// テクスチャ割当
+//=============================================================================
+void CPolygon::BindTexture(LPDIRECT3DTEXTURE9 pTexture)
+{
+	m_pTexture = pTexture;
 }

@@ -55,7 +55,7 @@ public:
 	void Update(void);												// 更新処理
 	void Draw(void);												// 描画処理
 	void LoadAll(void);												// 全てのロード処理
-	void UnLoadAll(void);											// 全てのアンロード
+	void UnloadAll(void);											// 全てのアンロード
 
 	// Set関数
 	static void SetMode(MODE_TYPE mode);							// モードの設定
@@ -68,6 +68,10 @@ public:
 	static CInputJoypad *GetJoypad(void);												// ジョイパッドコントローラの情報
 	static CScene *GetScene(void) { return m_pScene; }									// シーン情報
 	static CResourceManager *GetResourceManager (void) { return m_pResourceManager; }	// リソースマネージャのポインタ
+	static CTitle *GetTitle(void) { return m_pTitle; }									// タイトルのポインタ
+	static CTutorial *GetTutorial(void) { return m_pTutorial; }							// チュートリアルのポインタ
+	static CGame *GetGame(void) { return m_pGame; }										// ゲームのポインタ
+
 private:
 	static MODE_TYPE m_mode;						// モード
 	static CRenderer *m_pRenderer;					// レンダラークラスのポインタ

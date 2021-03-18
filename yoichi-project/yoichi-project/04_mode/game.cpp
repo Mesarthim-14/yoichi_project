@@ -27,6 +27,7 @@
 #include "itembox.h"
 #include "item_boxmanager.h"
 #include "star_manager.h"
+#include "result.h"
 
 //=======================================================================================
 // static初期化
@@ -39,6 +40,7 @@ CBg *CGame::m_pBg = nullptr;
 CPause *CGame::m_pPause = nullptr;
 CItemBoxManager *CGame::m_pItemManager = nullptr;
 int CGame::m_nPlayerNum = 1;
+CResult *CGame::m_apResult[MAX_PLAYER_NUM] = {};
 
 //=======================================================================================
 // コンストラクタ
@@ -173,6 +175,17 @@ void CGame::Uninit(void)
 		m_pLight = nullptr;
 	}
 
+	// リザルト
+	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+	{
+		if (m_apResult[nCount] != nullptr)
+		{
+			m_apResult[nCount]->Uninit();
+			delete m_apResult[nCount];
+			m_apResult[nCount] = nullptr;
+		}
+	}
+
 	// プレイヤーの数
 	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
 	{
@@ -240,7 +253,30 @@ void CGame::Update(void)
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 	if(m_bGameEnd)
 	{
+		//リザルトが生成されていなければ生成する
+		if (m_apResult[0] == nullptr)
+		{
+			D3DXVECTOR3 pos;
+			D3DXVECTOR3 size;
+			for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+			{
+				if (m_nPlayerNum == 2)
+				{
+					pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2)*nCount , SCREEN_HEIGHT / 2, 0.0f);
+				}
+				else
+				{
+					pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2) * (nCount % 2), SCREEN_HEIGHT / 4 + (SCREEN_HEIGHT / 2) * (nCount / 2), 0.0f);
+				}
+				size = SCREEN_SIZE / 2;
+				m_apResult[nCount] = CResult::Create(pos, size, nCount);
+			}
+		}
 
+		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+		{
+			m_apResult[nCount]->Update();
+		}
 	}
 	else
 	{
@@ -290,6 +326,15 @@ void CGame::Draw(void)
 	if (m_pLight != nullptr)
 	{
 		m_pLight->ShowLightInfo();
+	}
+	CScene::DrawAll();
+	// リザルト
+	for (int nCount = 0; nCount < MAX_PLAYER_NUM; nCount++)
+	{
+		if (m_apResult[nCount] != nullptr)
+		{
+			m_apResult[nCount]->Draw();
+		}
 	}
 }
 
