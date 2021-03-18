@@ -27,6 +27,8 @@
 #include "itembox.h"
 #include "item_boxmanager.h"
 #include "star_manager.h"
+#include "time_ui.h"
+#include "timer.h"
 
 //=======================================================================================
 // static初期化
@@ -39,6 +41,7 @@ CBg *CGame::m_pBg = nullptr;
 CPause *CGame::m_pPause = nullptr;
 CItemBoxManager *CGame::m_pItemManager = nullptr;
 int CGame::m_nPlayerNum = 1;
+CTime_UI *CGame::m_pTimeUI = nullptr;
 
 //=======================================================================================
 // コンストラクタ
@@ -127,6 +130,9 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	{
 		m_pBg = CBg::Create(BG_POS, BG_SIZE);
 	}
+
+    // タイマーのセット
+    m_pTimeUI = CTime_UI::Create();
 
 	//BGM
 //	CSound *pSound = CManager::GetSound();
@@ -258,15 +264,18 @@ void CGame::Update(void)
 		}
 	}
 
+    // 時間切れだったら
+    if (m_pTimeUI->GetTimer()->IsTimeOver())
+    {
+        GameEnd();// ゲームを終了
+    }
+
 	// nullcheck
 	if (m_pStarManager != nullptr)
 	{
 		// 更新処理
 		m_pStarManager->Update();
 	}
-
-	// ゲームの設定
-	SetGame();
 }
 
 //=======================================================================================
@@ -287,14 +296,6 @@ void CGame::Draw(void)
 	}
 }
 
-//=======================================================================================
-// ゲームの設定
-//=======================================================================================
-void CGame::SetGame(void)
-{
-	// ゲームのタイムカウンター
-	m_nTimeCounter++;
-}
 
 //=======================================================================================
 // カメラの情報
