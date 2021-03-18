@@ -37,7 +37,7 @@
 #define PLAYER_JUMP				(17.0f)					// ジャンプの処理
 #define STICK_DEADZONE			(50.0f)					// スティック感度
 #define PLAYER_ROT_SPEED			(0.1f)					// キャラクターの回転する速度
-#define PLAYER_RADIUS			(200.0f)					// 半径の大きさ
+#define PLAYER_RADIUS			(200.0f)					// 4半径の大きさ
 #define PLAYER_PARTS				(22)						// プレイヤーのパーツ数
 #define GAME_END_FLAME			(100)					// ゲームが終わるフレーム
 #define PLAYER_FLY_SPEED			(30.0f)					// 飛行時のプレイヤーの移動量
@@ -207,6 +207,26 @@ void CPlayer::Update(void)
 
 	// キャラクター回転の速度
 	rot += (m_rotDest - rot) * PLAYER_ROT_SPEED;
+
+	while (rot.y > D3DXToRadian(180))
+	{
+		rot.y -= D3DXToRadian(360);
+	}
+
+	while (rot.y < D3DXToRadian(-180))
+	{
+		rot.y += D3DXToRadian(360);
+	}
+
+	while (rot.x > D3DXToRadian(180))
+	{
+		rot.x -= D3DXToRadian(360);
+	}
+
+	while (rot.x < D3DXToRadian(-180))
+	{
+		rot.x += D3DXToRadian(360);
+	}
 
 	// 角度の設定
 	SetRot(rot);

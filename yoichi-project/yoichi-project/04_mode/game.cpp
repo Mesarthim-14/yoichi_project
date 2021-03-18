@@ -27,6 +27,7 @@
 #include "itembox.h"
 #include "item_boxmanager.h"
 #include "star_manager.h"
+#include "result.h"
 
 //=======================================================================================
 // static初期化
@@ -39,11 +40,12 @@ CBg *CGame::m_pBg = nullptr;
 CPause *CGame::m_pPause = nullptr;
 CItemBoxManager *CGame::m_pItemManager = nullptr;
 int CGame::m_nPlayerNum = 1;
+CResult *CGame::m_apResult[MAX_PLAYER_NUM] = {};
 
 //=======================================================================================
 // コンストラクタ
 //=======================================================================================
-CGame::CGame(PRIORITY Priority) : CScene(Priority)
+CGame::CGame()
 {
 	m_bGameEnd = false;
 	m_nTimeCounter = 0;
@@ -74,7 +76,7 @@ CGame* CGame::Create(void)
 	CGame* pGame = new CGame();
 
 	// 初期化処理
-	pGame->Init(ZeroVector3, ZeroVector3);
+	pGame->Init();
 
 	return pGame;
 }
@@ -82,11 +84,8 @@ CGame* CGame::Create(void)
 //=======================================================================================
 // 初期化処理
 //=======================================================================================
-HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
+HRESULT CGame::Init(void)
 {
-	// キーボード情報
-	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
-
 	// プレイヤーの数分ループ
 	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
 	{	
@@ -153,13 +152,6 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 		}
 	}
 
-	//デバイス情報の取得
-	LPDIRECT3DDEVICE9 pD3DDevice = CManager::GetRenderer()->GetDevice();
-
-	//フォントの生成
-	D3DXCreateFont(pD3DDevice, 18, 0, 0, 0, FALSE, SHIFTJIS_CHARSET,
-		OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, "Terminal", &m_pFont);
-
 	return S_OK;
 }
 
@@ -181,6 +173,17 @@ void CGame::Uninit(void)
 		m_pLight->Uninit();
 		delete m_pLight;
 		m_pLight = nullptr;
+	}
+
+	// リザルト
+	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+	{
+		if (m_apResult[nCount] != nullptr)
+		{
+			m_apResult[nCount]->Uninit();
+			delete m_apResult[nCount];
+			m_apResult[nCount] = nullptr;
+		}
 	}
 
 	// プレイヤーの数
@@ -237,9 +240,8 @@ void CGame::Uninit(void)
 		//	pSound->Stop(CSound::SOUND_LABEL_BGM_GAME);
 		}
 	}
-
-	//オブジェクトの破棄
-	Release();
+	
+	delete this;
 }
 
 //=======================================================================================
@@ -247,26 +249,66 @@ void CGame::Uninit(void)
 //=======================================================================================
 void CGame::Update(void)
 {
-	// プレイヤー分
-	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+	// キーボード情報
+	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
+	if(m_bGameEnd)
 	{
-		// !nullcheck
-		if (m_pCamera != nullptr)
+		//リザルトが生成されていなければ生成する
+		if (m_apResult[0] == nullptr)
 		{
-			//カメラクラスの更新処理
-			m_pCamera[nCount]->Update();
+			D3DXVECTOR3 pos;
+			D3DXVECTOR3 size;
+			for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+			{
+				if (m_nPlayerNum == 2)
+				{
+					pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2)*nCount , SCREEN_HEIGHT / 2, 0.0f);
+				}
+				else
+				{
+					pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2) * (nCount % 2), SCREEN_HEIGHT / 4 + (SCREEN_HEIGHT / 2) * (nCount / 2), 0.0f);
+				}
+				size = SCREEN_SIZE / 2;
+				m_apResult[nCount] = CResult::Create(pos, size, nCount);
+			}
+		}
+
+		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+		{
+			m_apResult[nCount]->Update();
 		}
 	}
-
-	// nullcheck
-	if (m_pStarManager != nullptr)
+	else
 	{
-		// 更新処理
-		m_pStarManager->Update();
+		CScene::UpdateAll();
+		// プレイヤー分
+		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+		{
+			// !nullcheck
+			if (m_pCamera != nullptr)
+			{
+				//カメラクラスの更新処理
+				m_pCamera[nCount]->Update();
+			}
+		}
+
+		// nullcheck
+		if (m_pStarManager != nullptr)
+		{
+			// 更新処理
+			m_pStarManager->Update();
+		}
+
+		// ゲームの設定
+		SetGame();
 	}
 
-	// ゲームの設定
-	SetGame();
+#ifdef _DEBUG
+	if (pKeyboard->GetTrigger(DIK_P))
+	{
+		m_bGameEnd = !m_bGameEnd;
+	}
+#endif
 }
 
 //=======================================================================================
@@ -284,6 +326,15 @@ void CGame::Draw(void)
 	if (m_pLight != nullptr)
 	{
 		m_pLight->ShowLightInfo();
+	}
+	CScene::DrawAll();
+	// リザルト
+	for (int nCount = 0; nCount < MAX_PLAYER_NUM; nCount++)
+	{
+		if (m_apResult[nCount] != nullptr)
+		{
+			m_apResult[nCount]->Draw();
+		}
 	}
 }
 

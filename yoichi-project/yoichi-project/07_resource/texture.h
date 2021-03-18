@@ -32,6 +32,10 @@ public:
 		TEXTURE_NUM_ITEM_THUNDER,		// アイテム雷
 		TEXTURE_NUM_ITEM_MHAND,			// アイテムMハンド
 		TEXTURE_NUM_ITEM_VORTEX,		// アイテム渦
+		TEXTURE_NUM_RESULT_1ST,			// リザルト1位
+		TEXTURE_NUM_RESULT_2ND,			// リザルト1位
+		TEXTURE_NUM_RESULT_3RD,			// リザルト1位
+		TEXTURE_NUM_RESULT_4TH,			// リザルト1位
 		TEXTURE_NUM_MAX
 	};
 
@@ -58,9 +62,9 @@ public:
 	static CTexture *Create(void);												// インスタンス生成
 
 	 HRESULT Load(void);														// テクスチャロード
-	 void UnLoad(void);															// テクスチャアンロード
+	 void Unload(void);															// テクスチャアンロード
 	 HRESULT SeparateTexLoad(void);												// 分割テクスチャロード
-	 void SeparateTexUnLoad(void);												// 分割テクスチャアンロード
+	 void SeparateTexUnload(void);												// 分割テクスチャアンロード
 
 	 LPDIRECT3DTEXTURE9 GetTexture(TEXTURE_TYPE Tex_Type);						// テクスチャの情報
 

@@ -135,7 +135,7 @@ public:
 	int GetItemNum(void)				{ return m_apItem.size(); }			// アイテムのサイズ
 
 private:
-	float InputToAngle(void);
+	float InputToAngle(void);		// 入力を角度に変換
 	D3DXVECTOR3 m_rotDest;			// 回転(目標値)
 	bool m_bWalk;					// 歩いているフラグ
 	bool m_bDraw;					// 描画のフラグ

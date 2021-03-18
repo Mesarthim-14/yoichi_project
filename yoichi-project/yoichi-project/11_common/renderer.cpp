@@ -15,7 +15,9 @@
 #include "camera.h"
 #include "game.h"
 #include "keyboard.h"
-
+#include "title.h"
+#include "tutorial.h"
+#include "game.h"
 //=============================================================================
 // レンダリングクラスのコンストラクタ
 //=============================================================================
@@ -231,8 +233,35 @@ void CRenderer::Draw(void)
 
 				m_pD3DDevice->SetViewport(&ViewPortClear);
 			}
+			CTitle* pTitle = CManager::GetTitle();
+			CTutorial* pTutorial = CManager::GetTutorial();
+			CGame* pGame = CManager::GetGame();
+			switch (CManager::GetMode())
+			{
+				// タイトル
+			case CManager::MODE_TYPE_TITLE:
+				if (CManager::GetTitle() != NULL)
+				{
+					pTitle->Draw();
+				}
+				break;
 
-			CScene::DrawAll();
+				// チュートリアル
+			case CManager::MODE_TYPE_TUTORIAL:
+				if (pTutorial != NULL)
+				{
+					pTutorial->Draw();
+				}
+				break;
+
+				// ゲーム
+			case CManager::MODE_TYPE_GAME:
+				if (pGame != NULL)
+				{
+					pGame->Draw();
+				}
+				break;
+			}
 		}
 
 		if (CGame::GetPlayerNum() == 3)

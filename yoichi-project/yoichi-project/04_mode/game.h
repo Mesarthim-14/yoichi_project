@@ -10,8 +10,8 @@
 //***************************************************************************************
 // インクルードファイル
 //***************************************************************************************
-#include "scene.h"
-
+#include "manager.h"
+#include "gamemode.h"
 //***************************************************************************************
 // 前方宣言
 //***************************************************************************************
@@ -23,17 +23,17 @@ class CPlayer;
 class CPause;
 class CItemBoxManager;
 class CStarManager;
-
+class CResult;
 //***************************************************************************************
 // ゲームクラス
 //***************************************************************************************
-class CGame : public CScene
+class CGame : public ICGameMode
 {
 public:
-	CGame(PRIORITY Priority = PRIORITY_0);				// コンストラクタ
+	CGame();											// コンストラクタ
 	~CGame();											// デストラクタ
 
-	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);	// 初期化処理
+	HRESULT Init();										// 初期化処理
 	void Uninit(void);									// 終了処理
 	void Update(void);									// 更新処理
 	void Draw(void);									// 描画処理
@@ -58,6 +58,7 @@ private:
 	static CBg *m_pBg;							// 背景のポインタ
 	static CPlayer *m_pPlayer[MAX_PLAYER_NUM];	// プレイヤーのポインタ
 	static CItemBoxManager *m_pItemManager;		// アイテムマネージャのポインタ
+	static CResult *m_apResult[MAX_PLAYER_NUM];	// リザルトのポインタ
 	CStarManager *m_pStarManager;				// 星生成クラスのポインタ
 	static CPause *m_pPause;					// ポーズのポインタ
 	LPD3DXFONT m_pFont;							// デバック用フォント
