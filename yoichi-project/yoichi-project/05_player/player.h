@@ -110,6 +110,7 @@ public:
 	void Death(void);											// 死んだときの処理
 	void MapLimit(void);										// マップの制限
 
+
 private:
 	D3DXVECTOR3 m_rotDest;							// 回転(目標値)
 	bool m_bWalk;									// 歩いているフラグ

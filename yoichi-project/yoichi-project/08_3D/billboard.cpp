@@ -20,16 +20,18 @@ CBillboard::CBillboard(PRIORITY Priority) : CSceneBase(Priority)
 	m_move = ZeroVector3;			// 移動量
 	m_sizeBase = ZeroVector3;		// ベースのサイズ
 	m_gravity = ZeroVector3;		// 重力
+	m_scale = ZeroVector3;			// 拡大率
 	m_Transparency = 0.0f;			// 透明度を減らす量
-	m_nLife = 0;									// 寿命
-	m_bUse = false;									// 使用判定
-	m_nCountAnim = 0;;								// アニメーションテクスチャ
-	m_nCountAnimPattern = 0;						// アニメーションのパターン
-	m_nCounterAnim = 0;								// アニメーションのカウンター
-	m_nPatternAnim = 0;								// アニメーションのパターン数
-	m_nLoop = -1;									// ループするか
-	m_nAlphaNum = 0;								// アルファテストの値
-	m_bAlpha = false;								// アルファテストのフラグ
+	m_nLife = 0;					// 寿命
+	m_bUse = false;					// 使用判定
+	m_nCountAnim = 0;;				// アニメーションテクスチャ
+	m_nCountAnimPattern = 0;		// アニメーションのパターン
+	m_nCounterAnim = 0;				// アニメーションのカウンター
+	m_nPatternAnim = 0;				// アニメーションのパターン数
+	m_nLoop = -1;					// ループするか
+	m_nAlphaNum = 0;				// アルファテストの値
+	m_bAlpha = false;				// アルファテストのフラグ
+	m_bUseZbuf = false;				// Zバッファのフラグ
 }
 
 //=====================================================
@@ -193,8 +195,12 @@ void CBillboard::Draw(void)
 	// アルファテストを有力化
 	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 
-	// Zバッファを無効化
-	pDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
+	// Zバッファ
+	if (m_bUseZbuf == true)
+	{
+		// Zバッファを無効化
+		pDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
+	}
 
 	// 加算合成
 	if (m_bBlend == true)
@@ -225,7 +231,6 @@ void CBillboard::Draw(void)
 		GetSize().x / m_sizeBase.x,
 		GetSize().y / m_sizeBase.y,
 		0.0f);
-
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxScale);
 
 	if (GetRot() == D3DXVECTOR3(0.0f, 0.0f, 0.0f))
@@ -238,15 +243,12 @@ void CBillboard::Draw(void)
 		mtxRot._41 = 0;
 		mtxRot._42 = 0;
 		mtxRot._43 = 0;
-
-
 		D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 	}
 	else
 	{
 		// 向き反映
 		D3DXMatrixRotationYawPitchRoll(&mtxRot, D3DXToRadian(GetRot().y), D3DXToRadian(GetRot().x), D3DXToRadian(GetRot().z));
-
 		D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 	}
 
@@ -286,8 +288,12 @@ void CBillboard::Draw(void)
 		pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);	// aデスティネーションカラー
 	}
 
-	// Zバッファを有効化
-	pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+	// Zバッファ
+	if (m_bUseZbuf == true)
+	{
+		// Zバッファを有効化
+		pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+	}
 
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);	// aデスティネーションカラー
 
@@ -471,6 +477,14 @@ void CBillboard::SetAlphaNum(int nAlphaNum)
 void CBillboard::SetBlend(bool bBlend)
 {
 	m_bBlend = bBlend;
+}
+
+//=====================================================
+// Zバッファの設定
+//=====================================================
+void CBillboard::SetUseZBuf(bool bZbuf)
+{
+	m_bUseZbuf = bZbuf;
 }
 
 //=====================================================

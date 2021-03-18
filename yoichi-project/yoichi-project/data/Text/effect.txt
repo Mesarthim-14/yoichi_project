@@ -32,6 +32,7 @@ PARTICLESET
 	ALPHANUM = 45					# アルファテストの値
 	ANIMATION = 0					# テクスチャアニメーションの設定
 	BLEND = 1						# 加算合成
+	USEZBUF = 0						# Zバッファを使うか
 	PRIORITY = 5					# 描画優先順位
 	
 	END_EFFECTSET
@@ -57,6 +58,7 @@ PARTICLESET
 	ALPHANUM = 45					# アルファテストの値
 	ANIMATION = 1					# テクスチャアニメーションの設定
 	BLEND = 1						# 加算合成
+	USEZBUF = 0						# Zバッファを使うか
 	PRIORITY = 5					# 描画優先順位
 	
 	END_EFFECTSET
@@ -83,6 +85,7 @@ PARTICLESET
 	ALPHANUM = 45					# アルファテストの値
 	ANIMATION = 1					# テクスチャアニメーションの設定
 	BLEND = 1						# 加算合成
+	USEZBUF = 1						# Zバッファを使うか
 	PRIORITY = 5					# 描画優先順位
 	
 	END_EFFECTSET
@@ -100,14 +103,15 @@ PARTICLESET
 	MOVETYPE = 1					# 動きの種類
 	LIFE = 100						# 体力
 	NUM = 2							# 数
-	COLOR = 1.0 1.0 0.0 1.0			# 色
+	COLOR = 0.5 0.5 0.0 0.0			# 色
 	GRAVITY = 0						# 重力
 	GRAVITYNUM = 0.0 -1.5 0.0		# 重力をかける量
 	TRANSPARENCY = 0.0				# 透明度を減らす量
 	ALPHA = 1						# アルファテスト
 	ALPHANUM = 45					# アルファテストの値
 	ANIMATION = 0					# テクスチャアニメーションの設定
-	BLEND = 0						# 加算合成
+	BLEND = 1						# 加算合成
+	USEZBUF = 0						# Zバッファを使うか
 	PRIORITY = 5					# 描画優先順位
 	
 	END_EFFECTSET
@@ -133,6 +137,7 @@ PARTICLESET
 	ALPHANUM = 45					# アルファテストの値
 	ANIMATION = 1					# テクスチャアニメーションの設定
 	BLEND = 0						# 加算合成
+	USEZBUF = 1						# Zバッファを使うか
 	PRIORITY = 5					# 描画優先順位
 	
 	END_EFFECTSET
@@ -158,56 +163,59 @@ PARTICLESET
 	ALPHANUM = 45					# アルファテストの値
 	ANIMATION = 1					# テクスチャアニメーションの設定
 	BLEND = 0						# 加算合成
+	USEZBUF = 1						# Zバッファを使うか
 	PRIORITY = 5					# 描画優先順位
 	
 	END_EFFECTSET
 	
 	#=================================================
-	# 状態が良くなったとき(STATUSUP)[6]
+	# 状態が良くなったときの円(STATUSUP)[6]
 	#=================================================
 	EFFECTSET
 
-	SIZE = 600.0 600.0 0.0			# サイズ
-	MOVE = 0.0 30.0 0.0				# 移動量
-	ROT = 90.0 0.0 0.0				# 回転
+	SIZE = 1.0 1.0 0.0				# サイズ
+	MOVE = 0.0 0.0 0.0				# 移動量
+	ROT = 0.0 0.0 0.0				# 回転
 	RANGE = 1.0 1.0 1.0				# 範囲
-	SCALE = 0.0 0.0 0.0				# 拡大率
+	SCALE = 25.0 25.0 0.0				# 拡大率
 	MOVETYPE = 1					# 動きの種類
-	LIFE = 30						# 体力
+	LIFE = 100						# 体力
 	NUM = 1							# 数
-	COLOR = 0.0 0.2 1.0 1.0			# 色
+	COLOR = 0.1 1.0 0.7 1.0			# 色
 	GRAVITY = 0						# 重力
 	GRAVITYNUM = 0.0 0.0 0.0		# 重力をかける量
-	TRANSPARENCY = 0.05				# 透明度を減らす量
+	TRANSPARENCY = 0.02				# 透明度を減らす量
 	ALPHA = 0						# アルファテスト
 	ALPHANUM = 45					# アルファテストの値
 	ANIMATION = 0					# テクスチャアニメーションの設定
 	BLEND = 0						# 加算合成
+	USEZBUF = 0						# Zバッファを使うか
 	PRIORITY = 5					# 描画優先順位
 	
 	END_EFFECTSET
 	
 	#=================================================
-	# 状態が悪くなったとき(STATUSDOWN)[7]
+	# 状態が悪くなったときの円(STATUSDOWN)[7]
 	#=================================================
 	EFFECTSET
 
-	SIZE = 600.0 600.0 0.0			# サイズ
-	MOVE = 0.0 -30.0 0.0			# 移動量
-	ROT = 90.0 0.0 0.0				# 回転
+	SIZE = 1.0 1.0 0.0			# サイズ
+	MOVE = 0.0 0.0 0.0				# 移動量
+	ROT = 0.0 0.0 0.0				# 回転
 	RANGE = 1.0 1.0 1.0				# 範囲
-	SCALE = 0.0 0.0 0.0				# 拡大率
+	SCALE = 25.0 25.0 0.0				# 拡大率
 	MOVETYPE = 1					# 動きの種類
-	LIFE = 30						# 体力
+	LIFE = 100						# 体力
 	NUM = 1							# 数
 	COLOR = 1.0 0.2 0.0 1.0			# 色
 	GRAVITY = 0						# 重力
 	GRAVITYNUM = 0.0 0.0 0.0		# 重力をかける量
-	TRANSPARENCY = 0.05				# 透明度を減らす量
+	TRANSPARENCY = 0.02				# 透明度を減らす量
 	ALPHA = 0						# アルファテスト
 	ALPHANUM = 45					# アルファテストの値
 	ANIMATION = 0					# テクスチャアニメーションの設定
 	BLEND = 0						# 加算合成
+	USEZBUF = 0						# Zバッファを使うか
 	PRIORITY = 5					# 描画優先順位
 	
 	END_EFFECTSET
@@ -228,11 +236,12 @@ PARTICLESET
 	COLOR = 0.2 0.1 0.0 1.0			# 色
 	GRAVITY = 0						# 重力
 	GRAVITYNUM = 0.0 0.0 0.0		# 重力をかける量
-	TRANSPARENCY = 0.01			# 透明度を減らす量
+	TRANSPARENCY = 0.01				# 透明度を減らす量
 	ALPHA = 0						# アルファテスト
 	ALPHANUM = 45					# アルファテストの値
 	ANIMATION = 1					# テクスチャアニメーションの設定
 	BLEND = 1						# 加算合成
+	USEZBUF = 1						# Zバッファを使うか
 	PRIORITY = 5					# 描画優先順位
 	
 	END_EFFECTSET
@@ -242,22 +251,23 @@ PARTICLESET
 	#=================================================
 	EFFECTSET
 
-	SIZE = 900.0 900.0 0.0			# サイズ
+	SIZE = 1.0 1.0 1.0				# サイズ
 	MOVE = 0.0 0.0 0.0				# 移動量
 	ROT = 0.0 0.0 0.0				# 回転
 	RANGE = 1.0 1.0 1.0				# 範囲
-	SCALE = 100.0 100.0 0.0				# 拡大率
+	SCALE = 80.0 80.0 0.0			# 拡大率
 	MOVETYPE = 0					# 動きの種類
 	LIFE = 100						# 体力
 	NUM = 1							# 数
-	COLOR = 1.0 0.8 0.0 1.0			# 色
+	COLOR = 1.0 0.2 0.0 1.0			# 色
 	GRAVITY = 0						# 重力
 	GRAVITYNUM = 0.0 0.0 0.0		# 重力をかける量
-	TRANSPARENCY = 0.02				# 透明度を減らす量
-	ALPHA = 1						# アルファテスト
+	TRANSPARENCY = 0.03				# 透明度を減らす量
+	ALPHA = 0						# アルファテスト
 	ALPHANUM = 45					# アルファテストの値
 	ANIMATION = 0					# テクスチャアニメーションの設定
 	BLEND = 1						# 加算合成
+	USEZBUF = 1						# Zバッファを使うか
 	PRIORITY = 5					# 描画優先順位
 	
 	END_EFFECTSET
@@ -267,8 +277,8 @@ PARTICLESET
 	#=================================================
 	EFFECTSET
 
-	SIZE = 100.0 100.0 0.0			# サイズ
-	MOVE = 40.0 40.0 40.0			# 移動量
+	SIZE = 50.0 50.0 0.0			# サイズ
+	MOVE = 80.0 80.0 80.0			# 移動量
 	ROT = 0.0 0.0 0.0				# 回転
 	RANGE = 1.0 1.0 1.0				# 範囲
 	SCALE = 0.0 0.0 0.0				# 拡大率
@@ -277,12 +287,13 @@ PARTICLESET
 	NUM = 50						# 数
 	COLOR = 1.0 0.5 0.0 1.0			# 色
 	GRAVITY = 0						# 重力
-	GRAVITYNUM = 0.0 -0.5 0.0		# 重力をかける量
+	GRAVITYNUM = 0.0 -1.0 0.0		# 重力をかける量
 	TRANSPARENCY = 0.005			# 透明度を減らす量
 	ALPHA = 1						# アルファテスト
 	ALPHANUM = 45					# アルファテストの値
 	ANIMATION = 0					# テクスチャアニメーションの設定
 	BLEND = 1						# 加算合成
+	USEZBUF = 0						# Zバッファを使うか
 	PRIORITY = 5					# 描画優先順位
 	
 	END_EFFECTSET
@@ -292,26 +303,78 @@ PARTICLESET
 	#=================================================
 	EFFECTSET
 
-	SIZE = 100.0 100.0 0.0			# サイズ
-	MOVE = 0.0 0.0 0.0				# 移動量
+	SIZE = 200.0 200.0 0.0			# サイズ
+	MOVE = 5.0 5.0 5.0				# 移動量
 	ROT = 0.0 0.0 0.0				# 回転
 	RANGE = 1.0 1.0 1.0				# 範囲
 	SCALE = 0.0 0.0 0.0				# 拡大率
 	MOVETYPE = 0					# 動きの種類
 	LIFE = 100						# 体力
 	NUM = 1							# 数
-	COLOR = 0.0 0.0 0.4 1.0			# 色
+	COLOR = 0.0 0.005 0.5 1.0			# 色
 	GRAVITY = 0						# 重力
-	GRAVITYNUM = 0.0 0.0 0.0		# 重力をかける量
+	GRAVITYNUM = 0.0 -0.05 0.0		# 重力をかける量
 	TRANSPARENCY = 0.01				# 透明度を減らす量
 	ALPHA = 0						# アルファテスト
 	ALPHANUM = 45					# アルファテストの値
 	ANIMATION = 0					# テクスチャアニメーションの設定
-	BLEND = 1					# 加算合成
+	BLEND = 1						# 加算合成
+	USEZBUF = 1						# Zバッファを使うか
 	PRIORITY = 5					# 描画優先順位
 	
 	END_EFFECTSET
 	
+	#=================================================
+	# 状態が良くなったときのパーティクル(EXPLOSION)[12]
+	#=================================================
+	EFFECTSET
+
+	SIZE = 50.0 50.0 0.0			# サイズ
+	MOVE = 25.0 25.0 25.0			# 移動量
+	ROT = 0.0 0.0 0.0				# 回転
+	RANGE = 1.0 1.0 1.0				# 範囲
+	SCALE = 0.0 0.0 0.0				# 拡大率
+	MOVETYPE = 0					# 動きの種類
+	LIFE = 100						# 体力
+	NUM = 20						# 数
+	COLOR = 0.1 1.0 0.7 1.0			# 色
+	GRAVITY = 0						# 重力
+	GRAVITYNUM = 0.0 0.0 0.0		# 重力をかける量
+	TRANSPARENCY = 0.008			# 透明度を減らす量
+	ALPHA = 1						# アルファテスト
+	ALPHANUM = 45					# アルファテストの値
+	ANIMATION = 0					# テクスチャアニメーションの設定
+	BLEND = 1						# 加算合成
+	USEZBUF = 0						# Zバッファを使うか
+	PRIORITY = 5					# 描画優先順位
+	
+	END_EFFECTSET
+	
+	#=================================================
+	# 状態が悪くなったときパーティクル(EXPLOSION)[13]
+	#=================================================
+	EFFECTSET
+
+	SIZE = 50.0 50.0 0.0			# サイズ
+	MOVE = 25.0 25.0 25.0			# 移動量
+	ROT = 0.0 0.0 0.0				# 回転
+	RANGE = 1.0 1.0 1.0				# 範囲
+	SCALE = 0.0 0.0 0.0				# 拡大率
+	MOVETYPE = 0					# 動きの種類
+	LIFE = 100						# 体力
+	NUM = 20						# 数
+	COLOR = 1.0 0.2 0.0 1.0			# 色
+	GRAVITY = 0						# 重力
+	GRAVITYNUM = 0.0 0.0 0.0		# 重力をかける量
+	TRANSPARENCY = 0.008			# 透明度を減らす量
+	ALPHA = 1						# アルファテスト
+	ALPHANUM = 45					# アルファテストの値
+	ANIMATION = 0					# テクスチャアニメーションの設定
+	BLEND = 1						# 加算合成
+	USEZBUF = 0						# Zバッファを使うか
+	PRIORITY = 5					# 描画優先順位
+	
+	END_EFFECTSET
 END_PARTICLESET
 
 END_SCRIPT

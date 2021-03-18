@@ -138,7 +138,7 @@ void CEffectFactory::CreateEffect(D3DXVECTOR3 pos, EFFECT_TYPE type)
 			for (int nCount = 0; nCount < m_Effect[EFFECT_NUM_EXPLOSIONCIRCLE].nNum; nCount++)
 			{
 				CEffect::Create(pos, m_Effect[EFFECT_NUM_EXPLOSIONCIRCLE],
-					CTexture::TEXTURE_NUM_RING);
+					CTexture::TEXTURE_NUM_LACKRING);
 			}
 			break;
 
@@ -157,6 +157,24 @@ void CEffectFactory::CreateEffect(D3DXVECTOR3 pos, EFFECT_TYPE type)
 			{
 				CEffect::Create(pos, m_Effect[EFFECT_NUM_SINKER],
 					CTexture::TEXTURE_NUM_SMOKE);
+			}
+			break;
+
+		case EFFECT_NUM_STATESUPPARTICLE:
+			// 状態が良くなったときのパーティクル
+			for (int nCount = 0; nCount < m_Effect[EFFECT_NUM_STATESUPPARTICLE].nNum; nCount++)
+			{
+				CEffect::Create(pos, m_Effect[EFFECT_NUM_STATESUPPARTICLE],
+					CTexture::TEXTURE_NUM_EFFECT);
+			}
+			break;
+
+		case EFFECT_NUM_STATUSDOWNPARTICLE:
+			// 状態が悪くなったときのパーティクル
+			for (int nCount = 0; nCount < m_Effect[EFFECT_NUM_STATUSDOWNPARTICLE].nNum; nCount++)
+			{
+				CEffect::Create(pos, m_Effect[EFFECT_NUM_STATUSDOWNPARTICLE],
+					CTexture::TEXTURE_NUM_EFFECT);
 			}
 			break;
 			//=============================================================================
@@ -310,13 +328,16 @@ HRESULT CEffectFactory::ReadFile(void)
 								// アニメーション
 								sscanf(aHeadData, "%*s %*s %d ", (int*)&m_Effect[nParticleIndex].bBlend);
 							}
+							if (strcmp(aParticleName, "USEZBUF") == 0)
+							{
+								// Zバッファ
+								sscanf(aHeadData, "%*s %*s %d ", (int*)&m_Effect[nParticleIndex].bUseZbuf);
+							}
 							if (strcmp(aParticleName, "PRIORITY") == 0)
 							{
 								// アニメーション
-								sscanf(aHeadData, "%*s %*s %d ", (int*)&m_Effect[nParticleIndex].bBlend);
+								sscanf(aHeadData, "%*s %*s %d ", (int*)&m_Effect[nParticleIndex].nPriority);
 							}
-
-							
 						}
 
 						//インデックスを１つ進める

@@ -109,6 +109,9 @@ void CResourceManager::LoadAll(void)
 	// !nullcheck
 	if (m_pXFile != NULL)
 	{
+		// モデルのファイルの名前のセット
+		m_pXFile->SetFileName();
+
 		// モデルロード
 		m_pXFile->ModelLoad();
 
@@ -136,8 +139,11 @@ void CResourceManager::UnLoadAll(void)
 	// !nullcheck
 	if (m_pXFile != NULL)
 	{
-		// テクスチャアンロード
+		// モデルの破棄
 		m_pXFile->ModelUnLoad();
+
+		// 階層構造のモデルの破棄
+		m_pXFile->HierarchyModelUnLoad();
 	}
 }
 

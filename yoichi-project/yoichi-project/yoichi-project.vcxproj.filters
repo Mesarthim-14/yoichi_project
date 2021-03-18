@@ -159,6 +159,15 @@
     <ClInclude Include="12_effect\effect.h">
       <Filter>12_effect</Filter>
     </ClInclude>
+    <ClInclude Include="barrier.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="wind.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="12_effect\barrier_effect.h">
+      <Filter>12_effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp">
@@ -277,6 +286,15 @@
     </ClCompile>
     <ClCompile Include="12_effect\effect.cpp">
       <Filter>12_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="12_effect\barrier_effect.cpp">
+      <Filter>12_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\wind.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\barrier.cpp">
+      <Filter>08_3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

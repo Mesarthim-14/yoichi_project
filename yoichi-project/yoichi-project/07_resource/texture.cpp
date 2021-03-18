@@ -19,8 +19,9 @@
 #define TEXTURE_NAME_EFFECT	("data/Texture/effect000.png")		// エフェクト
 #define TEXTURE_NAME_FLOOR	("data/Texture/floor.jpg")			// 床
 #define TEXTURE_NAME_STAR	("data/Texture/star.png")			// 星
-#define TEXTURE_NAME_RING	("data/Texture/statuschange.png")	// 状態が変化したとき
+#define TEXTURE_NAME_RING	("data/Texture/ring.png")			// 輪
 #define TEXTURE_NAME_SMOKE	("data/Texture/smoke.png")			// 煙
+#define TEXTURE_NAME_LACKRING	("data/Texture/lackring.png")	// 欠けた輪
 
 // 分割テクスチャの名前
 #define SEPARATE_TEX_NAME_NUMBER			("data/Texture/sharp_effect.png")	// ナンバー
@@ -69,6 +70,7 @@ HRESULT CTexture::Load(void)
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_FLOOR, &m_apTexture[TEXTURE_NUM_FLOOR]);
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_STAR, &m_apTexture[TEXTURE_NUM_STAR]);
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RING, &m_apTexture[TEXTURE_NUM_RING]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_LACKRING, &m_apTexture[TEXTURE_NUM_LACKRING]);
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_SMOKE, &m_apTexture[TEXTURE_NUM_SMOKE]);
 
 	return S_OK;

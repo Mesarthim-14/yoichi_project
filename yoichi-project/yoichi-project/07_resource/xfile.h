@@ -41,6 +41,9 @@ public:
 	{
 		XFILE_NUM_NONE = -1,			// 初期値
 		XFILE_NUM_BG,					// 背景
+		XFILE_NUM_WINDSPHERE,			// 風の球のモデル
+		XFILE_NUM_BARRIER,				// バリアのモデル
+		XFILE_NUM_BARRIER_EFFECT,		// バリアエフェクト用のモデル
 		XFILE_NUM_MAX
 	}XFILE_NUM;
 
@@ -53,7 +56,7 @@ public:
 
 	typedef struct
 	{
-		char xFileName[1024];								// ファイルネーム
+		char *xFileName;									// ファイルネーム
 		LPD3DXMESH pMesh;									// メッシュ情報へのポインタ
 		LPD3DXBUFFER pBuffMat;								// マテリアル情報へのポインタ
 		DWORD dwNumMat;										// マテリアル情報の数
@@ -73,7 +76,7 @@ public:
 	HRESULT HierarchyReadFile(void);				// 階層構造のあるモデル読み込み
 	HRESULT HierarchyModelLoad(void);				// 階層構造のモデルロード
 	void HierarchyModelUnLoad(void);				// 階層構造のモデルアンロード
-	void SetHierarchyFileName(void);				// ファイルの名前を設定
+	void SetFileName(void);				// ファイルの名前を設定
 
 	// Get関数
 	MODEL GetXfile(XFILE_NUM Tex_Num);																		// モデルの情報

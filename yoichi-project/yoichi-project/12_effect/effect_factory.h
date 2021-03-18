@@ -45,6 +45,7 @@ public:
 		int nAlphaNum;			// アルファテストの値
 		bool bAnimation;		// アニメーションをするかどうか
 		bool bBlend;			// 加算合成
+		bool bUseZbuf;			// Zバッファ
 		int nPriority;			// 描画優先順位
 	}EFFECT;
 
@@ -64,6 +65,8 @@ public:
 		EFFECT_NUM_EXPLOSIONCIRCLE,		// 爆発の円
 		EFFECT_NUM_EXPLOSIONSPARK,		// 爆発の火花
 		EFFECT_NUM_SINKER,				// 重り
+		EFFECT_NUM_STATESUPPARTICLE,	// 状態が良くなったときのパーティクル
+		EFFECT_NUM_STATUSDOWNPARTICLE,	// 状態が悪くなったときのパーティクル
 		EFFECT_NUM_MAX
 	}EFFECT_TYPE;
 

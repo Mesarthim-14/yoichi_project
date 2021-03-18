@@ -26,6 +26,7 @@ public:
 		TEXTURE_NUM_FLOOR,			// 床テクスチャ
 		TEXTURE_NUM_STAR,			// 星
 		TEXTURE_NUM_RING,			// 輪
+		TEXTURE_NUM_LACKRING,		// 欠けた輪
 		TEXTURE_NUM_SMOKE,			// 煙
 		TEXTURE_NUM_MAX
 	}TEXTURE_TYPE;

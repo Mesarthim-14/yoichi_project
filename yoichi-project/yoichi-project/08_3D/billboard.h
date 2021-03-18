@@ -40,6 +40,7 @@ public:
 	void SetAlpha(bool bAlpha);									// アルファテストの設定
 	void SetAlphaNum(int nAlphaNum);							// アルファテストの値
 	void SetBlend(bool bBlend);									// 加算合成
+	void SetUseZBuf(bool bZbuf);								// Zバッファの設定
 	
 	// Get関数
 	D3DXVECTOR3 GetMove(void);					// 移動量情報
@@ -62,6 +63,7 @@ private:
 	bool m_bUse;								// 使用判定
 	bool m_bAlpha;								// アルファテストを使用するか
 	bool m_bBlend;								// 加算合成
+	bool m_bUseZbuf;							// Zバッファを使うか
 };
 
 #endif

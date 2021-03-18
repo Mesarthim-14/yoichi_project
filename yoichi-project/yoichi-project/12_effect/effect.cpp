@@ -162,6 +162,7 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 		pEffect->SetGravity(Particle.GravityNum);			// 重力の設定
 		pEffect->SetTransparency(Particle.fTransparency);	// 透明度を減らす量の設定
 		pEffect->SetScale(Particle.Scale);					// 拡大率の設定
+		pEffect->SetUseZBuf(Particle.bUseZbuf);				// Zバッファの設定
 	}
 
 	return pEffect;

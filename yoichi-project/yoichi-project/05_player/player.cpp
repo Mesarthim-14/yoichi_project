@@ -28,6 +28,9 @@
 #include "xfile.h"
 #include "character.h"
 #include "motion.h"
+#include "wind.h"
+#include "barrier.h"
+#include "barrier_effect.h"
 
 //=============================================================================
 // マクロ定義
@@ -167,15 +170,16 @@ void CPlayer::Update(void)
 		Death();
 	}
 
-	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(5)->GetMtxWorld()._41,
-		GetModelAnime(5)->GetMtxWorld()._42,
-		GetModelAnime(5)->GetMtxWorld()._43),
+
+	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+		GetModelAnime(21)->GetMtxWorld()._42,
+		GetModelAnime(21)->GetMtxWorld()._43),
 		CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
 
-	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(8)->GetMtxWorld()._41,
-		GetModelAnime(8)->GetMtxWorld()._42,
-		GetModelAnime(8)->GetMtxWorld()._43),
-		CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
+	//CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+	//	GetModelAnime(21)->GetMtxWorld()._42,
+	//	GetModelAnime(21)->GetMtxWorld()._43),
+	//	CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
 }
 
 //=============================================================================
@@ -384,32 +388,54 @@ void CPlayer::Jump(void)
 	//=============================================================================
 	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_B, m_nNumber) && GetJump() == false)
 	{
-		CEffectFactory::CreateEffect(GetPos() + D3DXVECTOR3(0.0f, 100.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_THUNDER);
-		CEffectFactory::CreateEffect(GetPos() + D3DXVECTOR3(0.0f, 500.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_LIGHTNINGSTRIKE);
+		// 雷のアイテムを使われたときのエフェクト
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_THUNDER);
+
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(0.0f, 500.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_LIGHTNINGSTRIKE);
 	}
 
 	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_Y, m_nNumber) && GetJump() == false)
 	{
+		// 星がとられたときのエフェクト
 		CEffectFactory::CreateEffect(GetPos(), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STAR);
-		CEffectFactory::CreateEffect(GetPos()/* + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f)*/, CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SHOCKWAVE);
-	}
-
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_Y, m_nNumber) && GetJump() == false)
-	{
-		CEffectFactory::CreateEffect(GetPos() + D3DXVECTOR3(0.0f, 500.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_WIND);
+		//CEffectFactory::CreateEffect(GetPos()/* + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f)*/, CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SHOCKWAVE);
 	}
 
 	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L_TRIGGER, m_nNumber) && GetJump() == false)
 	{
-		CEffectFactory::CreateEffect(GetPos() + D3DXVECTOR3(0.0f, 500.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWN);
+		// 速度が落ちた時のエフェクト
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f),
+			CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWN);
+
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f),
+			CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWNPARTICLE);
+
 	}
 	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, m_nNumber) && GetJump() == false)
 	{
-		CEffectFactory::CreateEffect(GetPos(), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSUP);
+		// 速度が上がった時のエフェクト
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f),
+			CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSUP);
+
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f),
+			CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATESUPPARTICLE);
 	}
 
 	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L2_TRIGGER, m_nNumber) && GetJump() == false)
 	{
+		// 爆発のエフェクト
 		CEffectFactory::CreateEffect(D3DXVECTOR3(0.0f, 0.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSION);
 		CEffectFactory::CreateEffect(D3DXVECTOR3(0.0f, 0.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSIONCIRCLE);
 		CEffectFactory::CreateEffect(D3DXVECTOR3(0.0f, 0.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSIONSPARK);
@@ -417,7 +443,37 @@ void CPlayer::Jump(void)
 
 	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R2_TRIGGER, m_nNumber) && GetJump() == false)
 	{
+		// 風のアイテムのエフェクト
+		CWind::Create(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43), 
+			ZeroVector3, 10.0f, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_nNumber);
 
+		CWind::Create(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43), 
+			ZeroVector3, 10.0f, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_nNumber);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R3, m_nNumber) && GetJump() == false)
+	{
+		// バリアのエフェクト
+		CBARRIER::Create(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43),
+			D3DXVECTOR3(50.0f, 50.0f, 50.0f), 10.0f, D3DXVECTOR3(5.0f, 5.0f, 5.0f), m_nNumber);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L3, m_nNumber) && GetJump() == false)
+	{
+		for (int nCount = 0; nCount < 100; nCount++)
+		{
+			// バリアが壊されたときのエフェクト
+			CBARRIEREFFECT::Create(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+				GetModelAnime(21)->GetMtxWorld()._42,
+				GetModelAnime(21)->GetMtxWorld()._43),
+				D3DXVECTOR3(50.0f, 50.0f, 50.0f), D3DXVECTOR3(30.0f, 30.0f, 30.0f), 10.0f);
+		}
 	}
 	//=============================================================================
 }
