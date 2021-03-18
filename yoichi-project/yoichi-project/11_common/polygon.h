@@ -23,7 +23,7 @@ public:
 	//=========================================================================
 	typedef enum
 	{
-		TEX_TYPE_NORE = 0,
+		TEX_TYPE_NONE = 0,
 		TEX_TYPE_TITLE,			//タイトルテクスチャ
 		TEX_TYPE_RESULET,		//リザルトテクスチャ
 		TEX_TYPE_LIFE_GAUGE,	//ライフテクスチャ
@@ -53,7 +53,7 @@ private:
 	//メンバ変数宣言
 	//=========================================================================
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
-	D3DXVECTOR3 m_Size;					// ポリゴンのサイズ
+	D3DXVECTOR3 m_size;					// ポリゴンのサイズ
 	D3DXVECTOR3 m_pos;					// ライフの位置
 	TEX_TYPE m_Type;					// タイプ
 };

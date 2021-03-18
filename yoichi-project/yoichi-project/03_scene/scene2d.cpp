@@ -79,7 +79,6 @@ HRESULT CScene2D::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 
 	// 頂点データをロックする
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
 	// テクスチャ座標の設定
 	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
 	pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
@@ -87,10 +86,10 @@ HRESULT CScene2D::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
 
 	// 頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(GetPos().x - GetSize().x, GetPos().y - GetSize().y, 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(GetPos().x + GetSize().x, GetPos().y - GetSize().y, 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(GetPos().x - GetSize().x, GetPos().y + GetSize().y, 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(GetPos().x + GetSize().x, GetPos().y + GetSize().y, 0.0f);
+	pVtx[0].pos = D3DXVECTOR3(pos.x - size.x, pos.y - size.y, 0.0f);
+	pVtx[1].pos = D3DXVECTOR3(pos.x + size.x, pos.y - size.y, 0.0f);
+	pVtx[2].pos = D3DXVECTOR3(pos.x - size.x, pos.y + size.y, 0.0f);
+	pVtx[3].pos = D3DXVECTOR3(pos.x + size.x, pos.y + size.y, 0.0f);
 
 	// rhwの設定
 	pVtx[0].rhw = 1.0f;

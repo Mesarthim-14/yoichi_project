@@ -41,7 +41,6 @@ public:
 		MODE_TYPE_TITLE,		// タイトルモード
 		MODE_TYPE_TUTORIAL,		// チュートリアル
 		MODE_TYPE_GAME,			// ゲームモード
-		MODE_TYPE_RESULT,		// リザルトモード
 		MODE_TYPE_MAX,
 	}MODE_TYPE;
 
@@ -72,7 +71,7 @@ public:
 private:
 	static MODE_TYPE m_mode;						// モード
 	static CRenderer *m_pRenderer;					// レンダラークラスのポインタ
-	static CInputKeyboard *m_pInput;				// インプットクラスのポインタ
+	static CInputKeyboard *m_pKeyboard;				// インプットクラスのポインタ
 	static CFade *m_pFade;							// フェードクラスのポインタ
 	static CTitle *m_pTitle;						// タイトルクラスのポインタ
 	static CTutorial *m_pTutorial;					// チュートリアルのポインタ

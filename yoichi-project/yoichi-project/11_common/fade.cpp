@@ -66,7 +66,7 @@ HRESULT CFade::Init(void)
 
 	//ポリゴンクラスを生成
 	m_pPolygon = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f),
-		D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f), CPolygon::TEX_TYPE_NORE);
+		D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f), CPolygon::TEX_TYPE_NONE);
 
 	//色を設定
 	m_pPolygon->SetColor(m_colorFade);

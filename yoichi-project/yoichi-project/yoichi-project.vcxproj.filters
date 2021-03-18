@@ -75,9 +75,6 @@
     <ClInclude Include="04_mode\game.h">
       <Filter>04_mode</Filter>
     </ClInclude>
-    <ClInclude Include="04_mode\result.h">
-      <Filter>04_mode</Filter>
-    </ClInclude>
     <ClInclude Include="04_mode\title.h">
       <Filter>04_mode</Filter>
     </ClInclude>
@@ -195,6 +192,9 @@
     <ClInclude Include="08_3D\star_manager.h">
       <Filter>08_3D</Filter>
     </ClInclude>
+    <ClInclude Include="04_mode\gamemode.h">
+      <Filter>04_mode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp">
@@ -228,9 +228,6 @@
       <Filter>03_scene</Filter>
     </ClCompile>
     <ClCompile Include="04_mode\game.cpp">
-      <Filter>04_mode</Filter>
-    </ClCompile>
-    <ClCompile Include="04_mode\result.cpp">
       <Filter>04_mode</Filter>
     </ClCompile>
     <ClCompile Include="04_mode\title.cpp">

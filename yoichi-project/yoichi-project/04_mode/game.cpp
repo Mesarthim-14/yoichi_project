@@ -43,7 +43,7 @@ int CGame::m_nPlayerNum = 1;
 //=======================================================================================
 // コンストラクタ
 //=======================================================================================
-CGame::CGame(PRIORITY Priority) : CScene(Priority)
+CGame::CGame()
 {
 	m_bGameEnd = false;
 	m_nTimeCounter = 0;
@@ -74,7 +74,7 @@ CGame* CGame::Create(void)
 	CGame* pGame = new CGame();
 
 	// 初期化処理
-	pGame->Init(ZeroVector3, ZeroVector3);
+	pGame->Init();
 
 	return pGame;
 }
@@ -82,11 +82,8 @@ CGame* CGame::Create(void)
 //=======================================================================================
 // 初期化処理
 //=======================================================================================
-HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
+HRESULT CGame::Init(void)
 {
-	// キーボード情報
-	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
-
 	// プレイヤーの数分ループ
 	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
 	{	
@@ -152,13 +149,6 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 			m_pItemManager->CreateItemBox();
 		}
 	}
-
-	//デバイス情報の取得
-	LPDIRECT3DDEVICE9 pD3DDevice = CManager::GetRenderer()->GetDevice();
-
-	//フォントの生成
-	D3DXCreateFont(pD3DDevice, 18, 0, 0, 0, FALSE, SHIFTJIS_CHARSET,
-		OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, "Terminal", &m_pFont);
 
 	return S_OK;
 }
@@ -237,9 +227,8 @@ void CGame::Uninit(void)
 		//	pSound->Stop(CSound::SOUND_LABEL_BGM_GAME);
 		}
 	}
-
-	//オブジェクトの破棄
-	Release();
+	
+	delete this;
 }
 
 //=======================================================================================
@@ -247,26 +236,43 @@ void CGame::Uninit(void)
 //=======================================================================================
 void CGame::Update(void)
 {
-	// プレイヤー分
-	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+	// キーボード情報
+	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
+	if(m_bGameEnd)
 	{
-		// !nullcheck
-		if (m_pCamera != nullptr)
+
+	}
+	else
+	{
+		CScene::UpdateAll();
+		// プレイヤー分
+		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
 		{
-			//カメラクラスの更新処理
-			m_pCamera[nCount]->Update();
+			// !nullcheck
+			if (m_pCamera != nullptr)
+			{
+				//カメラクラスの更新処理
+				m_pCamera[nCount]->Update();
+			}
 		}
+
+		// nullcheck
+		if (m_pStarManager != nullptr)
+		{
+			// 更新処理
+			m_pStarManager->Update();
+		}
+
+		// ゲームの設定
+		SetGame();
 	}
 
-	// nullcheck
-	if (m_pStarManager != nullptr)
+#ifdef _DEBUG
+	if (pKeyboard->GetTrigger(DIK_P))
 	{
-		// 更新処理
-		m_pStarManager->Update();
+		m_bGameEnd = !m_bGameEnd;
 	}
-
-	// ゲームの設定
-	SetGame();
+#endif
 }
 
 //=======================================================================================

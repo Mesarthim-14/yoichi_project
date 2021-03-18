@@ -10,7 +10,7 @@
 //=============================================================================
 //インクルードファイル
 //=============================================================================
-#include "scene.h"
+#include "gamemode.h"
 
 //=============================================================================
 // マクロ定義
@@ -39,15 +39,15 @@ class CScene2D;
 //=============================================================================
 //リザルトクラス
 //=============================================================================
-class CTitle : public CScene
+class CTitle : public ICGameMode
 {
 public:
-	CTitle(PRIORITY Priority = PRIORITY_0);					// コンストラクタ
+	CTitle();					// コンストラクタ
 	~CTitle();												// デストラクタ
 
 	static CTitle* Create(void);							// インスタンス生成
 
-	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);		// 初期化処理
+	HRESULT Init(void);		// 初期化処理
 	void Uninit(void);										// 終了処理
 	void Update(void);										// 更新処理
 	void Draw(void);										// 描画処理

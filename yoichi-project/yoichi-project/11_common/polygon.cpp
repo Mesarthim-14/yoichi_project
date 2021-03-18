@@ -20,8 +20,8 @@ CPolygon::CPolygon()
 	//各メンバ変数のクリア
 	m_pVtxBuff = NULL;
 	m_pos = ZeroVector3;
-	m_Size = ZeroVector3;
-	m_Type = TEX_TYPE_NORE;
+	m_size = ZeroVector3;
+	m_Type = TEX_TYPE_NONE;
 }
 
 //=============================================================================
@@ -71,7 +71,7 @@ HRESULT CPolygon::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size, const TEX_
 	m_pos = pos;
 
 	//大きさの設定
-	m_Size = size;
+	m_size = size;
 
 	//テクスチャの設定
 	m_Type = type;
@@ -90,10 +90,10 @@ HRESULT CPolygon::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size, const TEX_
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	// 頂点情報を設定
-	pVtx[0].pos = D3DXVECTOR3(m_pos.x + (-m_Size.x / 2), m_pos.y + (-m_Size.y / 2), 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(m_pos.x + (m_Size.x / 2), m_pos.y + (-m_Size.y / 2), 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(m_pos.x + (-m_Size.x / 2), m_pos.y + (m_Size.y / 2), 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(m_pos.x + (m_Size.x / 2), m_pos.y + (m_Size.y / 2), 0.0f);
+	pVtx[0].pos = D3DXVECTOR3(m_pos.x + (-m_size.x / 2), m_pos.y + (-m_size.y / 2), 0.0f);
+	pVtx[1].pos = D3DXVECTOR3(m_pos.x + (m_size.x / 2), m_pos.y + (-m_size.y / 2), 0.0f);
+	pVtx[2].pos = D3DXVECTOR3(m_pos.x + (-m_size.x / 2), m_pos.y + (m_size.y / 2), 0.0f);
+	pVtx[3].pos = D3DXVECTOR3(m_pos.x + (m_size.x / 2), m_pos.y + (m_size.y / 2), 0.0f);
 
 	//rhwの設定（値は1.0で固定）
 	pVtx[0].rhw = 1.0f;
