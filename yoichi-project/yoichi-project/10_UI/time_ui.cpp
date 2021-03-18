@@ -23,7 +23,7 @@
 #define NUM_UI_SIZE_Z (0.0f)    // 数字の大きさ(Z軸)
 
 #define GAME_TIME (180)           // ゲームの制限時間(秒)
-#define NUM_UI_POS_X (720.0f+(NUM_UI_SIZE_X/2 * MAX_NAM))   // 数字の位置(X軸)
+#define NUM_UI_POS_X (640.0f+(NUM_UI_SIZE_X/2 * MAX_NAM/2))   // 数字の位置(X軸)
 #define NUM_UI_POS_Y (100.0f)   // 数字の位置(Y軸)
 #define NUM_UI_POS_Z (0.0f)     // 数字の位置(Z軸)
 
@@ -97,6 +97,13 @@ void CTime_UI::Uninit(void)
 
         }
     }
+    if (m_Timer!=nullptr)
+    {
+        m_Timer->Uninit();
+        delete m_Timer;
+        m_Timer = nullptr;
+    }
+
     // 終了フラグ
     Release();
 }

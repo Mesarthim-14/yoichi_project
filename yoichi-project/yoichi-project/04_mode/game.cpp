@@ -90,25 +90,6 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	// キーボード情報
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 
-	// プレイヤーの数分ループ
-	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
-	{	
-		// nullcheck
-		if (m_pCamera[nCount] == nullptr)
-		{
-			// カメラクラスのクリエイト
-			m_pCamera[nCount] = CCamera::Create(nCount);
-		}
-
-		// nullcheck
-		if (m_pPlayer[nCount] == nullptr)
-		{
-			// プレイヤーの生成
-			m_pPlayer[nCount] = CPlayer::Create(
-				ZeroVector3, D3DXVECTOR3(PLAYER_SIZE_X, PLAYER_SIZE_Y, PLAYER_SIZE_Z), 
-				nCount);
-		}
-	}
 
 	//ライトクラスの生成
 	m_pLight = new CLight;
@@ -130,6 +111,26 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	{
 		m_pBg = CBg::Create(BG_POS, BG_SIZE);
 	}
+
+    // プレイヤーの数分ループ
+    for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+    {
+        // nullcheck
+        if (m_pCamera[nCount] == nullptr)
+        {
+            // カメラクラスのクリエイト
+            m_pCamera[nCount] = CCamera::Create(nCount);
+        }
+
+        // nullcheck
+        if (m_pPlayer[nCount] == nullptr)
+        {
+            // プレイヤーの生成
+            m_pPlayer[nCount] = CPlayer::Create(
+                ZeroVector3, D3DXVECTOR3(PLAYER_SIZE_X, PLAYER_SIZE_Y, PLAYER_SIZE_Z),
+                nCount);
+        }
+    }
 
     // タイマーのセット
     m_pTimeUI = CTime_UI::Create();
@@ -276,6 +277,7 @@ void CGame::Update(void)
 		// 更新処理
 		m_pStarManager->Update();
 	}
+
 }
 
 //=======================================================================================

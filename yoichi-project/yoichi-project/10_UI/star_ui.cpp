@@ -9,12 +9,25 @@
 // インクルードファイル
 //*****************************************************************************
 #include "star_ui.h"
+#include "number_2d.h"
+#include "manager.h"
+#include "resource_manager.h"
+#include "texture.h"
+
+//*****************************************************************************
+// マクロ定義
+//*****************************************************************************
+#define STARUI_POS_PLAYER1 {}
+#define STARUI_POS_PLAYER2 {}
+#define STARUI_POS_PLAYER3 {}
+#define STARUI_POS_PLAYER4 {}
 
 //=============================================================================
 // [CStar_UI] コンストラクタ
 //=============================================================================
 CStar_UI::CStar_UI()
 {
+
 }
 
 //=============================================================================
@@ -22,12 +35,13 @@ CStar_UI::CStar_UI()
 //=============================================================================
 CStar_UI::~CStar_UI()
 {
+
 }
 
 //=============================================================================
 // [Create] オブジェクトの生成
 //=============================================================================
-CStar_UI * CStar_UI::Create(void)
+CStar_UI *CStar_UI::Create(void)
 {
     CStar_UI *StarUI = nullptr;
     if (StarUI == nullptr)
@@ -44,7 +58,14 @@ CStar_UI * CStar_UI::Create(void)
 //=============================================================================
 void CStar_UI::Init(void)
 {
+
+    CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
     // ナンバー生成
+    for ( int  nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
+    {
+        m_apNumber[nCntNum] = CNumber2d::Create({ 100.0f,200.0f,0.0f }, {50.0f,80.0f,0.0f});
+        m_apNumber[nCntNum]->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_NUMBER));
+    }
 }
 
 //=============================================================================
@@ -53,6 +74,13 @@ void CStar_UI::Init(void)
 void CStar_UI::Uninit(void)
 {
     // ナンバーの破棄
+    // ナンバー生成
+    for (int nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
+    {
+        m_apNumber[nCntNum]->Uninit();
+
+    }
+    Release();
 }
 
 //=============================================================================
@@ -61,4 +89,9 @@ void CStar_UI::Uninit(void)
 void CStar_UI::Update(void)
 {
     // ナンバーの更新
+    for (int nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
+    {
+        m_apNumber[nCntNum]->SetNumber(0);
+    }
+
 }

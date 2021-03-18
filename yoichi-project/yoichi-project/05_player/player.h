@@ -132,6 +132,7 @@ public:
     bool GetIsFly(void) { return m_bFly; }					// 飛行状態
 	bool  GetArmor(void)				{ return m_bArmor; }				// 無敵状態
     int   GetPlayerNum(void)            { return m_nNumber; }               // プレイヤーの番号
+    int  GetStarNum(void)               { return m_nStarNum; }              // 星の取得数取得
 
 private:
 	float InputToAngle(void);

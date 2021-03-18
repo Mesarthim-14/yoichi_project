@@ -148,9 +148,7 @@ void CPlayer::Update(void)
 	UpdateMotionState();
 
 	// プレイヤーの制御
-
 	PlayerControl();
-
 
 	// 角度の取得
 	D3DXVECTOR3 rot = GetRot();

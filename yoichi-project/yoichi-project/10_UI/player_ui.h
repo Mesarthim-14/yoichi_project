@@ -17,6 +17,7 @@
 // 前方宣言
 //*****************************************************************************
 class CItem;
+class CStar_UI;
 
 //*****************************************************************************
 // クラス定義
@@ -44,7 +45,7 @@ public:
     CItem *GetItem(void) { return m_apItem[0]; }				// アイテムのポインタ
 private:
     std::vector<CItem*> m_apItem;	// アイテムボックスのポインタ
-
+    static CStar_UI *m_pStarUI;     // 星の取得数絵のポインタ
 
 };
 #endif // ! _PLAYER_UI_H_
