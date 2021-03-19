@@ -22,7 +22,7 @@
 //=============================================================================
 // [CPlayer_UI] コンストラクタ
 //=============================================================================
-CPlayer_UI::CPlayer_UI(PRIORITY Priority) : CScene2D(Priority)
+CPlayer_UI::CPlayer_UI(PRIORITY Priority) : CScene(Priority)
 {
 
 }
@@ -40,14 +40,14 @@ CPlayer_UI::~CPlayer_UI()
 // 引数
 // プレイヤーの番号
 //=============================================================================
-CPlayer_UI *CPlayer_UI::Create(int nPlayerNum)
+CPlayer_UI *CPlayer_UI::Create(void)
 {
     CPlayer_UI *PlayerUI = nullptr;
     if (PlayerUI == nullptr)
     {
         // メモリの確保と初期化
         PlayerUI = new CPlayer_UI;
-        PlayerUI->Init(nPlayerNum);
+        PlayerUI->Init(ZeroVector3, ZeroVector3);
     }
     return PlayerUI;
 }
@@ -57,10 +57,16 @@ CPlayer_UI *CPlayer_UI::Create(int nPlayerNum)
 // 引数
 // プレイヤーの番号
 //=============================================================================
+HRESULT CPlayer_UI::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+{
+    return S_OK;
+}
+
+//=============================================================================
+// [Init] 初期化処理
+//=============================================================================
 void CPlayer_UI::Init(int nPlayerNum)
 {
-
-    // 各UI生成
     m_pStarUI = CStar_UI::Create();
     m_pStarUI->SetPosition(nPlayerNum);
 }
@@ -91,8 +97,7 @@ void CPlayer_UI::Uninit(void)
         // 配列のクリア
         m_apItem.clear();
     }
-
-    CScene2D::Uninit();
+    Release();
 }
 
 //=============================================================================
@@ -116,6 +121,13 @@ void CPlayer_UI::Update(void)
             }
         }
     }
+}
+
+//=============================================================================
+// [Draw]描画処理
+//=============================================================================
+void CPlayer_UI::Draw(void)
+{
 }
 
 //=============================================================================

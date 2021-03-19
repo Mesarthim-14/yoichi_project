@@ -11,7 +11,7 @@
 // インクルードファイル
 //*****************************************************************************
 #include "main.h"
-#include "scene2d.h"
+#include "scene.h"
 
 //*****************************************************************************
 // 前方宣言
@@ -22,17 +22,19 @@ class CStar_UI;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CPlayer_UI : public CScene2D
+class CPlayer_UI : public CScene
 {
 public:
     CPlayer_UI(PRIORITY Priority = PRIORITY_UI);
     ~CPlayer_UI();
 
-    static CPlayer_UI* Create(int nPlayerNum);
+    static CPlayer_UI* Create(void);
 
+    HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
     void Init(int nPlayerNum);
     void Uninit(void);
     void Update(void);
+    void Draw(void);
 
     void AcquiredItem(CItem *pItem);							// アイテム獲得関数
     void UseItem(void);											// アイテムの使用処理

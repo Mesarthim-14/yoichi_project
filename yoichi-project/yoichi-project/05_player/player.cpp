@@ -105,7 +105,8 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	}
 
     // UI‚Ì¶¬
-    m_pPlayerUI = CPlayer_UI::Create(m_nNumber);
+    m_pPlayerUI = CPlayer_UI::Create();
+    m_pPlayerUI->Init(m_nNumber);
 
 	// ‰Šú‰»ˆ—
 	CCharacter::Init(pos, rot);				// À•W Šp“x

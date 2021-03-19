@@ -11,12 +11,12 @@
 // インクルードファイル
 //*****************************************************************************
 #include "main.h"
-#include "scene2d.h"
+#include "scene.h"
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define STAR_NUM (2) // 星の取得数
+#define STAR_NUM (4) // 桁数
 #define MAX_PLAYER (4) // プレイヤーの最大数
 
 //*****************************************************************************
@@ -26,7 +26,7 @@ class CNumber2d;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CStar_UI : public CScene2D
+class CStar_UI : public CScene
 {
 public:
     CStar_UI();
@@ -34,9 +34,10 @@ public:
 
     static CStar_UI* Create(void);
 
-    void Init(void);
+    HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
     void Uninit(void);
     void Update(void);
+    void Draw(void);
 
     void SetPosition(int nPlayerNum);
 private:

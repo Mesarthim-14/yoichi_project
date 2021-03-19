@@ -18,7 +18,6 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-
 //プレイヤごとのUIの位置
 #define STARUI_POS_PLAYER1 {SCREEN_WIDTH/4-150.0f,SCREEN_HEIGHT/4+130.0f,0.0f}
 #define STARUI_POS_PLAYER2 {SCREEN_WIDTH/4+(SCREEN_WIDTH/2)+100.0f,SCREEN_HEIGHT/4+130.0f,0.0f}
@@ -63,7 +62,7 @@ CStar_UI *CStar_UI::Create(void)
     {
         // メモリの確保と初期化
         StarUI = new CStar_UI;
-        StarUI->Init();
+        StarUI->Init(ZeroVector3, ZeroVector3);
     }
     return StarUI;
 }
@@ -71,9 +70,9 @@ CStar_UI *CStar_UI::Create(void)
 //=============================================================================
 // [Init] 初期化処理
 //=============================================================================
-void CStar_UI::Init(void)
+HRESULT CStar_UI::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 {
-
+    return S_OK;
 }
 
 //=============================================================================
@@ -104,19 +103,26 @@ void CStar_UI::Update(void)
 }
 
 //=============================================================================
+// [Draw] 描画処理
+//=============================================================================
+void CStar_UI::Draw(void)
+{
+}
+
+//=============================================================================
 // [SetPosition] 位置の設定
 //=============================================================================
 void CStar_UI::SetPosition(int nPlayerNum)
 {
-    // プレイヤーの番号取得
-    // プレイヤーの総数取得
+
     D3DXVECTOR3 pos;
    int nPlayerTotal = CGame::GetPlayerNum();
+
+   CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 
    // ナンバー生成
    for (int nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
    {
-       CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
        pos = { m_pos[nPlayerNum].x + (nCntNum*50.0f), m_pos[nPlayerNum].y ,m_pos[nPlayerNum].z };
        m_apNumber[nCntNum] = CNumber2d::Create(pos, { 50.0f,80.0f,0.0f });
        m_apNumber[nCntNum]->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_NUMBER));
