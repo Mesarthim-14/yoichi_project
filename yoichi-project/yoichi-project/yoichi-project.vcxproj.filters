@@ -162,14 +162,14 @@
     <ClInclude Include="barrier.h">
       <Filter>08_3D</Filter>
     </ClInclude>
-    <ClInclude Include="wind.h">
-      <Filter>08_3D</Filter>
-    </ClInclude>
     <ClInclude Include="12_effect\barrier_effect.h">
       <Filter>12_effect</Filter>
     </ClInclude>
     <ClInclude Include="12_effect\magichand.h">
       <Filter>12_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="08_3D\wind.h">
+      <Filter>08_3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

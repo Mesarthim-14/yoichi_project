@@ -65,7 +65,7 @@ HRESULT CBillboard::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	// 情報の代入
 	SetPos(pos);
 	SetSize(size);
-	m_sizeBase = size;
+	//m_sizeBase = size;
 
 	//頂点バッファをロック
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);

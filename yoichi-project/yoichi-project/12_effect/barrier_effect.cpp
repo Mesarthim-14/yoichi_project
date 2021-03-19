@@ -89,6 +89,8 @@ HRESULT CBARRIEREFFECT::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXVECTOR3 move
 	CModel::SetPos(pos);
 	CModel::SetMove(move);
 
+	// ëÃóÕê›íË
+	CModel::SetLife(BARRIEREFFECT_LIFE);
 	return S_OK;
 }
 

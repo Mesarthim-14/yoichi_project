@@ -46,21 +46,22 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 
 	if (pEffect != NULL)
 	{
-		// ‹——£‚ÌÝ’è
-		D3DXVECTOR3 Distance;
-		Distance = D3DXVECTOR3(
-			(float)(rand() % (int)Particle.Range.x - ((int)Particle.Range.x / 2)),
-			(float)(rand() % (int)Particle.Range.y - ((int)Particle.Range.y / 2)),
-			(float)(rand() % (int)Particle.Range.z - ((int)Particle.Range.z / 2)));
+		// ”ÍˆÍ‚ÌÝ’è
+		D3DXVECTOR3 Range = D3DXVECTOR3(
+			(Particle.Range.x),
+			(Particle.Range.y),
+			(Particle.Range.z));
 
 		// ƒ‰ƒ“ƒ_ƒ€‚ÅoŒ»‚ðŒˆ‚ß‚é
 		D3DXVECTOR3 TargetPos = D3DXVECTOR3(
-			pos.x + Distance.x,
-			pos.y + Distance.y,
-			pos.z + Distance.z);
+			(float)(rand() % (int)(Range.x)) + pos.x - (Range.x / 2),
+			(float)(rand() % (int)(Range.y)) + pos.y - (Range.y / 2),
+			(float)(rand() % (int)(Range.z)) + pos.z - (Range.z / 2));
 
 		// ‰Šú‰»ˆ—
 		pEffect->Init(TargetPos, Particle.size);
+		pEffect->SetPos(TargetPos);		// ‰ñ“]‚ÌÝ’è
+		pEffect->SetSizeBase(Particle.size);					// F‚ÌÝ’è
 
 		CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 

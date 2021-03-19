@@ -16,10 +16,11 @@
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define WIND_MAX_SIZE_X		(300.0f)	// Xのサイズの最大値
-#define WIND_MAX_SIZE_Y		(300.0f)	// Yのサイズの最大値
-#define WIND_MAX_SIZE_Z		(300.0f)	// Zのサイズの最大値
-#define WIND_MAX_SIZE		(D3DXVECTOR3(WIND_MAX_SIZE_X, WIND_MAX_SIZE_Y, WIND_MAX_SIZE_Z))	// サイズの最大値
+#define WIND_MAX_SIZE_X	(300.0f)	// Xのサイズの最大値
+#define WIND_MAX_SIZE_Y	(300.0f)	// Yのサイズの最大値
+#define WIND_MAX_SIZE_Z	(300.0f)	// Zのサイズの最大値
+#define WIND_MAX_SIZE	(D3DXVECTOR3(WIND_MAX_SIZE_X, WIND_MAX_SIZE_Y, WIND_MAX_SIZE_Z))	// サイズの最大値
+#define WIND_LIFE		(300)	// 体力
 
 //=============================================================================
 // 背景クラス

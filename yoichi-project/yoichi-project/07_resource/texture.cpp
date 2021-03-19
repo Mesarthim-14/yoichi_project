@@ -22,6 +22,7 @@
 #define TEXTURE_NAME_RING	("data/Texture/ring.png")			// 輪
 #define TEXTURE_NAME_SMOKE	("data/Texture/smoke.png")			// 煙
 #define TEXTURE_NAME_LACKRING	("data/Texture/lackring.png")	// 欠けた輪
+#define TEXTURE_NAME_KIRAKIRA	("data/Texture/kirakira.png")	// キラキラ
 
 // 分割テクスチャの名前
 #define SEPARATE_TEX_NAME_NUMBER			("data/Texture/sharp_effect.png")		// ナンバー
@@ -74,6 +75,7 @@ HRESULT CTexture::Load(void)
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RING, &m_apTexture[TEXTURE_NUM_RING]);
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_LACKRING, &m_apTexture[TEXTURE_NUM_LACKRING]);
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_SMOKE, &m_apTexture[TEXTURE_NUM_SMOKE]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_KIRAKIRA, &m_apTexture[TEXTURE_NUM_KIRAKIRA]);
 
 	return S_OK;
 }

@@ -16,10 +16,11 @@
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define BARRIER_MAX_SIZE_X		(500.0f)	// Xのサイズの最大値
-#define BARRIER_MAX_SIZE_Y		(500.0f)	// Yのサイズの最大値
-#define BARRIER_MAX_SIZE_Z		(500.0f)	// Zのサイズの最大値
-#define BARRIER_MAX_SIZE		(D3DXVECTOR3(BARRIER_MAX_SIZE_X, BARRIER_MAX_SIZE_Y, BARRIER_MAX_SIZE_Z))	// サイズの最大値
+#define BARRIER_MAX_SIZE_X	(500.0f)	// Xのサイズの最大値
+#define BARRIER_MAX_SIZE_Y	(500.0f)	// Yのサイズの最大値
+#define BARRIER_MAX_SIZE_Z	(500.0f)	// Zのサイズの最大値
+#define BARRIER_MAX_SIZE	(D3DXVECTOR3(BARRIER_MAX_SIZE_X, BARRIER_MAX_SIZE_Y, BARRIER_MAX_SIZE_Z))	// サイズの最大値
+#define BARRIER_LIFE		(300)	// ライフ
 
 //=============================================================================
 // 背景クラス

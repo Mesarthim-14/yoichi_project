@@ -98,8 +98,15 @@ void CModel::Uninit(void)
 //=============================================================================
 void CModel::Update(void)
 {
-	// Žõ–½‚ðŒ¸‚ç‚·
-	m_nLife--;
+	if (m_nLife > 0)
+	{
+		// Žõ–½‚ðŒ¸‚ç‚·
+		m_nLife--;
+		if (m_nLife <= 0)
+		{
+			Uninit();
+		}
+	}
 
 	// À•W‚ÌXV
 	m_pos += m_move;

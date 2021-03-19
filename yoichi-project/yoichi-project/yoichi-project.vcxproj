@@ -181,6 +181,7 @@
     <ClInclude Include="08_3D\model.h" />
     <ClInclude Include="08_3D\modelanime.h" />
     <ClInclude Include="08_3D\motion.h" />
+    <ClInclude Include="08_3D\wind.h" />
     <ClInclude Include="10_UI\number_2d.h" />
     <ClInclude Include="10_UI\number_3d.h" />
     <ClInclude Include="10_UI\quest_logo.h" />
@@ -196,7 +197,6 @@
     <ClInclude Include="12_effect\effect.h" />
     <ClInclude Include="12_effect\magichand.h" />
     <ClInclude Include="barrier.h" />
-    <ClInclude Include="wind.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp" />

@@ -76,6 +76,8 @@ HRESULT CWind::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	// 初期化処理
 	CModel::Init(pos, size);
 
+	// 体力設定
+	CModel::SetLife(WIND_LIFE);
 	return S_OK;
 }
 
@@ -93,6 +95,9 @@ void CWind::Uninit(void)
 //=================================================================================
 void CWind::Update(void)
 {
+	// 更新処理
+	CModel::Update();
+
 	// サイズの更新
 	D3DXVECTOR3 size = CModel::GetSize();
 	size += m_Scale;

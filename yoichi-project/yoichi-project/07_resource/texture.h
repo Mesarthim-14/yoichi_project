@@ -28,6 +28,7 @@ public:
 		TEXTURE_NUM_RING,			// —Ö
 		TEXTURE_NUM_LACKRING,		// Œ‡‚¯‚½—Ö
 		TEXTURE_NUM_SMOKE,			// ‰Œ
+		TEXTURE_NUM_KIRAKIRA,		// ƒLƒ‰ƒLƒ‰
 		TEXTURE_NUM_MAX
 	}TEXTURE_TYPE;
 

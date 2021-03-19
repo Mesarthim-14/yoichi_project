@@ -171,16 +171,11 @@ void CPlayer::Update(void)
 		Death();
 	}
 
-
+	// 重りのエフェクト
 	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
 		GetModelAnime(21)->GetMtxWorld()._42,
 		GetModelAnime(21)->GetMtxWorld()._43),
 		CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
-
-	//CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
-	//	GetModelAnime(21)->GetMtxWorld()._42,
-	//	GetModelAnime(21)->GetMtxWorld()._43),
-	//	CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
 }
 
 //=============================================================================
@@ -378,10 +373,6 @@ void CPlayer::Jump(void)
 		//ジャンプモーションの再生
 		SetMotion(4);
 		SetLanding(false);
-
-		CEffectFactory::CreateEffect(GetPos() + D3DXVECTOR3(0.0f, 100.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_THUNDER);
-		CEffectFactory::CreateEffect(GetPos() + D3DXVECTOR3(0.0f, 500.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_LIGHTNINGSTRIKE);
-
 	}
 
 	//=============================================================================

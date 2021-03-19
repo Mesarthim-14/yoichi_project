@@ -71,6 +71,8 @@ HRESULT CBARRIER::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	// 初期化処理
 	CModel::Init(pos, size);
 
+	// 体力設定
+	CModel::SetLife(BARRIER_LIFE);
 	return S_OK;
 }
 
@@ -88,6 +90,9 @@ void CBARRIER::Uninit(void)
 //=================================================================================
 void CBARRIER::Update(void)
 {
+	// 更新処理
+	CModel::Update();
+
 	// 座標の更新
 	D3DXVECTOR3 pos = CModel::GetPos();
 	pos = CGame::GetPlayer(m_nPlayerNum)->GetPos();
