@@ -24,12 +24,14 @@
 #define TEXTURE_NAME_LACKRING	("data/Texture/lackring.png")	// 欠けた輪
 
 // 分割テクスチャの名前
-#define SEPARATE_TEX_NAME_NUMBER			("data/Texture/sharp_effect.png")	// ナンバー
-#define SEPARATE_TEX_NAME_LIGHTNINGSTRIKE	("data/Texture/thunder.jpg")		// 落雷
-#define SEPARATE_TEX_NAME_THUNDER			("data/Texture/thundereffect.png")	// 雷
-#define SEPARATE_TEX_NAME_SHOCKWAVE			("data/Texture/shockwave.jpg")		// 衝撃波
-#define SEPARATE_TEX_NAME_WIND				("data/Texture/wind.png")			// 風
-#define SEPARATE_TEX_NAME_EXPLOSION			("data/Texture/explosion02.png")	// 爆発
+#define SEPARATE_TEX_NAME_NUMBER			("data/Texture/sharp_effect.png")		// ナンバー
+#define SEPARATE_TEX_NAME_LIGHTNINGSTRIKE	("data/Texture/thunder.jpg")			// 落雷
+#define SEPARATE_TEX_NAME_THUNDER			("data/Texture/thundereffect.png")		// 雷
+#define SEPARATE_TEX_NAME_SHOCKWAVE			("data/Texture/shockwave.jpg")			// 衝撃波
+#define SEPARATE_TEX_NAME_WIND				("data/Texture/wind.png")				// 風
+#define SEPARATE_TEX_NAME_EXPLOSION			("data/Texture/explosion02.png")		// 爆発
+#define SEPARATE_TEX_NAME_MAGICHANDLEFT		("data/Texture/magichand_left.png")		// マジックハンドの左
+#define SEPARATE_TEX_NAME_MAGICHANDRIGHT	("data/Texture/magichand_right.png")	// マジックハンドの右
 
 
 //=============================================================================
@@ -106,6 +108,8 @@ HRESULT CTexture::SeparateTexLoad(void)
 	D3DXCreateTextureFromFile(pDevice, SEPARATE_TEX_NAME_SHOCKWAVE, &m_apSeparateTexture[SEPARATE_TEX_SHOCKWAVE].pSeparateTexture);
 	D3DXCreateTextureFromFile(pDevice, SEPARATE_TEX_NAME_WIND, &m_apSeparateTexture[SEPARATE_TEX_WIND].pSeparateTexture);
 	D3DXCreateTextureFromFile(pDevice, SEPARATE_TEX_NAME_EXPLOSION, &m_apSeparateTexture[SEPARATE_TEX_EXPLOSION].pSeparateTexture);
+	D3DXCreateTextureFromFile(pDevice, SEPARATE_TEX_NAME_MAGICHANDLEFT, &m_apSeparateTexture[SEPARATE_TEX_MAGICHANDLEFT].pSeparateTexture);
+	D3DXCreateTextureFromFile(pDevice, SEPARATE_TEX_NAME_MAGICHANDRIGHT, &m_apSeparateTexture[SEPARATE_TEX_MAGICHANDRIGHT].pSeparateTexture);
 
 	return S_OK;
 }

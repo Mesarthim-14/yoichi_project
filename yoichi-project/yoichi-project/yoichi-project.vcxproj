@@ -194,6 +194,7 @@
     <ClInclude Include="12_effect\effect_3d.h" />
     <ClInclude Include="12_effect\effect_factory.h" />
     <ClInclude Include="12_effect\effect.h" />
+    <ClInclude Include="12_effect\magichand.h" />
     <ClInclude Include="barrier.h" />
     <ClInclude Include="wind.h" />
   </ItemGroup>
@@ -240,6 +241,7 @@
     <ClCompile Include="12_effect\effect_3d.cpp" />
     <ClCompile Include="12_effect\effect_factory.cpp" />
     <ClCompile Include="12_effect\effect.cpp" />
+    <ClCompile Include="12_effect\magichand.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -41,6 +41,8 @@ public:
 		SEPARATE_TEX_SHOCKWAVE,			// 衝撃波のテクスチャ
 		SEPARATE_TEX_WIND,				// 風のテクスチャ
 		SEPARATE_TEX_EXPLOSION,			// 爆発のテクスチャ
+		SEPARATE_TEX_MAGICHANDLEFT,		// マジックハンドの左のテクスチャ
+		SEPARATE_TEX_MAGICHANDRIGHT,	// マジックハンドの右のテクスチャ
 		SEPARATE_TEX_MAX				// 最大値
 	}SEPARATE_TEX_TYPE;
 
@@ -80,6 +82,8 @@ private:
 		nullptr, CTexture::SEPARATE_TEX_SHOCKWAVE, D3DXVECTOR2(5, 3), false,
 		nullptr, CTexture::SEPARATE_TEX_WIND, D3DXVECTOR2(30, 1), false,
 		nullptr, CTexture::SEPARATE_TEX_WIND, D3DXVECTOR2(8, 5), false,
+		nullptr, CTexture::SEPARATE_TEX_MAGICHANDLEFT, D3DXVECTOR2(2, 5), true,
+		nullptr, CTexture::SEPARATE_TEX_MAGICHANDRIGHT, D3DXVECTOR2(2, 5), true,
 	};
 	// 分割テクスチャのポインタ
 };

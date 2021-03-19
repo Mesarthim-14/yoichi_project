@@ -153,7 +153,7 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 
 		}
 
-		pEffect->SetRot(Particle.rot);						// 回転の設定
+		pEffect->SetRot(D3DXToRadian(Particle.rot));		// 回転の設定
 		pEffect->SetColor(Particle.color);					// 色の設定
 		pEffect->SetLife(Particle.nLife);					// 体力の設定
 		pEffect->SetAlpha(Particle.bAlpha);					// アルファテストの設定

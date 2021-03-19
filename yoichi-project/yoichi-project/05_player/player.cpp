@@ -31,6 +31,7 @@
 #include "wind.h"
 #include "barrier.h"
 #include "barrier_effect.h"
+#include "magichand.h"
 
 //=============================================================================
 // ƒ}ƒNƒ’è‹`
@@ -474,6 +475,12 @@ void CPlayer::Jump(void)
 				GetModelAnime(21)->GetMtxWorld()._43),
 				D3DXVECTOR3(50.0f, 50.0f, 50.0f), D3DXVECTOR3(30.0f, 30.0f, 30.0f), 10.0f);
 		}
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_X, m_nNumber) && GetJump() == false)
+	{
+		CMagichand::Create(-MAGICHAND_DISTANCE, CTexture::SEPARATE_TEX_MAGICHANDLEFT, m_nNumber);
+		CMagichand::Create(MAGICHAND_DISTANCE, CTexture::SEPARATE_TEX_MAGICHANDRIGHT, m_nNumber);
 	}
 	//=============================================================================
 }

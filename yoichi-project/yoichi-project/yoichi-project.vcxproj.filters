@@ -168,6 +168,9 @@
     <ClInclude Include="12_effect\barrier_effect.h">
       <Filter>12_effect</Filter>
     </ClInclude>
+    <ClInclude Include="12_effect\magichand.h">
+      <Filter>12_effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp">
@@ -295,6 +298,9 @@
     </ClCompile>
     <ClCompile Include="08_3D\barrier.cpp">
       <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="12_effect\magichand.cpp">
+      <Filter>12_effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -248,7 +248,7 @@ void CBillboard::Draw(void)
 	else
 	{
 		// Œü‚«”½‰f
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, D3DXToRadian(GetRot().y), D3DXToRadian(GetRot().x), D3DXToRadian(GetRot().z));
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, GetRot().y, GetRot().x, GetRot().z);
 		D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 	}
 
