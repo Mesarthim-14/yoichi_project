@@ -192,6 +192,12 @@
     <ClInclude Include="08_3D\star_manager.h">
       <Filter>08_3D</Filter>
     </ClInclude>
+    <ClInclude Include="08_3D\mesh_pillar.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="08_3D\stage_map.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
     <ClInclude Include="04_mode\gamemode.h">
       <Filter>04_mode</Filter>
     </ClInclude>
@@ -348,6 +354,12 @@
       <Filter>08_3D</Filter>
     </ClCompile>
     <ClCompile Include="08_3D\star_manager.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\mesh_pillar.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\stage_map.cpp">
       <Filter>08_3D</Filter>
     </ClCompile>
     <ClCompile Include="10_UI\result.cpp">

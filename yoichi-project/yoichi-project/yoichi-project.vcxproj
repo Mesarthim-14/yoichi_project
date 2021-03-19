@@ -189,9 +189,11 @@
     <ClInclude Include="08_3D\light.h" />
     <ClInclude Include="08_3D\meshfield.h" />
     <ClInclude Include="08_3D\mesh_3d.h" />
+    <ClInclude Include="08_3D\mesh_pillar.h" />
     <ClInclude Include="08_3D\model.h" />
     <ClInclude Include="08_3D\modelanime.h" />
     <ClInclude Include="08_3D\motion.h" />
+    <ClInclude Include="08_3D\stage_map.h" />
     <ClInclude Include="08_3D\star.h" />
     <ClInclude Include="08_3D\star_manager.h" />
     <ClInclude Include="10_UI\number_2d.h" />
@@ -242,9 +244,11 @@
     <ClCompile Include="08_3D\light.cpp" />
     <ClCompile Include="08_3D\meshfield.cpp" />
     <ClCompile Include="08_3D\mesh_3d.cpp" />
+    <ClCompile Include="08_3D\mesh_pillar.cpp" />
     <ClCompile Include="08_3D\model.cpp" />
     <ClCompile Include="08_3D\modelanime.cpp" />
     <ClCompile Include="08_3D\motion.cpp" />
+    <ClCompile Include="08_3D\stage_map.cpp" />
     <ClCompile Include="08_3D\star.cpp" />
     <ClCompile Include="08_3D\star_manager.cpp" />
     <ClCompile Include="10_UI\number_2d.cpp" />

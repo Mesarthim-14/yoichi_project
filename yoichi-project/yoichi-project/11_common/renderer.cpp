@@ -166,7 +166,7 @@ void CRenderer::Update(void)
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 	
 	// ポリゴンの表示
-	if (pKeyboard->GetPress(DIK_M))
+	if (pKeyboard->GetTrigger(DIK_M))
 	{
 		LPDIRECT3DDEVICE9 pDevice = GetDevice();		// デバイスへのポインタ
 
@@ -382,7 +382,7 @@ bool CRenderer::SetUpViewport(int nNumber)
 		case 1:
 			// ビューポートの左上座標
 			m_view_port[nNumber].X = SCREEN_WIDTH / 2;
-			m_view_port[nNumber].Y = 0;
+			m_view_port[nNumber].Y = (DWORD)0.0f;
 
 			// ビューポートの幅
 			m_view_port[nNumber].Width = SCREEN_WIDTH / 2;

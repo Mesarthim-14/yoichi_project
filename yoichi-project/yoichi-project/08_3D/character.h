@@ -54,9 +54,10 @@ public:
 
 	bool Gravity(void);												// 地面の制限
 	void BodyCollision(void);										// 当たり判定
-	void ModelCreate(CXfile::HIERARCHY_XFILE_NUM FileNum);					// モデルの生成
+	void ModelCreate(CXfile::HIERARCHY_XFILE_NUM FileNum);			// モデルの生成
 	void ModelAnimeUpdate(void);									// モデルアニメーション
-	
+	void Landing(float fPosY);										// 着地処理
+
 	// 純粋仮想関数
 	virtual void UpdateState(void) = 0;								// キャラクター状態
 	virtual void UpdateMotionState(void) = 0;						// モーションの状態
@@ -75,6 +76,7 @@ public:
 	void SetStateCounter(int nStateCounter);						// 状態カウンターの設定
 	void SetMotion(int nMotionState);								// モーションの設定
 	void SetUseGravity(bool bUseGravity);
+
 	// Get関数
 	D3DXVECTOR3 GetPos(void) { return m_pos; }									// 現在の座標情報
 	D3DXVECTOR3 GetOldPos(void) { return m_posOld; }							// 古い座標情報

@@ -138,6 +138,7 @@ void CResourceManager::UnloadAll(void)
 	{
 		// テクスチャアンロード
 		m_pXFile->ModelUnLoad();
+		m_pXFile->HierarchyModelUnLoad();
 	}
 }
 

@@ -339,7 +339,6 @@ void CManager::SetMode(MODE_TYPE mode)
 			// ƒ^ƒCƒgƒ‹ˆ—
 			m_pTitle->Uninit();
 			m_pTitle = NULL;
-
 		}
 		break;
 

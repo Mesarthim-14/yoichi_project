@@ -32,6 +32,7 @@ public:
 		TEXTURE_NUM_ITEM_THUNDER,		// アイテム雷
 		TEXTURE_NUM_ITEM_MHAND,			// アイテムMハンド
 		TEXTURE_NUM_ITEM_VORTEX,		// アイテム渦
+		TEXTURE_NUM_SEA,				// 海
 		TEXTURE_NUM_RESULT_1ST,			// リザルト1位
 		TEXTURE_NUM_RESULT_2ND,			// リザルト1位
 		TEXTURE_NUM_RESULT_3RD,			// リザルト1位

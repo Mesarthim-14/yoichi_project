@@ -43,7 +43,6 @@ class CItem;
 //=============================================================================
 class CPlayer : public CCharacter
 {
-
 public:
 	//=============================================================================
 	// プレイヤーのパーツ番号
@@ -121,6 +120,8 @@ public:
 	void UseItem(void);														// アイテムの使用処理
 	void AcquiredItem(CItem *pItem);										// アイテム獲得関数
 	void AddStarNum(int nStarNum)		{ m_nStarNum += nStarNum; }			// 星獲得数の加算
+	void ItemErase(void);													// アイテムの削除
+	void Repop(void);														// リポップの処理
 
 	// Set関数
 	void SetArmor(bool bArmor)			{ m_bArmor = bArmor; }				// 無敵状態の設定

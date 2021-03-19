@@ -28,6 +28,7 @@ CBillboard::CBillboard(PRIORITY Priority) : CSceneBase(Priority)
 	m_nLoop = -1;				// ループするか
 	m_nAlphaNum = 0;			// アルファテストの値
 	m_bAlpha = false;			// アルファテストのフラグ
+	m_bBlend = false;
 }
 
 //=====================================================
@@ -144,9 +145,6 @@ void CBillboard::Draw(void)
 {
 	// デバイス情報取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
-
-	// 加算合成を行う
-	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);			// aデスティネーションカラー
 
 	// 色の設定
 	D3DMATERIAL9 material, OldMaterial;

@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// アイテム管理クラス [star_manager.cpp]
+// 星のマネージャークラス [star_manager.cpp]
 // Author : Konishi Yuuto
 //
 //=============================================================================
@@ -109,7 +109,7 @@ void CStarManager::Update(void)
 	m_nCounter++;
 
 	// カウンター
-	if (m_nCounter <= STAR_COLOR_CHANGE_FLAME)
+	if (m_nCounter >= STAR_COLOR_CHANGE_FLAME)
 	{
 		// ゲームの色の設定
 		SetGameColor();
