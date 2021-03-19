@@ -13,14 +13,29 @@
 #include "manager.h"
 #include "resource_manager.h"
 #include "texture.h"
+#include "game.h"
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define STARUI_POS_PLAYER1 {}
-#define STARUI_POS_PLAYER2 {}
-#define STARUI_POS_PLAYER3 {}
-#define STARUI_POS_PLAYER4 {}
+
+//プレイヤごとのUIの位置
+#define STARUI_POS_PLAYER1 {SCREEN_WIDTH/4-150.0f,SCREEN_HEIGHT/4+130.0f,0.0f}
+#define STARUI_POS_PLAYER2 {SCREEN_WIDTH/4+(SCREEN_WIDTH/2)+100.0f,SCREEN_HEIGHT/4+130.0f,0.0f}
+#define STARUI_POS_PLAYER3 {SCREEN_WIDTH/4-150.0f,SCREEN_HEIGHT/4+(SCREEN_HEIGHT/2)+130.0f,0.0f}
+#define STARUI_POS_PLAYER4 {SCREEN_WIDTH/4+(SCREEN_WIDTH/2)+100.0f,SCREEN_HEIGHT/4+(SCREEN_HEIGHT/2)+130.0f,0.0f}
+
+//*****************************************************************************
+// 静的メンバ変数
+//*****************************************************************************
+// プレイヤーごとのUIの位置
+const D3DXVECTOR3 CStar_UI::m_pos[MAX_PLAYER] =
+{
+    { STARUI_POS_PLAYER1 },
+    { STARUI_POS_PLAYER2 },
+    { STARUI_POS_PLAYER3 },
+    { STARUI_POS_PLAYER4 }
+};
 
 //=============================================================================
 // [CStar_UI] コンストラクタ
@@ -59,13 +74,6 @@ CStar_UI *CStar_UI::Create(void)
 void CStar_UI::Init(void)
 {
 
-    CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
-    // ナンバー生成
-    for ( int  nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
-    {
-        m_apNumber[nCntNum] = CNumber2d::Create({ 100.0f,200.0f,0.0f }, {50.0f,80.0f,0.0f});
-        m_apNumber[nCntNum]->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_NUMBER));
-    }
 }
 
 //=============================================================================
@@ -91,7 +99,26 @@ void CStar_UI::Update(void)
     // ナンバーの更新
     for (int nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
     {
-        m_apNumber[nCntNum]->SetNumber(0);
+        m_apNumber[nCntNum]->SetNumber(nCntNum);
     }
+}
 
+//=============================================================================
+// [SetPosition] 位置の設定
+//=============================================================================
+void CStar_UI::SetPosition(int nPlayerNum)
+{
+    // プレイヤーの番号取得
+    // プレイヤーの総数取得
+    D3DXVECTOR3 pos;
+   int nPlayerTotal = CGame::GetPlayerNum();
+
+   // ナンバー生成
+   for (int nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
+   {
+       CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
+       pos = { m_pos[nPlayerNum].x + (nCntNum*50.0f), m_pos[nPlayerNum].y ,m_pos[nPlayerNum].z };
+       m_apNumber[nCntNum] = CNumber2d::Create(pos, { 50.0f,80.0f,0.0f });
+       m_apNumber[nCntNum]->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_NUMBER));
+   }
 }

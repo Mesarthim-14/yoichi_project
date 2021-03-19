@@ -106,7 +106,6 @@ public:
 
 	static CPlayer*Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nCount);	// クリエイト
 
-	void UseItem(void);											// アテムの使用処理
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);			// 初期化処理
 	void Uninit(void);											// 終了処理
 	void Update(void);											// 更新処理

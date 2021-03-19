@@ -19,11 +19,6 @@
 #include "joypad.h"
 #include "star_ui.h"
 
-//*****************************************************************************
-// 静的メンバ変数
-//*****************************************************************************
- CStar_UI *CPlayer_UI::m_pStarUI = nullptr;     // 星の取得数絵のポインタ
-
 //=============================================================================
 // [CPlayer_UI] コンストラクタ
 //=============================================================================
@@ -45,14 +40,14 @@ CPlayer_UI::~CPlayer_UI()
 // 引数
 // プレイヤーの番号
 //=============================================================================
-CPlayer_UI *CPlayer_UI::Create(void)
+CPlayer_UI *CPlayer_UI::Create(int nPlayerNum)
 {
     CPlayer_UI *PlayerUI = nullptr;
     if (PlayerUI == nullptr)
     {
         // メモリの確保と初期化
         PlayerUI = new CPlayer_UI;
-        PlayerUI->Init();
+        PlayerUI->Init(nPlayerNum);
     }
     return PlayerUI;
 }
@@ -62,12 +57,12 @@ CPlayer_UI *CPlayer_UI::Create(void)
 // 引数
 // プレイヤーの番号
 //=============================================================================
-void CPlayer_UI::Init(void)
+void CPlayer_UI::Init(int nPlayerNum)
 {
 
     // 各UI生成
     m_pStarUI = CStar_UI::Create();
-
+    m_pStarUI->SetPosition(nPlayerNum);
 }
 
 //=============================================================================

@@ -104,6 +104,9 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 		ModelCreate(CXfile::HIERARCHY_XFILE_NUM_PLAYER);
 	}
 
+    // UIの生成
+    m_pPlayerUI = CPlayer_UI::Create(m_nNumber);
+
 	// 初期化処理
 	CCharacter::Init(pos, rot);				// 座標 角度
 	SetRadius(PLAYER_RADIUS);				// 半径の設定
@@ -112,7 +115,7 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	m_fBaseSpeed = PLAYER_FLY_SPEED;		// 元のスピード保持
 	m_fBaseRadius = PLAYER_RADIUS;			// 半径
 
-    m_pPlayerUI = CPlayer_UI::Create();
+
 
 	return S_OK;
 }

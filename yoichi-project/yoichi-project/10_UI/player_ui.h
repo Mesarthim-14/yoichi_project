@@ -28,9 +28,9 @@ public:
     CPlayer_UI(PRIORITY Priority = PRIORITY_UI);
     ~CPlayer_UI();
 
-    static CPlayer_UI* Create(void);
+    static CPlayer_UI* Create(int nPlayerNum);
 
-    void Init(void);
+    void Init(int nPlayerNum);
     void Uninit(void);
     void Update(void);
 
@@ -45,7 +45,7 @@ public:
     CItem *GetItem(void) { return m_apItem[0]; }				// アイテムのポインタ
 private:
     std::vector<CItem*> m_apItem;	// アイテムボックスのポインタ
-    static CStar_UI *m_pStarUI;     // 星の取得数絵のポインタ
+    CStar_UI *m_pStarUI;     // 星の取得数へのポインタ
 
 };
 #endif // ! _PLAYER_UI_H_
