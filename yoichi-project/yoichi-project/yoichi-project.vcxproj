@@ -165,7 +165,7 @@
     <ClInclude Include="03_scene\scene3D.h" />
     <ClInclude Include="03_scene\scene_base.h" />
     <ClInclude Include="04_mode\game.h" />
-    <ClInclude Include="04_mode\result.h" />
+    <ClInclude Include="04_mode\gamemode.h" />
     <ClInclude Include="04_mode\title.h" />
     <ClInclude Include="04_mode\tutorial.h" />
     <ClInclude Include="05_player\player.h" />
@@ -198,6 +198,7 @@
     <ClInclude Include="08_3D\star_manager.h" />
     <ClInclude Include="10_UI\number_2d.h" />
     <ClInclude Include="10_UI\number_3d.h" />
+    <ClInclude Include="10_UI\result.h" />
     <ClInclude Include="10_UI\ui.h" />
     <ClInclude Include="11_common\bg.h" />
     <ClInclude Include="11_common\collision.h" />
@@ -220,7 +221,6 @@
     <ClCompile Include="03_scene\scene3D.cpp" />
     <ClCompile Include="03_scene\scene_base.cpp" />
     <ClCompile Include="04_mode\game.cpp" />
-    <ClCompile Include="04_mode\result.cpp" />
     <ClCompile Include="04_mode\title.cpp" />
     <ClCompile Include="04_mode\tutorial.cpp" />
     <ClCompile Include="05_player\player.cpp" />
@@ -253,6 +253,7 @@
     <ClCompile Include="08_3D\star_manager.cpp" />
     <ClCompile Include="10_UI\number_2d.cpp" />
     <ClCompile Include="10_UI\number_3d.cpp" />
+    <ClCompile Include="10_UI\result.cpp" />
     <ClCompile Include="10_UI\ui.cpp" />
     <ClCompile Include="11_common\bg.cpp" />
     <ClCompile Include="11_common\collision.cpp" />

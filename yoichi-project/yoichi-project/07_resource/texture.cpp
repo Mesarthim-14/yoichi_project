@@ -26,9 +26,12 @@
 #define TEXTURE_NAME_ITEM_THUNDER	("data/Texture/item_thunder.png")	// アイテム雷
 #define TEXTURE_NAME_ITEM_MHAND		("data/Texture/item_mhand.png")		// アイテムMハンド
 #define TEXTURE_NAME_ITEM_VORTEX	("data/Texture/item_vortex.png")	// アイテム渦
-#define TEXTURE_NAME_SEA			("data/Texture/sea000.jpeg")	// 海
+#define TEXTURE_FILE_ITEM_RESULT_1ST	("data/Texture/1st.png")			// リザルト1位
+#define TEXTURE_FILE_ITEM_RESULT_2ND	("data/Texture/2nd.png")			// リザルト2位
+#define TEXTURE_FILE_ITEM_RESULT_3RD	("data/Texture/3rd.png")			// リザルト3位
+#define TEXTURE_FILE_ITEM_RESULT_4TH	("data/Texture/4th.png")			// リザルト4位
 // 分割テクスチャの名前
-#define SEPARATE_TEX_NAME_NUMBER	("data/Texture/sharp_effect.png")	// ナンバー
+#define SEPARATE_TEX_NAME_NUMBER		("data/Texture/sharp_effect.png")	// ナンバー
 
 //=============================================================================
 // コンストラクタ
@@ -76,13 +79,17 @@ HRESULT CTexture::Load(void)
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_ITEM_VORTEX, &m_apTexture[TEXTURE_NUM_ITEM_VORTEX]);
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_SEA, &m_apTexture[TEXTURE_NUM_SEA]);
 
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_ITEM_RESULT_1ST, &m_apTexture[TEXTURE_NUM_RESULT_1ST]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_ITEM_RESULT_2ND, &m_apTexture[TEXTURE_NUM_RESULT_2ND]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_ITEM_RESULT_3RD, &m_apTexture[TEXTURE_NUM_RESULT_3RD]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_ITEM_RESULT_4TH, &m_apTexture[TEXTURE_NUM_RESULT_4TH]);
 	return S_OK;
 }
 
 //=============================================================================
 // テクスチャアンロード
 //=============================================================================
-void CTexture::UnLoad(void)
+void CTexture::Unload(void)
 {
 	for (int nCount = 0; nCount < TEXTURE_NUM_MAX; nCount++)
 	{
@@ -111,7 +118,7 @@ HRESULT CTexture::SeparateTexLoad(void)
 //=============================================================================
 // 分割テクスチャのアンロード
 //=============================================================================
-void CTexture::SeparateTexUnLoad(void)
+void CTexture::SeparateTexUnload(void)
 {
 	// テクスチャの解放
 	for (int nCount = 0; nCount < SEPARATE_TEX_MAX; nCount++)

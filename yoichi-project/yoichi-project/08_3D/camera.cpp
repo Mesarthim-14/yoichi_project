@@ -29,7 +29,7 @@
 #define CAMERA_MIN_HIGHT			(2.0f)							// カメラの最低高度
 #define STICK_DEADZONE				(50.0f)						// スティック感度
 #define STICK_INPUT_CONVERSION		(D3DXToRadian(2.0f))			// スティック入力最大変化量
-#define	ANGLE_FIX_RATE				(0.01f)							// カメラ向き補正率
+#define	ANGLE_FIX_RATE				(0.005f)							// カメラ向き補正率
 #define REVERSE_ANGLE				(D3DXToRadian(180.0f))			// カメラ反転用
 
 //=============================================================================
@@ -64,15 +64,16 @@ CCamera * CCamera::Create(int nCount)
 CCamera::CCamera()
 {
 	//各メンバ変数のクリア
-	m_posV = ZeroVector3;		// カメラの座標
-	m_posVDest = ZeroVector3;	// カメラの座標（目的地）
-	m_posR = ZeroVector3;		// 注視点
-	m_posRDest = ZeroVector3;	// 注視点（目的地）
-	m_posU = ZeroVector3;		// 上方向ベクトル
-	m_rot = ZeroVector3;		// 向き
-	m_fDistance = 0.0f;			// 視点～注視点の距離
-	m_fMove = 0.0f;				// 移動量
-	m_nNumber = ++m_nAllNum;	// カメラの番号の設定
+	m_posV = ZeroVector3;				// カメラの座標
+	m_posVDest = ZeroVector3;			// カメラの座標（目的地）
+	m_posR = ZeroVector3;				// 注視点
+	m_posRDest = ZeroVector3;			// 注視点（目的地）
+	m_posU = ZeroVector3;				// 上方向ベクトル
+	m_rot = ZeroVector3;					// 向き
+	m_fDistance = 0.0f;					// 視点～注視点の距離
+	m_bStickReverseVartical = false;		//縦方向反転
+	m_fMove = 0.0f;						// 移動量
+	m_nNumber = ++m_nAllNum;				// カメラの番号の設定
 }
 
 //=============================================================================
@@ -145,6 +146,12 @@ void CCamera::NomalUpdate(D3DXVECTOR3 PlayerPos)
 
 	// ジョイパッドの取得
 	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R3, m_nNumber))
+	{
+		m_bStickReverseVartical = !m_bStickReverseVartical;
+	}
+
 	if (js.lZ > STICK_DEADZONE || js.lZ < -STICK_DEADZONE || js.lRz > STICK_DEADZONE || js.lRz < -STICK_DEADZONE)
 	{
 		if (js.lZ > STICK_DEADZONE || js.lZ < -STICK_DEADZONE)
@@ -154,7 +161,14 @@ void CCamera::NomalUpdate(D3DXVECTOR3 PlayerPos)
 		//視点（カメラ座標）の上旋回
 		if (js.lRz > STICK_DEADZONE || js.lRz < -STICK_DEADZONE)
 		{
-			m_fVartical -= js.lRz / (STICK_MAX_VALUE / STICK_INPUT_CONVERSION);
+			if (m_bStickReverseVartical)
+			{
+				m_fVartical -= js.lRz / (STICK_MAX_VALUE / STICK_INPUT_CONVERSION);
+			}
+			else
+			{
+				m_fVartical += js.lRz / (STICK_MAX_VALUE / STICK_INPUT_CONVERSION);
+			}
 		}
 	}
 	else
@@ -214,6 +228,15 @@ void CCamera::NomalUpdate(D3DXVECTOR3 PlayerPos)
 //=============================================================================
 void CCamera::FixAngleToPlayerDirection(D3DXVECTOR3 PlayerRot)
 {
+	while (m_fHorizontal - PlayerRot.y  > D3DXToRadian(180))
+	{
+		m_fHorizontal -= D3DXToRadian(360);
+	}
+
+	while (m_fHorizontal - PlayerRot.y  < D3DXToRadian(-180))
+	{
+		m_fHorizontal += D3DXToRadian(360);
+	}
 	m_fHorizontal += (PlayerRot.y - m_fHorizontal) * ANGLE_FIX_RATE;
 	m_fVartical += (PlayerRot.x + REVERSE_ANGLE - m_fVartical) * ANGLE_FIX_RATE;
 }

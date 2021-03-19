@@ -10,8 +10,8 @@
 //***************************************************************************************
 // インクルードファイル
 //***************************************************************************************
-#include "scene.h"
-
+#include "manager.h"
+#include "gamemode.h"
 //***************************************************************************************
 // マクロ定義
 //***************************************************************************************
@@ -28,16 +28,17 @@ class CItemBoxManager;
 class CStarManager;
 class CStageMap;
 
+class CResult;
 //***************************************************************************************
 // ゲームクラス
 //***************************************************************************************
-class CGame : public CScene
+class CGame : public ICGameMode
 {
 public:
-	CGame(PRIORITY Priority = PRIORITY_0);				// コンストラクタ
+	CGame();											// コンストラクタ
 	~CGame();											// デストラクタ
 
-	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);	// 初期化処理
+	HRESULT Init();										// 初期化処理
 	void Uninit(void);									// 終了処理
 	void Update(void);									// 更新処理
 	void Draw(void);									// 描画処理
@@ -62,6 +63,7 @@ private:
 	static CLight *m_pLight;					// ライトのポインタ
 	static CPlayer *m_pPlayer[MAX_PLAYER_NUM];	// プレイヤーのポインタ
 	static CItemBoxManager *m_pItemManager;		// アイテムマネージャのポインタ
+	static CResult *m_apResult[MAX_PLAYER_NUM];	// リザルトのポインタ
 	CStarManager *m_pStarManager;				// 星生成クラスのポインタ
 	CStageMap *m_pStageMap;						// マップの生成
 	static CPause *m_pPause;					// ポーズのポインタ

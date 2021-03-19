@@ -29,7 +29,7 @@
 //=============================================================================
 //リザルトクラスのコンストラクタ
 //=============================================================================
-CTitle::CTitle(PRIORITY Priority) : CScene(Priority)
+CTitle::CTitle()
 {
 	//メンバ変数のクリア
 	m_pScene2D = NULL;
@@ -56,7 +56,7 @@ CTitle * CTitle::Create(void)
 	if (pTitle != NULL)
 	{
 		//初期化処理呼び出し
-		pTitle->Init(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f));
+		pTitle->Init();
 	}
 
 	return pTitle;
@@ -65,7 +65,7 @@ CTitle * CTitle::Create(void)
 //=============================================================================
 //リザルトクラスの初期化処理
 //=============================================================================
-HRESULT CTitle::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
+HRESULT CTitle::Init(void)
 {
 	// テクスチャのポインタ
 	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
@@ -73,7 +73,7 @@ HRESULT CTitle::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	if (m_pScene2D == NULL)
 	{
 		//2Dオブジェクトの生成
-		m_pScene2D = CScene2D::Create(pos, size);
+		m_pScene2D = CScene2D::Create(SCREEN_SIZE/2, SCREEN_SIZE);
 
 		if (m_pScene2D != NULL)
 		{
@@ -84,7 +84,7 @@ HRESULT CTitle::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	// PRESSロゴのポインタ
 	if (m_pPress == NULL)
 	{
-		m_pPress = CScene2D::Create(D3DXVECTOR3(pos.x, pos.y + TITLE_PRESS_POS_Y, 0.0f), D3DXVECTOR3(TITLE_PRESS_SIZE_X, TITLE_PRESS_SIZE_Y, 0.0f));
+		m_pPress = CScene2D::Create(D3DXVECTOR3((SCREEN_SIZE / 2).x, (SCREEN_SIZE / 2).y + TITLE_PRESS_POS_Y, 0.0f), D3DXVECTOR3(TITLE_PRESS_SIZE_X, TITLE_PRESS_SIZE_Y, 0.0f));
 		m_pPress->BindTexture(NULL);
 	}
 
@@ -92,7 +92,7 @@ HRESULT CTitle::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	if (m_pTitleName == NULL)
 	{
 		//2Dオブジェクトの生成
-		m_pTitleName = CScene2D::Create(D3DXVECTOR3(pos.x, pos.y - 125.0f, 0.0f), D3DXVECTOR3(TITLE_SIZE_X, TITLE_SIZE_Y, 0.0f));
+		m_pTitleName = CScene2D::Create(D3DXVECTOR3((SCREEN_SIZE / 2).x, (SCREEN_SIZE / 2).y - 125.0f, 0.0f), D3DXVECTOR3(TITLE_SIZE_X, TITLE_SIZE_Y, 0.0f));
 
 		// !nullcheck
 		if (m_pTitleName != NULL)
@@ -129,7 +129,7 @@ void CTitle::Uninit(void)
 	}
 
 	//オブジェクトの破棄
-	Release();
+	delete this;
 }
 
 //=============================================================================
@@ -137,10 +137,11 @@ void CTitle::Uninit(void)
 //=============================================================================
 void CTitle::Update(void)
 {
+	
 	CInputKeyboard* pKey = CManager::GetKeyboard();
 	CFade::FADE_MODE mode = CManager::GetFade()->GetFade();
 	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
-
+	CScene::UpdateAll();
 	// コントローラのstartを押したときか、エンターキーを押したとき
 	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_START, 0) && mode == CFade::FADE_MODE_NONE
 		|| pKey->GetTrigger(DIK_RETURN) && mode == CFade::FADE_MODE_NONE)
@@ -158,6 +159,7 @@ void CTitle::Update(void)
 //=============================================================================
 void CTitle::Draw(void)
 {
+	CScene::DrawAll();
 }
 
 //=============================================================================

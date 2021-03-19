@@ -35,14 +35,14 @@
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define PLAYER_SPEED			(20.0f)					// プレイヤーの移動量
+#define PLAYER_SPEED				(20.0f)					// プレイヤーの移動量
 #define PLAYER_JUMP				(17.0f)					// ジャンプの処理
 #define STICK_DEADZONE			(50.0f)					// スティック感度
-#define PLAYER_ROT_SPEED		(0.1f)					// キャラクターの回転する速度
-#define PLAYER_RADIUS			(200.0f)				// 半径の大きさ
-#define PLAYER_PARTS			(22)					// プレイヤーのパーツ数
+#define PLAYER_ROT_SPEED			(0.1f)					// キャラクターの回転する速度
+#define PLAYER_RADIUS			(200.0f)					// 4半径の大きさ
+#define PLAYER_PARTS				(22)						// プレイヤーのパーツ数
 #define GAME_END_FLAME			(100)					// ゲームが終わるフレーム
-#define PLAYER_FLY_SPEED		(30.0f)					// 飛行時のプレイヤーの移動量
+#define PLAYER_FLY_SPEED			(30.0f)					// 飛行時のプレイヤーの移動量
 #define FLY_ROT_X_MAX			(-D3DXToRadian(10.0f))	// 飛行の最大角
 #define FLY_ROT_X_MIN			(-D3DXToRadian(170.0f))	// 飛行の最小角
 
@@ -76,6 +76,7 @@ CPlayer::CPlayer(PRIORITY Priority)
 	m_rotDest = ZeroVector3;
 	m_bWalk = false;
 	m_bFly = false;
+	m_bStickReverseVartical = false;
 	m_bDraw = true;
 	m_nEndCounter = 0;
 	m_fBaseSpeed = 0.0f;
@@ -196,6 +197,26 @@ void CPlayer::Update(void)
 
 	// キャラクター回転の速度
 	rot += (m_rotDest - rot) * PLAYER_ROT_SPEED;
+
+	while (rot.y > D3DXToRadian(180))
+	{
+		rot.y -= D3DXToRadian(360);
+	}
+
+	while (rot.y < D3DXToRadian(-180))
+	{
+		rot.y += D3DXToRadian(360);
+	}
+
+	while (rot.x > D3DXToRadian(180))
+	{
+		rot.x -= D3DXToRadian(360);
+	}
+
+	while (rot.x < D3DXToRadian(-180))
+	{
+		rot.x += D3DXToRadian(360);
+	}
 
 	// 角度の設定
 	SetRot(rot);
@@ -371,7 +392,7 @@ void CPlayer::Jump(void)
 //=============================================================================
 void CPlayer::Fly(void)
 {
-	CInputKeyboard *pKeyboard = CManager::GetKeyboard();	// キーボードを取得
+	CInputKeyboard *pKeyboard = CManager::GetKeyboard();		// キーボードを取得
 	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);		// ジョイパッドを取得
 	D3DXVECTOR3 move = ZeroVector3;							// 移動量
 	D3DXMATRIX mtxRot;										// 回転計算用行列
@@ -386,10 +407,22 @@ void CPlayer::Fly(void)
 	
 	//プレイヤーの上方向に移動
 	move = D3DXVECTOR3(0.0f, GetSpeed(), 0.0f);
-
+	// スティックが押し込まれたら上下反転する
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L3, m_nNumber))
+	{
+		m_bStickReverseVartical = !m_bStickReverseVartical;
+	}
 	// コントローラーの入力を変換
 	m_rotDest.y += D3DXToRadian((float)js.lX / 1000.0f);
-	m_rotDest.x += D3DXToRadian((float)js.lY / 1000.0f);
+	if (m_bStickReverseVartical)
+	{
+		m_rotDest.x -= D3DXToRadian((float)js.lY / 1000.0f);
+	}
+	else
+	{
+		m_rotDest.x += D3DXToRadian((float)js.lY / 1000.0f);
+	}
+	
 	// 上下移動の制限
 	if (m_rotDest.x > FLY_ROT_X_MAX)
 	{

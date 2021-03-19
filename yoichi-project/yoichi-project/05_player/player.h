@@ -136,12 +136,13 @@ public:
 	int GetItemNum(void)				{ return m_apItem.size(); }			// アイテムのサイズ
 
 private:
-	float InputToAngle(void);
+	float InputToAngle(void);		// 入力を角度に変換
 	D3DXVECTOR3 m_rotDest;			// 回転(目標値)
 	bool m_bWalk;					// 歩いているフラグ
 	bool m_bDraw;					// 描画のフラグ
 	bool m_bArmor;					// 無敵状態
 	bool m_bFly;					// 飛行フラグ
+	bool m_bStickReverseVartical;	// ジョイスティックの上下反転フラグ
 	int m_nEndCounter;				// 死んだ後のカウンター
 	int m_nNumber;					// プレイヤーの番号
 	int m_nStarNum;					// 星の数
