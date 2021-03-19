@@ -36,7 +36,7 @@
 //=============================================================================
 // [CTime_UI] コンストラクタ
 //=============================================================================
-CTime_UI::CTime_UI(PRIORITY Priority) : CScene2D(Priority)
+CTime_UI::CTime_UI(PRIORITY Priority) : CScene(Priority)
 {
     m_Timer = nullptr;
 }
@@ -59,7 +59,7 @@ CTime_UI * CTime_UI::Create(void)
     {
         // メモリの確保と初期化
         pTimerUI = new CTime_UI;
-        pTimerUI->Init();
+        pTimerUI->Init(ZeroVector3,ZeroVector3);
     }
     return pTimerUI;
 }
@@ -67,7 +67,7 @@ CTime_UI * CTime_UI::Create(void)
 //=============================================================================
 // [Init] 初期化処理
 //=============================================================================
-void CTime_UI::Init(void)
+HRESULT CTime_UI::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 {
     CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
     // タイマーのセット
@@ -81,6 +81,8 @@ void CTime_UI::Init(void)
         m_pNumber[nCntNum] = CNumber2d::Create(pos, { NUM_UI_SIZE_X ,NUM_UI_SIZE_Y ,NUM_UI_SIZE_Z });
         m_pNumber[nCntNum]->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_NUMBER));
     }
+
+    return S_OK;
 }
 
 //=============================================================================

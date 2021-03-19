@@ -39,8 +39,6 @@ CItem::~CItem()
 //=============================================================================
 HRESULT CItem::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 {
-
-
 	return S_OK;
 }
 
