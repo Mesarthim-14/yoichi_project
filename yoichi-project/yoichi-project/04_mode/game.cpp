@@ -298,19 +298,43 @@ void CGame::Update(void)
 			}
 		}
 
-    // 時間切れだったら
-    if (m_pTimeUI->GetTimer()->IsTimeOver())
+		// 時間切れだったら
+		if (m_pTimeUI->GetTimer()->IsTimeOver())
+		{
+			GameEnd();// ゲームを終了
+		}
+    else
     {
-        GameEnd();// ゲームを終了
-    }
+        CScene::UpdateAll();
+        // プレイヤー分
+        for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+        {
+            // !nullcheck
+            if (m_pCamera != nullptr)
+            {
+                //カメラクラスの更新処理
+                m_pCamera[nCount]->Update();
+            }
+        }
 
-	// nullcheck
-	if (m_pStarManager != nullptr)
+		// nullcheck
+		if (m_pStarManager != nullptr)
+		{
+			m_pStarManager->Update();
+		}
+        // 時間切れだったら
+        if (m_pTimeUI->GetTimer()->IsTimeOver())
+        {
+            GameEnd();// ゲームを終了
+        }
+	}
+#ifdef _DEBUG
 	if (pKeyboard->GetTrigger(DIK_P))
 	{
 		m_bGameEnd = !m_bGameEnd;
 	}
 #endif
+    }
 }
 
 //=======================================================================================

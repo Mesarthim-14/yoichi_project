@@ -12,7 +12,6 @@
 //=============================================================================
 #include "character.h"
 #include "modelanime.h"
-
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -37,7 +36,7 @@
 // 前方宣言
 //=============================================================================
 class CPlayer_UI;
-
+class CItem;
 //=============================================================================
 // プレイヤークラス
 //=============================================================================
@@ -117,10 +116,7 @@ public:
 	void Fly(void);															// 飛行処理
 	void Death(void);														// 死んだときの処理
 	void MapLimit(void);													// マップの制限
-	void UseItem(void);														// アイテムの使用処理
-	void AcquiredItem(CItem *pItem);										// アイテム獲得関数
 	void AddStarNum(int nStarNum)		{ m_nStarNum += nStarNum; }			// 星獲得数の加算
-	void ItemErase(void);													// アイテムの削除
 	void Repop(void);														// リポップの処理
 
 	// Set関数
@@ -149,7 +145,8 @@ private:
 	int m_nNumber;					// プレイヤーの番号
 	int m_nStarNum;					// 星の数
 	float m_fBaseSpeed;				// 元のスピード
-	float m_fBaseRadius;			// 元の半径
+	float m_fBaseRadius;				// 元の半径
     CPlayer_UI *m_pPlayerUI;        // プレイヤーごとのUI
+	std::vector<CItem*> m_apItem;	// アイテムのポインタ
 };
 #endif
