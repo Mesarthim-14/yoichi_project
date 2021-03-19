@@ -78,7 +78,7 @@ HRESULT CNumber2d::Init(void)
 	// 頂点情報を設定
 	VERTEX_2D *pVtx;
 	D3DXVECTOR3 size = GetSize();
-	D3DXVECTOR3 pos = GetRot();
+	D3DXVECTOR3 pos = GetPos();
 	// 頂点バッファをロックし、頂点情報へのポインタを取得
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
