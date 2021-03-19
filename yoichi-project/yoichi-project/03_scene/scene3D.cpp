@@ -41,7 +41,7 @@ CScene3D::~CScene3D()
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CScene3D::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
+HRESULT CScene3D::Init(void)
 {
 	//デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
@@ -59,18 +59,14 @@ HRESULT CScene3D::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 
 	VERTEX_3D*pVtx = NULL;
 
-	// 変数代入
-	SetPos(pos);
-	SetSize(size);
-
 	//頂点バッファをロック
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
-	//頂点座標設定の設定
-	pVtx[0].pos = D3DXVECTOR3(-(GetSize().x / 2), +(GetSize().y / 2), +(GetSize().z / 2));
-	pVtx[1].pos = D3DXVECTOR3(+(GetSize().x / 2), +(GetSize().y / 2), +(GetSize().z / 2));
-	pVtx[2].pos = D3DXVECTOR3(-(GetSize().x / 2), -(GetSize().y / 2), -(GetSize().z / 2));
-	pVtx[3].pos = D3DXVECTOR3(+(GetSize().x / 2), -(GetSize().y / 2), -(GetSize().z / 2));
+	D3DXVECTOR3 size = GetSize();
+	//頂点座標設定の設定 
+	pVtx[0].pos = D3DXVECTOR3(-(size.x / 2), +(size.y / 2), +(size.z / 2));
+	pVtx[1].pos = D3DXVECTOR3(+(size.x / 2), +(size.y / 2), +(size.z / 2));
+	pVtx[2].pos = D3DXVECTOR3(-(size.x / 2), -(size.y / 2), -(size.z / 2));
+	pVtx[3].pos = D3DXVECTOR3(+(size.x / 2), -(size.y / 2), -(size.z / 2));
 
 	//各頂点の法線の設定（※ベクトルの大きさは１にする必要がある）
 	pVtx[0].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -261,7 +257,6 @@ void CScene3D::SetColor(D3DXCOLOR col)
 {
 	CSceneBase::SetColor(col);
 
-
 	VERTEX_3D*pVtx = NULL;
 
 	//頂点バッファをロック
@@ -270,7 +265,7 @@ void CScene3D::SetColor(D3DXCOLOR col)
 	for (int nCount = 0; nCount < NUM_VERTEX; nCount++)
 	{
 		//頂点カラーの設定（0～255の数値で設定）
-		pVtx[nCount].col = D3DXCOLOR(GetColor().r, GetColor().g, GetColor().b, GetColor().a);
+		pVtx[nCount].col = D3DXCOLOR(col.r, col.g, col.b, col.a);
 	}
 
 	//頂点バッファのアンロック

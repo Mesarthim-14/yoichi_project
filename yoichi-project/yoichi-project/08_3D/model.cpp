@@ -29,11 +29,10 @@ CModel::CModel(PRIORITY Priority) : CScene(Priority)
 	m_rot = ZeroVector3;
 	m_move = ZeroVector3;
 	m_size = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	m_type = MODEL_TYPE_NONE;
 	m_apTexture = NULL;
 	m_nTexPattern = 0;
 	m_nLife = 0;
-	m_Color = D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f);
+	m_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	m_fAlphaNum = 0.0f;
 }
 
@@ -58,8 +57,10 @@ CModel * CModel::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	// nullcheck
 	if (pModel != NULL)
 	{
+		pModel->SetPos(pos);
+		pModel->SetSize(size);
 		//初期化処理呼び出し
-		pModel->Init(pos, size);
+		pModel->Init();
 	}
 	//メモリ確保に失敗したとき
 	else
@@ -73,14 +74,8 @@ CModel * CModel::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 //=============================================================================
 //モデルクラスの初期化処理
 //=============================================================================
-HRESULT CModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CModel::Init(void)
 {
-	// 位置の初期化
-	m_pos = pos;
-
-	// サイズ初期化
-	m_size = size;
-
 	return S_OK;
 }
 
@@ -224,6 +219,15 @@ void CModel::SubAlpha(float fAlpha)
 }
 
 //=============================================================================
+// 回転の処理
+//=============================================================================
+void CModel::Rotation(D3DXVECTOR3 Rotation)
+{
+	// 回転
+	m_rot += Rotation;
+}
+
+//=============================================================================
 //モデルクラスのメッシュ情報の取得
 //=============================================================================
 LPD3DXMESH CModel::GetMesh(void) const
@@ -312,14 +316,6 @@ D3DXVECTOR3 CModel::GetRot(void)
 }
 
 //=============================================================================
-//モデルの種類
-//=============================================================================
-void CModel::SetType(MODEL_TYPE Mtype)
-{
-	m_type = Mtype;
-}
-
-//=============================================================================
 // サイズの設定
 //=============================================================================
 void CModel::SetSize(D3DXVECTOR3 size)
@@ -365,14 +361,6 @@ void CModel::SetAlphaNum(float fAlphaNum)
 D3DXVECTOR3 CModel::GetSize(void)
 {
 	return m_size;
-}
-
-//=============================================================================
-// モデルタイプの情報
-//=============================================================================
-CModel::MODEL_TYPE CModel::GetType(void)
-{
-	return m_type;
 }
 
 //=============================================================================

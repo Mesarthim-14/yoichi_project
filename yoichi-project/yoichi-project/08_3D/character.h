@@ -44,27 +44,20 @@ public:
 		STATE_MAX,			// 最大値
 	}STATE;
 
-	typedef enum
-	{
-		CHARACTER_TYPE_NONE = 0,	// 初期値
-		CHARACTER_TYPE_PLAYER,		// プレイヤー
-		CHARACTER_TYPE_ENEMY,		// エネミー
-		CHARACTER_TYPE_MAX,			// 最大数
-	}CHARACTER_TYPE;
-
 	CCharacter(PRIORITY Priority = PRIORITY_CHARACTER);				// コンストラクタ
 	virtual ~CCharacter();											// デストラクタ
 
-	virtual HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot);			// 初期化処理
+	virtual HRESULT Init();			// 初期化処理
 	virtual void Uninit();											// 終了処理
 	virtual void Update();											// 更新処理
 	virtual void Draw();											// 描画処理
 
 	bool Gravity(void);												// 地面の制限
 	void BodyCollision(void);										// 当たり判定
-	void ModelCreate(CXfile::HIERARCHY_XFILE_NUM FileNum);					// モデルの生成
+	void ModelCreate(CXfile::HIERARCHY_XFILE_NUM FileNum);			// モデルの生成
 	void ModelAnimeUpdate(void);									// モデルアニメーション
-	
+	void Landing(float fPosY);										// 着地処理
+
 	// 純粋仮想関数
 	virtual void UpdateState(void) = 0;								// キャラクター状態
 	virtual void UpdateMotionState(void) = 0;						// モーションの状態
@@ -80,11 +73,9 @@ public:
 	void SetLanding(bool bLanding);									// 着地の設定
 	void SetRadius(float fRadius);									// 半径の設定
 	void SetSpeed(float fSpeed);									// 速度の設定
-	void SetWeaponTipNum(int nWeaponTipNum);						// 剣先のパーツ番号
-	void SetWeaponRootNum(int nWeaponRootNum);						// 剣の根本のパーツ番号
 	void SetStateCounter(int nStateCounter);						// 状態カウンターの設定
-	void SetCType(CHARACTER_TYPE Ctype);							// タイプの設定
 	void SetMotion(int nMotionState);								// モーションの設定
+	void SetUseGravity(bool bUseGravity);
 
 	// Get関数
 	D3DXVECTOR3 GetPos(void) { return m_pos; }									// 現在の座標情報
@@ -92,22 +83,21 @@ public:
 	D3DXVECTOR3 GetRot(void) { return m_rot; }									// 角度情報
 	D3DXVECTOR3 GetMove(void) { return m_move; }								// 移動量の情報
 	int GetLife(void) { return m_nLife; }										// ライフの情報
-	int GetWeaponPartsNum(void) { return m_nWeaponTipNum; }						// 剣先のパーツ番号の情報
-	int GetWeaponRootNum(void) { return m_nWeaponTipNum; }						// 剣先のパーツ番号の情報
 	int GetStateCounter(void) { return m_nStateCounter; }						// 状態カウンターの情報
 	float GetSpeed(void) { return m_fSpeed; }									// スピードの情報
 	float GetRadius(void) { return m_fRadius; }									// 半径の情報
 	CModelAnime *GetModelAnime(int nCount) { return m_apModelAnime[nCount]; }	// モーションのカウント情報
 	bool GetJump(void) { return m_bJump; }										// ジャンプ
 	bool GetLanding(void) { return m_bLanding; }								// 着地のフラグ
+	bool GetUseGravity(void) { return m_bUseGravity; }
 	STATE GetState(void) { return m_State; }									// ステート情報
 	CMotion *GetMotion(void) { return m_pMotion; }								// モーションのポインタ情報
+
 private:
 	// モデル用変数
 	CModelAnime *m_apModelAnime[MAX_MODEL_PARTS];	// モデルパーツ用のポインタ
 	CMotion *m_pMotion;								// モーションクラスのポインタ
 	STATE m_State;									// ステート
-	CHARACTER_TYPE m_Ctype;							// キャラクターのタイプ
 	D3DXVECTOR3 m_pos;								// 座標
 	D3DXVECTOR3 m_posOld;							// 古い座標
 	D3DXVECTOR3 m_move;								// 移動量
@@ -116,8 +106,6 @@ private:
 	int m_nLife;									// 体力
 	int m_nMaxLife;									// ライフの最大量
 	int m_nCharaNum;								// キャラクターのナンバー
-	int m_nWeaponTipNum;							// 剣先のパーツ番号
-	int m_nWeaponRootNum;							// 剣の根本のパーツ
 	int m_nStateCounter;							// 状態のカウンター
 	int m_nParts;									// パーツ数
 	float m_fSpeed;									// 移動量
@@ -125,7 +113,7 @@ private:
 	float m_fRadius;								// 半径
 	bool m_bJump;									// ジャンプしているフラグ
 	bool m_bLanding;								// 着地のフラグ
-
+	bool m_bUseGravity;								// 重力を適用するか
 	// 静的メンバ変数
 	static int m_nAllNum;							// キャラクターの総数
 };

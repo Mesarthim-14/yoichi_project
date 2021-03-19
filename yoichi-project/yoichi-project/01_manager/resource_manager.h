@@ -29,7 +29,7 @@ public:
 
 	HRESULT Init(void);							// 初期化処理
 	void LoadAll(void);							// 全てのロード処理
-	void UnLoadAll(void);						// 全てのアンロード
+	void UnloadAll(void);						// 全てのアンロード
 
 	static CResourceManager *GetInstance(void);	// インスタンス取得関数
 
@@ -41,9 +41,9 @@ public:
 private:
 	CResourceManager();								// コンストラクタ
 	static CResourceManager *m_pResourceManager;	// 自身のポインタ
-	CTexture *m_pTexture;					// テクスチャのポインタ
-	CXfile *m_pXFile;						// Xファイルのポインタ
-	CSound *m_pSound;					// サウンドのポインタ
+	CTexture *m_pTexture;							// テクスチャのポインタ
+	CXfile *m_pXFile;								// Xファイルのポインタ
+	CSound *m_pSound;								// サウンドのポインタ
 };
 
 #endif

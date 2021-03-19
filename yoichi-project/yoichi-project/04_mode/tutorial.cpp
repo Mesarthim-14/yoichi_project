@@ -27,7 +27,7 @@ LPDIRECT3DTEXTURE9 CTutorial::m_pTexture[1] = {};
 //=======================================================================================
 // タイトルクラスのコンストラクタ
 //=======================================================================================
-CTutorial::CTutorial(PRIORITY Priority) : CScene(Priority)
+CTutorial::CTutorial()
 {
 	m_pScene = NULL;
 }
@@ -47,7 +47,7 @@ CTutorial* CTutorial::Create(void)
 {
 	CTutorial* pTutorial = new CTutorial();
 
-	pTutorial->Init(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f));
+	pTutorial->Init();
 
 	return pTutorial;
 }
@@ -68,11 +68,11 @@ HRESULT CTutorial::Load(void)
 //=======================================================================================
 // タイトルクラスの初期化処理
 //=======================================================================================
-HRESULT CTutorial::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
+HRESULT CTutorial::Init()
 {
 	if (m_pScene == NULL)
 	{
-		m_pScene = CScene2D::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f));
+		m_pScene = CScene2D::Create(SCREEN_SIZE/2, SCREEN_SIZE);
 
 		//テクスチャの設定
 		m_pScene->BindTexture(m_pTexture[0]);
@@ -96,7 +96,7 @@ void CTutorial::Uninit(void)
 
 
 	//オブジェクトの破棄
-	Release();
+	delete this;
 }
 
 //=======================================================================================
@@ -104,6 +104,7 @@ void CTutorial::Uninit(void)
 //=======================================================================================
 void CTutorial::Update(void)
 {
+	CScene::UpdateAll();
 	CInputKeyboard* pKey = CManager::GetKeyboard();
 	CFade::FADE_MODE mode = CManager::GetFade()->GetFade();
 
@@ -128,5 +129,5 @@ void CTutorial::Update(void)
 //=======================================================================================
 void CTutorial::Draw(void)
 {
-
+	CScene::DrawAll();
 }

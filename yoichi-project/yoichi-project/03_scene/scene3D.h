@@ -25,7 +25,7 @@ public:
 	CScene3D(PRIORITY Priority = PRIORITY_EFFECT);	// コンストラクタ
 	virtual ~CScene3D();							// デストラクタ
 	
-	virtual HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);			// 初期化処理
+	virtual HRESULT Init(void);			// 初期化処理
 	virtual void Uninit(void);											// 終了処理
 	virtual void Update(void);											// 更新処理
 	virtual void Draw(void);											// 描画処理
@@ -42,7 +42,9 @@ public:
 	void UpdateAnimation(void);											// アニメーションの更新
 	void ScaleUp(float fScale);											// 拡大処理
 	
-	void SetColor(D3DXCOLOR color);										// カラーの設定
+protected:
+	void SetColor(const D3DXCOLOR color);										// カラーの設定
+
 private:
 	D3DXMATRIX	m_mtxWorld;						// ワールドマトリクス
 	D3DXVECTOR3 m_move;							// 移動量

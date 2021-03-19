@@ -26,7 +26,7 @@
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define GRAVITY_POWAR			(0.7f)						// 重力の強さ
+#define GRAVITY_POWAR			(0.3f)						// 重力の強さ
 #define GROUND_RIMIT			(0.0f)						// 地面の制限
 
 //=============================================================================
@@ -46,16 +46,15 @@
 	 m_rot = ZeroVector3;
 	 m_nLife = 0;
 	 m_nCharaNum = m_nAllNum++;
-	 m_nWeaponTipNum = 0;
 	 m_fAngle = 0.0f;
 	 m_fSpeed = 0.0f;
 	 m_bJump = false;
 	 m_fRadius = 0.0f;
 	 m_nStateCounter = 0;
 	 m_nMaxLife = 0;
-	 m_Ctype = CHARACTER_TYPE_NONE;
 	 m_nParts = 0;
 	 m_pMotion = NULL;
+	 m_bUseGravity = true;
 	 memset(m_apModelAnime, 0, sizeof(m_apModelAnime));
  }
 
@@ -70,12 +69,8 @@ CCharacter::~CCharacter()
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CCharacter::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+HRESULT CCharacter::Init()
 {
-	// 引数の代入
-	m_pos = pos;	// 座標の設定
-	m_rot = rot;	// 角度の設定
-
 	return S_OK;
 }
 
@@ -120,14 +115,13 @@ void CCharacter::Uninit()
 void CCharacter::Update()
 {
 	// 重力
-	if (Gravity() == true)
+	if (m_bUseGravity)
 	{
-		if (m_bLanding == false)
+		if (Gravity() == true)
 		{
-			m_bLanding = true;
+
 		}
 	}
-
 	// 移動量加算
 	m_pos += m_move;
 
@@ -182,6 +176,7 @@ void CCharacter::Draw()
 //=============================================================================
 void CCharacter::ModelCreate(CXfile::HIERARCHY_XFILE_NUM FileNum)
 {
+	// XFileのポインタ取得
 	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();
 
 	// !nullcheck
@@ -244,6 +239,25 @@ void CCharacter::ModelAnimeUpdate(void)
 }
 
 //=============================================================================
+// 着地の処理
+//=============================================================================
+void CCharacter::Landing(float fPosY)
+{
+	// 着地の処理
+	if (m_pos.y <= fPosY)
+	{
+		m_move.y = 0.0f;
+		m_pos.y = fPosY;
+		m_bJump = false;
+
+		if (m_bLanding == false)
+		{
+			m_bLanding = true;
+		}
+	}
+}
+
+//=============================================================================
 // 重力
 //=============================================================================
 bool CCharacter::Gravity(void)
@@ -251,16 +265,6 @@ bool CCharacter::Gravity(void)
 	// 重力をかける
 	m_move.y -= GRAVITY_POWAR;
 	m_pos.y += m_move.y;		// 落下
-
-	// 着地の処理
-	if (m_pos.y <= GROUND_RIMIT)
-	{
-		m_move.y = 0.0f;
-		m_pos.y = GROUND_RIMIT;
-		m_bJump = false;
-
-		return true;
-	}
 
 	return false;
 }
@@ -283,45 +287,6 @@ void CCharacter::SetMotion(int nMotionState)
 //=============================================================================
 void CCharacter::BodyCollision(void)
 {
-//	// キャラクターのポインタ
-//	CCharacter *pCharacter = (CCharacter*)GetTop(PRIORITY_CHARACTER);
-//
-//	while (pCharacter != NULL)
-//	{
-//		// 自分の番号じゃないとき
-//		if (pCharacter->m_nCharaNum != m_nCharaNum)
-//		{
-//			// 円形と円形の当たり判定
-//			if (CCollision::CollisionCircularAndCircular(
-//				m_pos, pCharacter->m_pos,
-//				m_fRadius, pCharacter->m_fRadius) == true)
-//			{
-//				if (pCharacter->m_Ctype == CHARACTER_TYPE_PLAYER)
-//				{
-//					// 外に押し出す
-//					D3DXVECTOR3 vec = (pCharacter->GetPos() - m_pos);
-//					D3DXVec3Normalize(&vec, &vec);
-//					vec *= (pCharacter->m_fRadius + m_fRadius);
-//
-//					D3DXVECTOR3 pos = pCharacter->GetPos();
-//					pCharacter->SetPos(GetPos() + vec);
-//				}
-//				else
-//				{
-//					// 外に押し出す
-//					D3DXVECTOR3 vec = (m_pos - pCharacter->GetPos());
-//					D3DXVec3Normalize(&vec, &vec);
-//					vec *= (m_fRadius + pCharacter->m_fRadius);
-//
-//					D3DXVECTOR3 pos = GetPos();
-//					SetPos(pCharacter->GetPos() + vec);
-//				}
-//			}
-//		}
-//
-//		// 次のポインタ
-//		pCharacter = (CCharacter*)pCharacter->GetNext();
-//	}
 }
 
 //=============================================================================
@@ -389,14 +354,6 @@ void CCharacter::SetRadius(float fRadius)
 }
 
 //=============================================================================
-// キャラクターのタイプ設定
-//=============================================================================
-void CCharacter::SetCType(CHARACTER_TYPE Ctype)
-{
-	m_Ctype = Ctype;
-}
-
-//=============================================================================
 // キャラクターの速度設定
 //=============================================================================
 void CCharacter::SetSpeed(float fSpeed)
@@ -405,25 +362,17 @@ void CCharacter::SetSpeed(float fSpeed)
 }
 
 //=============================================================================
-// 剣先のパーツ番号設定
-//=============================================================================
-void CCharacter::SetWeaponTipNum(int nWeaponTipNum)
-{
-	m_nWeaponTipNum = nWeaponTipNum;
-}
-
-//=============================================================================
-// 剣の根本のパーツ番号設定
-//=============================================================================
-void CCharacter::SetWeaponRootNum(int nWeaponRootNum)
-{
-	m_nWeaponRootNum = nWeaponRootNum;
-}
-
-//=============================================================================
 // 状態カウンターの設定
 //=============================================================================
 void CCharacter::SetStateCounter(int nStateCounter)
 {
 	m_nStateCounter = nStateCounter;
+}
+
+//=============================================================================
+// 重力の設定
+//=============================================================================
+void CCharacter::SetUseGravity(bool bUseGravity)
+{
+	m_bUseGravity = bUseGravity;
 }

@@ -15,6 +15,11 @@
 #include "resource_manager.h"
 
 //=============================================================================
+// マクロ定義
+//=============================================================================
+#define MESHFIELD_POS (D3DXVECTOR3(0.0f, STAGE_LIMIT_Y, 0.0f))
+
+//=============================================================================
 // コンストラクタ
 //=============================================================================
 CMeshField::CMeshField(PRIORITY Priority) : CMesh3d(Priority)
@@ -37,10 +42,11 @@ CMeshField * CMeshField::Create(void)
 	CMeshField *pMeshField = new CMeshField;
 
 	// nullchack
-	if (pMeshField != NULL)
+	if (pMeshField != nullptr)
 	{
+		pMeshField->SetPos(MESHFIELD_POS);
 		// 初期化処理
-		pMeshField->Init(ZeroVector3, ZeroVector3);
+		pMeshField->Init();
 	}
 
 	return pMeshField;
@@ -49,7 +55,7 @@ CMeshField * CMeshField::Create(void)
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CMeshField::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CMeshField::Init(void)
 {
 	// Rendererクラスからデバイスを取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
@@ -61,10 +67,10 @@ HRESULT CMeshField::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	int nCntIndex = 0;		// 頂点の生成番号
 	int nCntH = 0;			// 縦の頂点カウンタ
 	int nCntV = 0;			// 横の頂点カウンタ
-
+	D3DXVECTOR3 pos = GetPos();
 	// テクスチャの設定
 	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
-	BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_FLOOR));
+	BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_SEA));
 
 	// 値の初期化
 	SetNumVertex((FIELD_WIDTH + 1) * (FIELD_HEIGHT + 1));								// 25
@@ -101,13 +107,13 @@ HRESULT CMeshField::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 		for (nCntH = 0; nCntH < FIELD_WIDTH + 1; nCntH++)
 		{
 			// 頂点の設定
-			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].pos = D3DXVECTOR3(-FIELD_WIDTH_SIZE + (nCntH * GetOneSize().x), 0.0f, FIELD_HEIGHT_SIZE - (nCntV * GetOneSize().y));
+			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].pos = D3DXVECTOR3(-FIELD_WIDTH_SIZE + (nCntH * GetOneSize().x), pos.y, FIELD_HEIGHT_SIZE - (nCntV * GetOneSize().y));
 
 			// 法線ベクトルの設定
 			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
 			// 色の設定
-			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].col = D3DXCOLOR(0.5f, 0.5f, 0.5f, 0.2f);
 
 			// テクスチャ座標の設定
 			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].tex = D3DXVECTOR2(float(nCntH), float(nCntV));
@@ -220,8 +226,6 @@ void CMeshField::Draw(void)
 
 	// 頂点フォーマットの設定
 	pDevice->SetFVF(FVF_VERTEX_3D);
-
-	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 
 	// 頂点フォーマットの設定
 	pDevice->SetTexture(0, GetTexture());

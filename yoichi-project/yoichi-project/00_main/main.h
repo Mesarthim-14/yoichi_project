@@ -57,18 +57,20 @@
 #define	WINDOW_POS_Y	(0)
 #define SCREEN_WIDTH	(1280)
 #define SCREEN_HEIGHT	(720)
+#define SCREEN_SIZE		(D3DXVECTOR3(SCREEN_WIDTH,SCREEN_HEIGHT,0.0f))
 #define FVF_VERTEX_3D (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE| D3DFVF_TEX1)	// 座標・法線・カラー
 #define FVF_VERTEX_2D (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)				// 頂点フォーマット
 #define NUM_VERTEX		(4)															// 頂点数
 #define VERTEX_TRIANGLE	(3)															// 三角形の頂点数
 #define NUM_POLYGON		(2)															// ポリゴン数
+#define MAX_PLAYER_NUM	(4)															// プレイヤーの最大数
+#define MAP_LIMIT		(15000)														// マップ上限
 
 // 初期化用マクロ変数
 #define ZeroVector2		(D3DXVECTOR2(0.0f, 0.0f))				// D3DXVECTOR2用
 #define ZeroVector3		(D3DXVECTOR3(0.0f, 0.0f, 0.0f))			// D3DVECTOR3用
 #define WhiteColor		(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f))		// 白色の設定
 #define BlackColor		(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f))		// 黒色の設定
-#define MAX_PLAYER_NUM	(4)										// プレイヤーの最大数
 
 //=============================================================================
 //構造体定義

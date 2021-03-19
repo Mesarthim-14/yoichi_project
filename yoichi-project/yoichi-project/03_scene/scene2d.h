@@ -22,7 +22,7 @@ public:
 	~CScene2D();								// デストラクタ
 
 	static CScene2D* Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);			// インスタンス生成
-	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);					// 初期化処理
+	HRESULT Init(void);					// 初期化処理
 	void Uninit(void);													// 終了処理
 	void Update(void);													// 更新処理
 	void Draw(void);													// 描画処理
@@ -38,7 +38,7 @@ public:
 	void SetRotation(float rotasion);									// 回転の設定
 	void SetScale(const float &fScale);									// 拡大の値設定
 
-																		// Get関数
+	// Get関数
 	float GetScale(void) { return m_fScaleNum; }						// 拡大の値情報
 
 private:

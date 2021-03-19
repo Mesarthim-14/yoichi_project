@@ -33,8 +33,7 @@ public:
 	enum MESH_TYPE
 	{
 		MESH_TYPE_NONE = -1,	// 初期値
-		MESH_TYPE_TUBE_6,		// 6角形の円柱
-		MESH_TYPE_PILLAR_6,		// 6角形の円柱
+		MESH_TYPE_SCAFFOLD,		// 足場の円柱
 		MESH_TYPE_MAX			// 最大値
 	};
 
@@ -55,33 +54,36 @@ public:
 	CMesh3d(PRIORITY Priority = PRIORITY_EFFECT);	// コンストラクタ
 	~CMesh3d();										// デストラクタ
 
-	virtual HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size) = 0;	// 初期化処理
+	virtual HRESULT Init(void) = 0;	// 初期化処理
 	virtual void Uninit(void) = 0;									// 終了処理
 	virtual void Update(void) = 0;									// 更新処理
 	virtual void Draw(void);										// 描画処理
 
 	static HRESULT ReadFile(void);									// ファイル読み込み
+	virtual void Collision(void);									// 当たり判定
 
+protected:
 	// Set関数
-	void SetNumVertex(int nNumVertex) { m_nNumVertex = nNumVertex; }												// 頂点数
-	void SetNumIndex(int nNumIndex) { m_nNumIndex = nNumIndex; }													// インデックス数
-	void SetNumPolygon(int nNumPolygon) { m_nNumPolygon = nNumPolygon; }											// ポリゴン数
-	void SetCylinderNum(CYLINDER CylinderNum, MESH_TYPE typeNum) { m_Mesh3D[typeNum].CylinderNum = CylinderNum; }	// 何角形か設定する
-	void BindIdxBuff(LPDIRECT3DINDEXBUFFER9 IdxBuff) { m_pIdxBuff = IdxBuff; }										// バッファ番号の設定
-	void BindMtxWorld(D3DXMATRIX mtxWorld) { m_mtxWorld = mtxWorld; }												// マトリクス情報
-	void SetOneSize(D3DXVECTOR2 OneSize) { m_OneSize = OneSize; }													// 一つのブロックの大きさ
-	void SetMeshNum(MESH_TYPE MeshNum) { m_MeshNum = MeshNum; }														// メッシュの番号の設定
+	void SetNumVertex(const int nNumVertex)										{ m_nNumVertex = nNumVertex; }						// 頂点数
+	void SetNumIndex(const int nNumIndex)										{ m_nNumIndex = nNumIndex; }						// インデックス数
+	void SetNumPolygon(const int nNumPolygon)									{ m_nNumPolygon = nNumPolygon; }					// ポリゴン数
+	void SetCylinderNum(const CYLINDER CylinderNum, const MESH_TYPE typeNum)	{ m_Mesh3D[typeNum].CylinderNum = CylinderNum; }	// 何角形か設定する
+	void BindIdxBuff(const LPDIRECT3DINDEXBUFFER9 IdxBuff)						{ m_pIdxBuff = IdxBuff; }							// バッファ番号の設定
+	void BindMtxWorld(const D3DXMATRIX mtxWorld)								{ m_mtxWorld = mtxWorld; }							// マトリクス情報
+	void SetOneSize(const D3DXVECTOR2 OneSize)									{ m_OneSize = OneSize; }							// 一つのブロックの大きさ
+	void SetMeshNum(const MESH_TYPE MeshNum)									{ m_MeshNum = MeshNum; }							// メッシュの番号の設定
 	
 	// Get関数
-	int GetNumVertex(void) { return m_nNumVertex; }											// 頂点数の情報
-	int GetNumIndex(void) { return m_nNumIndex; }											// インデックス数の情報
-	int GetNumPolygon(void) { return m_nNumPolygon; }										// ポリゴン数の情報
-	CYLINDER GetCylinderNum(MESH_TYPE typeNum) { return m_Mesh3D[typeNum].CylinderNum; }	// 何角形かの情報
-	LPDIRECT3DINDEXBUFFER9 GetIdxBuff(void) { return m_pIdxBuff; }							// バッファ番号の情報
-	D3DXMATRIX GetMtxWorld(void) { return m_mtxWorld; }										// マトリクス情報
-	static MESH_3D GetMesh3D(MESH_TYPE MeshNum) { return m_Mesh3D[MeshNum]; }				// メッシュの情報
-	MESH_TYPE GetMeshNum(void) { return m_MeshNum; }										// メッシュの番号
-	D3DXVECTOR2 GetOneSize(void) { return m_OneSize; }										// サイズ
+	int GetNumVertex(void)							{ return m_nNumVertex; }					// 頂点数の情報
+	int GetNumIndex(void)							{ return m_nNumIndex; }						// インデックス数の情報
+	int GetNumPolygon(void)							{ return m_nNumPolygon; }					// ポリゴン数の情報
+	CYLINDER GetCylinderNum(MESH_TYPE typeNum)		{ return m_Mesh3D[typeNum].CylinderNum; }	// 何角形かの情報
+	LPDIRECT3DINDEXBUFFER9 GetIdxBuff(void)			{ return m_pIdxBuff; }						// バッファ番号の情報
+	D3DXMATRIX GetMtxWorld(void)					{ return m_mtxWorld; }						// マトリクス情報
+	static MESH_3D GetMesh3D(MESH_TYPE MeshNum)		{ return m_Mesh3D[MeshNum]; }				// メッシュの情報
+	MESH_TYPE GetMeshNum(void)						{ return m_MeshNum; }						// メッシュの番号
+	D3DXVECTOR2 GetOneSize(void)					{ return m_OneSize; }						// サイズ
+
 private:
 	LPDIRECT3DINDEXBUFFER9 m_pIdxBuff;			// バッファの番号
 	D3DXMATRIX m_mtxWorld;						// ワールドマトリックス

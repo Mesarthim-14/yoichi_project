@@ -17,7 +17,7 @@
 //=============================================================================
 class CLockon;
 
-//===========================================================
+//=============================================================================
 // カメラクラス
 //=============================================================================
 class CCamera
@@ -36,8 +36,8 @@ public:
 
 	// Get関数
 	bool GetTargetBool(void);			// ターゲットカメラのフラグ
-	float Getθ(void);					// 縦の回転
-	float Getφ(void);					// 横の回転
+	float GetVartical(void);					// 縦の回転
+	float GetHorizontal(void);					// 横の回転
 	D3DXVECTOR3 GetposV(void);			// カメラ座標
 	D3DXVECTOR3 GetposR(void);			// カメラ角度
 	D3DXMATRIX GetMtxView(void);		// マトリクスビュー
@@ -49,8 +49,8 @@ private:
 	//=========================================================================
 	//プライベートメンバ関数宣言
 	//=========================================================================
-	void NomalUpdate(D3DXVECTOR3 PlayerPos, D3DXVECTOR3 PlayerRot);
-
+	void NomalUpdate(D3DXVECTOR3 PlayerPos);
+	void FixAngleToPlayerDirection(D3DXVECTOR3 PlayerRot);
 	//=========================================================================
 	//メンバ変数宣言
 	//=========================================================================
@@ -65,8 +65,9 @@ private:
 	D3DXMATRIX m_mtxView;					// ビューマトリックス
 	D3DXVECTOR3 m_rot;						// 向き
 	bool m_bTarget;							// ターゲット使用フラグ
-	float m_fθ;							// 縦回転角度
-	float m_fφ;							// 横回転角
+	bool m_bStickReverseVartical;			// 縦方向反転フラグ
+	float m_fVartical;						// 縦回転角度
+	float m_fHorizontal;					// 横回転角
 	float m_fDistance;						// 視点～注視点の距離
 	float m_fMove;							// 移動量
 	static int m_nAllNum;					// カメラの総数

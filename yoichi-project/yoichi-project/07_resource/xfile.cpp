@@ -16,13 +16,16 @@
 // マクロ定義
 //=============================================================================
 // モデルネーム
+#define XFILE_NAME_BG						("data/model/bg_dome001.x")		// 背景
+#define XFILE_NAME_ITEM_BOX					("data/model/item_box.x")		// アイテムボックス
+#define XFILE_NAME_BOMB_BOX					("data/model/item_bombbox.x")		// 偽ボックス
 #define XFILE_NAME_BG				("data/model/bg_dome001.x")	// 背景
 #define XFILE_NAME_WINDSPHERE		("data/model/windsphere.x")	// 風の球
 #define XFILE_NAME_BARRIER			("data/model/barrier.x")	// バリア
 #define XFILE_NAME_BARRIER_EFFECT	("data/model/barrier_effect.x")	// バリアエフェクト
 
 // 階層構造モデルのファイル
-#define HIERARCHY_FILENAME_PLAYER	("data/Text/motion_PLAYER.txt")	// プレイヤーのファイルネーム
+#define HIERARCHY_FILENAME_PLAYER			("data/Text/motion_PLAYER.txt")	// プレイヤーのファイルネーム
 
 //=============================================================================
 // コンストラクタ
@@ -61,6 +64,26 @@ HRESULT CXfile::ModelLoad(void)
 {
 	//デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
+
+	// Xファイルの読み込み
+	D3DXLoadMeshFromX(XFILE_NAME_ITEM_BOX,
+		D3DXMESH_SYSTEMMEM,
+		pDevice,
+		NULL,
+		&m_aXfile[XFILE_NUM_ITEM_BOX].pBuffMat,
+		NULL,
+		&m_aXfile[XFILE_NUM_ITEM_BOX].dwNumMat,
+		&m_aXfile[XFILE_NUM_ITEM_BOX].pMesh);
+
+	// Xファイルの読み込み
+	D3DXLoadMeshFromX(XFILE_NAME_BOMB_BOX,
+		D3DXMESH_SYSTEMMEM,
+		pDevice,
+		NULL,
+		&m_aXfile[XFILE_NUM_BOMB_BOX].pBuffMat,
+		NULL,
+		&m_aXfile[XFILE_NUM_BOMB_BOX].dwNumMat,
+		&m_aXfile[XFILE_NUM_BOMB_BOX].pMesh);
 
 	for (int nCount = 0; nCount < XFILE_NUM_MAX; nCount++)
 	{
@@ -158,7 +181,6 @@ HRESULT CXfile::HierarchyReadFile(void)
 
 					//インデックスを１つ進める
 					nModelIndex++;
-
 				}
 
 				if (strcmp(aModeName, "CHARACTERSET") == 0)

@@ -22,7 +22,6 @@
 #include "player.h"
 #include "renderer.h"
 #include "resource_manager.h"
-#include "result.h"
 #include "scene3D.h"
 #include "sound.h"
 #include "texture.h"
@@ -35,7 +34,7 @@
 //=============================================================================
 CManager::MODE_TYPE CManager::m_mode = CManager::MODE_TYPE_TITLE;
 CRenderer *CManager::m_pRenderer = NULL;
-CInputKeyboard *CManager::m_pInput = NULL;
+CInputKeyboard *CManager::m_pKeyboard = NULL;
 CFade *CManager::m_pFade = NULL;
 CTitle *CManager::m_pTitle = NULL;
 CTutorial *CManager::m_pTutorial = NULL;
@@ -78,12 +77,12 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 	}
 
 	//入力処理クラスのインスタンス生成
-	m_pInput = new CInputKeyboard;
+	m_pKeyboard = new CInputKeyboard;
 
 	//メモリが確保できたら
-	if (m_pInput != NULL)
+	if (m_pKeyboard != NULL)
 	{
-		if (FAILED(m_pInput->Init(hInstance, hWnd)))
+		if (FAILED(m_pKeyboard->Init(hInstance, hWnd)))
 		{
 			return -1;
 		}
@@ -106,7 +105,6 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 	{
 		// リソースマネージャのインスタンス生成
 		m_pResourceManager = CResourceManager::GetInstance();
-
 	}
 
 	//サウンドのインスタンス生成
@@ -131,7 +129,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 void CManager::Uninit(void)
 {
 	//全テクスチャの破棄
-	UnLoadAll();
+	UnloadAll();
 
 	//現在モードの終了
 	switch (m_mode)
@@ -141,7 +139,7 @@ void CManager::Uninit(void)
 		if (m_pTitle != NULL)
 		{
 			// 終了処理
-			m_pTitle->Uninit();
+		//	m_pTitle->Uninit();
 			m_pTitle = NULL;
 		}
 
@@ -152,7 +150,7 @@ void CManager::Uninit(void)
 		if (m_pTutorial != NULL)
 		{
 			// 終了処理
-			m_pTutorial->Uninit();
+		//	m_pTutorial->Uninit();
 			m_pTutorial = NULL;
 		}
 		break;
@@ -164,16 +162,6 @@ void CManager::Uninit(void)
 			// 終了処理
 			m_pGame->Uninit();
 			m_pGame = NULL;
-		}
-		break;
-
-		// リザルト
-	case MODE_TYPE_RESULT:
-		if (m_pResult != NULL)
-		{
-			// 終了処理
-			m_pResult->Uninit();
-			m_pResult = NULL;
 		}
 		break;
 	}
@@ -199,16 +187,16 @@ void CManager::Uninit(void)
 		m_pResourceManager = NULL;
 	}
 
-	if (m_pInput != NULL)
+	if (m_pKeyboard != NULL)
 	{
 		//入力処理クラスの終了処理呼び出し
-		m_pInput->Uninit();
+		m_pKeyboard->Uninit();
 
 		//メモリの削除
-		delete m_pInput;
+		delete m_pKeyboard;
 
 		//メモリのクリア
-		m_pInput = NULL;
+		m_pKeyboard = NULL;
 	}
 
 	if (m_pJoypad != NULL)
@@ -244,10 +232,11 @@ void CManager::Uninit(void)
 //=============================================================================
 void CManager::Update(void)
 {
-	if (m_pInput != NULL)
+
+	if (m_pKeyboard != NULL)
 	{
 		//入力処理クラスの更新処理呼び出し
-		m_pInput->Update();
+		m_pKeyboard->Update();
 	}
 
 	if (m_pJoypad != NULL)
@@ -256,10 +245,32 @@ void CManager::Update(void)
 		m_pJoypad->Update();
 	}
 
-	if (m_pRenderer != NULL)
+
+	switch (m_mode)
 	{
-		//レンダラークラスの更新処理呼び出し
-		m_pRenderer->Update();
+	case MODE_TYPE_TITLE:
+		if (m_pTitle != NULL)
+		{
+			// タイトル処理
+			m_pTitle->Update();
+		}
+		break;
+
+		// チュートリアル
+	case MODE_TYPE_TUTORIAL:
+		if (m_pTutorial != NULL)
+		{
+			m_pTutorial->Update();
+		}
+		break;
+
+		// ゲーム
+	case MODE_TYPE_GAME:
+		if (m_pGame != NULL)
+		{
+			m_pGame->Update();
+		}
+		break;
 	}
 
 	if (m_pFade != NULL)
@@ -267,7 +278,6 @@ void CManager::Update(void)
 		//フェードクラスの更新処理呼び出し
 		m_pFade->Update();
 	}
-
 }
 
 //=============================================================================
@@ -302,13 +312,13 @@ void CManager::LoadAll(void)
 //=============================================================================
 //テクスチャの全アンロード処理
 //=============================================================================
-void CManager::UnLoadAll(void)
+void CManager::UnloadAll(void)
 {
 	// !nullcheck
 	if (m_pResourceManager != NULL)
 	{
 		// リソースのロード
-		m_pResourceManager->UnLoadAll();
+		m_pResourceManager->UnloadAll();
 	}
 }
 
@@ -329,7 +339,6 @@ void CManager::SetMode(MODE_TYPE mode)
 			// タイトル処理
 			m_pTitle->Uninit();
 			m_pTitle = NULL;
-
 		}
 		break;
 
@@ -350,15 +359,6 @@ void CManager::SetMode(MODE_TYPE mode)
 			m_pGame = NULL;
 		}
 		break;
-
-		// リザルト
-	case MODE_TYPE_RESULT:
-		if (m_pResult != NULL)
-		{
-			m_pResult = NULL;
-		}
-		break;
-
 	}
 
 	// シーン情報のリリース
@@ -398,14 +398,6 @@ void CManager::SetMode(MODE_TYPE mode)
 
 		break;
 
-		// リザルト
-	case MODE_TYPE_RESULT:
-		if (m_pGame == NULL)
-		{
-			// リザルト生成
-			m_pResult = CResult::Create();
-		}
-
 	default:
 		break;
 	}
@@ -433,7 +425,7 @@ CRenderer * CManager::GetRenderer(void)
 //=============================================================================
 CInputKeyboard * CManager::GetKeyboard(void)
 {
-	return m_pInput;
+	return m_pKeyboard;
 }
 
 //=============================================================================

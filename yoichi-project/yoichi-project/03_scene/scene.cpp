@@ -90,7 +90,7 @@ void CScene::UpdateAll(void)
 			// 先頭シーン
 			CScene *pScene = m_pTop[nCount];
 
-			do
+			while (pScene != NULL)
 			{
 				// 次のシーンを取得
 				CScene *pSceneCur = pScene->m_pNext;
@@ -104,8 +104,7 @@ void CScene::UpdateAll(void)
 
 				// 次のシーンへ
 				pScene = pSceneCur;
-
-			} while (pScene != NULL);
+			} 
 		}
 	}
 
@@ -117,7 +116,7 @@ void CScene::UpdateAll(void)
 			// 先頭のシーンを確保
 			CScene *pScene = m_pTop[nCount];
 
-			do
+			while (pScene != NULL)
 			{
 				CScene *pSceneCur = pScene->m_pNext;
 
@@ -129,8 +128,7 @@ void CScene::UpdateAll(void)
 
 				// 次のシーンへ
 				pScene = pSceneCur;
-
-			} while (pScene != NULL);
+			} 
 		}
 	}
 }
@@ -147,7 +145,8 @@ void CScene::DrawAll(void)
 		{
 			// 先頭を取得
 			CScene *pScene = m_pTop[nCount];
-			do
+
+			while (pScene != NULL)
 			{
 				// 次のシーン取得
 				CScene *pSceneCur = pScene->m_pNext;
@@ -160,8 +159,7 @@ void CScene::DrawAll(void)
 
 				// 次のシーンへ
 				pScene = pSceneCur;
-
-			} while (pScene != NULL);
+			} 
 		}
 	}
 }
@@ -197,7 +195,7 @@ void CScene::ReleaseAll(void)
 			// 先頭のシーン
 			CScene *pScene = m_pTop[nCount];
 
-			do
+			while (pScene != NULL)
 			{
 				// 次のシーン取得
 				CScene *pSceneCur = pScene->m_pNext;
@@ -211,8 +209,7 @@ void CScene::ReleaseAll(void)
 
 				// 次のシーンへ
 				pScene = pSceneCur;
-
-			} while (pScene != NULL);
+			}
 		}
 	}
 }
@@ -220,7 +217,7 @@ void CScene::ReleaseAll(void)
 //=============================================================================
 // 単数リリース
 //=============================================================================
-void CScene::Release()
+void CScene::Release(void)
 {
 	// 死亡フラグ
 	m_bDeath = true;

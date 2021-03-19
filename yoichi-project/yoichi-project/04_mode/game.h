@@ -10,32 +10,40 @@
 //***************************************************************************************
 // インクルードファイル
 //***************************************************************************************
-#include "scene.h"
+#include "manager.h"
+#include "gamemode.h"
+//***************************************************************************************
+// マクロ定義
+//***************************************************************************************
+#define STAGE_LIMIT_Y		(-2000.0f)
 
 //***************************************************************************************
 // 前方宣言
 //***************************************************************************************
 class CCamera;
 class CLight;
-class CMeshField;
-class CBg;
 class CPlayer;
 class CPause;
+class CItemBoxManager;
+class CStarManager;
+class CStageMap;
 
+class CTime_UI;
+class CResult;
 //***************************************************************************************
 // ゲームクラス
 //***************************************************************************************
-class CGame : public CScene
+class CGame : public ICGameMode
 {
 public:
-	CGame(PRIORITY Priority = PRIORITY_0);				// コンストラクタ
+	CGame();											// コンストラクタ
 	~CGame();											// デストラクタ
 
-	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);	// 初期化処理
+	HRESULT Init();										// 初期化処理
 	void Uninit(void);									// 終了処理
 	void Update(void);									// 更新処理
 	void Draw(void);									// 描画処理
-	void SetGame(void);									// ゲームの設定
+
 	static CGame* Create(void);							// ゲーム生成情報
 
 	// Set関数
@@ -43,21 +51,29 @@ public:
 
 	// Get関数
 	static CCamera *GetCamera(int nCount);										// カメラのポインタ情報
-	static CLight *GetLight(void);											// ライトのポインタ情報
+	static CLight *GetLight(void);												// ライトのポインタ情報
 	static CPlayer *GetPlayer(int nCount);										// プレイヤーのポインタ情報
-	static CPause *GetPause(void);											// ポーズ画面のポインタ情報
-	static int GetPlayerNum(void) { return m_nPlayerNum; }					// プレイヤーの数
+	static CPause *GetPause(void);												// ポーズ画面のポインタ情報
+	static int GetPlayerNum(void)					{ return m_nPlayerNum; }	// プレイヤーの数
+	static CItemBoxManager *GetItemManager(void)	{ return m_pItemManager; }	// リソースマネージャのポインタ
+	CStageMap *GetStageMap(void)					{ return m_pStageMap; }		// マップの情報
 
+    void GameEnd(void) { m_bGameEnd = true; }  // ゲーム終了
 private:	
 	static CCamera *m_pCamera[MAX_PLAYER_NUM];	// カメラのポインタ	
 	static CLight *m_pLight;					// ライトのポインタ
-	static CMeshField *m_pMeshField;			// メッシュフィールドのポインタ
-	static CBg *m_pBg;							// 背景のポインタ
 	static CPlayer *m_pPlayer[MAX_PLAYER_NUM];	// プレイヤーのポインタ
+	static CItemBoxManager *m_pItemManager;		// アイテムマネージャのポインタ
+	static CResult *m_apResult[MAX_PLAYER_NUM];	// リザルトのポインタ
+	CStarManager *m_pStarManager;				// 星生成クラスのポインタ
+	CStageMap *m_pStageMap;						// マップの生成
 	static CPause *m_pPause;					// ポーズのポインタ
+    static CTime_UI *m_pTimeUI;                 // タイマーへのポインタ
+
 	LPD3DXFONT m_pFont;							// デバック用フォント
 	int m_nTimeCounter;							// ゲームのカウンター
 	bool m_bGameEnd;							// ゲームのエンドフラグ
 	static int m_nPlayerNum;					// プレイヤーの人数
+
 };
 #endif

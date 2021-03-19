@@ -10,7 +10,7 @@
 //=============================================================================
 //インクルードファイル
 //=============================================================================
-#include "scene.h"
+#include "gamemode.h"
 
 //=============================================================================
 // マクロ定義
@@ -20,7 +20,7 @@
 #define TITLE_UI_POS_Y			(360.0f)	// UIのY座標
 
 #define TITLE_SIZE_X			(500.0f)	// タイトルのXサイズ
-#define TITLE_SIZE_Y			(170.0f)	// タイトルのYサイズ
+#define TITLE_SIZE_Y			(200.0f)	// タイトルのYサイズ
 #define TITLE_POS_X				(640.0f)	// タイトルのX座標
 #define TITLE_POS_Y				(350.0f)	// タイトルのY座標
 
@@ -39,15 +39,15 @@ class CScene2D;
 //=============================================================================
 //リザルトクラス
 //=============================================================================
-class CTitle : public CScene
+class CTitle : public ICGameMode
 {
 public:
-	CTitle(PRIORITY Priority = PRIORITY_0);					// コンストラクタ
+	CTitle();					// コンストラクタ
 	~CTitle();												// デストラクタ
 
 	static CTitle* Create(void);							// インスタンス生成
 
-	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);		// 初期化処理
+	HRESULT Init(void);		// 初期化処理
 	void Uninit(void);										// 終了処理
 	void Update(void);										// 更新処理
 	void Draw(void);										// 描画処理

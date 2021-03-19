@@ -58,10 +58,10 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 			(float)(rand() % (int)(Range.y)) + pos.y - (Range.y / 2),
 			(float)(rand() % (int)(Range.z)) + pos.z - (Range.z / 2));
 
+		pEffect->SetPos(TargetPos);
+		pEffect->SetSize(Particle.size);
 		// ‰Šú‰»ˆ—
-		pEffect->Init(TargetPos, Particle.size);
-		pEffect->SetPos(TargetPos);		// ‰ñ“]‚ÌÝ’è
-		pEffect->SetSizeBase(Particle.size);					// F‚ÌÝ’è
+		pEffect->Init();
 
 		CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 
@@ -81,9 +81,6 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 		}
 
 		// ˆÚ“®—Ê‚ªˆê’èˆÈã‚È‚ç
-		if (Particle.move.x >= 1.0f || Particle.move.x <= -1.0f &&
-			Particle.move.y >= 1.0f || Particle.move.y <= -1.0f &&
-			Particle.move.z >= 1.0f || Particle.move.z <= -1.0f)
 		{
 			// ˆÚ“®—ÊÝ’è
 			D3DXVECTOR3 move;
@@ -172,10 +169,10 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 //=====================================================
 // ‰Šú‰»ˆ—
 //=====================================================
-HRESULT CEffect::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CEffect::Init(void)
 {
 	// ‰Šú‰»ˆ—
-	CBillboard::Init(pos, size);
+	CBillboard::Init();
 
 	return S_OK;
 }
