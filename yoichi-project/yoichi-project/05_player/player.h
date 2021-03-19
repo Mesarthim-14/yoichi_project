@@ -117,10 +117,7 @@ public:
 	void Fly(void);															// 飛行処理
 	void Death(void);														// 死んだときの処理
 	void MapLimit(void);													// マップの制限
-	void UseItem(void);														// アイテムの使用処理
-	void AcquiredItem(CItem *pItem);										// アイテム獲得関数
 	void AddStarNum(int nStarNum)		{ m_nStarNum += nStarNum; }			// 星獲得数の加算
-	void ItemErase(void);													// アイテムの削除
 	void Repop(void);														// リポップの処理
 
 	// Set関数
