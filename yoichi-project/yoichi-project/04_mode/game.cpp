@@ -27,6 +27,8 @@
 #include "star_manager.h"
 #include "stage_map.h"
 #include "result.h"
+#include "time_ui.h"
+#include "timer.h"
 
 //=======================================================================================
 // static初期化
@@ -38,6 +40,7 @@ CPause *CGame::m_pPause = nullptr;
 CItemBoxManager *CGame::m_pItemManager = nullptr;
 int CGame::m_nPlayerNum = 1;
 CResult *CGame::m_apResult[MAX_PLAYER_NUM] = {};
+CTime_UI *CGame::m_pTimeUI = nullptr;
 
 //=======================================================================================
 // コンストラクタ
@@ -84,25 +87,6 @@ CGame* CGame::Create(void)
 //=======================================================================================
 HRESULT CGame::Init(void)
 {
-	// プレイヤーの数分ループ
-	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
-	{	
-		// nullcheck
-		if (m_pCamera[nCount] == nullptr)
-		{
-			// カメラクラスのクリエイト
-			m_pCamera[nCount] = CCamera::Create(nCount);
-		}
-
-		// nullcheck
-		if (m_pPlayer[nCount] == nullptr)
-		{
-			// プレイヤーの生成
-			m_pPlayer[nCount] = CPlayer::Create(
-				ZeroVector3, D3DXVECTOR3(PLAYER_SIZE_X, PLAYER_SIZE_Y, PLAYER_SIZE_Z), 
-				nCount);
-		}
-	}
 
 	//ライトクラスの生成
 	m_pLight = new CLight;
@@ -122,6 +106,29 @@ HRESULT CGame::Init(void)
 		// インスタンス生成
 		m_pStageMap = CStageMap::Create();
 	}
+
+    // プレイヤーの数分ループ
+    for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+    {
+        // nullcheck
+        if (m_pCamera[nCount] == nullptr)
+        {
+            // カメラクラスのクリエイト
+            m_pCamera[nCount] = CCamera::Create(nCount);
+        }
+
+        // nullcheck
+        if (m_pPlayer[nCount] == nullptr)
+        {
+            // プレイヤーの生成
+            m_pPlayer[nCount] = CPlayer::Create(
+                ZeroVector3, D3DXVECTOR3(PLAYER_SIZE_X, PLAYER_SIZE_Y, PLAYER_SIZE_Z),
+                nCount);
+        }
+    }
+
+    // タイマーのセット
+    m_pTimeUI = CTime_UI::Create();
 
 	//BGM
 //	CSound *pSound = CManager::GetSound();
@@ -290,18 +297,14 @@ void CGame::Update(void)
 			}
 		}
 
-		// nullcheck
-		if (m_pStarManager != nullptr)
-		{
-			// 更新処理
-			m_pStarManager->Update();
-		}
+    // 時間切れだったら
+    if (m_pTimeUI->GetTimer()->IsTimeOver())
+    {
+        GameEnd();// ゲームを終了
+    }
 
-		// ゲームの設定
-		SetGame();
-	}
-
-#ifdef _DEBUG
+	// nullcheck
+	if (m_pStarManager != nullptr)
 	if (pKeyboard->GetTrigger(DIK_P))
 	{
 		m_bGameEnd = !m_bGameEnd;
@@ -330,14 +333,6 @@ void CGame::Draw(void)
 	}
 }
 
-//=======================================================================================
-// ゲームの設定
-//=======================================================================================
-void CGame::SetGame(void)
-{
-	// ゲームのタイムカウンター
-	m_nTimeCounter++;
-}
 
 //=======================================================================================
 // カメラの情報

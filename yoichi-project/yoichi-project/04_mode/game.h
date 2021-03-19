@@ -28,6 +28,7 @@ class CItemBoxManager;
 class CStarManager;
 class CStageMap;
 
+class CTime_UI;
 class CResult;
 //***************************************************************************************
 // ゲームクラス
@@ -42,7 +43,6 @@ public:
 	void Uninit(void);									// 終了処理
 	void Update(void);									// 更新処理
 	void Draw(void);									// 描画処理
-	void SetGame(void);									// ゲームの設定
 
 	static CGame* Create(void);							// ゲーム生成情報
 
@@ -58,6 +58,7 @@ public:
 	static CItemBoxManager *GetItemManager(void)	{ return m_pItemManager; }	// リソースマネージャのポインタ
 	CStageMap *GetStageMap(void)					{ return m_pStageMap; }		// マップの情報
 
+    void GameEnd(void) { m_bGameEnd = true; }  // ゲーム終了
 private:	
 	static CCamera *m_pCamera[MAX_PLAYER_NUM];	// カメラのポインタ	
 	static CLight *m_pLight;					// ライトのポインタ
@@ -67,9 +68,12 @@ private:
 	CStarManager *m_pStarManager;				// 星生成クラスのポインタ
 	CStageMap *m_pStageMap;						// マップの生成
 	static CPause *m_pPause;					// ポーズのポインタ
+    static CTime_UI *m_pTimeUI;                 // タイマーへのポインタ
+
 	LPD3DXFONT m_pFont;							// デバック用フォント
 	int m_nTimeCounter;							// ゲームのカウンター
 	bool m_bGameEnd;							// ゲームのエンドフラグ
 	static int m_nPlayerNum;					// プレイヤーの人数
+
 };
 #endif

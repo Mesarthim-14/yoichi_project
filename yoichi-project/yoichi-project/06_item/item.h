@@ -22,8 +22,9 @@
 #define ITEM_UI_SIZE_Y	(70.0f)				// アイテムのサイズ
 #define ITEM_UI_SIZE_Z	(0.0f)				// アイテムのサイズ
 
-#define ITEM_UI_POS		(D3DXVECTOR3(ITEM_UI_POS_X, ITEM_UI_POS_Y, ITEM_UI_POS_Z))
-#define ITEM_UI_SIZE	(D3DXVECTOR3(ITEM_UI_SIZE_X, ITEM_UI_SIZE_Y, ITEM_UI_SIZE_Z))
+#define ITEM_UI_POS		(D3DXVECTOR3(ITEM_UI_POS_X, ITEM_UI_POS_Y, ITEM_UI_POS_Z))      // UIの位置
+
+#define ITEM_UI_SIZE	(D3DXVECTOR3(ITEM_UI_SIZE_X, ITEM_UI_SIZE_Y, ITEM_UI_SIZE_Z))   // UIの大きさ
 
 //=============================================================================
 // 前方宣言

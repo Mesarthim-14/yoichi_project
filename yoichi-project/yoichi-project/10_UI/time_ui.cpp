@@ -23,7 +23,7 @@
 #define NUM_UI_SIZE_Z (0.0f)    // 数字の大きさ(Z軸)
 
 #define GAME_TIME (180)           // ゲームの制限時間(秒)
-#define NUM_UI_POS_X (720.0f+(NUM_UI_SIZE_X/2 * MAX_NAM))   // 数字の位置(X軸)
+#define NUM_UI_POS_X (640.0f+(NUM_UI_SIZE_X/2 * MAX_NAM/2))   // 数字の位置(X軸)
 #define NUM_UI_POS_Y (100.0f)   // 数字の位置(Y軸)
 #define NUM_UI_POS_Z (0.0f)     // 数字の位置(Z軸)
 
@@ -34,15 +34,15 @@
 //*****************************************************************************
 
 //=============================================================================
-// [CTime_UI]コンストラクタ
+// [CTime_UI] コンストラクタ
 //=============================================================================
-CTime_UI::CTime_UI(PRIORITY Priority) : CScene2D(Priority)
+CTime_UI::CTime_UI(PRIORITY Priority) : CScene(Priority)
 {
     m_Timer = nullptr;
 }
 
 //=============================================================================
-// [CTime_UI]デストラクタ
+// [~CTime_UI] デストラクタ
 //=============================================================================
 CTime_UI::~CTime_UI()
 {
@@ -50,7 +50,7 @@ CTime_UI::~CTime_UI()
 }
 
 //=============================================================================
-// [Create]オブジェクトの生成
+// [Create] オブジェクトの生成
 //=============================================================================
 CTime_UI * CTime_UI::Create(void)
 {
@@ -59,15 +59,15 @@ CTime_UI * CTime_UI::Create(void)
     {
         // メモリの確保と初期化
         pTimerUI = new CTime_UI;
-        pTimerUI->Init();
+        pTimerUI->Init(ZeroVector3,ZeroVector3);
     }
     return pTimerUI;
 }
 
 //=============================================================================
-// [Init]初期化処理
+// [Init] 初期化処理
 //=============================================================================
-void CTime_UI::Init(void)
+HRESULT CTime_UI::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 {
     CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
     // タイマーのセット
@@ -81,10 +81,12 @@ void CTime_UI::Init(void)
         m_pNumber[nCntNum] = CNumber2d::Create(pos, { NUM_UI_SIZE_X ,NUM_UI_SIZE_Y ,NUM_UI_SIZE_Z });
         m_pNumber[nCntNum]->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_NUMBER));
     }
+
+    return S_OK;
 }
 
 //=============================================================================
-// [Uninit]終了処理
+// [Uninit] 終了処理
 //=============================================================================
 void CTime_UI::Uninit(void)
 {
@@ -97,12 +99,19 @@ void CTime_UI::Uninit(void)
 
         }
     }
+    if (m_Timer!=nullptr)
+    {
+        m_Timer->Uninit();
+        delete m_Timer;
+        m_Timer = nullptr;
+    }
+
     // 終了フラグ
     Release();
 }
 
 //=============================================================================
-// [Updete]更新処理
+// [Updete] 更新処理
 //=============================================================================
 void CTime_UI::Update(void)
 {
@@ -114,7 +123,7 @@ void CTime_UI::Update(void)
 }
 
 //=============================================================================
-// [Draw]描画処理
+// [Draw] 描画処理
 //=============================================================================
 void CTime_UI::Draw(void)
 {
@@ -122,7 +131,7 @@ void CTime_UI::Draw(void)
 }
 
 //=============================================================================
-// [SetNumber]数字の設定
+// [SetNumber] 数字の設定
 //=============================================================================
 void CTime_UI::SetNumber(void)
 {

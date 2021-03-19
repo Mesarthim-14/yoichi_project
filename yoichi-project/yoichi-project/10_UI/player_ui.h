@@ -1,11 +1,11 @@
 //=============================================================================
 //
-// 制限時間UIヘッダ [time_ui.h]
+// プレイヤーUI管理ヘッダ[player_ui.h]
 // Author : AYANO KUDO
 //
 //=============================================================================
-#ifndef  _TIME_UI_H_
-#define _TIME_UI_H_
+#ifndef  _PLAYER_UI_H_
+#define _PLAYER_UI_H_
 
 //*****************************************************************************
 // インクルードファイル
@@ -16,36 +16,38 @@
 //*****************************************************************************
 // 前方宣言
 //*****************************************************************************
-class CTimer;
-class CNumber2d;
-
-//*****************************************************************************
-// マクロ定義
-//*****************************************************************************
-#define MAX_NAM (3) // 表示する桁の数
+class CItem;
+class CStar_UI;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CTime_UI:public CScene
+class CPlayer_UI : public CScene
 {
 public:
-    CTime_UI(PRIORITY Priority = PRIORITY_UI);
-    ~CTime_UI();
+    CPlayer_UI(PRIORITY Priority = PRIORITY_UI);
+    ~CPlayer_UI();
 
-    static CTime_UI* Create(void);
+    static CPlayer_UI* Create(void);
 
     HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
+    void Init(int nPlayerNum);
     void Uninit(void);
     void Update(void);
     void Draw(void);
 
-    // Get関数
-     CTimer *GetTimer(void) { return m_Timer; }
+    void AcquiredItem(CItem *pItem);							// アイテム獲得関数
+    void UseItem(void);											// アイテムの使用処理
 
-     void SetNumber(void);
+    // Set関数
+
+    // Get関数
+
+    int GetItemNum(void) { return m_apItem.size(); }			// アイテムのサイズ
+    CItem *GetItem(void) { return m_apItem[0]; }				// アイテムのポインタ
 private:
-     CTimer    *m_Timer;                           // タイマーのポインタ
-     CNumber2d *m_pNumber[MAX_NAM];                // ナンバーへのポインタ
+    std::vector<CItem*> m_apItem;	// アイテムボックスのポインタ
+    CStar_UI *m_pStarUI;     // 星の取得数へのポインタ
+
 };
-#endif // ! _TIME_UI_H_
+#endif // ! _PLAYER_UI_H_

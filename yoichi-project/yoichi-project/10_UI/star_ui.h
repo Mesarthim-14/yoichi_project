@@ -1,11 +1,11 @@
 //=============================================================================
 //
-// 制限時間UIヘッダ [time_ui.h]
+// 星の取得数UIヘッダ[star_ui.h]
 // Author : AYANO KUDO
 //
 //=============================================================================
-#ifndef  _TIME_UI_H_
-#define _TIME_UI_H_
+#ifndef  _STAR_UI_H_
+#define _STAR_UI_H_
 
 //*****************************************************************************
 // インクルードファイル
@@ -14,38 +14,37 @@
 #include "scene.h"
 
 //*****************************************************************************
-// 前方宣言
-//*****************************************************************************
-class CTimer;
-class CNumber2d;
-
-//*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define MAX_NAM (3) // 表示する桁の数
+#define STAR_NUM (4) // 桁数
+#define MAX_PLAYER (4) // プレイヤーの最大数
 
+//*****************************************************************************
+// 前方宣言
+//*****************************************************************************
+class CNumber2d;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CTime_UI:public CScene
+class CStar_UI : public CScene
 {
 public:
-    CTime_UI(PRIORITY Priority = PRIORITY_UI);
-    ~CTime_UI();
+    CStar_UI();
+    ~CStar_UI();
 
-    static CTime_UI* Create(void);
+    static CStar_UI* Create(void);
 
     HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
     void Uninit(void);
     void Update(void);
     void Draw(void);
 
-    // Get関数
-     CTimer *GetTimer(void) { return m_Timer; }
-
-     void SetNumber(void);
+    void SetPosition(int nPlayerNum);
 private:
-     CTimer    *m_Timer;                           // タイマーのポインタ
-     CNumber2d *m_pNumber[MAX_NAM];                // ナンバーへのポインタ
+    static const D3DXVECTOR3 m_pos[MAX_PLAYER];
+
+    // 2Dポリゴンへのポインタ
+    CNumber2d *m_apNumber[STAR_NUM];  // 星の取得数
 };
-#endif // ! _TIME_UI_H_
+
+#endif // ! _STAR_UI_H_
