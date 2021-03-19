@@ -45,7 +45,7 @@ public:
 	CStar(PRIORITY Priority = PRIORITY_1);				// コンストラクタ
 	~CStar();													// デストラクタ
 
-	HRESULT Init(D3DXVECTOR3 pos);								// 初期化処理
+	HRESULT Init(void);								// 初期化処理
 	void Update(void);											// 更新処理
 	void Draw(void);											// 描画処理
 	bool Collision(void);										// 当たり判定

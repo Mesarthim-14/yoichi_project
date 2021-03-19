@@ -64,8 +64,10 @@ CStar * CStar::Create(D3DXVECTOR3 pos, POS_NUMBER posNum)
 	// !nullcheck
 	if (pStar != nullptr)
 	{
+		pStar->SetPos(pos);
+		pStar->SetSize(STAR_SIZE);
 		// 初期化処理
-		pStar->Init(pos);
+		pStar->Init();
 		pStar->m_PosNumber = posNum;
 	}
 
@@ -75,10 +77,10 @@ CStar * CStar::Create(D3DXVECTOR3 pos, POS_NUMBER posNum)
 //=============================================================================================
 // 初期化処理
 //=============================================================================================
-HRESULT CStar::Init(D3DXVECTOR3 pos)
+HRESULT CStar::Init(void)
 {
 	// ビルボードの初期化処理
-	CBillboard::Init(pos, STAR_SIZE);
+	CBillboard::Init();
 
 	// テクスチャのポインタ
 	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();

@@ -39,8 +39,10 @@ CItemBombBox * CItemBombBox::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nPlay
 	// nullcheck
 	if (pItemBombBox != nullptr)
 	{
+		pItemBombBox->SetPos(pos);
+		pItemBombBox->SetSize(size);
 		// 初期化処理
-		pItemBombBox->Init(pos, size);
+		pItemBombBox->Init();
 
 		// プレイヤーの番号
 		pItemBombBox->m_nPlayerNum = nPlayerNum;
@@ -71,10 +73,10 @@ CItemBombBox::~CItemBombBox()
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CItemBombBox::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CItemBombBox::Init(void)
 {
 	// 初期化処理
-	CModel::Init(pos, size);
+	CModel::Init();
 
 	// Xファイルの情報取得
 	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();

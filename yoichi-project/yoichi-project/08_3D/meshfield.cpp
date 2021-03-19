@@ -44,8 +44,9 @@ CMeshField * CMeshField::Create(void)
 	// nullchack
 	if (pMeshField != nullptr)
 	{
+		pMeshField->SetPos(MESHFIELD_POS);
 		// 初期化処理
-		pMeshField->Init(MESHFIELD_POS, ZeroVector3);
+		pMeshField->Init();
 	}
 
 	return pMeshField;
@@ -54,7 +55,7 @@ CMeshField * CMeshField::Create(void)
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CMeshField::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CMeshField::Init(void)
 {
 	// Rendererクラスからデバイスを取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
@@ -66,7 +67,7 @@ HRESULT CMeshField::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	int nCntIndex = 0;		// 頂点の生成番号
 	int nCntH = 0;			// 縦の頂点カウンタ
 	int nCntV = 0;			// 横の頂点カウンタ
-
+	D3DXVECTOR3 pos = GetPos();
 	// テクスチャの設定
 	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 	BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_SEA));

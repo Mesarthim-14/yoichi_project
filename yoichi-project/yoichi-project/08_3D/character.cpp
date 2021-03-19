@@ -69,12 +69,8 @@ CCharacter::~CCharacter()
 //=============================================================================
 // ‰Šú‰»ˆ—
 //=============================================================================
-HRESULT CCharacter::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+HRESULT CCharacter::Init()
 {
-	// ˆø”‚Ì‘ã“ü
-	m_pos = pos;	// À•W‚Ìİ’è
-	m_rot = rot;	// Šp“x‚Ìİ’è
-
 	return S_OK;
 }
 

@@ -42,8 +42,9 @@ CMeshPillar * CMeshPillar::Create(D3DXVECTOR3 pos, MESH_TYPE MeshNum)
 	// 初期化処理
 	if (pMeshPillar != nullptr)
 	{
-		pMeshPillar->SetMeshNum(MeshNum);												// メッシュが何角
-		pMeshPillar->Init(pos, ZeroVector3);											// 座標・サイズ
+		pMeshPillar->SetMeshNum(MeshNum);
+		pMeshPillar->SetPos(pos);											// メッシュが何角
+		pMeshPillar->Init();											// 座標・サイズ
 		pMeshPillar->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_FLOOR));	// テクスチャの設定
 	}
 
@@ -53,7 +54,7 @@ CMeshPillar * CMeshPillar::Create(D3DXVECTOR3 pos, MESH_TYPE MeshNum)
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CMeshPillar::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CMeshPillar::Init(void)
 {
 	// Rendererクラスからデバイスを取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
@@ -66,7 +67,7 @@ HRESULT CMeshPillar::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	int nCntIndex01 = 0;
 	int nCntH;
 	int nCntV;
-
+	D3DXVECTOR3 pos = GetPos();
 	// 頂点の数
 	int nWidth = GetMesh3D(GetMeshNum()).CylinderNum.nNumX;
 	int nHeight = GetMesh3D(GetMeshNum()).CylinderNum.nNumY;
@@ -74,7 +75,6 @@ HRESULT CMeshPillar::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	// メッシュのサイズ設定
 	D3DXVECTOR2 MeshSize = D3DXVECTOR2(GetMesh3D(GetMeshNum()).size.x, GetMesh3D(GetMeshNum()).size.y);
 
-	SetPos(pos);												// 座標
 	SetSize(D3DXVECTOR3(MeshSize.x, MeshSize.y, MeshSize.x));	// サイズ
 	SetRot(ZeroVector3);										// 角度
 

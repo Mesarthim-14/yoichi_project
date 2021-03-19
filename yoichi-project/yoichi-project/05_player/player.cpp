@@ -54,7 +54,7 @@
 //=============================================================================
 // クリエイト
 //=============================================================================
-CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nCount)
+CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nCount)
 {
 	// 初期化処理
 	CPlayer *pPlayer = new CPlayer;
@@ -63,7 +63,9 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nCount)
 	pPlayer->m_nNumber = nCount;
 
 	// 初期化処理
-	pPlayer->Init(pos, size);
+	pPlayer->SetPos(pos);
+	pPlayer->SetRot(rot);
+	pPlayer->Init();
 
 	return pPlayer;
 }
@@ -94,7 +96,7 @@ CPlayer::~CPlayer()
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+HRESULT CPlayer::Init()
 {
 	// モデル情報取得
 	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();
@@ -107,7 +109,7 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	}
 
 	// 初期化処理
-	CCharacter::Init(pos, rot);				// 座標 角度
+	CCharacter::Init();				// 座標 角度
 	SetRadius(PLAYER_RADIUS);				// 半径の設定
 	SetSpeed(PLAYER_FLY_SPEED);				// 速度の設定
 

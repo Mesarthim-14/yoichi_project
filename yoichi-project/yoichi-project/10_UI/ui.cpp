@@ -39,8 +39,10 @@ CUi * CUi::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	// nullcheck
 	if (pUi != NULL)
 	{
+		pUi->SetPos(pos);
+		pUi->SetSize(size);
 		// èâä˙âªèàóù
-		pUi->Init(pos, size);
+		pUi->Init();
 	}
 
 	return pUi;
@@ -49,10 +51,10 @@ CUi * CUi::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 //=============================================================================
 // èâä˙âªèàóù
 //=============================================================================
-HRESULT CUi::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CUi::Init(void)
 {
 	// èâä˙âªèàóù
-	CScene2D::Init(pos, size);
+	CScene2D::Init();
 
 	return S_OK;
 }
