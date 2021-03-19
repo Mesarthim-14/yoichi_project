@@ -83,7 +83,7 @@ HRESULT CBARRIEREFFECT::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXVECTOR3 move
 	BindTexture(pXFile->GetXfileTexture(CXfile::XFILE_NUM_BARRIER_EFFECT));
 
 	// ‰Šú‰»ˆ—
-	CModel::Init(pos, size);
+	CModel::Init();
 
 	// À•Wî•ñ‚ğ—^‚¦‚é
 	CModel::SetPos(pos);

@@ -56,6 +56,7 @@
 //=============================================================================
 // クリエイト
 //=============================================================================
+CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nCount)
 {
 	// 初期化処理
 	CPlayer *pPlayer = new CPlayer;
@@ -549,15 +550,6 @@ float CPlayer::InputToAngle(void)
 	}
 
 	return fInputAngle;
-}
-
-
-
-					break;
-				}
-			}
-		}
-	}
 
 	//=============================================================================
 	// Author : Ito Yogo

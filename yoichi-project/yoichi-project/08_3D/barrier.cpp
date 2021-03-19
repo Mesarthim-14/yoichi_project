@@ -69,7 +69,7 @@ HRESULT CBARRIER::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	BindTexture(pXFile->GetXfileTexture(CXfile::XFILE_NUM_BARRIER));
 
 	// ‰Šú‰»ˆ—
-	CModel::Init(pos, size);
+	CModel::Init();
 
 	// ‘Ì—Íİ’è
 	CModel::SetLife(BARRIER_LIFE);

@@ -57,14 +57,14 @@ CNumber3d * CNumber3d::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nNum)
 
 	// nullcheck
 	if (pNumber3d != NULL)
-	{		
+	{
 		// 初期化情報
-		pNumber3d->m_nNumber = nNum;	
+		pNumber3d->m_nNumber = nNum;
 		// 座標の設定
 		pNumber3d->SetPos(pos);
 		pNumber3d->SetSize(size);// 値の代入
 		pNumber3d->Init();																		// 初期化処理
-	//	pNumber3d->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_DAMAGE_NUMBER));		// テクスチャの設定
+																								//	pNumber3d->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_DAMAGE_NUMBER));		// テクスチャの設定
 		pNumber3d->m_nLife = DAMAGE_LIFE_NUM;															// ライフの設定
 		pNumber3d->RandSetMove();																		// 移動量の設定
 	}
@@ -85,8 +85,8 @@ HRESULT CNumber3d::Init(void)
 	// ローカル変数/
 	int nCount = 0;				// for分用
 	int nCntIndex = 0;			// 頂点番号設定用
-	int nCntH= 0;				// 高さのカウンタ
-	int nCntV= 0;				// 横幅のカウンタ
+	int nCntH = 0;				// 高さのカウンタ
+	int nCntV = 0;				// 横幅のカウンタ
 	int nWidth = 0;				// 数字の数
 	int nNum[3]{ 0, 0, 0 };		// 桁が入る配列
 	int nIndex = 0;				// 桁合わせ用
@@ -115,12 +115,12 @@ HRESULT CNumber3d::Init(void)
 	// 値の初期化
 	SetNumVertex(((nWidth + 1) * (nHeight + 1)) + (nWidth - 1) * (nHeight + 1));	// 頂点の数
 	SetNumIndex(((nWidth + 1)*(nHeight + 1)) + (nWidth - 1) * (nHeight + 1));		// インデックスの数
-	SetNumPolygon((nWidth * 2)+ ((nWidth-1) * 2));									// ポリゴン数設定
+	SetNumPolygon((nWidth * 2) + ((nWidth - 1) * 2));									// ポリゴン数設定
 
-	// 1ブロックのサイズ
+																						// 1ブロックのサイズ
 	SetOneSize(D3DXVECTOR2(size.x * 2 / nWidth, size.y * 2 / nHeight));	// 24000/4
 
-	// バッファの宣言
+																		// バッファの宣言
 	LPDIRECT3DVERTEXBUFFER9 pVtxBuff = NULL;
 	LPDIRECT3DINDEXBUFFER9 pIdxBuff = NULL;
 
@@ -142,8 +142,8 @@ HRESULT CNumber3d::Init(void)
 
 	int nWidthNum = (nWidth + 1) + nWidth - 1;	// 横幅の値
 	int nOdd = 0;								// 奇数のカウント
-	
-	// 頂点データの範囲をロックし、頂点バッファへのポインタを取得
+
+												// 頂点データの範囲をロックし、頂点バッファへのポインタを取得
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	for (int nNumCount = 0, nCntV = 0; nCntV < nHeight + 1; nCntV++)
@@ -153,7 +153,7 @@ HRESULT CNumber3d::Init(void)
 			if (((nCntV * (nWidthNum)) + nCntH) % 2 == 0 && nCntH != 0)
 			{// 0以外の偶数の時、前回と同じ座標に設定する
 
-				// 頂点の設定
+			 // 頂点の設定
 				pVtx[(nCntV * (nWidthNum)) + nCntH].pos = pVtx[((nCntV * (nWidthNum)) + nCntH) - 1].pos;
 
 				// テクスチャ座標の設定
@@ -163,12 +163,12 @@ HRESULT CNumber3d::Init(void)
 			{
 				// 頂点の設定
 				pVtx[(nCntV * (nWidthNum)) + nCntH].pos = D3DXVECTOR3(
-					(- (size.x / 2)) + (nOdd * (size.x / nWidth)), ( + size.y / 2) - nCntV*size.y, 0.0f);
+					(-(size.x / 2)) + (nOdd * (size.x / nWidth)), (+size.y / 2) - nCntV*size.y, 0.0f);
 
 				if (nCntH == 0)
 				{// 一番左端だった時
 
-					// テクスチャ座標の設定
+				 // テクスチャ座標の設定
 					pVtx[(nCntV * (nWidthNum)) + nCntH].tex = D3DXVECTOR2(float(((float)nNum[nNumCount] / 10)), float(nCntV * 1.0f));
 				}
 				else if (nCntH == 1)
@@ -177,7 +177,7 @@ HRESULT CNumber3d::Init(void)
 
 					// 頂点の設定
 					pVtx[(nCntV * (nWidthNum)) + nCntH].pos = D3DXVECTOR3(
-						(- (size.x / 2)) + (nOdd * (size.x / nWidth)), (+ size.y / 2) - nCntV*size.y, 0.0f);
+						(-(size.x / 2)) + (nOdd * (size.x / nWidth)), (+size.y / 2) - nCntV*size.y, 0.0f);
 
 					// テクスチャ座標の設定
 					pVtx[(nCntV * (nWidthNum)) + nCntH].tex = D3DXVECTOR2(float(((float)nNum[nNumCount] / 10) + 0.1f), float(nCntV * 1.0f));
@@ -192,10 +192,10 @@ HRESULT CNumber3d::Init(void)
 
 					// 頂点の設定
 					pVtx[(nCntV * (nWidthNum)) + nCntH].pos = D3DXVECTOR3(
-						(- (size.x / 2)) + (nOdd * (size.x / nWidth)), ( + size.y / 2) - nCntV*size.y, 0.0f);
+						(-(size.x / 2)) + (nOdd * (size.x / nWidth)), (+size.y / 2) - nCntV*size.y, 0.0f);
 
 					// テクスチャ座標の設定
-					pVtx[(nCntV * (nWidthNum)) + nCntH].tex = D3DXVECTOR2(float(((float)nNum[nNumCount] / 10)+0.1f), float(nCntV * 1.0f));
+					pVtx[(nCntV * (nWidthNum)) + nCntH].tex = D3DXVECTOR2(float(((float)nNum[nNumCount] / 10) + 0.1f), float(nCntV * 1.0f));
 
 					nNumCount++;
 				}

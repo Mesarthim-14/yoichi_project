@@ -81,6 +81,9 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 		}
 
 		// ˆÚ“®—Ê‚ªˆê’èˆÈã‚È‚ç
+		if (Particle.move.x >= 1.0f || Particle.move.x <= -1.0f&&
+			Particle.move.y >= 1.0f || Particle.move.y <= -1.0f&&
+			Particle.move.z >= 1.0f || Particle.move.z <= -1.0f)
 		{
 			// ˆÚ“®—ÊÝ’è
 			D3DXVECTOR3 move;

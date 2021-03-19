@@ -34,7 +34,7 @@ CResourceManager::CResourceManager()
 CResourceManager::~CResourceManager()
 {
 	// アンロード処理
-	UnLoadAll();
+	UnloadAll();
 	// nullcheck
 	if (m_pTexture != NULL)
 	{
@@ -125,6 +125,7 @@ void CResourceManager::LoadAll(void)
 //=============================================================================
 // アンロード処理
 //=============================================================================
+void CResourceManager::UnloadAll(void)
 {
 	// !nullcheck
 	if (m_pTexture != NULL)
