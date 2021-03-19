@@ -30,7 +30,7 @@ public:
 
     static CPlayer_UI* Create(void);
 
-    HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
+    HRESULT Init(void);
     void Init(int nPlayerNum);
     void Uninit(void);
     void Update(void);

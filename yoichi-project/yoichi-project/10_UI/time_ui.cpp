@@ -59,7 +59,7 @@ CTime_UI * CTime_UI::Create(void)
     {
         // メモリの確保と初期化
         pTimerUI = new CTime_UI;
-        pTimerUI->Init(ZeroVector3,ZeroVector3);
+        pTimerUI->Init();
     }
     return pTimerUI;
 }
@@ -67,7 +67,7 @@ CTime_UI * CTime_UI::Create(void)
 //=============================================================================
 // [Init] 初期化処理
 //=============================================================================
-HRESULT CTime_UI::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+HRESULT CTime_UI::Init(void)
 {
     CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
     // タイマーのセット

@@ -297,14 +297,19 @@ void CGame::Update(void)
 			}
 		}
 
-    // ŽžŠÔØ‚ê‚¾‚Á‚½‚ç
-    if (m_pTimeUI->GetTimer()->IsTimeOver())
-    {
-        GameEnd();// ƒQ[ƒ€‚ðI—¹
-    }
+		// ŽžŠÔØ‚ê‚¾‚Á‚½‚ç
+		if (m_pTimeUI->GetTimer()->IsTimeOver())
+		{
+			GameEnd();// ƒQ[ƒ€‚ðI—¹
+		}
 
-	// nullcheck
-	if (m_pStarManager != nullptr)
+		// nullcheck
+		if (m_pStarManager != nullptr)
+		{
+			m_pStarManager->Update();
+		}
+	}
+#ifdef _DEBUG
 	if (pKeyboard->GetTrigger(DIK_P))
 	{
 		m_bGameEnd = !m_bGameEnd;

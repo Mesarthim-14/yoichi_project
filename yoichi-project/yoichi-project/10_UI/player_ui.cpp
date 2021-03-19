@@ -47,7 +47,7 @@ CPlayer_UI *CPlayer_UI::Create(void)
     {
         // メモリの確保と初期化
         PlayerUI = new CPlayer_UI;
-        PlayerUI->Init(ZeroVector3, ZeroVector3);
+        PlayerUI->Init();
     }
     return PlayerUI;
 }
@@ -57,7 +57,7 @@ CPlayer_UI *CPlayer_UI::Create(void)
 // 引数
 // プレイヤーの番号
 //=============================================================================
-HRESULT CPlayer_UI::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+HRESULT CPlayer_UI::Init(void)
 {
     return S_OK;
 }
