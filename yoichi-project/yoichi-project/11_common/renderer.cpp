@@ -382,7 +382,7 @@ bool CRenderer::SetUpViewport(int nNumber)
 		case 1:
 			// ビューポートの左上座標
 			m_view_port[nNumber].X = SCREEN_WIDTH / 2;
-			m_view_port[nNumber].Y = 0.0f;
+			m_view_port[nNumber].Y = 0;
 
 			// ビューポートの幅
 			m_view_port[nNumber].Width = SCREEN_WIDTH / 2;
