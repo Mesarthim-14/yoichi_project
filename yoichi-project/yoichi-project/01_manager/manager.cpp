@@ -327,7 +327,6 @@ void CManager::SetMode(MODE_TYPE mode)
 			// タイトル処理
 			m_pTitle->Uninit();
 			m_pTitle = NULL;
-
 		}
 		break;
 
@@ -356,7 +355,6 @@ void CManager::SetMode(MODE_TYPE mode)
 			m_pResult = NULL;
 		}
 		break;
-
 	}
 
 	// シーン情報のリリース

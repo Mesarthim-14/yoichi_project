@@ -19,6 +19,7 @@
 #define XFILE_NAME_BG						("data/model/bg_dome001.x")		// 背景
 #define XFILE_NAME_ITEM_BOX					("data/model/item_box.x")		// アイテムボックス
 #define XFILE_NAME_BOMB_BOX					("data/model/item_bombbox.x")		// 偽ボックス
+
 // 階層構造モデルのファイル
 #define HIERARCHY_FILENAME_PLAYER			("data/Text/motion_PLAYER.txt")	// プレイヤーのファイルネーム
 

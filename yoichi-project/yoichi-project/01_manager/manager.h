@@ -69,6 +69,7 @@ public:
 	static CInputJoypad *GetJoypad(void);												// ジョイパッドコントローラの情報
 	static CScene *GetScene(void) { return m_pScene; }									// シーン情報
 	static CResourceManager *GetResourceManager (void) { return m_pResourceManager; }	// リソースマネージャのポインタ
+	static CGame *GetGame(void) { return m_pGame; }										// ゲームクラスのポインタ情報
 private:
 	static MODE_TYPE m_mode;						// モード
 	static CRenderer *m_pRenderer;					// レンダラークラスのポインタ

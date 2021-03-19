@@ -31,6 +31,7 @@
 #define STICK_INPUT_CONVERSION		(D3DXToRadian(2.0f))			// スティック入力最大変化量
 #define	ANGLE_FIX_RATE				(0.01f)							// カメラ向き補正率
 #define REVERSE_ANGLE				(D3DXToRadian(180.0f))			// カメラ反転用
+
 //=============================================================================
 // static初期化宣言
 //=============================================================================
@@ -153,7 +154,7 @@ void CCamera::NomalUpdate(D3DXVECTOR3 PlayerPos)
 		//視点（カメラ座標）の上旋回
 		if (js.lRz > STICK_DEADZONE || js.lRz < -STICK_DEADZONE)
 		{
-			m_fVartical += js.lRz / (STICK_MAX_VALUE / STICK_INPUT_CONVERSION);
+			m_fVartical -= js.lRz / (STICK_MAX_VALUE / STICK_INPUT_CONVERSION);
 		}
 	}
 	else

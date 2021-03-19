@@ -42,7 +42,7 @@ public:
 		int nNumZ;
 	};
 
-	CStar(PRIORITY Priority = PRIORITY_PARTICLE);				// コンストラクタ
+	CStar(PRIORITY Priority = PRIORITY_1);				// コンストラクタ
 	~CStar();													// デストラクタ
 
 	HRESULT Init(D3DXVECTOR3 pos);								// 初期化処理

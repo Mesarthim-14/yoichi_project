@@ -15,8 +15,6 @@
 #include "manager.h"
 #include "renderer.h"
 #include "player.h"
-#include "meshfield.h"
-#include "bg.h"
 #include "joypad.h"
 #include "time.h"
 #include "sound.h"
@@ -27,6 +25,7 @@
 #include "itembox.h"
 #include "item_boxmanager.h"
 #include "star_manager.h"
+#include "stage_map.h"
 
 //=======================================================================================
 // static初期化
@@ -34,8 +33,6 @@
 CCamera *CGame::m_pCamera[MAX_PLAYER_NUM] = {};
 CPlayer *CGame::m_pPlayer[MAX_PLAYER_NUM] = {};
 CLight *CGame::m_pLight = nullptr;
-CMeshField *CGame::m_pMeshField = nullptr;
-CBg *CGame::m_pBg = nullptr;
 CPause *CGame::m_pPause = nullptr;
 CItemBoxManager *CGame::m_pItemManager = nullptr;
 int CGame::m_nPlayerNum = 1;
@@ -48,6 +45,7 @@ CGame::CGame(PRIORITY Priority) : CScene(Priority)
 	m_bGameEnd = false;
 	m_nTimeCounter = 0;
 	m_pStarManager = nullptr;
+	m_pStageMap = nullptr;
 
 	// 0だったら
 	if (m_nPlayerNum == 0)
@@ -119,13 +117,11 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 		}
 	}
 
-	// メッシュフィールド
-	m_pMeshField = CMeshField::Create();
-
-	// 背景
-	if (m_pBg == nullptr)
+	// nullcheck
+	if (m_pStageMap == nullptr)
 	{
-		m_pBg = CBg::Create(BG_POS, BG_SIZE);
+		// インスタンス生成
+		m_pStageMap = CStageMap::Create();
 	}
 
 	//BGM
@@ -168,12 +164,6 @@ HRESULT CGame::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 //=======================================================================================
 void CGame::Uninit(void)
 {
-	// 背景
-	if (m_pBg != nullptr)
-	{
-		m_pBg->Uninit();
-		m_pBg = nullptr;
-	}
 
 	// ライトの終了処理
 	if (m_pLight != nullptr)
@@ -206,6 +196,14 @@ void CGame::Uninit(void)
 		}
 	}
 
+	// !nullcheck
+	if (m_pStageMap != nullptr)
+	{
+		// 終了処理
+		m_pStageMap->Uninit();
+		delete m_pStageMap;
+		m_pStageMap = nullptr;
+	}
 
 	// nullcheck
 	if (m_pStarManager != nullptr)
@@ -274,12 +272,6 @@ void CGame::Update(void)
 //=======================================================================================
 void CGame::Draw(void)
 {
-	// 背景
-	if (m_pBg != nullptr)
-	{
-		m_pBg->Draw();
-	}
-
 	// ライト
 	if (m_pLight != nullptr)
 	{

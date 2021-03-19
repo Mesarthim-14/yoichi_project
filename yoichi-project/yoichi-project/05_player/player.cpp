@@ -29,6 +29,8 @@
 #include "character.h"
 #include "motion.h"
 #include "item.h"
+#include "stage_map.h"
+#include "mesh_pillar.h"
 
 //=============================================================================
 // マクロ定義
@@ -150,9 +152,6 @@ void CPlayer::Update(void)
 	// キーボード更新
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 
-	// 親クラスの更新処理
-	CCharacter::Update();
-
 	// 座標代入
 	D3DXVECTOR3 pos = GetPos();	// 現在の座標取得
 	SetPosOld(pos);				// 古い座標保存
@@ -166,20 +165,11 @@ void CPlayer::Update(void)
 	// プレイヤーの制御
 	PlayerControl();
 
-	// メモリ確保
-	for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
-	{
-		// !nullcheck
-		if (m_apItem[nCount] != nullptr)
-		{
-			// アイテムの削除フラグが立ったら
-			if (m_apItem[nCount]->GetEnd() == true)
-			{
-				// 配列を空にする
-				m_apItem.erase(m_apItem.begin() + nCount);
-			}
-		}
-	}
+	// アイテムの削除処理
+	ItemErase();
+
+	// 親クラスの更新処理
+	CCharacter::Update();
 
 	// 角度の取得
 	D3DXVECTOR3 rot = GetRot();
@@ -440,8 +430,10 @@ void CPlayer::Death(void)
 //=============================================================================
 void CPlayer::MapLimit(void)
 {
+	// 座標受け取り
 	D3DXVECTOR3 pos = GetPos();
 
+	// マップの上限XToZ
 	if (pos.x > MAP_LIMIT)
 	{
 		SetPos(D3DXVECTOR3(MAP_LIMIT, pos.y, pos.z));
@@ -458,6 +450,13 @@ void CPlayer::MapLimit(void)
 	{
 		SetPos(D3DXVECTOR3(pos.x, pos.y, -MAP_LIMIT));
 	}
+
+	// マップ上限Y
+	if (pos.y < -MAP_LIMIT_Y)
+	{
+		// リポップの処理
+		Repop();
+	}
 }
 
 //=============================================================================
@@ -468,6 +467,7 @@ float CPlayer::InputToAngle(void)
 	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);					// ジョイスティックの取得
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();				// キーボードの取得
 	float fInputAngle = NULL;											//移動アングル
+
 	//コントローラー入力がある場合
 	if (js.lX != 0.0f || js.lY != 0.0f)
 	{
@@ -542,7 +542,6 @@ void CPlayer::UseItem(void)
 				}
 			}
 		}
-
 	}
 }
 
@@ -551,6 +550,7 @@ void CPlayer::UseItem(void)
 //=============================================================================
 void CPlayer::AcquiredItem(CItem *pItem)
 {
+	// 配列が0なら
 	if (m_apItem.size() == 0)
 	{
 		// アイテムのポインタ
@@ -564,5 +564,78 @@ void CPlayer::AcquiredItem(CItem *pItem)
 			// アイテムのポインタ
 			m_apItem.push_back(pItem);
 		}
+	}
+}
+
+//=============================================================================
+// アイテム削除
+//=============================================================================
+void CPlayer::ItemErase(void)
+{
+	// メモリ確保
+	for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
+	{
+		// !nullcheck
+		if (m_apItem[nCount] != nullptr)
+		{
+			// アイテムの削除フラグが立ったら
+			if (m_apItem[nCount]->GetEnd() == true)
+			{
+				// 配列を空にする
+				m_apItem.erase(m_apItem.begin() + nCount);
+			}
+		}
+	}
+}
+
+//=============================================================================
+// リポップの処理
+//=============================================================================
+void CPlayer::Repop(void)
+{
+	// ポインタ情報取得
+	CStageMap *pStageMap = CManager::GetGame()->GetStageMap();
+
+	// !nullcheck
+	if (pStageMap != nullptr)
+	{
+		// ローカル変数宣言
+		int mMeshPillarNum = pStageMap->GetMeshPillarNum();		// 柱の数
+		float fPrevLenght = 0.0f;								// 前回までの距離取得
+		int nSortNum = -1;										// 一番小さい配列番号を確保
+
+		for (int nCount = 0; nCount < mMeshPillarNum; nCount++)
+		{
+			// 柱の情報
+			CMeshPillar *pMeshPiller = pStageMap->GetMeshPillar(nCount);
+
+			// !nullcheck
+			if (pMeshPiller != nullptr)
+			{
+				// 座標取得
+				D3DXVECTOR3 pos = GetPos();						// 自身の座標
+				D3DXVECTOR3 PillerPos = pMeshPiller->GetPos();	// 柱の座標
+				
+				// 二点の距離
+				float fLength = sqrtf(
+					powf((PillerPos.x - pos.x), 2) +
+					powf((PillerPos.z - pos.z), 2));
+
+				// 前の柱の距離より地下かったら
+				if (fPrevLenght > fLength || fPrevLenght == 0.0f)
+				{
+					fPrevLenght = fLength;	// 近い距離を代入
+					nSortNum = nCount;		// 近い配列番号を設定
+				}
+			}
+		}
+
+		// 一番近かった柱の情報取得
+		CMeshPillar *pMeshPiller = pStageMap->GetMeshPillar(nSortNum);
+
+		// 座標設定
+		SetPos(pMeshPiller->GetPos()*2);
+		SetFly(false);
+		SetUseGravity(true);
 	}
 }
