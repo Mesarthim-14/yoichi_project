@@ -42,7 +42,7 @@ CBillboard::~CBillboard()
 //=====================================================
 // 初期化処理
 //=====================================================
-HRESULT CBillboard::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
+HRESULT CBillboard::Init(void)
 {
 	// デバイス情報取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
@@ -60,8 +60,7 @@ HRESULT CBillboard::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 	VERTEX_3D*pVtx = NULL;
 
 	// 情報の代入
-	SetPos(pos);
-	SetSize(size);
+	D3DXVECTOR3 size = GetSize();
 	m_sizeBase = size;
 
 	//頂点バッファをロック

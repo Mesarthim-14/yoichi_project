@@ -59,8 +59,10 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 			pos.y + Distance.y,
 			pos.z + Distance.z);
 
+		pEffect->SetPos(TargetPos);
+		pEffect->SetSize(Particle.size);
 		// ‰Šú‰»ˆ—
-		pEffect->Init(TargetPos, Particle.size);
+		pEffect->Init();
 
 		CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 
@@ -131,10 +133,10 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 //=====================================================
 // ‰Šú‰»ˆ—
 //=====================================================
-HRESULT CEffect::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CEffect::Init(void)
 {
 	// ‰Šú‰»ˆ—
-	CBillboard::Init(pos, size);
+	CBillboard::Init();
 
 	return S_OK;
 }

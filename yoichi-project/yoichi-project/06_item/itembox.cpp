@@ -45,8 +45,10 @@ CItemBox * CItemBox::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	// nullcheck
 	if (pItemBox != nullptr)
 	{
+		pItemBox->SetPos(pos);
+		pItemBox->SetSize(size);
 		// ‰Šú‰»ˆ—
-		pItemBox->Init(pos, size);
+		pItemBox->Init();
 	}
 
 	return pItemBox;
@@ -72,10 +74,10 @@ CItemBox::~CItemBox()
 //=============================================================================
 // ‰Šú‰»ˆ—
 //=============================================================================
-HRESULT CItemBox::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CItemBox::Init(void)
 {
 	// ‰Šú‰»ˆ—
-	CModel::Init(pos, size);
+	CModel::Init();
 
 	// Xƒtƒ@ƒCƒ‹‚Ìî•ñŽæ“¾
 	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();
