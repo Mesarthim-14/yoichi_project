@@ -8,7 +8,7 @@
 //=====================================================
 // インクルード
 //=====================================================
-#include "particle.h"
+#include "effect.h"
 #include "manager.h"
 #include "renderer.h"
 #include "texture.h"
@@ -46,23 +46,24 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 
 	if (pEffect != NULL)
 	{
-		// 距離の設定
-		D3DXVECTOR3 Distance;
-		Distance = D3DXVECTOR3(
-			(float)(rand() % (int)Particle.Distance.x + rand() % (int)Particle.Distance.x - rand() % (int)Particle.Distance.x - rand() % (int)Particle.Distance.x + rand() % (int)Particle.Distance.x),
-			(float)(rand() % (int)Particle.Distance.y + rand() % (int)Particle.Distance.y),
-			(float)(rand() % (int)Particle.Distance.z + rand() % (int)Particle.Distance.z - rand() % (int)Particle.Distance.z - rand() % (int)Particle.Distance.z + rand() % (int)Particle.Distance.z));
+		// 範囲の設定
+		D3DXVECTOR3 Range = D3DXVECTOR3(
+			(Particle.Range.x),
+			(Particle.Range.y),
+			(Particle.Range.z));
 
 		// ランダムで出現を決める
 		D3DXVECTOR3 TargetPos = D3DXVECTOR3(
-			pos.x + Distance.x,
-			pos.y + Distance.y,
-			pos.z + Distance.z);
+			(float)(rand() % (int)(Range.x)) + pos.x - (Range.x / 2),
+			(float)(rand() % (int)(Range.y)) + pos.y - (Range.y / 2),
+			(float)(rand() % (int)(Range.z)) + pos.z - (Range.z / 2));
 
 		pEffect->SetPos(TargetPos);
 		pEffect->SetSize(Particle.size);
 		// 初期化処理
 		pEffect->Init();
+		pEffect->SetPos(TargetPos);		// 回転の設定
+		pEffect->SetSizeBase(Particle.size);					// 色の設定
 
 		CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 
@@ -82,32 +83,67 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 		}
 
 		// 移動量が一定以上なら
-		if (Particle.move.x >= 1.0f &&
-			Particle.move.y >= 1.0f &&
-			Particle.move.z >= 1.0f)
+		if (Particle.move.x >= 1.0f || Particle.move.x <= -1.0f &&
+			Particle.move.y >= 1.0f || Particle.move.y <= -1.0f &&
+			Particle.move.z >= 1.0f || Particle.move.z <= -1.0f)
 		{
 			// 移動量設定
 			D3DXVECTOR3 move;
-			switch (Particle.bGravity)
+			switch (Particle.movetype)
 			{
-				// 重力無し
-			case false:
-				// 移動量
-				move =
-					D3DXVECTOR3(
-					(float)(rand() % (int)Particle.move.x - rand() % (int)Particle.move.x + rand() % (int)Particle.move.x),
-						(float)(rand() % (int)Particle.move.y + rand() % (int)Particle.move.y),
-						(float)(rand() % (int)Particle.move.z - rand() % (int)Particle.move.z + rand() % (int)Particle.move.z));
+				// 完全ランダム
+			case CEffectFactory::MOVE_TYPE_ALLRANDOM:
+				switch (Particle.bGravity)
+				{
+					// 重力無し
+				case false:
+					// 移動量
+					move =
+						D3DXVECTOR3(
+						(float)(rand() % (int)Particle.move.x - ((int)Particle.move.x / 2)),
+							(float)(rand() % (int)Particle.move.y - ((int)Particle.move.y / 2)),
+							(float)(rand() % (int)Particle.move.z - ((int)Particle.move.z / 2)));
+					break;
+
+					// 重力あり
+				case true:
+					// 移動量
+					move =
+						D3DXVECTOR3(
+						(float)(rand() % (int)Particle.move.x - ((int)Particle.move.x / 2)),
+							(float)(rand() % (int)Particle.move.y + rand() % (int)Particle.move.y - rand() % (int)Particle.move.y),
+							(float)(rand() % (int)Particle.move.z - ((int)Particle.move.z / 2)));
+					break;
+				}
 				break;
 
-				// 重力あり
-			case true:
-				// 移動量
-				move =
-					D3DXVECTOR3(
-					(float)(rand() % (int)Particle.move.x - rand() % (int)Particle.move.x + rand() % (int)Particle.move.x),
-						(float)(rand() % (int)Particle.move.y + rand() % (int)Particle.move.y - rand() % (int)Particle.move.y),
-						(float)(rand() % (int)Particle.move.z - rand() % (int)Particle.move.z + rand() % (int)Particle.move.z));
+				// 縦と横のランダム
+			case CEffectFactory::MOVE_TYPE_XZRANDOM:
+				switch (Particle.bGravity)
+				{
+					// 重力無し
+				case false:
+					// 移動量
+					move =
+						D3DXVECTOR3(
+						(float)(rand() % (int)Particle.move.x - ((int)Particle.move.x / 2)),
+							Particle.move.y,
+							(float)(rand() % (int)Particle.move.z - ((int)Particle.move.z / 2)));
+					break;
+
+					// 重力あり
+				case true:
+					// 移動量
+					move =
+						D3DXVECTOR3(
+						(float)(rand() % (int)Particle.move.x - ((int)Particle.move.x / 2)),
+							Particle.move.y,
+							(float)(rand() % (int)Particle.move.z - ((int)Particle.move.z / 2)));
+					break;
+				}
+				break;
+
+			default:
 				break;
 			}
 			// 移動量
@@ -120,11 +156,16 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 
 		}
 
-		pEffect->SetColor(Particle.color);			// 色の設定
-		pEffect->SetLife(Particle.nLife);			// 体力の設定
-		pEffect->SetAlpha(Particle.bAlpha);			// アルファテストの設定
-		pEffect->SetAlphaNum(Particle.nAlphaNum);	// アルファの値の設定
-		pEffect->SetBlend(Particle.bBlend);			// 加算合成の設定
+		pEffect->SetRot(D3DXToRadian(Particle.rot));		// 回転の設定
+		pEffect->SetColor(Particle.color);					// 色の設定
+		pEffect->SetLife(Particle.nLife);					// 体力の設定
+		pEffect->SetAlpha(Particle.bAlpha);					// アルファテストの設定
+		pEffect->SetAlphaNum(Particle.nAlphaNum);			// アルファの値の設定
+		pEffect->SetBlend(Particle.bBlend);					// 加算合成の設定
+		pEffect->SetGravity(Particle.GravityNum);			// 重力の設定
+		pEffect->SetTransparency(Particle.fTransparency);	// 透明度を減らす量の設定
+		pEffect->SetScale(Particle.Scale);					// 拡大率の設定
+		pEffect->SetUseZBuf(Particle.bUseZbuf);				// Zバッファの設定
 	}
 
 	return pEffect;

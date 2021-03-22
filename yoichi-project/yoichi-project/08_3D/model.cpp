@@ -93,11 +93,18 @@ void CModel::Uninit(void)
 //=============================================================================
 void CModel::Update(void)
 {
-	// 寿命を減らす
-	m_nLife--;
-
 	// 座標の更新
 	m_pos += m_move;
+
+	if (m_nLife > 0)
+	{
+		// 寿命を減らす
+		m_nLife--;
+		if (m_nLife <= 0)
+		{
+			Uninit();
+		}
+	}
 }
 
 //=============================================================================
@@ -139,8 +146,7 @@ void CModel::Draw(void)
 
 	for (int nCntMat = 0; nCntMat < (int)m_Model.dwNumMat; nCntMat++)
 	{
-		// 色の設定
-		pMat[nCntMat].MatD3D.Diffuse = D3DXCOLOR(m_Color.r, m_Color.g, m_Color.b, m_Color.a - m_fAlphaNum);
+		pMat[nCntMat].MatD3D.Diffuse.a -= m_fAlphaNum;
 
 		//マテリアルのアンビエントにディフューズカラーを設定
 		pMat[nCntMat].MatD3D.Ambient = pMat[nCntMat].MatD3D.Diffuse;
@@ -150,8 +156,16 @@ void CModel::Draw(void)
 
 		if (m_apTexture[nCntMat] != NULL)
 		{
+			// アルファテストを有力化
+			pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+			pDevice->SetRenderState(D3DRS_ALPHAREF, 0xC0);
+			pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
+
 			// テクスチャの設定
 			pDevice->SetTexture(0, m_apTexture[nCntMat]);
+
+			// アルファテスト基準値の設定
+			pDevice->SetRenderState(D3DRS_ALPHAREF, 45);
 		}
 		else
 		{
@@ -164,7 +178,7 @@ void CModel::Draw(void)
 		pDevice->SetTexture(0, NULL);
 
 		// 透明度戻す
-		pMat[nCntMat].MatD3D.Diffuse.a = 1.0f;
+		pMat[nCntMat].MatD3D.Diffuse.a += m_fAlphaNum;
 	}
 
 	//保持していたマテリアルを戻す
