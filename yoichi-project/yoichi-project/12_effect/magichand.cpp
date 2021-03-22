@@ -75,7 +75,7 @@ CMagichand * CMagichand::Create(D3DXVECTOR3 Distance, int nTexInfo, int nPlayerN
 HRESULT CMagichand::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 {
 	// ‰Šú‰»ˆ—
-	CBillboard::Init(pos, size);
+	CBillboard::Init();
 
 	return S_OK;
 }
@@ -104,13 +104,13 @@ void CMagichand::Update(void)
 		D3DXVECTOR3(CGame::GetPlayer(m_nPlayerNum)->GetModelAnime(21)->GetMtxWorld()._41,
 		CGame::GetPlayer(m_nPlayerNum)->GetModelAnime(21)->GetMtxWorld()._42,
 		CGame::GetPlayer(m_nPlayerNum)->GetModelAnime(21)->GetMtxWorld()._43) +
-		D3DXVECTOR3(m_Distance.x * sinf(CGame::GetCamera(m_nPlayerNum)->GetƒÓ() + D3DXToRadian(90.0f)),
+		D3DXVECTOR3(m_Distance.x * sinf(CGame::GetCamera(m_nPlayerNum)->GetHorizontal() + D3DXToRadian(90.0f)),
 			m_Distance.y,
-			m_Distance.x * cosf(CGame::GetCamera(m_nPlayerNum)->GetƒÓ() + D3DXToRadian(90.0f)));
+			m_Distance.x * cosf(CGame::GetCamera(m_nPlayerNum)->GetHorizontal() + D3DXToRadian(90.0f)));
 	SetPos(pos);
 
 	D3DXVECTOR3 rot = D3DXVECTOR3(0.0f,
-		CGame::GetCamera(m_nPlayerNum)->GetƒÓ(),
+		CGame::GetCamera(m_nPlayerNum)->GetHorizontal(),
 		0.0f);
 	SetRot(rot);
 }

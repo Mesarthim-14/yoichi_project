@@ -600,7 +600,7 @@ void CPlayer::UseItem(void)
 	//=============================================================================
 	// Author : Ito Yogo
 	//=============================================================================
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_B, m_nNumber) && GetJump() == false)
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_B, m_nNumber))
 	{
 		// 雷のアイテムを使われたときのエフェクト
 		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
@@ -612,7 +612,7 @@ void CPlayer::UseItem(void)
 			GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(0.0f, 500.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_LIGHTNINGSTRIKE);
 	}
 
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_Y, m_nNumber) && GetJump() == false)
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_Y, m_nNumber))
 	{
 		// 星がとられたときのエフェクト
 		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
@@ -621,7 +621,7 @@ void CPlayer::UseItem(void)
 		//CEffectFactory::CreateEffect(GetPos()/* + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f)*/, CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SHOCKWAVE);
 	}
 
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L_TRIGGER, m_nNumber) && GetJump() == false)
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L_TRIGGER, m_nNumber))
 	{
 		// 速度が落ちた時のエフェクト
 		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
@@ -635,7 +635,7 @@ void CPlayer::UseItem(void)
 			CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWNPARTICLE);
 
 	}
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, m_nNumber) && GetJump() == false)
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, m_nNumber))
 	{
 		// 速度が上がった時のエフェクト
 		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
@@ -649,7 +649,7 @@ void CPlayer::UseItem(void)
 			CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATESUPPARTICLE);
 	}
 
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L2_TRIGGER, m_nNumber) && GetJump() == false)
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L2_TRIGGER, m_nNumber))
 	{
 		// 爆発のエフェクト
 		CEffectFactory::CreateEffect(D3DXVECTOR3(0.0f, 0.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSION);
@@ -657,7 +657,7 @@ void CPlayer::UseItem(void)
 		CEffectFactory::CreateEffect(D3DXVECTOR3(0.0f, 0.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSIONSPARK);
 	}
 
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R2_TRIGGER, m_nNumber) && GetJump() == false)
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R2_TRIGGER, m_nNumber))
 	{
 		// 風のアイテムのエフェクト
 		CWind::Create(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
@@ -671,7 +671,7 @@ void CPlayer::UseItem(void)
 			ZeroVector3, 10.0f, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_nNumber);
 	}
 
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R3, m_nNumber) && GetJump() == false)
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R3, m_nNumber))
 	{
 		// バリアのエフェクト
 		CBARRIER::Create(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
@@ -680,7 +680,7 @@ void CPlayer::UseItem(void)
 			D3DXVECTOR3(50.0f, 50.0f, 50.0f), 10.0f, D3DXVECTOR3(5.0f, 5.0f, 5.0f), m_nNumber);
 	}
 
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L3, m_nNumber) && GetJump() == false)
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L3, m_nNumber))
 	{
 		for (int nCount = 0; nCount < 100; nCount++)
 		{
@@ -692,7 +692,7 @@ void CPlayer::UseItem(void)
 		}
 	}
 
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_X, m_nNumber) && GetJump() == false)
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_X, m_nNumber))
 	{
 		// マジックハンドのエフェクト
 		CMagichand::Create(-MAGICHAND_DISTANCE, CTexture::SEPARATE_TEX_MAGICHANDLEFT, m_nNumber);

@@ -74,7 +74,7 @@ HRESULT CWind::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	BindTexture(pXFile->GetXfileTexture(CXfile::XFILE_NUM_WINDSPHERE));
 
 	// ‰Šú‰»ˆ—
-	CModel::Init(pos, size);
+	CModel::Init();
 
 	// ‘Ì—Íİ’è
 	CModel::SetLife(WIND_LIFE);
