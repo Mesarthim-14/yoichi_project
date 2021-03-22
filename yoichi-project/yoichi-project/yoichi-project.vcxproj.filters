@@ -81,6 +81,9 @@
     <ClInclude Include="04_mode\tutorial.h">
       <Filter>04_mode</Filter>
     </ClInclude>
+    <ClInclude Include="05_player\player.h">
+      <Filter>05_player</Filter>
+    </ClInclude>
     <ClInclude Include="07_resource\sound.h">
       <Filter>07_resource</Filter>
     </ClInclude>
@@ -189,21 +192,6 @@
     <ClInclude Include="08_3D\star_manager.h">
       <Filter>08_3D</Filter>
     </ClInclude>
-    <ClInclude Include="10_UI\player_ui.h">
-      <Filter>10_UI</Filter>
-    </ClInclude>
-    <ClInclude Include="10_UI\star_ui.h">
-      <Filter>10_UI</Filter>
-    </ClInclude>
-    <ClInclude Include="05_player\player.h">
-      <Filter>05_player</Filter>
-    </ClInclude>
-    <ClInclude Include="10_UI\time_ui.h">
-      <Filter>10_UI</Filter>
-    </ClInclude>
-    <ClInclude Include="11_common\timer.h">
-      <Filter>11_common</Filter>
-    </ClInclude>
     <ClInclude Include="08_3D\mesh_pillar.h">
       <Filter>08_3D</Filter>
     </ClInclude>
@@ -256,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="04_mode\tutorial.cpp">
       <Filter>04_mode</Filter>
+    </ClCompile>
+    <ClCompile Include="05_player\player.cpp">
+      <Filter>05_player</Filter>
     </ClCompile>
     <ClCompile Include="07_resource\sound.cpp">
       <Filter>07_resource</Filter>
@@ -364,21 +355,6 @@
     </ClCompile>
     <ClCompile Include="08_3D\star_manager.cpp">
       <Filter>08_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="10_UI\player_ui.cpp">
-      <Filter>10_UI</Filter>
-    </ClCompile>
-    <ClCompile Include="10_UI\star_ui.cpp">
-      <Filter>10_UI</Filter>
-    </ClCompile>
-    <ClCompile Include="05_player\player.cpp">
-      <Filter>05_player</Filter>
-    </ClCompile>
-    <ClCompile Include="10_UI\time_ui.cpp">
-      <Filter>10_UI</Filter>
-    </ClCompile>
-    <ClCompile Include="11_common\timer.cpp">
-      <Filter>11_common</Filter>
     </ClCompile>
     <ClCompile Include="08_3D\mesh_pillar.cpp">
       <Filter>08_3D</Filter>

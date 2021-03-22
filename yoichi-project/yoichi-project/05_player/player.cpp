@@ -31,7 +31,6 @@
 #include "item.h"
 #include "stage_map.h"
 #include "mesh_pillar.h"
-#include "player_ui.h"
 
 //=============================================================================
 // マクロ定義
@@ -63,11 +62,11 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nCount)
 	// 番号の設定
 	pPlayer->m_nNumber = nCount;
 
-	// 初期化処理
+
 	pPlayer->SetPos(pos);
 	pPlayer->SetRot(rot);
+	// 初期化処理
 	pPlayer->Init();
-
 	return pPlayer;
 }
 
@@ -97,7 +96,7 @@ CPlayer::~CPlayer()
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CPlayer::Init()
+HRESULT CPlayer::Init(void)
 {
 	// モデル情報取得
 	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();
@@ -108,10 +107,6 @@ HRESULT CPlayer::Init()
 		// モデルの情報を渡す
 		ModelCreate(CXfile::HIERARCHY_XFILE_NUM_PLAYER);
 	}
-
-    // UIの生成
-    m_pPlayerUI = CPlayer_UI::Create();
-    m_pPlayerUI->Init(m_nNumber);
 
 	// 初期化処理
 	CCharacter::Init();				// 座標 角度
@@ -129,6 +124,25 @@ HRESULT CPlayer::Init()
 //=============================================================================
 void CPlayer::Uninit(void)
 {	
+	// メモリ確保
+	for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
+	{
+		// !nullcheck
+		if (m_apItem[nCount] != nullptr)
+		{
+			// 終了処理
+			m_apItem[nCount]->Uninit();
+			m_apItem[nCount] = nullptr;
+		}
+	}
+
+	// 配列があれば
+	if (m_apItem.size() != NULL)
+	{
+		// 配列のクリア
+		m_apItem.clear();
+	}
+
 	// 終了処理
 	CCharacter::Uninit();
 }
@@ -155,7 +169,7 @@ void CPlayer::Update(void)
 	PlayerControl();
 
 	// アイテムの削除処理
-    m_pPlayerUI->ItemErase();
+	ItemErase();
 
 	// 親クラスの更新処理
 	CCharacter::Update();
@@ -282,16 +296,8 @@ void CPlayer::PlayerControl()
 		Jump();
 	}
 
-    // キーボード情報
-    CInputKeyboard *pKeyboard = CManager::GetKeyboard();
-
-    // SPACEキーを押したとき・コントローラのYを押したとき
-    if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, GetPlayerNum())
-        || pKeyboard->GetTrigger(DIK_I))
-    {
-        // アイテムの使用
-        m_pPlayerUI->UseItem();
-    }
+	// アイテムの使用
+	UseItem();
 }
 
 //=============================================================================
@@ -545,7 +551,77 @@ float CPlayer::InputToAngle(void)
 	return fInputAngle;
 }
 
+//=============================================================================
+// アイテムの使用処理
+//=============================================================================
+void CPlayer::UseItem(void)
+{
+	// キーボード情報
+	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 
+	// SPACEキーを押したとき・コントローラのYを押したとき
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, m_nNumber)
+		|| pKeyboard->GetTrigger(DIK_I))
+	{
+		for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
+		{
+			// !nullcheck
+			if (m_apItem[nCount] != nullptr)
+			{
+				if (m_apItem[nCount]->GetUse() == false)
+				{
+					// アイテムを使う
+					m_apItem[nCount]->SetItem();
+
+					break;
+				}
+			}
+		}
+	}
+}
+
+//=============================================================================
+// アイテムのデータを渡す
+//=============================================================================
+void CPlayer::AcquiredItem(CItem *pItem)
+{
+	// 配列が0なら
+	if (m_apItem.size() == 0)
+	{
+		// アイテムのポインタ
+		m_apItem.push_back(pItem);
+	}
+	else if (m_apItem[0] != nullptr)
+	{
+		// 使われている状態なら
+		if (m_apItem[0]->GetUse() == true)
+		{
+			// アイテムのポインタ
+			m_apItem.push_back(pItem);
+		}
+	}
+}
+
+//=============================================================================
+// アイテム削除
+//=============================================================================
+void CPlayer::ItemErase(void)
+{
+	// メモリ確保
+	for (unsigned nCount = 0; nCount < m_apItem.size(); nCount++)
+	{
+		// !nullcheck
+		if (m_apItem[nCount] != nullptr)
+		{
+			// アイテムの削除フラグが立ったら
+			if (m_apItem[nCount]->GetEnd() == true)
+			{
+				// 配列を空にする
+				m_apItem.erase(m_apItem.begin() + nCount);
+			}
+		}
+	}
+}
 
 //=============================================================================
 // リポップの処理

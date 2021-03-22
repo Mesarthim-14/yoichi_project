@@ -41,7 +41,7 @@ CScene3D::~CScene3D()
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CScene3D::Init(void)
+HRESULT CScene3D::Init()
 {
 	//デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
@@ -59,14 +59,17 @@ HRESULT CScene3D::Init(void)
 
 	VERTEX_3D*pVtx = NULL;
 
+	// 変数代入
+	D3DXVECTOR3 size = GetSize();
+
 	//頂点バッファをロック
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-	D3DXVECTOR3 size = GetSize();
-	//頂点座標設定の設定 
-	pVtx[0].pos = D3DXVECTOR3(-(size.x / 2), +(size.y / 2), +(size.z / 2));
-	pVtx[1].pos = D3DXVECTOR3(+(size.x / 2), +(size.y / 2), +(size.z / 2));
-	pVtx[2].pos = D3DXVECTOR3(-(size.x / 2), -(size.y / 2), -(size.z / 2));
-	pVtx[3].pos = D3DXVECTOR3(+(size.x / 2), -(size.y / 2), -(size.z / 2));
+
+	//頂点座標設定の設定
+	pVtx[0].pos = D3DXVECTOR3(-size.x / 2, +size.y / 2, +size.z / 2);
+	pVtx[1].pos = D3DXVECTOR3(+size.x / 2, +size.y / 2, +size.z / 2);
+	pVtx[2].pos = D3DXVECTOR3(-size.x / 2, -size.y / 2, -size.z / 2);
+	pVtx[3].pos = D3DXVECTOR3(+size.x / 2, -size.y / 2, -size.z / 2);
 
 	//各頂点の法線の設定（※ベクトルの大きさは１にする必要がある）
 	pVtx[0].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -240,11 +243,12 @@ void CScene3D::SetPosision(D3DXVECTOR3 pos)
 	// 頂点バッファをロックし、頂点情報へのポインタを取得
 	GetVtxBuff()->Lock(0, 0, (void**)&pVtx, 0);
 
+	D3DXVECTOR3 size = GetSize();
 	//頂点座標設定の設定
-	pVtx[0].pos = D3DXVECTOR3(-(GetSize().x / 2), +(GetSize().y / 2), +(GetSize().z / 2));
-	pVtx[1].pos = D3DXVECTOR3(+(GetSize().x / 2), +(GetSize().y / 2), +(GetSize().z / 2));
-	pVtx[2].pos = D3DXVECTOR3(-(GetSize().x / 2), -(GetSize().y / 2), -(GetSize().z / 2));
-	pVtx[3].pos = D3DXVECTOR3(+(GetSize().x / 2), -(GetSize().y / 2), - (GetSize().z / 2));
+	pVtx[0].pos = D3DXVECTOR3(-size.x / 2, +size.y / 2, +size.z / 2);
+	pVtx[1].pos = D3DXVECTOR3(+size.x / 2, +size.y / 2, +size.z / 2);
+	pVtx[2].pos = D3DXVECTOR3(-size.x / 2, -size.y / 2, -size.z / 2);
+	pVtx[3].pos = D3DXVECTOR3(+size.x / 2, -size.y / 2, -size.z / 2);
 
 	// 頂点バッファをアンロックする
 	GetVtxBuff()->Unlock();

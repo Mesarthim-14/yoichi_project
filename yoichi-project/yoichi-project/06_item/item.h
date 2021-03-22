@@ -22,9 +22,8 @@
 #define ITEM_UI_SIZE_Y	(70.0f)				// アイテムのサイズ
 #define ITEM_UI_SIZE_Z	(0.0f)				// アイテムのサイズ
 
-#define ITEM_UI_POS		(D3DXVECTOR3(ITEM_UI_POS_X, ITEM_UI_POS_Y, ITEM_UI_POS_Z))      // UIの位置
-
-#define ITEM_UI_SIZE	(D3DXVECTOR3(ITEM_UI_SIZE_X, ITEM_UI_SIZE_Y, ITEM_UI_SIZE_Z))   // UIの大きさ
+#define ITEM_UI_POS		(D3DXVECTOR3(ITEM_UI_POS_X, ITEM_UI_POS_Y, ITEM_UI_POS_Z))
+#define ITEM_UI_SIZE	(D3DXVECTOR3(ITEM_UI_SIZE_X, ITEM_UI_SIZE_Y, ITEM_UI_SIZE_Z))
 
 //=============================================================================
 // 前方宣言
@@ -40,7 +39,7 @@ public:
 	CItem(PRIORITY Priority = PRIORITY_1);				// コンストラクタ
 	~CItem();											// デストラクタ
 
-	virtual HRESULT Init(void);	// 初期化処理
+	virtual HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);	// 初期化処理
 	virtual void Uninit(void);									// 終了処理
 	virtual void Update(void);									// 更新処理
 	virtual void Draw(void);									// 描画処理

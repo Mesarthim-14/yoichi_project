@@ -64,9 +64,9 @@ CStar * CStar::Create(D3DXVECTOR3 pos, POS_NUMBER posNum)
 	// !nullcheck
 	if (pStar != nullptr)
 	{
+		// 初期化処理
 		pStar->SetPos(pos);
 		pStar->SetSize(STAR_SIZE);
-		// 初期化処理
 		pStar->Init();
 		pStar->m_PosNumber = posNum;
 	}
@@ -77,7 +77,7 @@ CStar * CStar::Create(D3DXVECTOR3 pos, POS_NUMBER posNum)
 //=============================================================================================
 // 初期化処理
 //=============================================================================================
-HRESULT CStar::Init(void)
+HRESULT CStar::Init()
 {
 	// ビルボードの初期化処理
 	CBillboard::Init();

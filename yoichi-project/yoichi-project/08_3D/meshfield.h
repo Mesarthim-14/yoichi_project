@@ -31,7 +31,7 @@ public:
 	CMeshField(PRIORITY = PRIORITY_UI);	// コンストラクタ
 	~CMeshField();						// デストラクタ
 
-	HRESULT Init(void);	// 初期化処理
+	HRESULT Init();	// 初期化処理
 	void Uninit(void);									// 終了処理
 	void Update(void);									// 更新処理
 	void Draw(void);									// 描画処理

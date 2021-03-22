@@ -55,7 +55,7 @@ CNumber2d::~CNumber2d()
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CNumber2d::Init(void)
+HRESULT CNumber2d::Init()
 {
 	// レンダラーの情報を受け取る
 	CRenderer *pRenderer = CManager::GetRenderer();
@@ -74,14 +74,16 @@ HRESULT CNumber2d::Init(void)
 	{
 		return E_FAIL;
 	}
-	
+
 	// 頂点情報を設定
 	VERTEX_2D *pVtx;
-	D3DXVECTOR3 size = GetSize();
+	
 	D3DXVECTOR3 pos = GetPos();
+	D3DXVECTOR3 size = GetSize();
+
 	// 頂点バッファをロックし、頂点情報へのポインタを取得
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
+	
 	// 頂点座標の設定
 	pVtx[0].pos = D3DXVECTOR3(pos.x - size.x / 2, pos.y - size.y / 2, 0.0f);
 	pVtx[1].pos = D3DXVECTOR3(pos.x + size.x / 2, pos.y - size.y / 2, 0.0f);

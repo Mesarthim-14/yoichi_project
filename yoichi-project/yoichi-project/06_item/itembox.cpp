@@ -24,7 +24,6 @@
 #include "item_vortex.h"
 #include "item_mhand.h"
 #include "item.h"
-#include "player_ui.h"
 
 //=============================================================================
 // マクロ定義
@@ -164,7 +163,6 @@ void CItemBox::Collision(void)
 	{
 		// プレイヤーの関数
 		CPlayer *pPlayer = CGame::GetPlayer(nCount);
-        CPlayer_UI *pPlayerUI = pPlayer->GetPlayerUI();
 
 		// 当たり判定
 		if (CCollision::CollisionCircularAndCircular(
@@ -175,16 +173,16 @@ void CItemBox::Collision(void)
 			m_bDraw = false;
 
 			// アイテムを持っていなかったら
-			if (pPlayerUI->GetItemNum() == 0)
+			if (pPlayer->GetItemNum() == 0)
 			{
 				// アイテム生成
 				ItemCreate(nCount);
 			}
-			else if (pPlayerUI->GetItem()->GetUse() == true)
+			else if (pPlayer->GetItem()->GetUse() == true)
 			{// アイテムを持っていたら
 
 				// 二つ以上にならないように
-				if (pPlayerUI->GetItemNum() <= ITEM_HAVE_NUM)
+				if (pPlayer->GetItemNum() <= ITEM_HAVE_NUM)
 				{
 					// アイテム生成
 					ItemCreate(nCount);
@@ -204,36 +202,36 @@ void CItemBox::ItemCreate(int nCount)
 
 		// プレイヤーの関数
 	CPlayer *pPlayer = CGame::GetPlayer(nCount);
-    CPlayer_UI *pPlayerUI = pPlayer->GetPlayerUI();
+
 	// ナンバー
 	switch ((ITEM_TYPE)nNumber)
 	{
 	case ITEM_TYPE_BLUE_WING:
-        pPlayerUI->AcquiredItem(CItemBlueWing::Create(nCount));
+		pPlayer->AcquiredItem(CItemBlueWing::Create(nCount));
 		break;
 
 	case ITEM_TYPE_RED_WING:
-		pPlayerUI->AcquiredItem(CItemRedWing::Create(nCount));
+		pPlayer->AcquiredItem(CItemRedWing::Create(nCount));
 		break;
 
 	case ITEM_TYPE_BARRIER:
-		pPlayerUI->AcquiredItem(CItemBarrier::Create(nCount));
+		pPlayer->AcquiredItem(CItemBarrier::Create(nCount));
 		break;
 
 	case ITEM_TYPE_BOMB:
-		pPlayerUI->AcquiredItem(CItemBomb::Create(nCount));
+		pPlayer->AcquiredItem(CItemBomb::Create(nCount));
 		break;
 
 	case ITEM_TYPE_THUNDER:
-		pPlayerUI->AcquiredItem(CItemThunder::Create(nCount));
+		pPlayer->AcquiredItem(CItemThunder::Create(nCount));
 		break;
 
 	case ITEM_TYPE_VORTEX:
-		pPlayerUI->AcquiredItem(CItemVortex::Create(nCount));
+		pPlayer->AcquiredItem(CItemVortex::Create(nCount));
 		break;
 
 	case ITEM_TYPE_MHAND:
-		pPlayerUI->AcquiredItem(CItemMhand::Create(nCount));
+		pPlayer->AcquiredItem(CItemMhand::Create(nCount));
 		break;
 
 	default:

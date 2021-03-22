@@ -60,6 +60,8 @@ CEffect3D * CEffect3D::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 			pos.y + Distance.y,
 			pos.z + Distance.z);
 
+		pEffect->SetPos(TargetPos);
+		pEffect->SetSize(Particle.size);
 		// ‰Šú‰»ˆ—
 		pEffect->Init();
 

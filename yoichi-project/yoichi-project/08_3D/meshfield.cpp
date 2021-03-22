@@ -67,7 +67,7 @@ HRESULT CMeshField::Init(void)
 	int nCntIndex = 0;		// 頂点の生成番号
 	int nCntH = 0;			// 縦の頂点カウンタ
 	int nCntV = 0;			// 横の頂点カウンタ
-	D3DXVECTOR3 pos = GetPos();
+
 	// テクスチャの設定
 	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 	BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_SEA));
@@ -99,6 +99,7 @@ HRESULT CMeshField::Init(void)
 		&pIdxBuff,
 		NULL);
 
+	D3DXVECTOR3 pos = GetPos();
 	// 頂点データの範囲をロックし、頂点バッファへのポインタを取得
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 

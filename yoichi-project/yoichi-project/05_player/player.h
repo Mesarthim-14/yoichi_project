@@ -12,6 +12,7 @@
 //=============================================================================
 #include "character.h"
 #include "modelanime.h"
+
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -35,8 +36,8 @@
 //=============================================================================
 // 前方宣言
 //=============================================================================
-class CPlayer_UI;
 class CItem;
+
 //=============================================================================
 // プレイヤークラス
 //=============================================================================
@@ -99,8 +100,8 @@ public:
 		MOTION_MAX,					// モーション最大数
 	};
 
-	CPlayer(PRIORITY Priority = PRIORITY_CHARACTER);			// コンストラクタ
-	~CPlayer();													// デストラクタ
+	CPlayer(PRIORITY Priority = PRIORITY_CHARACTER);						// コンストラクタ
+	~CPlayer();																// デストラクタ
 
 	static CPlayer*Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nCount);	// クリエイト
 
@@ -116,21 +117,23 @@ public:
 	void Fly(void);															// 飛行処理
 	void Death(void);														// 死んだときの処理
 	void MapLimit(void);													// マップの制限
+	void UseItem(void);														// アイテムの使用処理
+	void AcquiredItem(CItem *pItem);										// アイテム獲得関数
 	void AddStarNum(int nStarNum)		{ m_nStarNum += nStarNum; }			// 星獲得数の加算
+	void ItemErase(void);													// アイテムの削除
 	void Repop(void);														// リポップの処理
 
 	// Set関数
-	void SetArmor(bool bArmor) { m_bArmor = bArmor; }			// 無敵状態の設定
+	void SetArmor(bool bArmor)			{ m_bArmor = bArmor; }				// 無敵状態の設定
 	void SetFly(bool bFly)				{ m_bFly = bFly; }					// 飛行状態の設定
 
 	// Get関数
-    CPlayer_UI *GetPlayerUI(void)       { return m_pPlayerUI; }             // UIのポインタ
+	CItem *GetItem(void)				{ return m_apItem[0]; }				// アイテムのポインタ
 	float GetBaseSpeed(void)			{ return m_fBaseSpeed; }			// 元のスピード
-    float GetBaseRadius(void)           { return m_fBaseRadius; }			// 元の半径
-    bool GetIsFly(void) { return m_bFly; }					// 飛行状態
-	bool  GetArmor(void)				{ return m_bArmor; }				// 無敵状態
-    int   GetPlayerNum(void)            { return m_nNumber; }               // プレイヤーの番号
-    int  GetStarNum(void)               { return m_nStarNum; }              // 星の取得数取得
+	float GetBaseRadius(void)			{ return m_fBaseRadius; }			// 元の半径
+	bool GetArmor(void)					{ return m_bArmor; }				// 無敵状態
+	bool GetIsFly(void)					{ return m_bFly; }					// 飛行状態
+	int GetItemNum(void)				{ return m_apItem.size(); }			// アイテムのサイズ
 
 private:
 	float InputToAngle(void);		// 入力を角度に変換
@@ -144,8 +147,7 @@ private:
 	int m_nNumber;					// プレイヤーの番号
 	int m_nStarNum;					// 星の数
 	float m_fBaseSpeed;				// 元のスピード
-	float m_fBaseRadius;				// 元の半径
-    CPlayer_UI *m_pPlayerUI;        // プレイヤーごとのUI
-	std::vector<CItem*> m_apItem;	// アイテムのポインタ
+	float m_fBaseRadius;			// 元の半径
+	std::vector<CItem*> m_apItem;	// アイテムボックスのポインタ
 };
 #endif

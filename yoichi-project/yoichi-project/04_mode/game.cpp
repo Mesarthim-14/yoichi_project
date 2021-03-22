@@ -27,15 +27,6 @@
 #include "star_manager.h"
 #include "stage_map.h"
 #include "result.h"
-#include "time_ui.h"
-#include "timer.h"
-
-//=======================================================================================
-// マクロ定義
-//=======================================================================================
-
-#define DELAY_DISPLAY_RANK (1);
-#define DELAY_RETURN_TO_TITLE (5);
 
 //=======================================================================================
 // static初期化
@@ -47,7 +38,6 @@ CPause *CGame::m_pPause = nullptr;
 CItemBoxManager *CGame::m_pItemManager = nullptr;
 int CGame::m_nPlayerNum = 1;
 CResult *CGame::m_apResult[MAX_PLAYER_NUM] = {};
-CTime_UI *CGame::m_pTimeUI = nullptr;
 
 //=======================================================================================
 // コンストラクタ
@@ -55,8 +45,10 @@ CTime_UI *CGame::m_pTimeUI = nullptr;
 CGame::CGame()
 {
 	m_bGameEnd = false;
+	m_nTimeCounter = 0;
 	m_pStarManager = nullptr;
 	m_pStageMap = nullptr;
+
 	// 0だったら
 	if (m_nPlayerNum == 0)
 	{
@@ -92,9 +84,29 @@ CGame* CGame::Create(void)
 //=======================================================================================
 HRESULT CGame::Init(void)
 {
+	// プレイヤーの数分ループ
+	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+	{	
+		// nullcheck
+		if (m_pCamera[nCount] == nullptr)
+		{
+			// カメラクラスのクリエイト
+			m_pCamera[nCount] = CCamera::Create(nCount);
+		}
+
+		// nullcheck
+		if (m_pPlayer[nCount] == nullptr)
+		{
+			// プレイヤーの生成
+			m_pPlayer[nCount] = CPlayer::Create(
+				ZeroVector3, D3DXVECTOR3(PLAYER_SIZE_X, PLAYER_SIZE_Y, PLAYER_SIZE_Z), 
+				nCount);
+		}
+	}
 
 	//ライトクラスの生成
 	m_pLight = new CLight;
+
 	// ライトの初期化処理
 	if (m_pLight != nullptr)
 	{
@@ -110,29 +122,6 @@ HRESULT CGame::Init(void)
 		// インスタンス生成
 		m_pStageMap = CStageMap::Create();
 	}
-
-    // プレイヤーの数分ループ
-    for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
-    {
-        // nullcheck
-        if (m_pCamera[nCount] == nullptr)
-        {
-            // カメラクラスのクリエイト
-            m_pCamera[nCount] = CCamera::Create(nCount);
-        }
-
-        // nullcheck
-        if (m_pPlayer[nCount] == nullptr)
-        {
-            // プレイヤーの生成
-            m_pPlayer[nCount] = CPlayer::Create(
-                ZeroVector3, D3DXVECTOR3(PLAYER_SIZE_X, PLAYER_SIZE_Y, PLAYER_SIZE_Z),
-                nCount);
-        }
-    }
-
-    // タイマーのセット
-    m_pTimeUI = CTime_UI::Create();
 
 	//BGM
 //	CSound *pSound = CManager::GetSound();
@@ -262,7 +251,25 @@ void CGame::Update(void)
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 	if(m_bGameEnd)
 	{
-		Result();
+		// リザルトが生成されていなければ生成する
+		if (m_apResult[0] == nullptr)
+		{
+			D3DXVECTOR3 pos;
+			D3DXVECTOR3 size;
+			for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+			{
+				if (m_nPlayerNum == 2)
+				{
+					pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2)*nCount , SCREEN_HEIGHT / 2, 0.0f);
+				}
+				else
+				{
+					pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2) * (nCount % 2), SCREEN_HEIGHT / 4 + (SCREEN_HEIGHT / 2) * (nCount / 2), 0.0f);
+				}
+				size = SCREEN_SIZE / 2;
+				m_apResult[nCount] = CResult::Create(pos, size, nCount);	// TODO 順位が設定できるようになったら順位を取得して第3引数をそれにする
+			}
+		}
 		// リザルトのアップデート
 		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
 		{
@@ -275,31 +282,31 @@ void CGame::Update(void)
 		// プレイヤー分
 		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
 		{
-		    // !nullcheck
-		    if (m_pCamera != nullptr)
-		    {
-		        //カメラクラスの更新処理
-		        m_pCamera[nCount]->Update();
-		    }
+			// !nullcheck
+			if (m_pCamera != nullptr)
+			{
+				//カメラクラスの更新処理
+				m_pCamera[nCount]->Update();
+			}
 		}
 
 		// nullcheck
 		if (m_pStarManager != nullptr)
 		{
+			// 更新処理
 			m_pStarManager->Update();
 		}
-		// 時間切れだったら
-		if (m_pTimeUI->GetTimer()->IsTimeOver())
-		{
-		    GameEnd();// ゲームを終了
-		}
+
+		// ゲームの設定
+		SetGame();
+	}
+
 #ifdef _DEBUG
-		if (pKeyboard->GetTrigger(DIK_P))
-		{
-			m_bGameEnd = !m_bGameEnd;
-		}
+	if (pKeyboard->GetTrigger(DIK_P))
+	{
+		m_bGameEnd = !m_bGameEnd;
+	}
 #endif
-    }
 }
 
 //=======================================================================================
@@ -323,6 +330,14 @@ void CGame::Draw(void)
 	}
 }
 
+//=======================================================================================
+// ゲームの設定
+//=======================================================================================
+void CGame::SetGame(void)
+{
+	// ゲームのタイムカウンター
+	m_nTimeCounter++;
+}
 
 //=======================================================================================
 // カメラの情報
@@ -354,50 +369,4 @@ CPlayer * CGame::GetPlayer(int nCount)
 CPause * CGame::GetPause(void)
 {
 	return m_pPause;
-}
-
-//=======================================================================================
-// リザルト画面出力
-//=======================================================================================
-void CGame::Result(void)
-{
-	if (m_apResult[0] == nullptr)
-	{
-		D3DXVECTOR3 pos[MAX_PLAYER_NUM];
-		D3DXVECTOR3 size;
-		int nMaxRank = NULL;
-		int anRank[MAX_PLAYER_NUM];
-
-		//順位取得処理
-		for (int nCount = 0; nCount < MAX_PLAYER_NUM; nCount++)
-		{
-			anRank[nCount] = nCount;		//TODO 右辺のnCountを各プレイヤーの順位取得関数に
-			if (anRank[nCount] > nMaxRank)
-			{
-				nMaxRank = anRank[nCount];
-			}
-		}
-
-		//表示位置,大きさ
-		if (m_nPlayerNum == 2)
-		{
-			for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
-			{
-				pos[nCount] = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2)*nCount, SCREEN_HEIGHT / 2, 0.0f);
-			}
-		}
-		else
-		{
-			for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
-			{
-				pos[nCount] = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2) * (nCount % 2), SCREEN_HEIGHT / 4 + (SCREEN_HEIGHT / 2) * (nCount / 2), 0.0f);
-			}
-		}
-		size = SCREEN_SIZE / 2;
-		for (int nCount = 0;nCount < m_nPlayerNum; nCount++)
-		{
-			m_apResult[nCount] = CResult::Create(pos[nCount], size, anRank[nCount]);
-		}
-	}
-	
 }

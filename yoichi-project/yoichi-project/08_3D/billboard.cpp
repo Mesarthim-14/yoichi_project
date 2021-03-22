@@ -42,7 +42,7 @@ CBillboard::~CBillboard()
 //=====================================================
 // 初期化処理
 //=====================================================
-HRESULT CBillboard::Init()
+HRESULT CBillboard::Init(void)
 {
 	// デバイス情報取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
@@ -188,10 +188,9 @@ void CBillboard::Draw(void)
 	D3DXMatrixIdentity(&m_mtxWorld);
 
 	// サイズを反映
-	D3DXVECTOR3 size = GetSize();
 	D3DXMatrixScaling(&mtxScale,
-		size.x / m_sizeBase.x,
-		size.y / m_sizeBase.y,
+		GetSize().x / m_sizeBase.x,
+		GetSize().y / m_sizeBase.y,
 		0.0f);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxScale);
 
@@ -203,9 +202,9 @@ void CBillboard::Draw(void)
 	m_mtxWorld._41 = 0;
 	m_mtxWorld._42 = 0;
 	m_mtxWorld._43 = 0;
-	D3DXVECTOR3 pos = GetPos();
+
 	// 位置を反映、ワールドマトリクス設定、ポリゴン描画
-	D3DXMatrixTranslation(&mtxTrans, pos.x, pos.y, pos.z);
+	D3DXMatrixTranslation(&mtxTrans, GetPos().x, GetPos().y, GetPos().z);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 
 	// ワールドマトリクスの設定 初期化、向き、位置

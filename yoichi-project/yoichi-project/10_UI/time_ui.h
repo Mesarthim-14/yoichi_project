@@ -11,7 +11,7 @@
 // インクルードファイル
 //*****************************************************************************
 #include "main.h"
-#include "scene.h"
+#include "scene2d.h"
 
 //*****************************************************************************
 // 前方宣言
@@ -27,7 +27,7 @@ class CNumber2d;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CTime_UI:public CScene
+class CTime_UI:public CScene2D
 {
 public:
     CTime_UI(PRIORITY Priority = PRIORITY_UI);
@@ -35,7 +35,7 @@ public:
 
     static CTime_UI* Create(void);
 
-    HRESULT Init(void);
+    void Init(void);
     void Uninit(void);
     void Update(void);
     void Draw(void);

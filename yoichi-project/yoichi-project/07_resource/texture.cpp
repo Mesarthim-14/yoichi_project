@@ -32,7 +32,7 @@
 #define TEXTURE_FILE_ITEM_RESULT_3RD	("data/Texture/3rd.png")		// リザルト3位
 #define TEXTURE_FILE_ITEM_RESULT_4TH	("data/Texture/4th.png")		// リザルト4位
 // 分割テクスチャの名前
-#define SEPARATE_TEX_NAME_NUMBER	("data/Texture/number000.png")	// ナンバー
+#define SEPARATE_TEX_NAME_NUMBER		("data/Texture/sharp_effect.png")	// ナンバー
 
 //=============================================================================
 // コンストラクタ

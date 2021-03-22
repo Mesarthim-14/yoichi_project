@@ -139,7 +139,7 @@ void CManager::Uninit(void)
 		if (m_pTitle != NULL)
 		{
 			// I—¹ˆ—
-			m_pTitle->Uninit();
+		//	m_pTitle->Uninit();
 			m_pTitle = NULL;
 		}
 
@@ -150,7 +150,7 @@ void CManager::Uninit(void)
 		if (m_pTutorial != NULL)
 		{
 			// I—¹ˆ—
-			m_pTutorial->Uninit();
+		//	m_pTutorial->Uninit();
 			m_pTutorial = NULL;
 		}
 		break;
