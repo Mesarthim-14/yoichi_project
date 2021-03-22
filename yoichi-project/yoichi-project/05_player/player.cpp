@@ -171,11 +171,16 @@ void CPlayer::Update(void)
 		Death();
 	}
 
-	// 重りのエフェクト
+	//// 重りのエフェクト
+	//CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+	//	GetModelAnime(21)->GetMtxWorld()._42,
+	//	GetModelAnime(21)->GetMtxWorld()._43),
+	//	CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
+
+	// 星がとられたときのエフェクト
 	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
 		GetModelAnime(21)->GetMtxWorld()._42,
-		GetModelAnime(21)->GetMtxWorld()._43),
-		CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
+		GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_KIRAKIRA);
 }
 
 //=============================================================================
@@ -393,7 +398,9 @@ void CPlayer::Jump(void)
 	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_Y, m_nNumber) && GetJump() == false)
 	{
 		// 星がとられたときのエフェクト
-		CEffectFactory::CreateEffect(GetPos(), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STAR);
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STAR);
 		//CEffectFactory::CreateEffect(GetPos()/* + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f)*/, CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SHOCKWAVE);
 	}
 
