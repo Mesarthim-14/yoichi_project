@@ -57,8 +57,10 @@ CModel * CModel::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	// nullcheck
 	if (pModel != NULL)
 	{
+		pModel->SetPos(pos);
+		pModel->SetSize(size);
 		//初期化処理呼び出し
-		pModel->Init(pos, size);
+		pModel->Init();
 	}
 	//メモリ確保に失敗したとき
 	else
@@ -72,14 +74,8 @@ CModel * CModel::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 //=============================================================================
 //モデルクラスの初期化処理
 //=============================================================================
-HRESULT CModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CModel::Init(void)
 {
-	// 位置の初期化
-	m_pos = pos;
-
-	// サイズ初期化
-	m_size = size;
-
 	return S_OK;
 }
 

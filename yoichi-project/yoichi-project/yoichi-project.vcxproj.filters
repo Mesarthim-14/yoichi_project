@@ -16,8 +16,14 @@
     <Filter Include="04_mode">
       <UniqueIdentifier>{48f3bbe9-cb40-44e6-9bd7-9d16413eae86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05_player">
+      <UniqueIdentifier>{41b492dc-86ec-4614-902b-0fcd544d4554}</UniqueIdentifier>
+    </Filter>
     <Filter Include="06_item">
       <UniqueIdentifier>{bd1643e2-6666-4f38-babb-ee34e2c95d1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07_resource">
+      <UniqueIdentifier>{f6fbcecc-fe21-4322-ae64-5fa5c43b355a}</UniqueIdentifier>
     </Filter>
     <Filter Include="08_3D">
       <UniqueIdentifier>{e43183ff-1990-4dfe-a141-e713ef913064}</UniqueIdentifier>
@@ -28,20 +34,11 @@
     <Filter Include="10_UI">
       <UniqueIdentifier>{1fb8f824-d21f-47eb-ae70-394c784fa449}</UniqueIdentifier>
     </Filter>
-    <Filter Include="12_effect">
-      <UniqueIdentifier>{d8808717-5001-422b-afc6-c5b9fcca9afe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05_character">
-      <UniqueIdentifier>{41b492dc-86ec-4614-902b-0fcd544d4554}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="99_resource">
-      <UniqueIdentifier>{f6fbcecc-fe21-4322-ae64-5fa5c43b355a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="NewFilter1">
-      <UniqueIdentifier>{e8561c70-e392-4bd0-89f2-4d8ff4b880f5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="11_common">
       <UniqueIdentifier>{88a79338-f985-4147-b6ba-856baeac103d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="12_effect">
+      <UniqueIdentifier>{d8808717-5001-422b-afc6-c5b9fcca9afe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,9 +75,6 @@
     <ClInclude Include="04_mode\game.h">
       <Filter>04_mode</Filter>
     </ClInclude>
-    <ClInclude Include="04_mode\result.h">
-      <Filter>04_mode</Filter>
-    </ClInclude>
     <ClInclude Include="04_mode\title.h">
       <Filter>04_mode</Filter>
     </ClInclude>
@@ -88,13 +82,13 @@
       <Filter>04_mode</Filter>
     </ClInclude>
     <ClInclude Include="07_resource\sound.h">
-      <Filter>99_resource</Filter>
+      <Filter>07_resource</Filter>
     </ClInclude>
     <ClInclude Include="07_resource\texture.h">
-      <Filter>99_resource</Filter>
+      <Filter>07_resource</Filter>
     </ClInclude>
     <ClInclude Include="07_resource\xfile.h">
-      <Filter>99_resource</Filter>
+      <Filter>07_resource</Filter>
     </ClInclude>
     <ClInclude Include="08_3D\billboard.h">
       <Filter>08_3D</Filter>
@@ -138,6 +132,9 @@
     <ClInclude Include="11_common\fade.h">
       <Filter>11_common</Filter>
     </ClInclude>
+    <ClInclude Include="11_common\polygon.h">
+      <Filter>11_common</Filter>
+    </ClInclude>
     <ClInclude Include="11_common\renderer.h">
       <Filter>11_common</Filter>
     </ClInclude>
@@ -152,18 +149,6 @@
     </ClInclude>
     <ClInclude Include="08_3D\motion.h">
       <Filter>08_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="05_character\player.h">
-      <Filter>05_character</Filter>
-    </ClInclude>
-    <ClInclude Include="11_common\polygon.h">
-      <Filter>09_2D</Filter>
-    </ClInclude>
-    <ClInclude Include="11_common\timer.h">
-      <Filter>11_common</Filter>
-    </ClInclude>
-    <ClInclude Include="10_UI\time_ui.h">
-      <Filter>10_UI</Filter>
     </ClInclude>
     <ClInclude Include="06_item\item_bluewing.h">
       <Filter>06_item</Filter>
@@ -201,8 +186,35 @@
     <ClInclude Include="08_3D\star.h">
       <Filter>08_3D</Filter>
     </ClInclude>
-    <ClInclude Include="08_3D\star_factory.h">
+    <ClInclude Include="08_3D\star_manager.h">
       <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="10_UI\player_ui.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="10_UI\star_ui.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="05_player\player.h">
+      <Filter>05_player</Filter>
+    </ClInclude>
+    <ClInclude Include="10_UI\time_ui.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="11_common\timer.h">
+      <Filter>11_common</Filter>
+    </ClInclude>
+    <ClInclude Include="08_3D\mesh_pillar.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="08_3D\stage_map.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
+    <ClInclude Include="04_mode\gamemode.h">
+      <Filter>04_mode</Filter>
+    </ClInclude>
+    <ClInclude Include="10_UI\result.h">
+      <Filter>10_UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -239,9 +251,6 @@
     <ClCompile Include="04_mode\game.cpp">
       <Filter>04_mode</Filter>
     </ClCompile>
-    <ClCompile Include="04_mode\result.cpp">
-      <Filter>04_mode</Filter>
-    </ClCompile>
     <ClCompile Include="04_mode\title.cpp">
       <Filter>04_mode</Filter>
     </ClCompile>
@@ -249,13 +258,13 @@
       <Filter>04_mode</Filter>
     </ClCompile>
     <ClCompile Include="07_resource\sound.cpp">
-      <Filter>99_resource</Filter>
+      <Filter>07_resource</Filter>
     </ClCompile>
     <ClCompile Include="07_resource\texture.cpp">
-      <Filter>99_resource</Filter>
+      <Filter>07_resource</Filter>
     </ClCompile>
     <ClCompile Include="07_resource\xfile.cpp">
-      <Filter>99_resource</Filter>
+      <Filter>07_resource</Filter>
     </ClCompile>
     <ClCompile Include="08_3D\billboard.cpp">
       <Filter>08_3D</Filter>
@@ -299,6 +308,9 @@
     <ClCompile Include="11_common\fade.cpp">
       <Filter>11_common</Filter>
     </ClCompile>
+    <ClCompile Include="11_common\polygon.cpp">
+      <Filter>11_common</Filter>
+    </ClCompile>
     <ClCompile Include="11_common\renderer.cpp">
       <Filter>11_common</Filter>
     </ClCompile>
@@ -313,18 +325,6 @@
     </ClCompile>
     <ClCompile Include="08_3D\motion.cpp">
       <Filter>08_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="05_character\player.cpp">
-      <Filter>05_character</Filter>
-    </ClCompile>
-    <ClCompile Include="11_common\polygon.cpp">
-      <Filter>09_2D</Filter>
-    </ClCompile>
-    <ClCompile Include="11_common\timer.cpp">
-      <Filter>11_common</Filter>
-    </ClCompile>
-    <ClCompile Include="10_UI\time_ui.cpp">
-      <Filter>10_UI</Filter>
     </ClCompile>
     <ClCompile Include="06_item\itembox.cpp">
       <Filter>06_item</Filter>
@@ -362,8 +362,32 @@
     <ClCompile Include="08_3D\star.cpp">
       <Filter>08_3D</Filter>
     </ClCompile>
-    <ClCompile Include="08_3D\star_factory.cpp">
+    <ClCompile Include="08_3D\star_manager.cpp">
       <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\player_ui.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\star_ui.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="05_player\player.cpp">
+      <Filter>05_player</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\time_ui.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="11_common\timer.cpp">
+      <Filter>11_common</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\mesh_pillar.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\stage_map.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\result.cpp">
+      <Filter>10_UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

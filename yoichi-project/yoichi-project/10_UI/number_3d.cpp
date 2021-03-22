@@ -59,8 +59,11 @@ CNumber3d * CNumber3d::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nNum)
 	if (pNumber3d != NULL)
 	{		
 		// 初期化情報
-		pNumber3d->m_nNumber = nNum;																	// 値の代入
-		pNumber3d->Init(pos, size);																		// 初期化処理
+		pNumber3d->m_nNumber = nNum;	
+		// 座標の設定
+		pNumber3d->SetPos(pos);
+		pNumber3d->SetSize(size);// 値の代入
+		pNumber3d->Init();																		// 初期化処理
 	//	pNumber3d->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_DAMAGE_NUMBER));		// テクスチャの設定
 		pNumber3d->m_nLife = DAMAGE_LIFE_NUM;															// ライフの設定
 		pNumber3d->RandSetMove();																		// 移動量の設定
@@ -72,7 +75,7 @@ CNumber3d * CNumber3d::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nNum)
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CNumber3d::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CNumber3d::Init(void)
 {
 	// Rendererクラスからデバイスを取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
@@ -89,7 +92,7 @@ HRESULT CNumber3d::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	int nIndex = 0;				// 桁合わせ用
 	int nDigit = 0;				// 桁数を取得
 	int nNumber = m_nNumber;	// 現在の値を保持
-
+	D3DXVECTOR3 size = GetSize();
 	// 桁数を求める
 	while (nNumber != 0)
 	{
@@ -136,10 +139,6 @@ HRESULT CNumber3d::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 		D3DPOOL_MANAGED,
 		&pIdxBuff,
 		NULL);
-
-	// 座標の設定
-	SetPos(pos);
-	SetSize(size);
 
 	int nWidthNum = (nWidth + 1) + nWidth - 1;	// 横幅の値
 	int nOdd = 0;								// 奇数のカウント

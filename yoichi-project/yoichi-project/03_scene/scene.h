@@ -13,12 +13,6 @@
 #include "main.h"
 
 //=============================================================================
-// マクロ定義
-//=============================================================================
-#define MAX_NUM (4112)
-
-
-//=============================================================================
 // シーンクラス
 //=============================================================================
 class CScene
@@ -44,7 +38,7 @@ public:
 	static void UpdateAll(void);								// 全てのオブジェクトを更新
 	static void DrawAll(void);									// 全てのオブジェクトを描画
 
-	virtual HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot) = 0;	// 初期化処理
+	virtual HRESULT Init(void) = 0;	// 初期化処理
 	virtual void Uninit(void) = 0;								// 終了処理
 	virtual void Update(void) = 0;								// 更新処理
 	virtual void Draw(void) = 0;								// 描画処理

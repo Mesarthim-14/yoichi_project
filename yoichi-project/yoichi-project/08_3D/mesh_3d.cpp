@@ -11,6 +11,8 @@
 #include "mesh_3d.h"
 #include "manager.h"
 #include "renderer.h"
+#include "game.h"
+#include "player.h"
 
 //=============================================================================
 // マクロ定義
@@ -61,24 +63,30 @@ void CMesh3d::Draw(void)
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
 
+	// 角度
+	D3DXVECTOR3 rot = GetRot();
+
 	// 回転を反映
 	D3DXMatrixRotationYawPitchRoll(
 		&mtxRot,
-		GetRot().y,
-		GetRot().x,
-		GetRot().z);
+		rot.y,
+		rot.x,
+		rot.z);
 
 	D3DXMatrixMultiply(
 		&m_mtxWorld,
 		&m_mtxWorld,
 		&mtxRot);
 
+	// 座標
+	D3DXVECTOR3 pos = GetPos();
+
 	// 位置を反映
 	D3DXMatrixTranslation(
 		&mtxTrans,
-		GetPos().x,
-		GetPos().y,
-		GetPos().z);
+		pos.x,
+		pos.y,
+		pos.z);
 
 	D3DXMatrixMultiply(
 		&m_mtxWorld,
@@ -188,5 +196,60 @@ HRESULT CMesh3d::ReadFile(void)
 		MessageBox(NULL, "モーションファイルを開くのに失敗しました", "警告", MB_OK | MB_ICONEXCLAMATION);
 
 		return	E_FAIL;
+	}
+}
+
+//=============================================================================
+// 当たり判定
+//=============================================================================
+void CMesh3d::Collision(void)
+{
+	for (int nCount = 0; nCount < CGame::GetPlayerNum(); nCount++)
+	{
+		// プレイヤーのポインタ
+		CPlayer *pPlayer = CGame::GetPlayer(nCount);
+
+		// nullcheak
+		if (pPlayer != nullptr)
+		{
+			// メッシュ情報
+			D3DXVECTOR3 pos = GetPos()*2;
+			float fRadius = GetSize().x;
+
+			// プレイヤーの情報取得
+			D3DXVECTOR3 PlayerPos = pPlayer->GetPos();		// 座標取得
+			float fPlayerRadius = pPlayer->GetRadius();		// 半径
+
+			// 二点の距離、二点の角度設定
+			float fLength = sqrtf(
+				powf((PlayerPos.x - pos.x), 2) +
+				powf((PlayerPos.z - pos.z), 2));
+
+			// 離す距離
+			float fDistance = fRadius + fPlayerRadius;
+
+			// 当たり判定
+			if (pos.y >= PlayerPos.y)
+			{
+				if (fLength <= fDistance)
+				{
+					// 上の判定
+					if (pos.y <= pPlayer->GetOldPos().y)
+					{
+						// y座標
+						pPlayer->Landing(pos.y);
+					}
+					else
+					{
+						// 横に当たったとき押し戻す処理
+						D3DXVECTOR3 vec = D3DXVECTOR3(PlayerPos.x - pos.x, 0.0f, PlayerPos.z - pos.z);
+						D3DXVec3Normalize(&vec, &vec);
+						vec *= fDistance;
+						
+						pPlayer->SetPos(D3DXVECTOR3(pos.x + vec.x, PlayerPos.y, pos.z + vec.z));
+					}
+				}
+			}
+		}
 	}
 }

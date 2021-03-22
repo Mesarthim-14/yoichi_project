@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)yoichi-project/00_main;$(SolutionDir)yoichi-project/01_manager;$(SolutionDir)yoichi-project/02_input;$(SolutionDir)yoichi-project/03_scene;$(SolutionDir)yoichi-project/04_mode;$(SolutionDir)yoichi-project/05_character;$(SolutionDir)yoichi-project/06_item;$(SolutionDir)yoichi-project/07_resource;$(SolutionDir)yoichi-project/08_3D;$(SolutionDir)yoichi-project/09_2D;$(SolutionDir)yoichi-project/10_UI;$(SolutionDir)yoichi-project/11_common;$(SolutionDir)yoichi-project/12_effect;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)yoichi-project/00_main;$(SolutionDir)yoichi-project/01_manager;$(SolutionDir)yoichi-project/02_input;$(SolutionDir)yoichi-project/03_scene;$(SolutionDir)yoichi-project/04_mode;$(SolutionDir)yoichi-project/05_player;$(SolutionDir)yoichi-project/06_item;$(SolutionDir)yoichi-project/07_resource;$(SolutionDir)yoichi-project/08_3D;$(SolutionDir)yoichi-project/09_2D;$(SolutionDir)yoichi-project/10_UI;$(SolutionDir)yoichi-project/11_common;$(SolutionDir)yoichi-project/12_effect;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -165,10 +165,10 @@
     <ClInclude Include="03_scene\scene3D.h" />
     <ClInclude Include="03_scene\scene_base.h" />
     <ClInclude Include="04_mode\game.h" />
-    <ClInclude Include="04_mode\result.h" />
+    <ClInclude Include="04_mode\gamemode.h" />
     <ClInclude Include="04_mode\title.h" />
     <ClInclude Include="04_mode\tutorial.h" />
-    <ClInclude Include="05_character\player.h" />
+    <ClInclude Include="05_player\player.h" />
     <ClInclude Include="06_item\item.h" />
     <ClInclude Include="06_item\itembox.h" />
     <ClInclude Include="06_item\item_barrier.h" />
@@ -189,13 +189,18 @@
     <ClInclude Include="08_3D\light.h" />
     <ClInclude Include="08_3D\meshfield.h" />
     <ClInclude Include="08_3D\mesh_3d.h" />
+    <ClInclude Include="08_3D\mesh_pillar.h" />
     <ClInclude Include="08_3D\model.h" />
     <ClInclude Include="08_3D\modelanime.h" />
     <ClInclude Include="08_3D\motion.h" />
+    <ClInclude Include="08_3D\stage_map.h" />
     <ClInclude Include="08_3D\star.h" />
-    <ClInclude Include="08_3D\star_factory.h" />
+    <ClInclude Include="08_3D\star_manager.h" />
     <ClInclude Include="10_UI\number_2d.h" />
     <ClInclude Include="10_UI\number_3d.h" />
+    <ClInclude Include="10_UI\player_ui.h" />
+    <ClInclude Include="10_UI\star_ui.h" />
+    <ClInclude Include="10_UI\result.h" />
     <ClInclude Include="10_UI\time_ui.h" />
     <ClInclude Include="10_UI\ui.h" />
     <ClInclude Include="11_common\bg.h" />
@@ -220,10 +225,9 @@
     <ClCompile Include="03_scene\scene3D.cpp" />
     <ClCompile Include="03_scene\scene_base.cpp" />
     <ClCompile Include="04_mode\game.cpp" />
-    <ClCompile Include="04_mode\result.cpp" />
     <ClCompile Include="04_mode\title.cpp" />
     <ClCompile Include="04_mode\tutorial.cpp" />
-    <ClCompile Include="05_character\player.cpp" />
+    <ClCompile Include="05_player\player.cpp" />
     <ClCompile Include="06_item\item.cpp" />
     <ClCompile Include="06_item\itembox.cpp" />
     <ClCompile Include="06_item\item_barrier.cpp" />
@@ -244,14 +248,19 @@
     <ClCompile Include="08_3D\light.cpp" />
     <ClCompile Include="08_3D\meshfield.cpp" />
     <ClCompile Include="08_3D\mesh_3d.cpp" />
+    <ClCompile Include="08_3D\mesh_pillar.cpp" />
     <ClCompile Include="08_3D\model.cpp" />
     <ClCompile Include="08_3D\modelanime.cpp" />
     <ClCompile Include="08_3D\motion.cpp" />
+    <ClCompile Include="08_3D\stage_map.cpp" />
     <ClCompile Include="08_3D\star.cpp" />
-    <ClCompile Include="08_3D\star_factory.cpp" />
+    <ClCompile Include="08_3D\star_manager.cpp" />
     <ClCompile Include="10_UI\number_2d.cpp" />
     <ClCompile Include="10_UI\number_3d.cpp" />
+    <ClCompile Include="10_UI\player_ui.cpp" />
+    <ClCompile Include="10_UI\star_ui.cpp" />
     <ClCompile Include="10_UI\time_ui.cpp" />
+    <ClCompile Include="10_UI\result.cpp" />
     <ClCompile Include="10_UI\ui.cpp" />
     <ClCompile Include="11_common\bg.cpp" />
     <ClCompile Include="11_common\collision.cpp" />

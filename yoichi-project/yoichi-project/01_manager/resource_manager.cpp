@@ -34,7 +34,7 @@ CResourceManager::CResourceManager()
 CResourceManager::~CResourceManager()
 {
 	// アンロード処理
-	UnLoadAll();
+	UnloadAll();
 
 	// nullcheck
 	if (m_pTexture != NULL)
@@ -123,14 +123,14 @@ void CResourceManager::LoadAll(void)
 //=============================================================================
 // アンロード処理
 //=============================================================================
-void CResourceManager::UnLoadAll(void)
+void CResourceManager::UnloadAll(void)
 {
 	// !nullcheck
 	if (m_pTexture != NULL)
 	{
 		// テクスチャアンロード
-		m_pTexture->UnLoad();
-		m_pTexture->SeparateTexUnLoad();
+		m_pTexture->Unload();
+		m_pTexture->SeparateTexUnload();
 	}
 
 	// !nullcheck
@@ -138,6 +138,7 @@ void CResourceManager::UnLoadAll(void)
 	{
 		// テクスチャアンロード
 		m_pXFile->ModelUnLoad();
+		m_pXFile->HierarchyModelUnLoad();
 	}
 }
 

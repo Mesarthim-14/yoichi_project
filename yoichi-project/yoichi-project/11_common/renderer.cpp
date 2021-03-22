@@ -15,7 +15,9 @@
 #include "camera.h"
 #include "game.h"
 #include "keyboard.h"
-
+#include "title.h"
+#include "tutorial.h"
+#include "game.h"
 //=============================================================================
 // レンダリングクラスのコンストラクタ
 //=============================================================================
@@ -164,7 +166,7 @@ void CRenderer::Update(void)
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 	
 	// ポリゴンの表示
-	if (pKeyboard->GetPress(DIK_M))
+	if (pKeyboard->GetTrigger(DIK_M))
 	{
 		LPDIRECT3DDEVICE9 pDevice = GetDevice();		// デバイスへのポインタ
 
@@ -231,8 +233,35 @@ void CRenderer::Draw(void)
 
 				m_pD3DDevice->SetViewport(&ViewPortClear);
 			}
+			CTitle* pTitle = CManager::GetTitle();
+			CTutorial* pTutorial = CManager::GetTutorial();
+			CGame* pGame = CManager::GetGame();
+			switch (CManager::GetMode())
+			{
+				// タイトル
+			case CManager::MODE_TYPE_TITLE:
+				if (CManager::GetTitle() != NULL)
+				{
+					pTitle->Draw();
+				}
+				break;
 
-			CScene::DrawAll();
+				// チュートリアル
+			case CManager::MODE_TYPE_TUTORIAL:
+				if (pTutorial != NULL)
+				{
+					pTutorial->Draw();
+				}
+				break;
+
+				// ゲーム
+			case CManager::MODE_TYPE_GAME:
+				if (pGame != NULL)
+				{
+					pGame->Draw();
+				}
+				break;
+			}
 		}
 
 		if (CGame::GetPlayerNum() == 3)
@@ -334,10 +363,10 @@ bool CRenderer::SetUpViewport(int nNumber)
 			m_view_port[nNumber].Y = 0;
 
 			// ビューポートの幅
-			m_view_port[nNumber].Width = SCREEN_WIDTH;
+			m_view_port[nNumber].Width = SCREEN_WIDTH / 2;
 
 			// ビューポートの高さ
-			m_view_port[nNumber].Height = SCREEN_HEIGHT / 2;
+			m_view_port[nNumber].Height = SCREEN_HEIGHT;
 
 			// ビューポート深度設定
 			m_view_port[nNumber].MinZ = 0.0f;
@@ -352,14 +381,14 @@ bool CRenderer::SetUpViewport(int nNumber)
 
 		case 1:
 			// ビューポートの左上座標
-			m_view_port[nNumber].X = 0;
-			m_view_port[nNumber].Y = SCREEN_HEIGHT / 2;
+			m_view_port[nNumber].X = SCREEN_WIDTH / 2;
+			m_view_port[nNumber].Y = (DWORD)0.0f;
 
 			// ビューポートの幅
-			m_view_port[nNumber].Width = SCREEN_WIDTH;
+			m_view_port[nNumber].Width = SCREEN_WIDTH / 2;
 
 			// ビューポートの高さ
-			m_view_port[nNumber].Height = SCREEN_HEIGHT / 2;
+			m_view_port[nNumber].Height = SCREEN_HEIGHT;
 
 			// ビューポート深度設定
 			m_view_port[nNumber].MinZ = 0.0f;

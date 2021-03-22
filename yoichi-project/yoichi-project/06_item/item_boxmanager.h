@@ -37,10 +37,10 @@ public:
 	void Update(void);								// 更新処理
 	void CreateItemBox(void);						// アイテムボックスクラスの生成
 	void CreateItem(void);							// アイテムクラスの生成
-	static CItemBoxManager *GetInstance(void);			// インスタンス取得関数
+	static CItemBoxManager *GetInstance(void);		// インスタンス取得関数
 
 private:
-	CItemBoxManager();									// コンストラクタ
+	CItemBoxManager();								// コンストラクタ
 	static CItemBoxManager *m_pItemManager;			// 自身のクラスのポインタ
 	std::vector<CItemBox*> m_pItemBox;				// アイテムボックスのポインタ
 };

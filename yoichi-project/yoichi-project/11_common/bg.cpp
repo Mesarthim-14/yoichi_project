@@ -26,8 +26,10 @@ CBg * CBg::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	// !nullcheck
 	if (pBg != NULL)
 	{
+		pBg->SetPos(pos);
+		pBg->SetSize(size);
 		// 初期化処理
-		pBg->Init(pos, size);
+		pBg->Init();
 	}
 
 	return pBg;
@@ -51,7 +53,7 @@ CBg::~CBg()
 //=================================================================================
 // 初期化処理
 //=================================================================================
-HRESULT CBg::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CBg::Init(void)
 {
 	// Xファイルのポインタ
 	CXfile *pXFile = CManager::GetResourceManager()->GetXfileClass();
@@ -61,10 +63,7 @@ HRESULT CBg::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	BindTexture(pXFile->GetXfileTexture(CXfile::XFILE_NUM_BG));
 
 	// 初期化処理
-	CModel::Init(pos, size);
-
-	// 座標情報を与える
-	CModel::SetPos(pos);
+	CModel::Init();
 
 	return S_OK;
 }
