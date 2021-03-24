@@ -21,7 +21,7 @@
 #include "time.h"
 #include "collision.h"
 #include "fade.h"
-#include "particle.h"
+#include "effect.h"
 #include "effect_factory.h"
 #include "texture.h"
 #include "resource_manager.h"
@@ -29,6 +29,12 @@
 #include "character.h"
 #include "motion.h"
 #include "player_ui.h"
+#include "stage_map.h"
+#include "mesh_pillar.h"
+#include "wind.h"
+#include "barrier.h"
+#include "barrier_effect.h"
+#include "magichand.h"
 
 //=============================================================================
 // マクロ定義
@@ -37,13 +43,13 @@
 #define PLAYER_JUMP				(17.0f)					// ジャンプの処理
 #define STICK_DEADZONE			(50.0f)					// スティック感度
 #define PLAYER_ROT_SPEED			(0.1f)					// キャラクターの回転する速度
-#define PLAYER_RADIUS			(200.0f)					// 半径の大きさ
+#define PLAYER_RADIUS			(200.0f)					// 4半径の大きさ
 #define PLAYER_PARTS				(22)						// プレイヤーのパーツ数
 #define GAME_END_FLAME			(100)					// ゲームが終わるフレーム
 #define PLAYER_FLY_SPEED			(30.0f)					// 飛行時のプレイヤーの移動量
 #define FLY_ROT_X_MAX			(-D3DXToRadian(10.0f))	// 飛行の最大角
 #define FLY_ROT_X_MIN			(-D3DXToRadian(170.0f))	// 飛行の最小角
-
+#define FLY_GRAVITY_RATE		(0.5f)					// 飛行時の重力
 // エフェクトパーツ
 #define BLADE_EFFECT_INTER		(190)					// 刀身のパーティクルの間隔
 #define WEAPON_TIP_NUM			(20)					// 剣先のパーツ番号
@@ -52,7 +58,7 @@
 //=============================================================================
 // クリエイト
 //=============================================================================
-CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nCount)
+CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nCount)
 {
 	// 初期化処理
 	CPlayer *pPlayer = new CPlayer;
@@ -60,9 +66,11 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nCount)
 	// 番号の設定
 	pPlayer->m_nNumber = nCount;
 
-	// 初期化処理
-	pPlayer->Init(pos, size);
 
+	pPlayer->SetPos(pos);
+	pPlayer->SetRot(rot);
+	// 初期化処理
+	pPlayer->Init();
 	return pPlayer;
 }
 
@@ -92,7 +100,7 @@ CPlayer::~CPlayer()
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+HRESULT CPlayer::Init(void)
 {
 	// モデル情報取得
 	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();
@@ -109,7 +117,7 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
     m_pPlayerUI->Init(m_nNumber);
 
 	// 初期化処理
-	CCharacter::Init(pos, rot);				// 座標 角度
+	CCharacter::Init();				// 座標 角度
 	SetRadius(PLAYER_RADIUS);				// 半径の設定
 	SetSpeed(PLAYER_FLY_SPEED);				// 速度の設定
 
@@ -138,9 +146,6 @@ void CPlayer::Update(void)
 	// キーボード更新
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 
-	// 親クラスの更新処理
-	CCharacter::Update();
-
 	// 座標代入
 	D3DXVECTOR3 pos = GetPos();	// 現在の座標取得
 	SetPosOld(pos);				// 古い座標保存
@@ -153,6 +158,12 @@ void CPlayer::Update(void)
 
 	// プレイヤーの制御
 	PlayerControl();
+
+	//// アイテムの削除処理
+	//ItemErase();
+
+	// 親クラスの更新処理
+	CCharacter::Update();
 
 	// 角度の取得
 	D3DXVECTOR3 rot = GetRot();
@@ -180,6 +191,26 @@ void CPlayer::Update(void)
 	// キャラクター回転の速度
 	rot += (m_rotDest - rot) * PLAYER_ROT_SPEED;
 
+	while (rot.y > D3DXToRadian(180))
+	{
+		rot.y -= D3DXToRadian(360);
+	}
+
+	while (rot.y < D3DXToRadian(-180))
+	{
+		rot.y += D3DXToRadian(360);
+	}
+
+	while (rot.x > D3DXToRadian(180))
+	{
+		rot.x -= D3DXToRadian(360);
+	}
+
+	while (rot.x < D3DXToRadian(-180))
+	{
+		rot.x += D3DXToRadian(360);
+	}
+
 	// 角度の設定
 	SetRot(rot);
 
@@ -192,6 +223,17 @@ void CPlayer::Update(void)
 		// 死んだとき
 		Death();
 	}
+
+	//// 重りのエフェクト
+	//CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+	//	GetModelAnime(21)->GetMtxWorld()._42,
+	//	GetModelAnime(21)->GetMtxWorld()._43),
+	//	CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
+
+	// 星がとられたときのエフェクト
+	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+		GetModelAnime(21)->GetMtxWorld()._42,
+		GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_KIRAKIRA);
 }
 
 //=============================================================================
@@ -405,7 +447,7 @@ void CPlayer::Fly(void)
 	// コントローラー入力を利用してプレイヤーの向きを変換
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rotDest.y, m_rotDest.x, m_rotDest.z);
 	D3DXVec3TransformNormal(&move, &move, &mtxRot);
-
+	move.y -= abs(move.y * FLY_GRAVITY_RATE);
 	// 移動量を足す
 	SetPos(GetPos() + move);
 	
@@ -433,8 +475,10 @@ void CPlayer::Death(void)
 //=============================================================================
 void CPlayer::MapLimit(void)
 {
+	// 座標受け取り
 	D3DXVECTOR3 pos = GetPos();
 
+	// マップの上限XToZ
 	if (pos.x > MAP_LIMIT)
 	{
 		SetPos(D3DXVECTOR3(MAP_LIMIT, pos.y, pos.z));
@@ -451,6 +495,13 @@ void CPlayer::MapLimit(void)
 	{
 		SetPos(D3DXVECTOR3(pos.x, pos.y, -MAP_LIMIT));
 	}
+
+	// マップ上限Y
+	if (pos.y < -MAP_LIMIT_Y)
+	{
+		// リポップの処理
+		Repop();
+	}
 }
 
 //=============================================================================
@@ -461,6 +512,7 @@ float CPlayer::InputToAngle(void)
 	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);					// ジョイスティックの取得
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();				// キーボードの取得
 	float fInputAngle = NULL;											//移動アングル
+
 	//コントローラー入力がある場合
 	if (js.lX != 0.0f || js.lY != 0.0f)
 	{
@@ -507,4 +559,55 @@ float CPlayer::InputToAngle(void)
 	}
 
 	return fInputAngle;
+}
+//=============================================================================
+// リポップの処理
+//=============================================================================
+void CPlayer::Repop(void)
+{
+	// ポインタ情報取得
+	CStageMap *pStageMap = CManager::GetGame()->GetStageMap();
+
+	// !nullcheck
+	if (pStageMap != nullptr)
+	{
+		// ローカル変数宣言
+		int mMeshPillarNum = pStageMap->GetMeshPillarNum();		// 柱の数
+		float fPrevLenght = 0.0f;								// 前回までの距離取得
+		int nSortNum = -1;										// 一番小さい配列番号を確保
+
+		for (int nCount = 0; nCount < mMeshPillarNum; nCount++)
+		{
+			// 柱の情報
+			CMeshPillar *pMeshPiller = pStageMap->GetMeshPillar(nCount);
+
+			// !nullcheck
+			if (pMeshPiller != nullptr)
+			{
+				// 座標取得
+				D3DXVECTOR3 pos = GetPos();						// 自身の座標
+				D3DXVECTOR3 PillerPos = pMeshPiller->GetPos();	// 柱の座標
+				
+				// 二点の距離
+				float fLength = sqrtf(
+					powf((PillerPos.x - pos.x), 2) +
+					powf((PillerPos.z - pos.z), 2));
+
+				// 前の柱の距離より地下かったら
+				if (fPrevLenght > fLength || fPrevLenght == 0.0f)
+				{
+					fPrevLenght = fLength;	// 近い距離を代入
+					nSortNum = nCount;		// 近い配列番号を設定
+				}
+			}
+		}
+
+		// 一番近かった柱の情報取得
+		CMeshPillar *pMeshPiller = pStageMap->GetMeshPillar(nSortNum);
+
+		// 座標設定
+		SetPos(pMeshPiller->GetPos()*2);
+		SetFly(false);
+		SetUseGravity(true);
+	}
 }

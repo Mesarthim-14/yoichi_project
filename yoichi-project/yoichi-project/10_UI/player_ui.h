@@ -30,7 +30,7 @@ public:
 
     static CPlayer_UI* Create(void);
 
-    HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
+    HRESULT Init(void);
     void Init(int nPlayerNum);
     void Uninit(void);
     void Update(void);
@@ -38,6 +38,7 @@ public:
 
     void AcquiredItem(CItem *pItem);							// アイテム獲得関数
     void UseItem(void);											// アイテムの使用処理
+    void ItemErase(void);										// アイテムの削除
 
     // Set関数
 

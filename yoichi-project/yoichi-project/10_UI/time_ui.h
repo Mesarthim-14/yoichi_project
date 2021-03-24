@@ -35,7 +35,7 @@ public:
 
     static CTime_UI* Create(void);
 
-    HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
+    HRESULT Init(void);
     void Uninit(void);
     void Update(void);
     void Draw(void);

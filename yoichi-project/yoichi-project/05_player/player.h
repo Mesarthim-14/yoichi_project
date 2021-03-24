@@ -43,7 +43,6 @@ class CPlayer_UI;
 //=============================================================================
 class CPlayer : public CCharacter
 {
-
 public:
 	//=============================================================================
 	// プレイヤーのパーツ番号
@@ -104,9 +103,9 @@ public:
 	CPlayer(PRIORITY Priority = PRIORITY_CHARACTER);			// コンストラクタ
 	~CPlayer();													// デストラクタ
 
-	static CPlayer*Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nCount);	// クリエイト
+	static CPlayer*Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nCount);	// クリエイト
 
-	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);			// 初期化処理
+	HRESULT Init(void);			// 初期化処理
 	void Uninit(void);											// 終了処理
 	void Update(void);											// 更新処理
 	void Draw(void);											// 描画処理
@@ -119,6 +118,7 @@ public:
 	void Death(void);											// 死んだときの処理
 	void MapLimit(void);										// マップの制限
     void AddStarNum(int nStarNum) { m_nStarNum += nStarNum; }			// 星獲得数の加算
+	void Repop(void);														// リポップの処理
 
 	// Set関数
 	void SetArmor(bool bArmor) { m_bArmor = bArmor; }			// 無敵状態の設定
@@ -133,8 +133,9 @@ public:
     int   GetPlayerNum(void)            { return m_nNumber; }               // プレイヤーの番号
     int  GetStarNum(void)               { return m_nStarNum; }              // 星の取得数取得
 
+
 private:
-	float InputToAngle(void);
+	float InputToAngle(void);		// 入力を角度に変換
 	D3DXVECTOR3 m_rotDest;			// 回転(目標値)
 	bool m_bWalk;					// 歩いているフラグ
 	bool m_bDraw;					// 描画のフラグ

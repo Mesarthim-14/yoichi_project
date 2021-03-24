@@ -11,7 +11,7 @@
 //=============================================================================
 //インクルードファイル
 //=============================================================================
-#include "scene.h"
+#include "gamemode.h"
 
 //=============================================================================
 //前方宣言
@@ -25,14 +25,14 @@ class CScene2D;
 //=============================================================================
 //クラス宣言
 //=============================================================================
-class CTutorial : public CScene
+class CTutorial : public ICGameMode
 {
 public:
-	CTutorial(PRIORITY Priority = PRIORITY_0);
+	CTutorial();
 	~CTutorial();
 	static CTutorial* Create(void);
 	static HRESULT Load(void);
-	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size);
+	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);

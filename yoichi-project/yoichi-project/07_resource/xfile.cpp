@@ -19,8 +19,13 @@
 #define XFILE_NAME_BG						("data/model/bg_dome001.x")		// 背景
 #define XFILE_NAME_ITEM_BOX					("data/model/item_box.x")		// アイテムボックス
 #define XFILE_NAME_BOMB_BOX					("data/model/item_bombbox.x")		// 偽ボックス
+#define XFILE_NAME_BG				("data/model/bg_dome001.x")	// 背景
+#define XFILE_NAME_WINDSPHERE		("data/model/windsphere.x")	// 風の球
+#define XFILE_NAME_BARRIER			("data/model/barrier.x")	// バリア
+#define XFILE_NAME_BARRIER_EFFECT	("data/model/barrier_effect.x")	// バリアエフェクト
+
 // 階層構造モデルのファイル
-#define HIERARCHY_FILENAME_PLAYER			("data/Text/motion_PLAYER.txt")	// プレイヤーのファイルネーム
+#define HIERARCHY_FILENAME_PLAYER	("data/Text/motion_PLAYER.txt")	// プレイヤーのファイルネーム
 
 //=============================================================================
 // コンストラクタ
@@ -61,16 +66,6 @@ HRESULT CXfile::ModelLoad(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
 
 	// Xファイルの読み込み
-	D3DXLoadMeshFromX(XFILE_NAME_BG,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&m_aXfile[XFILE_NUM_BG].pBuffMat,
-		NULL,
-		&m_aXfile[XFILE_NUM_BG].dwNumMat,
-		&m_aXfile[XFILE_NUM_BG].pMesh);
-
-	// Xファイルの読み込み
 	D3DXLoadMeshFromX(XFILE_NAME_ITEM_BOX,
 		D3DXMESH_SYSTEMMEM,
 		pDevice,
@@ -92,6 +87,16 @@ HRESULT CXfile::ModelLoad(void)
 
 	for (int nCount = 0; nCount < XFILE_NUM_MAX; nCount++)
 	{
+		// Xファイルの読み込み
+		D3DXLoadMeshFromX(m_aXfile[nCount].xFileName,
+			D3DXMESH_SYSTEMMEM,
+			pDevice,
+			NULL,
+			&m_aXfile[nCount].pBuffMat,
+			NULL,
+			&m_aXfile[nCount].dwNumMat,
+			&m_aXfile[nCount].pMesh);
+
 		//マテリアル情報の解析
 		D3DXMATERIAL *materials = (D3DXMATERIAL*)m_aXfile[nCount].pBuffMat->GetBufferPointer();
 
@@ -106,7 +111,6 @@ HRESULT CXfile::ModelLoad(void)
 			D3DXCreateTextureFromFile(pDevice, cData, &m_aXfile[nCount].apTexture[nCntMat]);
 		}
 	}
-
 	return S_OK;
 }
 
@@ -155,7 +159,7 @@ HRESULT CXfile::HierarchyReadFile(void)
 	int nMotionNum = 0;		// モーション番号
 
 	// ファイルの名前を設定
-	SetHierarchyFileName();
+	SetFileName();
 
 	for (int nModelCnt = 0; nModelCnt < HIERARCHY_XFILE_NUM_MAX; nModelCnt++)
 	{
@@ -331,9 +335,13 @@ void CXfile::HierarchyModelUnLoad(void)
 //=============================================================================
 // ファイルの名前を設定
 //=============================================================================
-void CXfile::SetHierarchyFileName(void)
+void CXfile::SetFileName(void)
 {
 	m_pFileName[HIERARCHY_XFILE_NUM_PLAYER] = HIERARCHY_FILENAME_PLAYER;
+	m_aXfile[XFILE_NUM_BG].xFileName = XFILE_NAME_BG;
+	m_aXfile[XFILE_NUM_WINDSPHERE].xFileName = XFILE_NAME_WINDSPHERE;
+	m_aXfile[XFILE_NUM_BARRIER].xFileName = XFILE_NAME_BARRIER;
+	m_aXfile[XFILE_NUM_BARRIER_EFFECT].xFileName = XFILE_NAME_BARRIER_EFFECT;
 }
 
 //=============================================================================

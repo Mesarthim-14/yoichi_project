@@ -29,8 +29,9 @@
 #define CAMERA_MIN_HIGHT			(2.0f)							// カメラの最低高度
 #define STICK_DEADZONE				(50.0f)						// スティック感度
 #define STICK_INPUT_CONVERSION		(D3DXToRadian(2.0f))			// スティック入力最大変化量
-#define	ANGLE_FIX_RATE				(0.01f)							// カメラ向き補正率
+#define	ANGLE_FIX_RATE				(0.005f)							// カメラ向き補正率
 #define REVERSE_ANGLE				(D3DXToRadian(180.0f))			// カメラ反転用
+
 //=============================================================================
 // static初期化宣言
 //=============================================================================
@@ -227,6 +228,15 @@ void CCamera::NomalUpdate(D3DXVECTOR3 PlayerPos)
 //=============================================================================
 void CCamera::FixAngleToPlayerDirection(D3DXVECTOR3 PlayerRot)
 {
+	while (m_fHorizontal - PlayerRot.y  > D3DXToRadian(180))
+	{
+		m_fHorizontal -= D3DXToRadian(360);
+	}
+
+	while (m_fHorizontal - PlayerRot.y  < D3DXToRadian(-180))
+	{
+		m_fHorizontal += D3DXToRadian(360);
+	}
 	m_fHorizontal += (PlayerRot.y - m_fHorizontal) * ANGLE_FIX_RATE;
 	m_fVartical += (PlayerRot.x + REVERSE_ANGLE - m_fVartical) * ANGLE_FIX_RATE;
 }

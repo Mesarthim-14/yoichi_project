@@ -15,6 +15,11 @@
 #include "resource_manager.h"
 
 //=============================================================================
+// マクロ定義
+//=============================================================================
+#define MESHFIELD_POS (D3DXVECTOR3(0.0f, STAGE_LIMIT_Y, 0.0f))
+
+//=============================================================================
 // コンストラクタ
 //=============================================================================
 CMeshField::CMeshField(PRIORITY Priority) : CMesh3d(Priority)
@@ -37,10 +42,11 @@ CMeshField * CMeshField::Create(void)
 	CMeshField *pMeshField = new CMeshField;
 
 	// nullchack
-	if (pMeshField != NULL)
+	if (pMeshField != nullptr)
 	{
+		pMeshField->SetPos(MESHFIELD_POS);
 		// 初期化処理
-		pMeshField->Init(ZeroVector3, ZeroVector3);
+		pMeshField->Init();
 	}
 
 	return pMeshField;
@@ -49,7 +55,7 @@ CMeshField * CMeshField::Create(void)
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CMeshField::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CMeshField::Init(void)
 {
 	// Rendererクラスからデバイスを取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
@@ -64,7 +70,8 @@ HRESULT CMeshField::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 
 	// テクスチャの設定
 	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
-	BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_FLOOR));
+	BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_SEA));
+	D3DXVECTOR3 pos = GetPos();
 
 	// 値の初期化
 	SetNumVertex((FIELD_WIDTH + 1) * (FIELD_HEIGHT + 1));								// 25
@@ -72,7 +79,8 @@ HRESULT CMeshField::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	
 	SetNumPolygon(FIELD_WIDTH * FIELD_HEIGHT * 2 + (FIELD_HEIGHT - 1) * 4);				// 4*8+3*4	44
 
-	SetOneSize(D3DXVECTOR2(FIELD_WIDTH_SIZE * 2 / FIELD_WIDTH, FIELD_HEIGHT_SIZE * 2 / FIELD_HEIGHT));
+	D3DXVECTOR2 OneSize = D3DXVECTOR2(FIELD_WIDTH_SIZE * 2 / FIELD_WIDTH, FIELD_HEIGHT_SIZE * 2 / FIELD_HEIGHT);
+	SetOneSize(OneSize);
 
 	LPDIRECT3DVERTEXBUFFER9 pVtxBuff;		// バッファ
 	LPDIRECT3DINDEXBUFFER9 pIdxBuff;		// バッファの番号
@@ -93,6 +101,7 @@ HRESULT CMeshField::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 		&pIdxBuff,
 		NULL);
 
+	
 	// 頂点データの範囲をロックし、頂点バッファへのポインタを取得
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
@@ -101,13 +110,13 @@ HRESULT CMeshField::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 		for (nCntH = 0; nCntH < FIELD_WIDTH + 1; nCntH++)
 		{
 			// 頂点の設定
-			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].pos = D3DXVECTOR3(-FIELD_WIDTH_SIZE + (nCntH * GetOneSize().x), 0.0f, FIELD_HEIGHT_SIZE - (nCntV * GetOneSize().y));
+			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].pos = D3DXVECTOR3(-FIELD_WIDTH_SIZE + (nCntH * OneSize.x), 0.0f, FIELD_HEIGHT_SIZE - (nCntV * OneSize.x));
 
 			// 法線ベクトルの設定
 			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
 			// 色の設定
-			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].col = D3DXCOLOR(0.5f, 0.5f, 0.5f, 0.2f);
 
 			// テクスチャ座標の設定
 			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].tex = D3DXVECTOR2(float(nCntH), float(nCntV));
@@ -126,7 +135,9 @@ HRESULT CMeshField::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	// インデックスバッファをロックし、インデックスデータへのポインタを取得
 	pIdxBuff->Lock(0, 0, (void**)&pIdx, 0);
 
-	for (nCount = 0, nCntIndex = 0; nCount < GetNumIndex(); nCount += 2)
+	int nNumIndex = GetNumIndex();
+
+	for (nCount = 0, nCntIndex = 0; nCount < nNumIndex; nCount += 2)
 	{
 		if (((nCount + 2) % (((FIELD_WIDTH + 1) * 2) + 2)) == 0 && nCount != 0)
 		{
@@ -176,59 +187,5 @@ void CMeshField::Update(void)
 //=============================================================================
 void CMeshField::Draw(void)
 {
-	// Rendererクラスからデバイスを取得
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
-	D3DXMATRIX mtxRot, mtxTrans;
-
-	D3DXMATRIX mtxWorld;						// ワールドマトリックス
-
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&mtxWorld );
-
-	// 回転を反映
-	D3DXMatrixRotationYawPitchRoll(
-		&mtxRot,
-		GetRot().y,
-		GetRot().x,
-		GetRot().z);
-
-	D3DXMatrixMultiply(
-		&mtxWorld,
-		&mtxWorld,
-		&mtxRot);
-
-	// 位置を反映
-	D3DXMatrixTranslation(
-		&mtxTrans,
-		GetPos().x,
-		GetPos().y,
-		GetPos().z);
-
-	D3DXMatrixMultiply(
-		&mtxWorld,
-		&mtxWorld,
-		&mtxTrans);
-
-	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &mtxWorld);
-
-	// 頂点バッファをデータストリームにバインド
-	pDevice->SetStreamSource(0, GetVtxBuff(), 0, sizeof(VERTEX_3D));
-
-	// インデックスバッファをデータストリームにバインド
-	pDevice->SetIndices(GetIdxBuff());
-
-	// 頂点フォーマットの設定
-	pDevice->SetFVF(FVF_VERTEX_3D);
-
-	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
-
-	// 頂点フォーマットの設定
-	pDevice->SetTexture(0, GetTexture());
-
-	// ポリゴンの描画
-	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, GetNumVertex(), 0, GetNumPolygon());
-
-	// 頂点フォーマットの設定
-	pDevice->SetTexture(0, NULL);
+	CMesh3d::Draw();
 }

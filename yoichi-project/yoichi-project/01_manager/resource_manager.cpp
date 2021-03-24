@@ -34,7 +34,7 @@ CResourceManager::CResourceManager()
 CResourceManager::~CResourceManager()
 {
 	// アンロード処理
-	UnLoadAll();
+	UnloadAll();
 
 	// nullcheck
 	if (m_pTexture != NULL)
@@ -109,6 +109,9 @@ void CResourceManager::LoadAll(void)
 	// !nullcheck
 	if (m_pXFile != NULL)
 	{
+		// モデルのファイルの名前のセット
+		m_pXFile->SetFileName();
+
 		// モデルロード
 		m_pXFile->ModelLoad();
 
@@ -123,21 +126,24 @@ void CResourceManager::LoadAll(void)
 //=============================================================================
 // アンロード処理
 //=============================================================================
-void CResourceManager::UnLoadAll(void)
+void CResourceManager::UnloadAll(void)
 {
 	// !nullcheck
 	if (m_pTexture != NULL)
 	{
 		// テクスチャアンロード
-		m_pTexture->UnLoad();
-		m_pTexture->SeparateTexUnLoad();
+		m_pTexture->Unload();
+		m_pTexture->SeparateTexUnload();
 	}
 
 	// !nullcheck
 	if (m_pXFile != NULL)
 	{
-		// テクスチャアンロード
+		// モデルの破棄
 		m_pXFile->ModelUnLoad();
+
+		// 階層構造のモデルの破棄
+		m_pXFile->HierarchyModelUnLoad();
 	}
 }
 

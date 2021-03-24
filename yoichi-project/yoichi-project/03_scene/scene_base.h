@@ -22,7 +22,7 @@ public:
 	CSceneBase(PRIORITY Priority = PRIORITY_0);												// コンストラクタ
 	virtual ~CSceneBase();																	// デストラクタ
 
-	virtual HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size) = 0;							// 初期化処理
+	virtual HRESULT Init(void) = 0;															// 初期化処理
 	virtual void Uninit(void) = 0;															// 終了処理
 	virtual void Update(void) = 0;															// 更新処理
 	virtual void Draw(void) = 0;															// 描画処理

@@ -62,7 +62,7 @@ CStar_UI *CStar_UI::Create(void)
     {
         // ÉÅÉÇÉäÇÃämï€Ç∆èâä˙âª
         StarUI = new CStar_UI;
-        StarUI->Init(ZeroVector3, ZeroVector3);
+        StarUI->Init();
     }
     return StarUI;
 }
@@ -70,7 +70,7 @@ CStar_UI *CStar_UI::Create(void)
 //=============================================================================
 // [Init] èâä˙âªèàóù
 //=============================================================================
-HRESULT CStar_UI::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+HRESULT CStar_UI::Init(void)
 {
     return S_OK;
 }

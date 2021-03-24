@@ -16,6 +16,7 @@
 #include "game.h"
 #include "collision.h"
 #include "star_manager.h"
+#include "renderer.h"
 
 //=============================================================================================
 // マクロ定義
@@ -31,7 +32,7 @@
 #define STAR_SIZE				(D3DXVECTOR3(STAR_SIZE_X, STAR_SIZE_Y, STAR_SIZE_Z))	// サイズ
 
 #define STAR_RADIUS				(STAR_SIZE_X)											// 星の半径
-#define STAR_ALPHA_NUM			(10)													// アルファテストの値
+#define STAR_ALPHA_NUM			(40)													// アルファテストの値
 
 #define DEFAULT_ADD_STAR_NUM	(1)														// 通常の星獲得数
 #define SUITABLE_ADD_STAR_NUM	(5)														// ゲーム状態に適した色の場合
@@ -64,7 +65,9 @@ CStar * CStar::Create(D3DXVECTOR3 pos, POS_NUMBER posNum)
 	if (pStar != nullptr)
 	{
 		// 初期化処理
-		pStar->Init(pos);
+		pStar->SetPos(pos);
+		pStar->SetSize(STAR_SIZE);
+		pStar->Init();
 		pStar->m_PosNumber = posNum;
 	}
 
@@ -74,10 +77,10 @@ CStar * CStar::Create(D3DXVECTOR3 pos, POS_NUMBER posNum)
 //=============================================================================================
 // 初期化処理
 //=============================================================================================
-HRESULT CStar::Init(D3DXVECTOR3 pos)
+HRESULT CStar::Init()
 {
 	// ビルボードの初期化処理
-	CBillboard::Init(pos, STAR_SIZE);
+	CBillboard::Init();
 
 	// テクスチャのポインタ
 	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();

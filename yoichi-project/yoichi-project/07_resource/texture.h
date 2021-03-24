@@ -32,6 +32,16 @@ public:
 		TEXTURE_NUM_ITEM_THUNDER,		// アイテム雷
 		TEXTURE_NUM_ITEM_MHAND,			// アイテムMハンド
 		TEXTURE_NUM_ITEM_VORTEX,		// アイテム渦
+		TEXTURE_NUM_SEA,				// 海
+		TEXTURE_NUM_RESULT_1ST,			// リザルト1位
+		TEXTURE_NUM_RESULT_2ND,			// リザルト1位
+		TEXTURE_NUM_RESULT_3RD,			// リザルト1位
+		TEXTURE_NUM_RESULT_4TH,			// リザルト1位
+		TEXTURE_NUM_STAR,			// 星
+		TEXTURE_NUM_RING,			// 輪
+		TEXTURE_NUM_LACKRING,		// 欠けた輪
+		TEXTURE_NUM_SMOKE,			// 煙
+		TEXTURE_NUM_KIRAKIRA,		// キラキラ
 		TEXTURE_NUM_MAX
 	};
 
@@ -39,7 +49,14 @@ public:
 	enum SEPARATE_TEX_TYPE
 	{
 		SEPARATE_TEX_NONE = -1,			// 初期値
-		SEPARATE_TEX_NUMBER,		// コンボのナンバー
+		SEPARATE_TEX_NUMBER,			// コンボのナンバー
+		SEPARATE_TEX_LIGHTNINGSTRIKE,	// 落雷のテクスチャ
+		SEPARATE_TEX_THUNDER,			// 雷のテクスチャ
+		SEPARATE_TEX_SHOCKWAVE,			// 衝撃波のテクスチャ
+		SEPARATE_TEX_WIND,				// 風のテクスチャ
+		SEPARATE_TEX_EXPLOSION,			// 爆発のテクスチャ
+		SEPARATE_TEX_MAGICHANDLEFT,		// マジックハンドの左のテクスチャ
+		SEPARATE_TEX_MAGICHANDRIGHT,	// マジックハンドの右のテクスチャ
 		SEPARATE_TEX_MAX				// 最大値
 	};
 
@@ -58,9 +75,9 @@ public:
 	static CTexture *Create(void);												// インスタンス生成
 
 	 HRESULT Load(void);														// テクスチャロード
-	 void UnLoad(void);															// テクスチャアンロード
+	 void Unload(void);															// テクスチャアンロード
 	 HRESULT SeparateTexLoad(void);												// 分割テクスチャロード
-	 void SeparateTexUnLoad(void);												// 分割テクスチャアンロード
+	 void SeparateTexUnload(void);												// 分割テクスチャアンロード
 
 	 LPDIRECT3DTEXTURE9 GetTexture(TEXTURE_TYPE Tex_Type);						// テクスチャの情報
 
@@ -73,7 +90,14 @@ private:
 	// 分割テクスチャの構造体
 	SEPARATE_TEX_INFO m_apSeparateTexture[SEPARATE_TEX_MAX] =
 	{
-		nullptr, CTexture::SEPARATE_TEX_NUMBER, D3DXVECTOR2(5, 5), false,
+		nullptr, CTexture::SEPARATE_TEX_NUMBER, D3DXVECTOR2(5, 4), false,
+		nullptr, CTexture::SEPARATE_TEX_LIGHTNINGSTRIKE, D3DXVECTOR2(6, 5), false,
+		nullptr, CTexture::SEPARATE_TEX_THUNDER, D3DXVECTOR2(10, 5), false,
+		nullptr, CTexture::SEPARATE_TEX_SHOCKWAVE, D3DXVECTOR2(5, 3), false,
+		nullptr, CTexture::SEPARATE_TEX_WIND, D3DXVECTOR2(30, 1), false,
+		nullptr, CTexture::SEPARATE_TEX_WIND, D3DXVECTOR2(8, 5), false,
+		nullptr, CTexture::SEPARATE_TEX_MAGICHANDLEFT, D3DXVECTOR2(2, 5), true,
+		nullptr, CTexture::SEPARATE_TEX_MAGICHANDRIGHT, D3DXVECTOR2(2, 5), true,
 	};
 	// 分割テクスチャのポインタ
 };

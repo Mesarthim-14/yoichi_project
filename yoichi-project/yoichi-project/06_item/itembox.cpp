@@ -46,8 +46,10 @@ CItemBox * CItemBox::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	// nullcheck
 	if (pItemBox != nullptr)
 	{
+		pItemBox->SetPos(pos);
+		pItemBox->SetSize(size);
 		// 初期化処理
-		pItemBox->Init(pos, size);
+		pItemBox->Init();
 	}
 
 	return pItemBox;
@@ -73,10 +75,10 @@ CItemBox::~CItemBox()
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CItemBox::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+HRESULT CItemBox::Init(void)
 {
 	// 初期化処理
-	CModel::Init(pos, size);
+	CModel::Init();
 
 	// Xファイルの情報取得
 	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();
@@ -140,13 +142,14 @@ void CItemBox::Draw(void)
 		LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
 
 		// ライトの効果を消す処理
-	//	pDevice->LightEnable(0, false);
+		pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 		// 描画処理
 		CModel::Draw();
 
+		
 		// ライトの効果を付けなおす
-	//	pDevice->LightEnable(0, true);
+		pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 	}
 }
 
