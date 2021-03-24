@@ -116,7 +116,6 @@ HRESULT CNumber3d::Init(void)
 	SetNumVertex(((nWidth + 1) * (nHeight + 1)) + (nWidth - 1) * (nHeight + 1));	// 頂点の数
 	SetNumIndex(((nWidth + 1)*(nHeight + 1)) + (nWidth - 1) * (nHeight + 1));		// インデックスの数
 	SetNumPolygon((nWidth * 2)+ ((nWidth-1) * 2));									// ポリゴン数設定
-	D3DXVECTOR3 size = GetSize();
 	// 1ブロックのサイズ
 	SetOneSize(D3DXVECTOR2(size.x * 2 / nWidth, size.y * 2 / nHeight));	// 24000/4
 

@@ -110,7 +110,6 @@ HRESULT CMeshPillar::Init(void)
 		&pIdxBuff,
 		NULL);
 
-	D3DXVECTOR3 pos = GetPos();
 	// 頂点データの範囲をロックし、頂点バッファへのポインタを取得
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 

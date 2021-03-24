@@ -79,8 +79,6 @@ HRESULT CScene2D::Init(void)
 	VERTEX_2D *pVtx;
 	D3DXVECTOR3 pos = GetPos();
 	D3DXVECTOR3 size = GetSize();
-	D3DXVECTOR3 pos = GetPos();
-	D3DXVECTOR3 size = GetSize();
 	// 頂点データをロックする
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 	// テクスチャ座標の設定
