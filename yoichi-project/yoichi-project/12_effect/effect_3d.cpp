@@ -48,18 +48,20 @@ CEffect3D * CEffect3D::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 	if (pEffect != NULL)
 	{
 		// ‹——£‚ÌÝ’è
-		D3DXVECTOR3 Distance;
-		Distance = D3DXVECTOR3(
-			(float)(rand() % (int)Particle.Distance.x + rand() % (int)Particle.Distance.x - rand() % (int)Particle.Distance.x - rand() % (int)Particle.Distance.x),
-			(float)(rand() % (int)Particle.Distance.y + rand() % (int)Particle.Distance.y),
-			(float)(rand() % (int)Particle.Distance.z + rand() % (int)Particle.Distance.z - rand() % (int)Particle.Distance.z - rand() % (int)Particle.Distance.z));
+		D3DXVECTOR3 Range;
+		Range = D3DXVECTOR3(
+			(float)(rand() % (int)Particle.Range.x + rand() % (int)Particle.Range.x - rand() % (int)Particle.Range.x - rand() % (int)Particle.Range.x),
+			(float)(rand() % (int)Particle.Range.y + rand() % (int)Particle.Range.y),
+			(float)(rand() % (int)Particle.Range.z + rand() % (int)Particle.Range.z - rand() % (int)Particle.Range.z - rand() % (int)Particle.Range.z));
 
 		// ƒ‰ƒ“ƒ_ƒ€‚ÅoŒ»‚ðŒˆ‚ß‚é
 		D3DXVECTOR3 TargetPos = D3DXVECTOR3(
-			pos.x + Distance.x,
-			pos.y + Distance.y,
-			pos.z + Distance.z);
+			pos.x + Range.x,
+			pos.y + Range.y,
+			pos.z + Range.z);
 
+		pEffect->SetPos(TargetPos);
+		pEffect->SetSize(Particle.size);
 		// ‰Šú‰»ˆ—
 		pEffect->Init();
 

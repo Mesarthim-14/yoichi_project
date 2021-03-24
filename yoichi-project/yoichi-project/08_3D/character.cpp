@@ -14,7 +14,7 @@
 #include "collision.h"
 #include "game.h"
 #include "player.h"
-#include "particle.h"
+#include "effect.h"
 #include "effect_factory.h"
 #include "texture.h"
 #include "number_3d.h"

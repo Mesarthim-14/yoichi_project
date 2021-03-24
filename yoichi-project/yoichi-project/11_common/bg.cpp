@@ -65,6 +65,9 @@ HRESULT CBg::Init(void)
 	// ‰Šú‰»ˆ—
 	CModel::Init();
 
+	// À•Wî•ñ‚ğ—^‚¦‚é
+	CModel::SetPos(GetPos());
+
 	return S_OK;
 }
 

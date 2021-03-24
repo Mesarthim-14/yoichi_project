@@ -22,6 +22,7 @@
 #include "effect_factory.h"
 #include "mesh_3d.h"
 #include "resource_manager.h"
+#include "effect_factory.h"
 #include "itembox.h"
 #include "item_boxmanager.h"
 #include "star_manager.h"

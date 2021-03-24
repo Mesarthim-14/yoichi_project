@@ -132,6 +132,7 @@ public:
     int   GetPlayerNum(void)            { return m_nNumber; }               // プレイヤーの番号
     int  GetStarNum(void)               { return m_nStarNum; }              // 星の取得数取得
 
+
 private:
 	float InputToAngle(void);		// 入力を角度に変換
 	D3DXVECTOR3 m_rotDest;			// 回転(目標値)

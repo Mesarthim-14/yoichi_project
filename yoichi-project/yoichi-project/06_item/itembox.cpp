@@ -142,13 +142,14 @@ void CItemBox::Draw(void)
 		LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
 
 		// ライトの効果を消す処理
-	//	pDevice->LightEnable(0, false);
+		pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 		// 描画処理
 		CModel::Draw();
 
+		
 		// ライトの効果を付けなおす
-	//	pDevice->LightEnable(0, true);
+		pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 	}
 }
 

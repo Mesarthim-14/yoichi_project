@@ -42,9 +42,9 @@ CMeshPillar * CMeshPillar::Create(D3DXVECTOR3 pos, MESH_TYPE MeshNum)
 	// 初期化処理
 	if (pMeshPillar != nullptr)
 	{
-		pMeshPillar->SetMeshNum(MeshNum);
-		pMeshPillar->SetPos(pos);											// メッシュが何角
-		pMeshPillar->Init();											// 座標・サイズ
+		pMeshPillar->SetMeshNum(MeshNum);											// メッシュが何角
+		pMeshPillar->SetPos(pos);													// 座標設定
+		pMeshPillar->Init();															// 初期化
 		pMeshPillar->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_FLOOR));	// テクスチャの設定
 	}
 
@@ -81,14 +81,14 @@ HRESULT CMeshPillar::Init(void)
 	int VertexNum = (nWidth + 1) * (nHeight + 1);
 
 	// 値の初期化
-	SetNumVertex(VertexNum);														// 頂点の数
+	SetNumVertex(VertexNum);															// 頂点の数
 
 	int nTubeIndexNum = (nWidth + 1) * nHeight * 2 + (nHeight - 1) * 2;				// 筒だけのインデックス
 	int nIndexNum = nTubeIndexNum + (nWidth + 2);									// インデックスの数
 	SetNumIndex(nIndexNum);															// インデックスの数
 
 	int nPolygonNum = (nWidth * nHeight * 2 + (nHeight - 1) * 4) +4 + nWidth-2;		// ポリゴン数設定
-	SetNumPolygon(nPolygonNum); 													// ポリゴン数設定
+	SetNumPolygon(nPolygonNum); 														// ポリゴン数設定
 
 	// バッファ変数
 	LPDIRECT3DVERTEXBUFFER9 pVtxBuff = NULL;
@@ -110,6 +110,7 @@ HRESULT CMeshPillar::Init(void)
 		&pIdxBuff,
 		NULL);
 
+	D3DXVECTOR3 pos = GetPos();
 	// 頂点データの範囲をロックし、頂点バッファへのポインタを取得
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 

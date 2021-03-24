@@ -21,7 +21,7 @@
 #include "time.h"
 #include "collision.h"
 #include "fade.h"
-#include "particle.h"
+#include "effect.h"
 #include "effect_factory.h"
 #include "texture.h"
 #include "resource_manager.h"
@@ -31,6 +31,10 @@
 #include "item.h"
 #include "stage_map.h"
 #include "mesh_pillar.h"
+#include "wind.h"
+#include "barrier.h"
+#include "barrier_effect.h"
+#include "magichand.h"
 #include "player_ui.h"
 
 //=============================================================================
@@ -46,7 +50,7 @@
 #define PLAYER_FLY_SPEED			(30.0f)					// 飛行時のプレイヤーの移動量
 #define FLY_ROT_X_MAX			(-D3DXToRadian(10.0f))	// 飛行の最大角
 #define FLY_ROT_X_MIN			(-D3DXToRadian(170.0f))	// 飛行の最小角
-
+#define FLY_GRAVITY_RATE		(0.5f)					// 飛行時の重力
 // エフェクトパーツ
 #define BLADE_EFFECT_INTER		(190)					// 刀身のパーティクルの間隔
 #define WEAPON_TIP_NUM			(20)					// 剣先のパーツ番号
@@ -63,11 +67,11 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nCount)
 	// 番号の設定
 	pPlayer->m_nNumber = nCount;
 
-	// 初期化処理
+
 	pPlayer->SetPos(pos);
 	pPlayer->SetRot(rot);
+	// 初期化処理
 	pPlayer->Init();
-
 	return pPlayer;
 }
 
@@ -97,7 +101,7 @@ CPlayer::~CPlayer()
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CPlayer::Init()
+HRESULT CPlayer::Init(void)
 {
 	// モデル情報取得
 	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();
@@ -219,6 +223,17 @@ void CPlayer::Update(void)
 		// 死んだとき
 		Death();
 	}
+
+	//// 重りのエフェクト
+	//CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+	//	GetModelAnime(21)->GetMtxWorld()._42,
+	//	GetModelAnime(21)->GetMtxWorld()._43),
+	//	CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
+
+	// 星がとられたときのエフェクト
+	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+		GetModelAnime(21)->GetMtxWorld()._42,
+		GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_KIRAKIRA);
 }
 
 //=============================================================================
@@ -432,7 +447,7 @@ void CPlayer::Fly(void)
 	// コントローラー入力を利用してプレイヤーの向きを変換
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rotDest.y, m_rotDest.x, m_rotDest.z);
 	D3DXVec3TransformNormal(&move, &move, &mtxRot);
-
+	move.y -= abs(move.y * FLY_GRAVITY_RATE);
 	// 移動量を足す
 	SetPos(GetPos() + move);
 	
@@ -547,6 +562,119 @@ float CPlayer::InputToAngle(void)
 }
 
 
+
+					break;
+				}
+			}
+		}
+		//ジャンプモーションの再生
+		SetMotion(4);
+		SetLanding(false);
+	}
+
+	//=============================================================================
+	// Author : Ito Yogo
+	//=============================================================================
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_B, m_nNumber))
+	{
+		// 雷のアイテムを使われたときのエフェクト
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_THUNDER);
+
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(0.0f, 500.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_LIGHTNINGSTRIKE);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_Y, m_nNumber))
+	{
+		// 星がとられたときのエフェクト
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STAR);
+		//CEffectFactory::CreateEffect(GetPos()/* + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f)*/, CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SHOCKWAVE);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L_TRIGGER, m_nNumber))
+	{
+		// 速度が落ちた時のエフェクト
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f),
+			CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWN);
+
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f),
+			CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWNPARTICLE);
+
+	}
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, m_nNumber))
+	{
+		// 速度が上がった時のエフェクト
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f),
+			CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSUP);
+
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f),
+			CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATESUPPARTICLE);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L2_TRIGGER, m_nNumber))
+	{
+		// 爆発のエフェクト
+		CEffectFactory::CreateEffect(D3DXVECTOR3(0.0f, 0.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSION);
+		CEffectFactory::CreateEffect(D3DXVECTOR3(0.0f, 0.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSIONCIRCLE);
+		CEffectFactory::CreateEffect(D3DXVECTOR3(0.0f, 0.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSIONSPARK);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R2_TRIGGER, m_nNumber))
+	{
+		// 風のアイテムのエフェクト
+		CWind::Create(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43), 
+			ZeroVector3, 10.0f, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_nNumber);
+
+		CWind::Create(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43), 
+			ZeroVector3, 10.0f, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_nNumber);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R3, m_nNumber))
+	{
+		// バリアのエフェクト
+		CBARRIER::Create(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43),
+			D3DXVECTOR3(50.0f, 50.0f, 50.0f), 10.0f, D3DXVECTOR3(5.0f, 5.0f, 5.0f), m_nNumber);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L3, m_nNumber))
+	{
+		for (int nCount = 0; nCount < 100; nCount++)
+		{
+			// バリアが壊されたときのエフェクト
+			CBARRIEREFFECT::Create(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+				GetModelAnime(21)->GetMtxWorld()._42,
+				GetModelAnime(21)->GetMtxWorld()._43),
+				D3DXVECTOR3(50.0f, 50.0f, 50.0f), D3DXVECTOR3(30.0f, 30.0f, 30.0f), 10.0f);
+		}
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_X, m_nNumber))
+	{
+		// マジックハンドのエフェクト
+		CMagichand::Create(-MAGICHAND_DISTANCE, CTexture::SEPARATE_TEX_MAGICHANDLEFT, m_nNumber);
+		CMagichand::Create(MAGICHAND_DISTANCE, CTexture::SEPARATE_TEX_MAGICHANDRIGHT, m_nNumber);
+	}
+	//=============================================================================
+}
 
 //=============================================================================
 // リポップの処理

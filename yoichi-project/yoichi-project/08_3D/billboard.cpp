@@ -29,6 +29,21 @@ CBillboard::CBillboard(PRIORITY Priority) : CSceneBase(Priority)
 	m_nAlphaNum = 0;			// アルファテストの値
 	m_bAlpha = false;			// アルファテストのフラグ
 	m_bBlend = false;
+	m_move = ZeroVector3;			// 移動量
+	m_sizeBase = ZeroVector3;		// ベースのサイズ
+	m_gravity = ZeroVector3;		// 重力
+	m_scale = ZeroVector3;			// 拡大率
+	m_Transparency = 0.0f;			// 透明度を減らす量
+	m_nLife = 0;					// 寿命
+	m_bUse = false;					// 使用判定
+	m_nCountAnim = 0;;				// アニメーションテクスチャ
+	m_nCountAnimPattern = 0;		// アニメーションのパターン
+	m_nCounterAnim = 0;				// アニメーションのカウンター
+	m_nPatternAnim = 0;				// アニメーションのパターン数
+	m_nLoop = -1;					// ループするか
+	m_nAlphaNum = 0;				// アルファテストの値
+	m_bAlpha = false;				// アルファテストのフラグ
+	m_bUseZbuf = false;				// Zバッファのフラグ
 }
 
 //=====================================================
@@ -42,7 +57,7 @@ CBillboard::~CBillboard()
 //=====================================================
 // 初期化処理
 //=====================================================
-HRESULT CBillboard::Init()
+HRESULT CBillboard::Init(void)
 {
 	// デバイス情報取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
@@ -115,10 +130,35 @@ void CBillboard::Update(void)
 {
 	// 移動量加算
 	D3DXVECTOR3 pos = GetPos();
+
+	// 重力計算
+	m_move += m_gravity;
+
 	pos += m_move;
 
 	// 座標の設定
 	SetPos(pos);
+
+	if (m_scale.x > 0.0f)
+	{
+		// 拡大率加算
+		D3DXVECTOR3 size = GetSize();
+		size += m_scale;
+
+		// サイズの設定
+		SetSize(size);
+	}
+
+	//=====================================================
+	// Author : Ito Yogo
+	//=====================================================
+	// 透明度計算
+	if (m_Transparency > 0.0f)
+	{
+		// 透明度の更新
+		UpdateTransparency();
+	}
+	//=====================================================
 
 	// アニメーションの設定がされたとき
 	if (m_nPatternAnim != 0)
@@ -163,6 +203,13 @@ void CBillboard::Draw(void)
 	// アルファテストを有力化
 	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 
+	// Zバッファ
+	if (m_bUseZbuf == true)
+	{
+		// Zバッファを無効化
+		pDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
+	}
+
 	// 加算合成
 	if (m_bBlend == true)
 	{
@@ -195,18 +242,29 @@ void CBillboard::Draw(void)
 		0.0f);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxScale);
 
-	// 回転の逆行列の生成
-	pDevice->GetTransform(D3DTS_VIEW, &mtxRot);
-	D3DXMatrixInverse(&m_mtxWorld, NULL,
-		&mtxRot);
+	if (GetRot() == D3DXVECTOR3(0.0f, 0.0f, 0.0f))
+	{
+		// 回転の逆行列の生成
+		pDevice->GetTransform(D3DTS_VIEW, &mtxRot);
+		D3DXMatrixInverse(&mtxRot, NULL,
+			&mtxRot);
 
-	m_mtxWorld._41 = 0;
-	m_mtxWorld._42 = 0;
-	m_mtxWorld._43 = 0;
+		mtxRot._41 = 0;
+		mtxRot._42 = 0;
+		mtxRot._43 = 0;
+		D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
+	}
+	else
+	{
+		// 向き反映
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, GetRot().y, GetRot().x, GetRot().z);
+		D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
+	}
 	D3DXVECTOR3 pos = GetPos();
 	// 位置を反映、ワールドマトリクス設定、ポリゴン描画
 	D3DXMatrixTranslation(&mtxTrans, pos.x, pos.y, pos.z);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+
 
 	// ワールドマトリクスの設定 初期化、向き、位置
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
@@ -237,6 +295,13 @@ void CBillboard::Draw(void)
 	if (m_bBlend == true)
 	{
 		pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);	// aデスティネーションカラー
+	}
+
+	// Zバッファ
+	if (m_bUseZbuf == true)
+	{
+		// Zバッファを有効化
+		pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 	}
 
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);	// aデスティネーションカラー
@@ -323,6 +388,34 @@ void CBillboard::UpdateAnimation(void)
 	}
 }
 
+//=============================================
+// 透明度の更新関数
+// Author : Ito Yogo
+//=============================================
+void CBillboard::UpdateTransparency(void)
+{
+	// 頂点情報を設定
+	VERTEX_3D *pVtx = NULL;
+
+	// 頂点バッファをロックし、頂点情報へのポインタを取得
+	GetVtxBuff()->Lock(0, 0, (void**)&pVtx, 0);
+
+	// 透明度の設定
+	D3DXCOLOR col = GetColor();
+	col.a -= m_Transparency;
+
+	//頂点カラーの設定
+	pVtx[0].col = col;
+	pVtx[1].col = col;
+	pVtx[2].col = col;
+	pVtx[3].col = col;
+
+	SetColor(col);
+
+	// 頂点バッファをアンロックする
+	GetVtxBuff()->Unlock();
+}
+
 //=====================================================
 // 移動量設定
 //=====================================================
@@ -337,6 +430,30 @@ void CBillboard::SetMove(D3DXVECTOR3 move)
 void CBillboard::SetSizeBase(D3DXVECTOR3 sizeBase)
 {
 	m_sizeBase = sizeBase;
+}
+
+//=====================================================
+// 重力設定
+//=====================================================
+void CBillboard::SetGravity(D3DXVECTOR3 gravity)
+{
+	m_gravity = gravity;
+}
+
+//=====================================================
+// 拡大率設定
+//=====================================================
+void CBillboard::SetScale(D3DXVECTOR3 scale)
+{
+	m_scale = scale;
+}
+
+//=====================================================
+// 透明度を減らす量の設定
+//=====================================================
+void CBillboard::SetTransparency(float transparency)
+{
+	m_Transparency = transparency;
 }
 
 //=====================================================
@@ -369,6 +486,14 @@ void CBillboard::SetAlphaNum(int nAlphaNum)
 void CBillboard::SetBlend(bool bBlend)
 {
 	m_bBlend = bBlend;
+}
+
+//=====================================================
+// Zバッファの設定
+//=====================================================
+void CBillboard::SetUseZBuf(bool bZbuf)
+{
+	m_bUseZbuf = bZbuf;
 }
 
 //=====================================================

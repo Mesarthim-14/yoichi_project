@@ -62,7 +62,7 @@ CScene2D* CScene2D::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 HRESULT CScene2D::Init(void)
 {
 
-					// Rendererクラスからデバイスを取得
+	// Rendererクラスからデバイスを取得
 	LPDIRECT3DDEVICE9 pD3DDevice = CManager::GetRenderer()->GetDevice();
 
 	LPDIRECT3DVERTEXBUFFER9 pVtxBuff = NULL;		// バッファ
@@ -77,6 +77,8 @@ HRESULT CScene2D::Init(void)
 
 	// 頂点情報を設定
 	VERTEX_2D *pVtx;
+	D3DXVECTOR3 pos = GetPos();
+	D3DXVECTOR3 size = GetSize();
 	D3DXVECTOR3 pos = GetPos();
 	D3DXVECTOR3 size = GetSize();
 	// 頂点データをロックする
