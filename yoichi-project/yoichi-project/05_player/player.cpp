@@ -122,6 +122,7 @@ HRESULT CPlayer::Init()
 	m_fBaseRadius = PLAYER_RADIUS;			// ”¼Œa
 
 	return S_OK;
+
 }
 
 //=============================================================================

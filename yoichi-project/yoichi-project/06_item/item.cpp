@@ -14,6 +14,14 @@
 #include "resource_manager.h"
 #include "xfile.h"
 #include "ui.h"
+#include "game.h"
+
+//*****************************************************************************
+// コンストラクタ
+// Author : AYANOKUDO
+//*****************************************************************************
+// プレイヤーの位置定数
+const D3DXVECTOR3 CItem::m_position[MAX_PLAYER_NUM] = { ITEM_UI_POS_PLAYER_1,ITEM_UI_POS_PLAYER_2,ITEM_UI_POS_PLAYER_3,ITEM_UI_POS_PLAYER_4 };
 
 //=============================================================================
 // コンストラクタ
@@ -91,4 +99,23 @@ void CItem::UiUninit()
 		m_pUi->Uninit();
 		m_pUi = NULL;
 	}
+}
+
+//=============================================================================
+// [SetPosition] UIの位置を設定
+// Author : AYANOKUDO
+// 引数
+// nPlayer : プレイヤーの番号
+//=============================================================================
+D3DXVECTOR3 CItem::SetPosition(int nPlayer)
+{
+    D3DXVECTOR3 pos;
+    int nPlayerTotal = CGame::GetPlayerNum();
+
+    //自分のプレイヤー番号とプレイヤーの総数を取得
+    
+    // プレイヤー番号を保存
+    //m_nPlayerNum = nPlayerNum;
+    pos = m_position[nPlayer];
+    return pos;
 }
