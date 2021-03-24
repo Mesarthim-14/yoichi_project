@@ -209,7 +209,7 @@
     <ClInclude Include="11_common\fade.h" />
     <ClInclude Include="11_common\polygon.h" />
     <ClInclude Include="11_common\renderer.h" />
-
+    <ClInclude Include="12_effect\barrier_effect.h" />
     <ClInclude Include="11_common\timer.h" />
     <ClInclude Include="12_effect\barrier_effect.h" />
     <ClInclude Include="12_effect\effect_3d.h" />
@@ -264,10 +264,11 @@
     <ClCompile Include="08_3D\wind.cpp" />
     <ClCompile Include="10_UI\number_2d.cpp" />
     <ClCompile Include="10_UI\number_3d.cpp" />
+    <ClCompile Include="10_UI\result.cpp" />
     <ClCompile Include="10_UI\player_ui.cpp" />
     <ClCompile Include="10_UI\star_ui.cpp" />
     <ClCompile Include="10_UI\time_ui.cpp" />
-    <ClCompile Include="10_UI\result.cpp" />
+
     <ClCompile Include="10_UI\ui.cpp" />
     <ClCompile Include="11_common\bg.cpp" />
     <ClCompile Include="11_common\collision.cpp" />

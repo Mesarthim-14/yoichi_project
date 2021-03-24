@@ -145,8 +145,7 @@ private:
 	int m_nNumber;					// プレイヤーの番号
 	int m_nStarNum;					// 星の数
 	float m_fBaseSpeed;				// 元のスピード
-	float m_fBaseRadius;				// 元の半径
+	float m_fBaseRadius;			// 元の半径
     CPlayer_UI *m_pPlayerUI;        // プレイヤーごとのUI
-	std::vector<CItem*> m_apItem;	// アイテムのポインタ
 };
 #endif
