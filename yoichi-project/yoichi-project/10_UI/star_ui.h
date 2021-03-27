@@ -16,7 +16,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define STAR_NUM (4) // 桁数
+#define STAR_NUM (2) // 桁数
 #define MAX_PLAYER (4) // プレイヤーの最大数
 
 //*****************************************************************************
@@ -40,11 +40,14 @@ public:
     void Draw(void);
 
     void SetPosition(int nPlayerNum);
+    void SetStarNum(void);
+
 private:
     static const D3DXVECTOR3 m_pos[MAX_PLAYER];
 
     // 2Dポリゴンへのポインタ
     CNumber2d *m_apNumber[STAR_NUM];  // 星の取得数
+    int        m_nPlayerNum;          // プレイヤーの番号
 };
 
 #endif // ! _STAR_UI_H_

@@ -14,6 +14,7 @@
 #include "resource_manager.h"
 #include "texture.h"
 #include "game.h"
+#include "player.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -95,11 +96,7 @@ void CStar_UI::Uninit(void)
 //=============================================================================
 void CStar_UI::Update(void)
 {
-    // ナンバーの更新
-    for (int nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
-    {
-        m_apNumber[nCntNum]->SetNumber(nCntNum);
-    }
+    SetStarNum();
 }
 
 //=============================================================================
@@ -114,17 +111,39 @@ void CStar_UI::Draw(void)
 //=============================================================================
 void CStar_UI::SetPosition(int nPlayerNum)
 {
-
+    // 変数宣言
     D3DXVECTOR3 pos;
    int nPlayerTotal = CGame::GetPlayerNum();
 
    CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 
+   // プレイヤー番号の保存
+   m_nPlayerNum = nPlayerNum;
+
    // ナンバー生成
    for (int nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
    {
-       pos = { m_pos[nPlayerNum].x + (nCntNum*50.0f), m_pos[nPlayerNum].y ,m_pos[nPlayerNum].z };
+       pos = { m_pos[nPlayerNum].x - (nCntNum*50.0f), m_pos[nPlayerNum].y ,m_pos[nPlayerNum].z };
        m_apNumber[nCntNum] = CNumber2d::Create(pos, { 50.0f,80.0f,0.0f });
        m_apNumber[nCntNum]->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_NUMBER));
    }
+}
+
+//=============================================================================
+// [SetStarNum] 星の数の設定
+//=============================================================================
+void CStar_UI::SetStarNum(void)
+{
+    // プレイヤーの星の所持数を取得
+   int nStarNum = CGame::GetPlayer(m_nPlayerNum)->GetStarNum();
+
+    // ナンバーの分解
+    for (int nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
+    {
+        int nDrawRenge = (int)powf(10.0f, (float)nCntNum + 1);
+        int nDrawRenge2 = (int)powf(10.0f, (float)nCntNum);
+        int nAnswer = nStarNum % nDrawRenge / nDrawRenge2;
+        // 1桁ずつ設定
+        m_apNumber[nCntNum]->SetNumber(nAnswer);
+    }
 }
