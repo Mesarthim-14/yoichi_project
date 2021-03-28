@@ -49,11 +49,8 @@ CMagichand * CMagichand::Create(D3DXVECTOR3 Distance, int nTexInfo, int nPlayerN
 
 	if (pEffect != NULL)
 	{
-		pEffect->SetPos(CGame::GetPlayer(nPlayerNum)->GetPos() + Distance);
-		pEffect->SetSize(DEFAULT_SIZE);
-
 		// ‰Šú‰»ˆ—
-		pEffect->Init();
+		pEffect->Init(CGame::GetPlayer(nPlayerNum)->GetPos() + Distance, DEFAULT_SIZE);
 
 		CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 
@@ -75,7 +72,7 @@ CMagichand * CMagichand::Create(D3DXVECTOR3 Distance, int nTexInfo, int nPlayerN
 //=====================================================
 // ‰Šú‰»ˆ—
 //=====================================================
-HRESULT CMagichand::Init()
+HRESULT CMagichand::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 {
 	// ‰Šú‰»ˆ—
 	CBillboard::Init();
@@ -105,8 +102,8 @@ void CMagichand::Update(void)
 
 	D3DXVECTOR3 pos =
 		D3DXVECTOR3(CGame::GetPlayer(m_nPlayerNum)->GetModelAnime(21)->GetMtxWorld()._41,
-			CGame::GetPlayer(m_nPlayerNum)->GetModelAnime(21)->GetMtxWorld()._42,
-			CGame::GetPlayer(m_nPlayerNum)->GetModelAnime(21)->GetMtxWorld()._43) +
+		CGame::GetPlayer(m_nPlayerNum)->GetModelAnime(21)->GetMtxWorld()._42,
+		CGame::GetPlayer(m_nPlayerNum)->GetModelAnime(21)->GetMtxWorld()._43) +
 		D3DXVECTOR3(m_Distance.x * sinf(CGame::GetCamera(m_nPlayerNum)->GetHorizontal() + D3DXToRadian(90.0f)),
 			m_Distance.y,
 			m_Distance.x * cosf(CGame::GetCamera(m_nPlayerNum)->GetHorizontal() + D3DXToRadian(90.0f)));

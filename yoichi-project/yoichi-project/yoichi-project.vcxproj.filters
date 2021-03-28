@@ -150,6 +150,9 @@
     <ClInclude Include="12_effect\effect.h">
       <Filter>12_effect</Filter>
     </ClInclude>
+    <ClInclude Include="barrier.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
     <ClInclude Include="06_item\item_bluewing.h">
       <Filter>06_item</Filter>
     </ClInclude>
@@ -207,6 +210,9 @@
     <ClInclude Include="08_3D\mesh_pillar.h">
       <Filter>08_3D</Filter>
     </ClInclude>
+    <ClInclude Include="08_3D\stage_map.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
     <ClInclude Include="04_mode\gamemode.h">
       <Filter>04_mode</Filter>
     </ClInclude>
@@ -216,14 +222,26 @@
     <ClInclude Include="12_effect\barrier_effect.h">
       <Filter>12_effect</Filter>
     </ClInclude>
+    <ClInclude Include="12_effect\magichand.h">
+      <Filter>12_effect</Filter>
+    </ClInclude>
     <ClInclude Include="08_3D\wind.h">
       <Filter>08_3D</Filter>
     </ClInclude>
-    <ClInclude Include="08_3D\barrier.h">
-      <Filter>08_3D</Filter>
+    <ClInclude Include="10_UI\player_ui.h">
+      <Filter>10_UI</Filter>
     </ClInclude>
-    <ClInclude Include="12_effect\magichand.h">
-      <Filter>12_effect</Filter>
+    <ClInclude Include="10_UI\star_ui.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="05_player\player.h">
+      <Filter>05_player</Filter>
+    </ClInclude>
+    <ClInclude Include="10_UI\time_ui.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="11_common\timer.h">
+      <Filter>11_common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -298,6 +316,12 @@
     </ClCompile>
     <ClCompile Include="08_3D\modelanime.cpp">
       <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\number_2d.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\number_3d.cpp">
+      <Filter>10_UI</Filter>
     </ClCompile>
     <ClCompile Include="10_UI\ui.cpp">
       <Filter>10_UI</Filter>
@@ -374,6 +398,21 @@
     <ClCompile Include="08_3D\star_manager.cpp">
       <Filter>08_3D</Filter>
     </ClCompile>
+    <ClCompile Include="08_3D\mesh_pillar.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\stage_map.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\result.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="08_3D\barrier.cpp">
+      <Filter>08_3D</Filter>
+    </ClCompile>
+    <ClCompile Include="12_effect\magichand.cpp">
+      <Filter>12_effect</Filter>
+    </ClCompile>
     <ClCompile Include="10_UI\player_ui.cpp">
       <Filter>10_UI</Filter>
     </ClCompile>
@@ -401,16 +440,8 @@
     <ClCompile Include="08_3D\barrier.cpp">
       <Filter>08_3D</Filter>
     </ClCompile>
-    <ClCompile Include="10_UI\number_2d.cpp" />
-    <ClCompile Include="10_UI\number_3d.cpp" />
     <ClCompile Include="12_effect\magichand.cpp">
       <Filter>12_effect</Filter>
-    </ClCompile>
-    <ClCompile Include="10_UI\number_2d.cpp">
-      <Filter>10_UI</Filter>
-    </ClCompile>
-    <ClCompile Include="10_UI\number_3d.cpp">
-      <Filter>10_UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

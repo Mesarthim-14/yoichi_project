@@ -240,11 +240,12 @@ void CScene3D::SetPosision(D3DXVECTOR3 pos)
 	// 頂点バッファをロックし、頂点情報へのポインタを取得
 	GetVtxBuff()->Lock(0, 0, (void**)&pVtx, 0);
 
+	D3DXVECTOR3 size = GetSize();
 	//頂点座標設定の設定
-	pVtx[0].pos = D3DXVECTOR3(-(GetSize().x / 2), +(GetSize().y / 2), +(GetSize().z / 2));
-	pVtx[1].pos = D3DXVECTOR3(+(GetSize().x / 2), +(GetSize().y / 2), +(GetSize().z / 2));
-	pVtx[2].pos = D3DXVECTOR3(-(GetSize().x / 2), -(GetSize().y / 2), -(GetSize().z / 2));
-	pVtx[3].pos = D3DXVECTOR3(+(GetSize().x / 2), -(GetSize().y / 2), - (GetSize().z / 2));
+	pVtx[0].pos = D3DXVECTOR3(-size.x / 2, +size.y / 2, +size.z / 2);
+	pVtx[1].pos = D3DXVECTOR3(+size.x / 2, +size.y / 2, +size.z / 2);
+	pVtx[2].pos = D3DXVECTOR3(-size.x / 2, -size.y / 2, -size.z / 2);
+	pVtx[3].pos = D3DXVECTOR3(+size.x / 2, -size.y / 2, -size.z / 2);
 
 	// 頂点バッファをアンロックする
 	GetVtxBuff()->Unlock();

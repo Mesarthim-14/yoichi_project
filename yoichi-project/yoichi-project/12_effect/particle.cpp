@@ -1,6 +1,6 @@
 //=====================================================
 //
-// 3Dエフェクトクラス [effect_3d.cpp]
+// パーティクルクラス [particle.cpp]
 // Author : Konishi Yuuto
 //
 //=====================================================
@@ -8,7 +8,7 @@
 //=====================================================
 // インクルード
 //=====================================================
-#include "effect_3d.h"
+#include "particle.h"
 #include "manager.h"
 #include "renderer.h"
 #include "texture.h"
@@ -22,15 +22,15 @@
 //=====================================================
 // コンストラクタ
 //=====================================================
-CEffect3D::CEffect3D(PRIORITY Priority) : CScene3D(Priority)
+CEffect::CEffect(PRIORITY Priority) : CBillboard(Priority)
 {
-	m_nLife = 0;
+	
 }
 
 //=====================================================
 // デストラクタ
 //=====================================================
-CEffect3D::~CEffect3D()
+CEffect::~CEffect()
 {
 
 }
@@ -38,27 +38,26 @@ CEffect3D::~CEffect3D()
 //=====================================================
 // インスタンス生成
 //=====================================================
-CEffect3D * CEffect3D::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
-	int nTexInfo)
+CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
+	 int nTexInfo)
 {
 	// メモリ確保
-	CEffect3D *pEffect = new CEffect3D;
+	CEffect *pEffect = new CEffect;
 
-	// nullchack
 	if (pEffect != NULL)
 	{
 		// 距離の設定
-		D3DXVECTOR3 Range;
-		Range = D3DXVECTOR3(
-			(float)(rand() % (int)Particle.Range.x + rand() % (int)Particle.Range.x - rand() % (int)Particle.Range.x - rand() % (int)Particle.Range.x),
-			(float)(rand() % (int)Particle.Range.y + rand() % (int)Particle.Range.y),
-			(float)(rand() % (int)Particle.Range.z + rand() % (int)Particle.Range.z - rand() % (int)Particle.Range.z - rand() % (int)Particle.Range.z));
+		D3DXVECTOR3 Distance;
+		Distance = D3DXVECTOR3(
+			(float)(rand() % (int)Particle.Distance.x + rand() % (int)Particle.Distance.x - rand() % (int)Particle.Distance.x - rand() % (int)Particle.Distance.x + rand() % (int)Particle.Distance.x),
+			(float)(rand() % (int)Particle.Distance.y + rand() % (int)Particle.Distance.y),
+			(float)(rand() % (int)Particle.Distance.z + rand() % (int)Particle.Distance.z - rand() % (int)Particle.Distance.z - rand() % (int)Particle.Distance.z + rand() % (int)Particle.Distance.z));
 
 		// ランダムで出現を決める
 		D3DXVECTOR3 TargetPos = D3DXVECTOR3(
-			pos.x + Range.x,
-			pos.y + Range.y,
-			pos.z + Range.z);
+			pos.x + Distance.x,
+			pos.y + Distance.y,
+			pos.z + Distance.z);
 
 		pEffect->SetPos(TargetPos);
 		pEffect->SetSize(Particle.size);
@@ -76,9 +75,7 @@ CEffect3D * CEffect3D::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 		else
 		{
 			// アニメーションテクスチャ設定
-			pEffect->BindTexture(pTexture-> GetSeparateTexture((CTexture::SEPARATE_TEX_TYPE)nTexInfo));
-
-			// アニメーション情報設定
+			pEffect->BindTexture(pTexture->GetSeparateTexture((CTexture::SEPARATE_TEX_TYPE)nTexInfo));
 			pEffect->InitAnimation(
 				pTexture->GetSparateTexInfo((CTexture::SEPARATE_TEX_TYPE)nTexInfo),
 				pTexture->GetSparateTexLoop((CTexture::SEPARATE_TEX_TYPE)nTexInfo));
@@ -113,7 +110,6 @@ CEffect3D * CEffect3D::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 						(float)(rand() % (int)Particle.move.z - rand() % (int)Particle.move.z + rand() % (int)Particle.move.z));
 				break;
 			}
-
 			// 移動量
 			pEffect->SetMove(move);
 		}
@@ -121,12 +117,13 @@ CEffect3D * CEffect3D::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 		{
 			// 移動量
 			pEffect->SetMove(Particle.move);
+
 		}
 
 		pEffect->SetColor(Particle.color);			// 色の設定
 		pEffect->SetLife(Particle.nLife);			// 体力の設定
 		pEffect->SetAlpha(Particle.bAlpha);			// アルファテストの設定
-		pEffect->SetAlphaNum(Particle.nAlphaNum);	// アルファテストの値を設定
+		pEffect->SetAlphaNum(Particle.nAlphaNum);	// アルファの値の設定
 		pEffect->SetBlend(Particle.bBlend);			// 加算合成の設定
 	}
 
@@ -136,10 +133,10 @@ CEffect3D * CEffect3D::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 //=====================================================
 // 初期化処理
 //=====================================================
-HRESULT CEffect3D::Init(void)
+HRESULT CEffect::Init(void)
 {
 	// 初期化処理
-	CScene3D::Init();
+	CBillboard::Init();
 
 	return S_OK;
 }
@@ -147,10 +144,10 @@ HRESULT CEffect3D::Init(void)
 //=====================================================
 // 終了処理
 //=====================================================
-void CEffect3D::Uninit(void)
+void CEffect::Uninit(void)
 {
 	// 終了処理
-	CScene3D::Uninit();
+	CBillboard::Uninit();
 
 	//オブジェクト破棄
 	Release();
@@ -159,35 +156,17 @@ void CEffect3D::Uninit(void)
 //=====================================================
 // 更新処理
 //=====================================================
-void CEffect3D::Update(void)
+void CEffect::Update(void)
 {
-	// 寿命の減算
-	m_nLife--;
-
 	// 更新処理
-	CScene3D::Update();
-
-	// ライフの設定
-	if (m_nLife <= 0)
-	{
-		// 終了処理
-		Uninit();
-	}
+	CBillboard::Update();
 }
 
 //=====================================================
 // 描画処理
 //=====================================================
-void CEffect3D::Draw(void)
+void CEffect::Draw(void)
 {
 	// 描画処理
-	CScene3D::Draw();
-}
-
-//=====================================================
-// ライフの設定
-//=====================================================
-void CEffect3D::SetLife(int nLife)
-{
-	m_nLife = nLife;
+	CBillboard::Draw();
 }

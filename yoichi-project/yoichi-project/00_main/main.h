@@ -65,6 +65,7 @@
 #define NUM_POLYGON		(2)															// ポリゴン数
 #define MAX_PLAYER_NUM	(4)															// プレイヤーの最大数
 #define MAP_LIMIT		(15000)														// マップ上限
+#define NUM_RADIX    (10.0f)    //ナンバーの基数
 
 // 初期化用マクロ変数
 #define ZeroVector2		(D3DXVECTOR2(0.0f, 0.0f))				// D3DXVECTOR2用

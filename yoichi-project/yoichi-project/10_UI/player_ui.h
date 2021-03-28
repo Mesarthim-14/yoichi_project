@@ -38,7 +38,7 @@ public:
 
     void AcquiredItem(CItem *pItem);							// アイテム獲得関数
     void UseItem(void);											// アイテムの使用処理
-    void ItemErase(void);													// アイテムの削除
+    void ItemErase(void);										// アイテムの削除
 
     int GetItemNum(void) { return m_apItem.size(); }			// アイテムのサイズ
     CItem *GetItem(void) { return m_apItem[0]; }				// アイテムのポインタ

@@ -177,6 +177,15 @@ void CEffectFactory::CreateEffect(D3DXVECTOR3 pos, EFFECT_TYPE type)
 					CTexture::TEXTURE_NUM_EFFECT);
 			}
 			break;
+
+		case EFFECT_NUM_KIRAKIRA:
+			// 状態が悪くなったときのパーティクル
+			for (int nCount = 0; nCount < m_Effect[EFFECT_NUM_KIRAKIRA].nNum; nCount++)
+			{
+				CEffect::Create(pos, m_Effect[EFFECT_NUM_KIRAKIRA],
+					CTexture::TEXTURE_NUM_KIRAKIRA);
+			}
+			break;
 			//=============================================================================
 
 	default:

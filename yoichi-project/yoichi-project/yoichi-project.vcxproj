@@ -183,7 +183,6 @@
     <ClInclude Include="07_resource\sound.h" />
     <ClInclude Include="07_resource\texture.h" />
     <ClInclude Include="07_resource\xfile.h" />
-    <ClInclude Include="08_3D\barrier.h" />
     <ClInclude Include="08_3D\billboard.h" />
     <ClInclude Include="08_3D\camera.h" />
     <ClInclude Include="08_3D\character.h" />
@@ -195,6 +194,7 @@
     <ClInclude Include="08_3D\modelanime.h" />
     <ClInclude Include="08_3D\motion.h" />
     <ClInclude Include="08_3D\wind.h" />
+    <ClInclude Include="08_3D\stage_map.h" />
     <ClInclude Include="08_3D\star.h" />
     <ClInclude Include="08_3D\star_manager.h" />
     <ClInclude Include="10_UI\number_2d.h" />
@@ -209,12 +209,14 @@
     <ClInclude Include="11_common\fade.h" />
     <ClInclude Include="11_common\polygon.h" />
     <ClInclude Include="11_common\renderer.h" />
+    <ClInclude Include="12_effect\barrier_effect.h" />
     <ClInclude Include="11_common\timer.h" />
     <ClInclude Include="12_effect\barrier_effect.h" />
     <ClInclude Include="12_effect\effect_3d.h" />
     <ClInclude Include="12_effect\effect_factory.h" />
     <ClInclude Include="12_effect\effect.h" />
     <ClInclude Include="12_effect\magichand.h" />
+    <ClInclude Include="barrier.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp" />
@@ -256,22 +258,24 @@
     <ClCompile Include="08_3D\model.cpp" />
     <ClCompile Include="08_3D\modelanime.cpp" />
     <ClCompile Include="08_3D\motion.cpp" />
-    <ClCompile Include="08_3D\wind.cpp" />
     <ClCompile Include="08_3D\stage_map.cpp" />
     <ClCompile Include="08_3D\star.cpp" />
     <ClCompile Include="08_3D\star_manager.cpp" />
+    <ClCompile Include="08_3D\wind.cpp" />
     <ClCompile Include="10_UI\number_2d.cpp" />
     <ClCompile Include="10_UI\number_3d.cpp" />
+    <ClCompile Include="10_UI\result.cpp" />
     <ClCompile Include="10_UI\player_ui.cpp" />
     <ClCompile Include="10_UI\star_ui.cpp" />
     <ClCompile Include="10_UI\time_ui.cpp" />
-    <ClCompile Include="10_UI\result.cpp" />
+
     <ClCompile Include="10_UI\ui.cpp" />
     <ClCompile Include="11_common\bg.cpp" />
     <ClCompile Include="11_common\collision.cpp" />
     <ClCompile Include="11_common\fade.cpp" />
     <ClCompile Include="11_common\polygon.cpp" />
     <ClCompile Include="11_common\renderer.cpp" />
+
     <ClCompile Include="11_common\timer.cpp" />
     <ClCompile Include="12_effect\barrier_effect.cpp" />
     <ClCompile Include="12_effect\effect_3d.cpp" />

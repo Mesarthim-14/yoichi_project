@@ -25,7 +25,7 @@
 #define XFILE_NAME_BARRIER_EFFECT	("data/model/barrier_effect.x")	// バリアエフェクト
 
 // 階層構造モデルのファイル
-#define HIERARCHY_FILENAME_PLAYER			("data/Text/motion_PLAYER.txt")	// プレイヤーのファイルネーム
+#define HIERARCHY_FILENAME_PLAYER	("data/Text/motion_PLAYER.txt")	// プレイヤーのファイルネーム
 
 //=============================================================================
 // コンストラクタ

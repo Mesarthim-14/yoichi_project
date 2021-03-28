@@ -62,7 +62,7 @@ CScene2D* CScene2D::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 size)
 HRESULT CScene2D::Init(void)
 {
 
-					// Rendererクラスからデバイスを取得
+	// Rendererクラスからデバイスを取得
 	LPDIRECT3DDEVICE9 pD3DDevice = CManager::GetRenderer()->GetDevice();
 
 	LPDIRECT3DVERTEXBUFFER9 pVtxBuff = NULL;		// バッファ

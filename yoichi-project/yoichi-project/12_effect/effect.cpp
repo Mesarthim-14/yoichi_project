@@ -62,6 +62,8 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 		pEffect->SetSize(Particle.size);
 		// ‰Šú‰»ˆ—
 		pEffect->Init();
+		pEffect->SetPos(TargetPos);		// ‰ñ“]‚ÌÝ’è
+		pEffect->SetSizeBase(Particle.size);					// F‚ÌÝ’è
 
 		CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 
@@ -81,8 +83,8 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 		}
 
 		// ˆÚ“®—Ê‚ªˆê’èˆÈã‚È‚ç
-		if (Particle.move.x >= 1.0f || Particle.move.x <= -1.0f&&
-			Particle.move.y >= 1.0f || Particle.move.y <= -1.0f&&
+		if (Particle.move.x >= 1.0f || Particle.move.x <= -1.0f &&
+			Particle.move.y >= 1.0f || Particle.move.y <= -1.0f &&
 			Particle.move.z >= 1.0f || Particle.move.z <= -1.0f)
 		{
 			// ˆÚ“®—ÊÝ’è

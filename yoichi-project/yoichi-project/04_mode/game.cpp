@@ -22,14 +22,14 @@
 #include "effect_factory.h"
 #include "mesh_3d.h"
 #include "resource_manager.h"
+#include "effect_factory.h"
 #include "itembox.h"
 #include "item_boxmanager.h"
 #include "star_manager.h"
 #include "stage_map.h"
-#include "result.h"
 #include "time_ui.h"
+#include "result.h"
 #include "timer.h"
-#include "effect_factory.h"
 
 //=======================================================================================
 // static初期化
@@ -255,54 +255,35 @@ void CGame::Uninit(void)
 //=======================================================================================
 void CGame::Update(void)
 {
-	// キーボード情報
-	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
-	if(m_bGameEnd)
-	{
-		// リザルトが生成されていなければ生成する
-		if (m_apResult[0] == nullptr)
-		{
-			D3DXVECTOR3 pos;
-			D3DXVECTOR3 size;
-			for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
-			{
-				if (m_nPlayerNum == 2)
-				{
-					pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2)*nCount , SCREEN_HEIGHT / 2, 0.0f);
-				}
-				else
-				{
-					pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2) * (nCount % 2), SCREEN_HEIGHT / 4 + (SCREEN_HEIGHT / 2) * (nCount / 2), 0.0f);
-				}
-				size = SCREEN_SIZE / 2;
-				m_apResult[nCount] = CResult::Create(pos, size, nCount);	// TODO 順位が設定できるようになったら順位を取得して第3引数をそれにする
-			}
-		}
-		// リザルトのアップデート
-		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
-		{
-			m_apResult[nCount]->Update();
-		}
-	}
-	else
-	{
-		CScene::UpdateAll();
-		// プレイヤー分
-		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
-		{
-			// !nullcheck
-			if (m_pCamera != nullptr)
-			{
-				//カメラクラスの更新処理
-				m_pCamera[nCount]->Update();
-			}
-		}
-
-		// 時間切れだったら
-		if (m_pTimeUI->GetTimer()->IsTimeOver())
-		{
-			GameEnd();// ゲームを終了
-		}
+    // キーボード情報
+    CInputKeyboard *pKeyboard = CManager::GetKeyboard();
+    if (m_bGameEnd)
+    {
+        // リザルトが生成されていなければ生成する
+        if (m_apResult[0] == nullptr)
+        {
+            D3DXVECTOR3 pos;
+            D3DXVECTOR3 size;
+            for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+            {
+                if (m_nPlayerNum == 2)
+                {
+                    pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2)*nCount, SCREEN_HEIGHT / 2, 0.0f);
+                }
+                else
+                {
+                    pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2) * (nCount % 2), SCREEN_HEIGHT / 4 + (SCREEN_HEIGHT / 2) * (nCount / 2), 0.0f);
+                }
+                size = SCREEN_SIZE / 2;
+                m_apResult[nCount] = CResult::Create(pos, size, nCount);	// TODO 順位が設定できるようになったら順位を取得して第3引数をそれにする
+            }
+        }
+        // リザルトのアップデート
+        for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+        {
+            m_apResult[nCount]->Update();
+        }
+    }
     else
     {
         CScene::UpdateAll();
@@ -317,22 +298,23 @@ void CGame::Update(void)
             }
         }
 
-		// nullcheck
-		if (m_pStarManager != nullptr)
-		{
-			m_pStarManager->Update();
-		}
+        // nullcheck
+        if (m_pStarManager != nullptr)
+        {
+            // 更新処理
+            m_pStarManager->Update();
+        }
         // 時間切れだったら
         if (m_pTimeUI->GetTimer()->IsTimeOver())
         {
             GameEnd();// ゲームを終了
         }
-	}
+
 #ifdef _DEBUG
-	if (pKeyboard->GetTrigger(DIK_P))
-	{
-		m_bGameEnd = !m_bGameEnd;
-	}
+        if (pKeyboard->GetTrigger(DIK_P))
+        {
+            m_bGameEnd = !m_bGameEnd;
+        }
 #endif
     }
 }

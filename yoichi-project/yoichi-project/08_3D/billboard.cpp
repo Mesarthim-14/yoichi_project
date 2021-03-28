@@ -17,6 +17,18 @@
 //=====================================================
 CBillboard::CBillboard(PRIORITY Priority) : CSceneBase(Priority)
 {
+	m_move = ZeroVector3;		// 移動量
+	m_sizeBase = ZeroVector3;	// ベースのサイズ
+	m_nLife = 0;				// 寿命
+	m_bUse = false;				// 使用判定
+	m_nCountAnim = 0;;			// アニメーションテクスチャ
+	m_nCountAnimPattern = 0;	// アニメーションのパターン
+	m_nCounterAnim = 0;			// アニメーションのカウンター
+	m_nPatternAnim = 0;			// アニメーションのパターン数
+	m_nLoop = -1;				// ループするか
+	m_nAlphaNum = 0;			// アルファテストの値
+	m_bAlpha = false;			// アルファテストのフラグ
+	m_bBlend = false;
 	m_move = ZeroVector3;			// 移動量
 	m_sizeBase = ZeroVector3;		// ベースのサイズ
 	m_gravity = ZeroVector3;		// 重力
@@ -45,7 +57,7 @@ CBillboard::~CBillboard()
 //=====================================================
 // 初期化処理
 //=====================================================
-HRESULT CBillboard::Init()
+HRESULT CBillboard::Init(void)
 {
 	// デバイス情報取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
@@ -64,7 +76,7 @@ HRESULT CBillboard::Init()
 
 	// 情報の代入
 	D3DXVECTOR3 size = GetSize();
-	//m_sizeBase = size;
+	m_sizeBase = size;
 
 	//頂点バッファをロック
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
