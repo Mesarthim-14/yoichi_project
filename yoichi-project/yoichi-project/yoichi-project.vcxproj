@@ -197,8 +197,10 @@
     <ClInclude Include="08_3D\stage_map.h" />
     <ClInclude Include="08_3D\star.h" />
     <ClInclude Include="08_3D\star_manager.h" />
+    <ClInclude Include="10_UI\button.h" />
     <ClInclude Include="10_UI\number_2d.h" />
     <ClInclude Include="10_UI\number_3d.h" />
+    <ClInclude Include="10_UI\playerselectbutton.h" />
     <ClInclude Include="10_UI\player_ui.h" />
     <ClInclude Include="10_UI\star_ui.h" />
     <ClInclude Include="10_UI\result.h" />
@@ -262,20 +264,20 @@
     <ClCompile Include="08_3D\star.cpp" />
     <ClCompile Include="08_3D\star_manager.cpp" />
     <ClCompile Include="08_3D\wind.cpp" />
+    <ClCompile Include="10_UI\button.cpp" />
     <ClCompile Include="10_UI\number_2d.cpp" />
     <ClCompile Include="10_UI\number_3d.cpp" />
+    <ClCompile Include="10_UI\playerselectbutton.cpp" />
     <ClCompile Include="10_UI\result.cpp" />
     <ClCompile Include="10_UI\player_ui.cpp" />
     <ClCompile Include="10_UI\star_ui.cpp" />
     <ClCompile Include="10_UI\time_ui.cpp" />
-
     <ClCompile Include="10_UI\ui.cpp" />
     <ClCompile Include="11_common\bg.cpp" />
     <ClCompile Include="11_common\collision.cpp" />
     <ClCompile Include="11_common\fade.cpp" />
     <ClCompile Include="11_common\polygon.cpp" />
     <ClCompile Include="11_common\renderer.cpp" />
-
     <ClCompile Include="11_common\timer.cpp" />
     <ClCompile Include="12_effect\barrier_effect.cpp" />
     <ClCompile Include="12_effect\effect_3d.cpp" />

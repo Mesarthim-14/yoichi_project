@@ -64,6 +64,7 @@
 #define VERTEX_TRIANGLE	(3)															// 三角形の頂点数
 #define NUM_POLYGON		(2)															// ポリゴン数
 #define MAX_PLAYER_NUM	(4)															// プレイヤーの最大数
+#define MIN_PLAYER_NUM	(2)															// プレイヤーの最小数
 #define MAP_LIMIT		(15000)														// マップ上限
 #define NUM_RADIX    (10.0f)    //ナンバーの基数
 

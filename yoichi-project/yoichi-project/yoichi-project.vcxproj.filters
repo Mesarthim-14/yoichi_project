@@ -243,6 +243,15 @@
     <ClInclude Include="11_common\timer.h">
       <Filter>11_common</Filter>
     </ClInclude>
+    <ClInclude Include="12_effect\barrier_effect.h" />
+    <ClInclude Include="12_effect\barrier_effect.h" />
+    <ClInclude Include="10_UI\button.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="12_effect\barrier_effect.h" />
+    <ClInclude Include="10_UI\playerselectbutton.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp">
@@ -442,6 +451,12 @@
     </ClCompile>
     <ClCompile Include="12_effect\magichand.cpp">
       <Filter>12_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\button.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\playerselectbutton.cpp">
+      <Filter>10_UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
