@@ -41,6 +41,11 @@
 #define TEXTURE_NAME_BUTTON_4P	("data/Texture/4Player.png")			// 人数指定ボタン
 
 
+#define TEXTURE_FILE_SIDE_LINE          ("data/Texture/side_line.png")       // 横線
+#define TEXTURE_FILE_VERTICAL_LLINE     ("data/Texture/Vertical_lline.png")  // 縦線
+#define TEXTURE_FILE_FRAME              ("data/Texture/frame.png")           // 中央の枠
+#define TEXTURE_FILE_POINT_UI           ("data/Texture/pointup.png")         // ポイントアップのテクスチャ
+
 // 分割テクスチャの名前
 #define SEPARATE_TEX_NAME_NUMBER	("data/Texture/number000.png")	// ナンバー
 #define SEPARATE_TEX_NAME_LIGHTNINGSTRIKE	("data/Texture/thunder.jpg")			// 落雷
@@ -106,11 +111,17 @@ HRESULT CTexture::Load(void)
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_BUTTON_3P, &m_apTexture[TEXTURE_NUM_BUTTON_3P]);
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_BUTTON_4P, &m_apTexture[TEXTURE_NUM_BUTTON_4P]);
 
-    D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RESULT_1ST, &m_apTexture[TEXTURE_NUM_RESULT_1ST]);
-    D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RESULT_2ND, &m_apTexture[TEXTURE_NUM_RESULT_2ND]);
-    D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RESULT_3RD, &m_apTexture[TEXTURE_NUM_RESULT_3RD]);
-    D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RESULT_4TH, &m_apTexture[TEXTURE_NUM_RESULT_4TH]);
-    return S_OK;
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RESULT_1ST, &m_apTexture[TEXTURE_NUM_RESULT_1ST]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RESULT_2ND, &m_apTexture[TEXTURE_NUM_RESULT_2ND]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RESULT_3RD, &m_apTexture[TEXTURE_NUM_RESULT_3RD]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RESULT_4TH, &m_apTexture[TEXTURE_NUM_RESULT_4TH]);
+
+    D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_SIDE_LINE, &m_apTexture[TEXTURE_NUM_SIDE_LINE]);
+    D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_VERTICAL_LLINE, &m_apTexture[TEXTURE_NUM_VERTICAL_LLINE]);
+    D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_FRAME, &m_apTexture[TEXTURE_NUM_FRAME]);
+    D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_POINT_UI, &m_apTexture[TEXTURE_NUM_POINT_UP]);
+
+	return S_OK;
 }
 
 //=============================================================================

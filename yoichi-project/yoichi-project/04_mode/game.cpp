@@ -31,6 +31,7 @@
 #include "result.h"
 #include "timer.h"
 #include "fade.h"
+#include "game_ui.h"
 
 //=======================================================================================
 // static初期化
@@ -43,6 +44,7 @@ CItemBoxManager *CGame::m_pItemManager = nullptr;
 int CGame::m_nPlayerNum = 1;
 CResult *CGame::m_apResult[MAX_PLAYER_NUM] = {};
 CTime_UI *CGame::m_pTimeUI = nullptr;
+CGame_UI *CGame::m_pGameUI = nullptr;                 // ゲームUI
 
 
 //=======================================================================================
@@ -132,6 +134,10 @@ HRESULT CGame::Init(void)
     // タイマーのセット
     m_pTimeUI = CTime_UI::Create();
 
+    // 共通UIの表示
+    m_pGameUI = CGame_UI::Create();
+
+    
 	//BGM
 //	CSound *pSound = CManager::GetSound();
 //	pSound->Play(CSound::SOUND_LABEL_BGM_GAME);
@@ -206,6 +212,12 @@ void CGame::Uninit(void)
 			m_pPlayer[nCount] = nullptr;
 		}
 	}
+
+    if (m_pGameUI != nullptr)
+    {
+        m_pGameUI->Uninit();
+        m_pGameUI = nullptr;
+    }
 
 	// !nullcheck
 	if (m_pStageMap != nullptr)

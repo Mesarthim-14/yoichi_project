@@ -13,6 +13,14 @@
 #include "billboard.h"
 
 //=====================================================
+// マクロ定義
+//=====================================================
+#define STAR_COLOR_RED			(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f))						// 赤
+#define STAR_COLOR_BLUE			(D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f))						// 青
+#define STAR_COLOR_YELLOW		(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f))						// 黄
+#define STAR_COLOR_GREEN		(D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f))						// 緑
+
+//=====================================================
 // 前方宣言
 //=====================================================
 class CStarManager;

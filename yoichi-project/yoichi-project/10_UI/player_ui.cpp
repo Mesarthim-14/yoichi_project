@@ -6,10 +6,6 @@
 //=============================================================================
 
 //*****************************************************************************
-// マクロ定義
-//*****************************************************************************
-
-//*****************************************************************************
 // インクルードファイル
 //*****************************************************************************
 #include "player_ui.h"
@@ -18,6 +14,7 @@
 #include "keyboard.h"
 #include "joypad.h"
 #include "star_ui.h"
+#include "Fly_ui.h"
 #include "effect.h"
 #include "effect_factory.h"
 
@@ -71,6 +68,9 @@ void CPlayer_UI::Init(int nPlayerNum)
 {
     m_pStarUI = CStar_UI::Create();
     m_pStarUI->SetPosition(nPlayerNum);
+
+    m_pFlyUI = CFly_UI::Create();
+    m_pFlyUI->Init(nPlayerNum);
 }
 
 //=============================================================================
@@ -91,6 +91,14 @@ void CPlayer_UI::Uninit(void)
             m_apItem[nCount]->Uninit();
             m_apItem[nCount] = nullptr;
         }
+    }
+
+    // 飛行UIの破棄
+    if (m_pFlyUI != nullptr)
+    {
+        // 終了処理
+        m_pFlyUI->Uninit();
+        m_pFlyUI = nullptr;
     }
 
     // 配列があれば
