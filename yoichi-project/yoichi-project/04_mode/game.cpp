@@ -30,6 +30,7 @@
 #include "time_ui.h"
 #include "result.h"
 #include "timer.h"
+#include "fade.h"
 
 //=======================================================================================
 // static初期化
@@ -43,6 +44,7 @@ int CGame::m_nPlayerNum = 1;
 CResult *CGame::m_apResult[MAX_PLAYER_NUM] = {};
 CTime_UI *CGame::m_pTimeUI = nullptr;
 
+
 //=======================================================================================
 // コンストラクタ
 //=======================================================================================
@@ -52,7 +54,7 @@ CGame::CGame()
 	m_nTimeCounter = 0;
 	m_pStarManager = nullptr;
 	m_pStageMap = nullptr;
-
+	m_nTimer = 0;
 	// 0だったら
 	if (m_nPlayerNum == 0)
 	{
@@ -259,6 +261,12 @@ void CGame::Update(void)
     {
 		// リザルトUiの表示
 		SetResultUi();
+
+		//タイトル画面に戻る
+		if (m_nTimer++ == TIME_RETURN_TITLE)
+		{
+			CManager::GetFade()->SetFade(CManager::MODE_TYPE_TITLE);
+		}
 
 		// リザルトのアップデート
 		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)

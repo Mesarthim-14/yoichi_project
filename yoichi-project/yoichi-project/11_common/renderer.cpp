@@ -233,32 +233,35 @@ void CRenderer::Draw(void)
 			CTitle* pTitle = CManager::GetTitle();
 			CTutorial* pTutorial = CManager::GetTutorial();
 			CGame* pGame = CManager::GetGame();
-			switch (CManager::GetMode())
+
+			if (CManager::GetMode() == CManager::MODE_TYPE_GAME)
 			{
-				// タイトル
-			case CManager::MODE_TYPE_TITLE:
-				if (CManager::GetTitle() != nullptr)
-				{
-					pTitle->Draw();
-				}
-				break;
-
-				// チュートリアル
-			case CManager::MODE_TYPE_TUTORIAL:
-				if (pTutorial != nullptr)
-				{
-					pTutorial->Draw();
-				}
-				break;
-
-				// ゲーム
-			case CManager::MODE_TYPE_GAME:
 				if (pGame != nullptr)
 				{
 					pGame->Draw();
 				}
-				break;
 			}
+		}
+
+		CTitle* pTitle = CManager::GetTitle();
+		CTutorial* pTutorial = CManager::GetTutorial();
+		switch (CManager::GetMode())
+		{
+			// タイトル
+		case CManager::MODE_TYPE_TITLE:
+			if (CManager::GetTitle() != nullptr)
+			{
+				pTitle->Draw();
+			}
+			break;
+
+			// チュートリアル
+		case CManager::MODE_TYPE_TUTORIAL:
+			if (pTutorial != nullptr)
+			{
+				pTutorial->Draw();
+			}
+			break;
 		}
 
 		if (CGame::GetPlayerNum() == 3)
