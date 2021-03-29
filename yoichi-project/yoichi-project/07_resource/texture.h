@@ -37,6 +37,10 @@ public:
 		TEXTURE_NUM_RESULT_2ND,			// リザルト1位
 		TEXTURE_NUM_RESULT_3RD,			// リザルト1位
 		TEXTURE_NUM_RESULT_4TH,			// リザルト1位
+        TEXTURE_NUM_SIDE_LINE,          // 横の枠線
+        TEXTURE_NUM_VERTICAL_LLINE,     // 縦の枠線
+        TEXTURE_NUM_FRAME,              // 枠
+        TEXTURE_NUM_POINT_UP,           // ポイントアップ
 		TEXTURE_NUM_STAR,			// 星
 		TEXTURE_NUM_RING,			// 輪
 		TEXTURE_NUM_LACKRING,		// 欠けた輪
