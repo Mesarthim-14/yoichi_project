@@ -116,7 +116,7 @@ void CWindEffect::Update(void)
 	CBillboard::Update();
 
 	D3DXCOLOR col = GetColor();
-	col.a -= 0.1;
+	col.a -= 0.1f;
 	SetColor(col);
 
 	//D3DXVECTOR3 pos =
