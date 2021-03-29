@@ -131,6 +131,15 @@ void CItemThunder::SetItem(void)
 					// 相手の速度を無くす
 					pPlayer->SetSpeed(THUNDER_SPEED_NUM);
 
+					CModelAnime* pModelAnime = pPlayer->GetModelAnime(21);
+					D3DXVECTOR3 Rot = pPlayer->GetRot();
+					D3DXVECTOR3 EffectCenter = D3DXVECTOR3(pModelAnime->GetMtxWorld()._41,
+						pModelAnime->GetMtxWorld()._42,
+						pModelAnime->GetMtxWorld()._43);
+					CEffectFactory::CreateEffect(EffectCenter, CEffectFactory::EFFECT_TYPE::EFFECT_NUM_THUNDER);
+
+					CEffectFactory::CreateEffect(EffectCenter + D3DXVECTOR3(0.0f, 500.0f, 0.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_LIGHTNINGSTRIKE);
+
 					// アイテムの有効フラグ
 					m_bValid[nCount] = true;
 

@@ -150,9 +150,6 @@
     <ClInclude Include="12_effect\effect.h">
       <Filter>12_effect</Filter>
     </ClInclude>
-    <ClInclude Include="barrier.h">
-      <Filter>08_3D</Filter>
-    </ClInclude>
     <ClInclude Include="06_item\item_bluewing.h">
       <Filter>06_item</Filter>
     </ClInclude>
@@ -256,6 +253,10 @@
       <Filter>10_UI</Filter>
     </ClInclude>
     <ClInclude Include="10_UI\Fly_ui.h" />
+    <ClInclude Include="12_effect\barrier_effect.h" />
+    <ClInclude Include="08_3D\barrier.h">
+      <Filter>08_3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp">

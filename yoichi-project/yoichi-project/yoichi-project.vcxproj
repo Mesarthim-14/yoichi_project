@@ -183,6 +183,7 @@
     <ClInclude Include="07_resource\sound.h" />
     <ClInclude Include="07_resource\texture.h" />
     <ClInclude Include="07_resource\xfile.h" />
+    <ClInclude Include="08_3D\barrier.h" />
     <ClInclude Include="08_3D\billboard.h" />
     <ClInclude Include="08_3D\camera.h" />
     <ClInclude Include="08_3D\character.h" />
@@ -220,7 +221,6 @@
     <ClInclude Include="12_effect\effect_factory.h" />
     <ClInclude Include="12_effect\effect.h" />
     <ClInclude Include="12_effect\magichand.h" />
-    <ClInclude Include="barrier.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp" />

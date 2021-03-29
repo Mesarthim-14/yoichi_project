@@ -17,7 +17,7 @@
 #include "texture.h"
 #include "game.h"
 #include "player.h"
-
+#include "magichand.h"
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -129,12 +129,15 @@ void CItemMhand::SetItem(void)
 	{
 		// アイテムを持っているプレイヤーを参照
 		CPlayer *pPlayer = CGame::GetPlayer(GetPlayerNum());
-
+		int nNum = GetPlayerNum();
 		// !nullcheck
 		if (pPlayer != nullptr)
 		{
 			// 半径を上昇
 			pPlayer->SetRadius(pPlayer->GetRadius() * MHAND_RADIUS_UP);
+			// マジックハンドのエフェクト
+			CMagichand::Create(-MAGICHAND_DISTANCE , CTexture::SEPARATE_TEX_MAGICHANDLEFT, nNum);
+			CMagichand::Create(MAGICHAND_DISTANCE, CTexture::SEPARATE_TEX_MAGICHANDRIGHT, nNum);
 		}
 
 		// 使用状態にする

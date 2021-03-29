@@ -134,6 +134,18 @@ void CItemRedWing::SetItem(void)
 						// 相手の速度を低下
 						pPlayer->SetSpeed(pPlayer->GetBaseSpeed() / RED_WING_SPEED_DOWN_NUM);
 
+						CModelAnime* pModelAnime = pPlayer->GetModelAnime(21);
+						D3DXVECTOR3 Rot = pPlayer->GetRot();
+						// 速度が落ちた時のエフェクト
+						CEffectFactory::CreateEffect(D3DXVECTOR3(pModelAnime->GetMtxWorld()._41, pModelAnime->GetMtxWorld()._42,
+							pModelAnime->GetMtxWorld()._43) + D3DXVECTOR3(sinf(pPlayer->GetRot().y) * -300.0f, 0.0f, cosf(Rot.y) * -300.0f),
+							CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWN);
+
+						CEffectFactory::CreateEffect(D3DXVECTOR3(pModelAnime->GetMtxWorld()._41,
+							pModelAnime->GetMtxWorld()._42,
+							pModelAnime->GetMtxWorld()._43) + D3DXVECTOR3(sinf(Rot.y) * -300.0f, 0.0f, cosf(Rot.y) * -300.0f),
+							CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWNPARTICLE);
+
 						// 効果を有効にする
 						m_bValid[nCount] = true;
 					}
