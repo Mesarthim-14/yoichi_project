@@ -104,7 +104,7 @@ CPlayer::~CPlayer()
 HRESULT CPlayer::Init(void)
 {
 	// モデル情報取得
-	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();
+	CXfile *pXfile = GET_XFILE_PTR;
 
 	// !nullcheck
 	if (pXfile != NULL)
@@ -317,7 +317,7 @@ void CPlayer::Walk(void)
 {
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();				// キーボード取得
 	DIJOYSTATE js = CInputJoypad::GetStick(m_nNumber);					// ジョイパッドの取得
-	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();	// サウンドポインタ取得
+	CSound *pSound = GET_SOUND_PTR;	// サウンドポインタ取得
 	float fSpeed = GetSpeed();											// 速度取得
 	float fCameraAngle = CGame::GetCamera(m_nNumber)->GetHorizontal();	// カメラ角度取得
 	float fMoveAngle = 0.0f; 											// 移動角度

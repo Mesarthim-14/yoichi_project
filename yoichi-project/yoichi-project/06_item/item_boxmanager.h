@@ -42,6 +42,6 @@ public:
 private:
 	CItemBoxManager();								// コンストラクタ
 	static CItemBoxManager *m_pItemManager;			// 自身のクラスのポインタ
-	std::vector<CItemBox*> m_pItemBox;				// アイテムボックスのポインタ
+	vector<CItemBox*> m_pItemBox;				// アイテムボックスのポインタ
 };
 #endif

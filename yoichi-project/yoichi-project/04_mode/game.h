@@ -36,15 +36,17 @@ class CResult;
 class CGame : public ICGameMode
 {
 public:
-	CGame();											// コンストラクタ
-	~CGame();											// デストラクタ
+	CGame();														// コンストラクタ
+	~CGame();														// デストラクタ
 
-	HRESULT Init();										// 初期化処理
-	void Uninit(void);									// 終了処理
-	void Update(void);									// 更新処理
-	void Draw(void);									// 描画処理
+	HRESULT Init();													// 初期化処理
+	void Uninit(void);												// 終了処理
+	void Update(void);												// 更新処理
+	void Draw(void);												// 描画処理
 
-	static CGame* Create(void);							// ゲーム生成情報
+	static CGame* Create(void);										// ゲーム生成情報
+	void SetResultUi(void);											// リザルトのUiを設定
+	void SetRanking(vector<int> *apStarNum, vector<int> *apRank);	// ランキングの設定
 
 	// Set関数
 	static void SetPlayerNum(int nPlayerNum) { m_nPlayerNum = nPlayerNum; }	// プレイヤーの数の設定

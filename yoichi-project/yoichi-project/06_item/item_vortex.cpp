@@ -76,7 +76,7 @@ HRESULT CItemVortex::Init(void)
 	if (pUi != nullptr)
 	{
 		// テクスチャのポインタ取得
-		CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
+		CTexture *pTexture = GET_TEXTURE_PTR;
 
 		// テクスチャの設定
 		pUi->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_ITEM_VORTEX));

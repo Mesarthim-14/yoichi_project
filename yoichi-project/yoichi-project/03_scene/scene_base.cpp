@@ -29,10 +29,19 @@ CSceneBase::CSceneBase(PRIORITY Priority):CScene(Priority)
 CSceneBase::~CSceneBase()
 {
 	// !nullcheck
-	if (m_pVtxBuff != NULL)
+	if (m_pVtxBuff != nullptr)
 	{
 		//頂点バッファの開放
 		m_pVtxBuff->Release();
 		m_pVtxBuff = nullptr;
 	}
+}
+
+//=============================================================================
+// シーン情報設定
+//=============================================================================
+void CSceneBase::SetSceneInfo(const D3DXVECTOR3 & pos, const D3DXVECTOR3 & size)
+{
+	m_pos = pos;
+	m_size = size;
 }

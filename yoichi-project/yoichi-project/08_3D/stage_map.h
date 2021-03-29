@@ -17,6 +17,7 @@
 // マクロ定義
 //=============================================================================
 #define MAP_LIMIT_Y		(2000.0f)		// マップの下限
+#define MAP_LIMIT_SKY	(10000.0f)		// 空の上限
 
 //=============================================================================
 // 前方宣言
@@ -33,7 +34,6 @@ public:
 	~CStageMap();														// デストラクタ
 
 	void Uninit(void);													// 終了処理
-	void Update(void);													// 更新処理
 	void CreateMap(void);												// アイテムクラスの生成
 
 	static CStageMap *Create(void);										// インスタンス生成
@@ -42,6 +42,6 @@ public:
 	CMeshPillar *GetMeshPillar(int nCount)				{ return m_pMeshPillar[nCount]; }	
 	size_t GetMeshPillarNum(void)						{ return m_pMeshPillar.size(); }
 private:
-	std::vector<CMeshPillar*> m_pMeshPillar;	// アイテムボックスのポインタ
+	vector<CMeshPillar*> m_pMeshPillar;	// アイテムボックスのポインタ
 };
 #endif

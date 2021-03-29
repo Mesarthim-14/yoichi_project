@@ -13,6 +13,13 @@
 #include "main.h"
 
 //=============================================================================
+// マクロ定義
+//=============================================================================
+#define GET_TEXTURE_PTR	(CManager::GetResourceManager()->GetTextureClass())
+#define GET_SOUND_PTR	(CManager::GetResourceManager()->GetSoundClass())
+#define GET_XFILE_PTR	(CManager::GetResourceManager()->GetXfileClass())
+
+//=============================================================================
 //前方宣言
 //=============================================================================
 class CRenderer;

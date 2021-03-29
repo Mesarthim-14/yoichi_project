@@ -177,7 +177,7 @@ void CCharacter::Draw()
 void CCharacter::ModelCreate(CXfile::HIERARCHY_XFILE_NUM FileNum)
 {
 	// XFile‚Ìƒ|ƒCƒ“ƒ^Žæ“¾
-	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();
+	CXfile *pXfile = GET_XFILE_PTR;
 
 	// !nullcheck
 	if (pXfile != NULL)

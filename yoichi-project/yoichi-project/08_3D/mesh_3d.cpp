@@ -29,7 +29,7 @@ CMesh3d::MESH_3D CMesh3d::m_Mesh3D[MESH_TYPE_MAX] = {};
 //=============================================================================
 CMesh3d::CMesh3d(PRIORITY Priority):CSceneBase(Priority)
 {
-	m_pIdxBuff = NULL;
+	m_pIdxBuff = nullptr;
 	D3DXMatrixIdentity(&m_mtxWorld);
 	m_nNumVertex = 0;
 	m_nNumIndex = 0;
@@ -44,7 +44,7 @@ CMesh3d::CMesh3d(PRIORITY Priority):CSceneBase(Priority)
 CMesh3d::~CMesh3d()
 {
 	// インデックスバッファの開放
-	if (m_pIdxBuff != NULL)
+	if (m_pIdxBuff != nullptr)
 	{
 		m_pIdxBuff->Release();
 		m_pIdxBuff = nullptr;

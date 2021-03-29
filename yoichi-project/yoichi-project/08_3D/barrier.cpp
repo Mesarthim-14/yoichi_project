@@ -62,7 +62,7 @@ CBARRIER::~CBARRIER()
 HRESULT CBARRIER::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 {
 	// Xファイルのポインタ
-	CXfile *pXFile = CManager::GetResourceManager()->GetXfileClass();
+	CXfile *pXFile = GET_XFILE_PTR;
 
 	//モデル情報を設定
 	BindModel(pXFile->GetXfile(CXfile::XFILE_NUM_BARRIER));

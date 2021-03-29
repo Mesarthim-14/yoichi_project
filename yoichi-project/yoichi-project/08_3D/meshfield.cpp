@@ -44,7 +44,9 @@ CMeshField * CMeshField::Create(void)
 	// nullchack
 	if (pMeshField != nullptr)
 	{
+		// 座標設定
 		pMeshField->SetPos(MESHFIELD_POS);
+
 		// 初期化処理
 		pMeshField->Init();
 	}
@@ -69,9 +71,8 @@ HRESULT CMeshField::Init(void)
 	int nCntV = 0;			// 横の頂点カウンタ
 
 	// テクスチャの設定
-	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
+	CTexture *pTexture = GET_TEXTURE_PTR;
 	BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_SEA));
-	D3DXVECTOR3 pos = GetPos();
 
 	// 値の初期化
 	SetNumVertex((FIELD_WIDTH + 1) * (FIELD_HEIGHT + 1));								// 25
@@ -82,8 +83,8 @@ HRESULT CMeshField::Init(void)
 	D3DXVECTOR2 OneSize = D3DXVECTOR2(FIELD_WIDTH_SIZE * 2 / FIELD_WIDTH, FIELD_HEIGHT_SIZE * 2 / FIELD_HEIGHT);
 	SetOneSize(OneSize);
 
-	LPDIRECT3DVERTEXBUFFER9 pVtxBuff;		// バッファ
-	LPDIRECT3DINDEXBUFFER9 pIdxBuff;		// バッファの番号
+	LPDIRECT3DVERTEXBUFFER9 pVtxBuff = nullptr;		// バッファ
+	LPDIRECT3DINDEXBUFFER9 pIdxBuff = nullptr;		// バッファの番号
 
 	// オブジェクトの頂点バッファを生成
 	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * GetNumVertex(),
@@ -100,7 +101,6 @@ HRESULT CMeshField::Init(void)
 		D3DPOOL_MANAGED,
 		&pIdxBuff,
 		NULL);
-
 	
 	// 頂点データの範囲をロックし、頂点バッファへのポインタを取得
 	pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
@@ -110,13 +110,13 @@ HRESULT CMeshField::Init(void)
 		for (nCntH = 0; nCntH < FIELD_WIDTH + 1; nCntH++)
 		{
 			// 頂点の設定
-			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].pos = D3DXVECTOR3(-FIELD_WIDTH_SIZE + (nCntH * OneSize.x), 0.0f, FIELD_HEIGHT_SIZE - (nCntV * OneSize.x));
+			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].pos = D3DXVECTOR3(-FIELD_WIDTH_SIZE + (nCntH * OneSize.x), 0.0f, FIELD_HEIGHT_SIZE - (nCntV * OneSize.y));
 
 			// 法線ベクトルの設定
 			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
 			// 色の設定
-			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].col = D3DXCOLOR(0.5f, 0.5f, 0.5f, 0.2f);
+			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].col = D3DXCOLOR(0.8f, 0.8f, 1.0f, 0.2f);
 
 			// テクスチャ座標の設定
 			pVtx[(nCntV * (FIELD_HEIGHT + 1)) + nCntH].tex = D3DXVECTOR2(float(nCntH), float(nCntV));
@@ -187,5 +187,6 @@ void CMeshField::Update(void)
 //=============================================================================
 void CMeshField::Draw(void)
 {
+	// 描画処理
 	CMesh3d::Draw();
 }

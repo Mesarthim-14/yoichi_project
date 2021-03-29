@@ -17,7 +17,7 @@
 //=============================================================================
 // テクスチャの名前
 #define TEXTURE_NAME_EFFECT	("data/Texture/effect000.png")		// エフェクト
-#define TEXTURE_NAME_FLOOR	("data/Texture/floor.jpg")			// 床
+#define TEXTURE_NAME_FLOOR	("data/Texture/scaffold.png")			// 床
 #define TEXTURE_NAME_STAR	("data/Texture/star.png")			// 星
 #define TEXTURE_NAME_RING	("data/Texture/ring.png")			// 輪
 #define TEXTURE_NAME_SMOKE	("data/Texture/smoke.png")			// 煙

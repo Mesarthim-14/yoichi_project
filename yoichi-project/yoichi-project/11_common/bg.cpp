@@ -56,7 +56,7 @@ CBg::~CBg()
 HRESULT CBg::Init(void)
 {
 	// Xファイルのポインタ
-	CXfile *pXFile = CManager::GetResourceManager()->GetXfileClass();
+	CXfile *pXFile = GET_XFILE_PTR;
 
 	//モデル情報を設定
 	BindModel(pXFile->GetXfile(CXfile::XFILE_NUM_BG));

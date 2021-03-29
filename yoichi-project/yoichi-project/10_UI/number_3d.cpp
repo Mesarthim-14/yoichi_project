@@ -53,7 +53,7 @@ CNumber3d * CNumber3d::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nNum)
 {
 	// インスタンス生成
 	CNumber3d *pNumber3d = new CNumber3d;
-	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
+	CTexture *pTexture = GET_TEXTURE_PTR;
 
 	// nullcheck
 	if (pNumber3d != NULL)

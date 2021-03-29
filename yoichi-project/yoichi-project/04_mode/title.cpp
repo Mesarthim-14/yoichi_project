@@ -68,7 +68,7 @@ CTitle * CTitle::Create(void)
 HRESULT CTitle::Init(void)
 {
 	// テクスチャのポインタ
-	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
+	CTexture *pTexture = GET_TEXTURE_PTR;
 
 	if (m_pScene2D == NULL)
 	{
@@ -140,7 +140,7 @@ void CTitle::Update(void)
 	
 	CInputKeyboard* pKey = CManager::GetKeyboard();
 	CFade::FADE_MODE mode = CManager::GetFade()->GetFade();
-	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
+	CSound *pSound = GET_SOUND_PTR;
 	CScene::UpdateAll();
 	// コントローラのstartを押したときか、エンターキーを押したとき
 	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_START, 0) && mode == CFade::FADE_MODE_NONE

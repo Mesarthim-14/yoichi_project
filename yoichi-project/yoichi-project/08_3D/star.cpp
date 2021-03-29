@@ -83,7 +83,7 @@ HRESULT CStar::Init(void)
 	CBillboard::Init();
 
 	// テクスチャのポインタ
-	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
+	CTexture *pTexture = GET_TEXTURE_PTR;
 
 	// nullcheck
 	if (pTexture != nullptr)

@@ -81,7 +81,7 @@ HRESULT CItemBox::Init(void)
 	CModel::Init();
 
 	// Xファイルの情報取得
-	CXfile *pXfile = CManager::GetResourceManager()->GetXfileClass();
+	CXfile *pXfile = GET_XFILE_PTR;
 
 	// モデル情報の設定
 	BindModel(pXfile->GetXfile(CXfile::XFILE_NUM_ITEM_BOX));

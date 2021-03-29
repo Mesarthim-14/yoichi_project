@@ -60,12 +60,13 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 
 		pEffect->SetPos(TargetPos);
 		pEffect->SetSize(Particle.size);
+
 		// 初期化処理
 		pEffect->Init();
 		pEffect->SetPos(TargetPos);		// 回転の設定
 		pEffect->SetSizeBase(Particle.size);					// 色の設定
 
-		CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
+		CTexture *pTexture = GET_TEXTURE_PTR;
 
 		// アニメーション情報
 		if (Particle.bAnimation == false)

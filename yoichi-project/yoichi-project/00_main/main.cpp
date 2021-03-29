@@ -27,6 +27,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 //=============================================================================
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	// —”‚Ì‰Šú‰»
+	srand((unsigned)time(nullptr));
+
 #ifdef _DEBUG
 	// ƒƒ‚ƒŠƒŠ[ƒNŒ©‚Â‚¯‚éŒN
 	::_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
