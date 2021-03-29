@@ -21,27 +21,28 @@ public:
 	// テクスチャの番号の列挙型
 	enum TEXTURE_TYPE
 	{
-		TEXTURE_NUM_NONE = -1,			// 初期値
-		TEXTURE_NUM_EFFECT,				// 炎
-		TEXTURE_NUM_FLOOR,				// 床テクスチャ
-		TEXTURE_NUM_TITLE_LOGO,			// タイトルロゴ
-		TEXTURE_NUM_ITEM_BLUE_WING,		// アイテム青い羽根
-		TEXTURE_NUM_ITEM_RED_WING,		// アイテム赤い羽
-		TEXTURE_NUM_ITEM_BOMB,			// アイテム爆弾
-		TEXTURE_NUM_ITEM_BARRIER,		// アイテムバリア
-		TEXTURE_NUM_ITEM_THUNDER,		// アイテム雷
-		TEXTURE_NUM_ITEM_MHAND,			// アイテムMハンド
-		TEXTURE_NUM_ITEM_VORTEX,		// アイテム渦
-		TEXTURE_NUM_SEA,				// 海
-		TEXTURE_NUM_RESULT_1ST,			// リザルト1位
-		TEXTURE_NUM_RESULT_2ND,			// リザルト1位
-		TEXTURE_NUM_RESULT_3RD,			// リザルト1位
-		TEXTURE_NUM_RESULT_4TH,			// リザルト1位
+		TEXTURE_NUM_NONE = -1,		// 初期値
+		TEXTURE_NUM_EFFECT,			// 炎
+		TEXTURE_NUM_FLOOR,			// 床テクスチャ
+		TEXTURE_NUM_TITLE_LOGO,		// タイトルロゴ
+		TEXTURE_NUM_ITEM_BLUE_WING,	// アイテム青い羽根
+		TEXTURE_NUM_ITEM_RED_WING,	// アイテム赤い羽
+		TEXTURE_NUM_ITEM_BOMB,		// アイテム爆弾
+		TEXTURE_NUM_ITEM_BARRIER,	// アイテムバリア
+		TEXTURE_NUM_ITEM_THUNDER,	// アイテム雷
+		TEXTURE_NUM_ITEM_MHAND,		// アイテムMハンド
+		TEXTURE_NUM_ITEM_VORTEX,	// アイテム渦
+		TEXTURE_NUM_SEA,			// 海
+		TEXTURE_NUM_RESULT_1ST,		// リザルト1位
+		TEXTURE_NUM_RESULT_2ND,		// リザルト1位
+		TEXTURE_NUM_RESULT_3RD,		// リザルト1位
+		TEXTURE_NUM_RESULT_4TH,		// リザルト1位
 		TEXTURE_NUM_STAR,			// 星
 		TEXTURE_NUM_RING,			// 輪
 		TEXTURE_NUM_LACKRING,		// 欠けた輪
 		TEXTURE_NUM_SMOKE,			// 煙
 		TEXTURE_NUM_KIRAKIRA,		// キラキラ
+		TEXTURE_NUM_SHADOW,			// 影
 		TEXTURE_NUM_MAX
 	};
 

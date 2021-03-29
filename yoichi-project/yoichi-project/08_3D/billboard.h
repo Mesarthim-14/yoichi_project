@@ -29,6 +29,7 @@ public:
 	void InitAnimation(D3DXVECTOR2 TexInfo, int nLoop);			// アニメーション情報初期化
 	void UpdateAnimation(void);									// アニメーションの更新
 	void UpdateTransparency(void);								// 透明度の更新
+	void UpdateColor(void);										// 色の更新
 	
 	// Set関数
 	void SetMove(D3DXVECTOR3 move);								// 移動量設定

@@ -150,9 +150,6 @@
     <ClInclude Include="12_effect\effect.h">
       <Filter>12_effect</Filter>
     </ClInclude>
-    <ClInclude Include="barrier.h">
-      <Filter>08_3D</Filter>
-    </ClInclude>
     <ClInclude Include="06_item\item_bluewing.h">
       <Filter>06_item</Filter>
     </ClInclude>
@@ -245,6 +242,12 @@
     </ClInclude>
     <ClInclude Include="12_effect\barrier_effect.h">
       <Filter>12_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="12_effect\shadow.h">
+      <Filter>12_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="08_3D\barrier.h">
+      <Filter>08_3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -447,6 +450,9 @@
       <Filter>12_effect</Filter>
     </ClCompile>
     <ClCompile Include="12_effect\wind_effect.cpp">
+      <Filter>12_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="12_effect\shadow.cpp">
       <Filter>12_effect</Filter>
     </ClCompile>
   </ItemGroup>

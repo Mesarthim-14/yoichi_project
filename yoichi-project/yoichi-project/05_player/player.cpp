@@ -37,6 +37,7 @@
 #include "magichand.h"
 #include "player_ui.h"
 #include "wind_effect.h"
+#include "shadow.h"
 
 //=============================================================================
 // マクロ定義
@@ -126,6 +127,8 @@ HRESULT CPlayer::Init(void)
 	m_fBaseSpeed = PLAYER_FLY_SPEED;		// 元のスピード保持
 	m_fBaseRadius = PLAYER_RADIUS;			// 半径
 
+	// 影生成
+	CShadow::Create(CTexture::TEXTURE_NUM_SHADOW, m_nNumber);
 	return S_OK;
 
 }
@@ -348,6 +351,13 @@ void CPlayer::Walk(void)
 	{	// 歩いていない時
 		// 通常モーション
 		SetMotion(MOTION_IDOL);
+	}
+
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_X, m_nNumber))
+	{
+	    // マジックハンドのエフェクト
+	    CMagichand::Create(-MAGICHAND_DISTANCE, CTexture::SEPARATE_TEX_MAGICHANDLEFT, m_nNumber);
+	    CMagichand::Create(MAGICHAND_DISTANCE, CTexture::SEPARATE_TEX_MAGICHANDRIGHT, m_nNumber);
 	}
 
 	// 座標設定
