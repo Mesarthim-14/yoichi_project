@@ -21,10 +21,6 @@
 //=============================================================================================
 // É}ÉNÉçíËã`
 //=============================================================================================
-#define STAR_COLOR_RED			(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f))						// ê‘
-#define STAR_COLOR_BLUE			(D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f))						// ê¬
-#define STAR_COLOR_YELLOW		(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f))						// â©
-#define STAR_COLOR_GREEN		(D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f))						// óŒ
 
 #define STAR_SIZE_X				(150.0f)												// â°ïù
 #define STAR_SIZE_Y				(150.0f)												// ècïù
