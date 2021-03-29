@@ -50,6 +50,7 @@
 #define FLY_ROT_X_MAX			(-D3DXToRadian(10.0f))	// 飛行の最大角
 #define FLY_ROT_X_MIN			(-D3DXToRadian(170.0f))	// 飛行の最小角
 #define FLY_GRAVITY_RATE		(0.5f)					// 飛行時の重力
+#define MAX_FLY_TIME            (10*60)                 // 飛行時間(フレーム)
 
 // エフェクトパーツ
 #define BLADE_EFFECT_INTER		(190)					// 刀身のパーティクルの間隔
@@ -66,7 +67,6 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nCount)
 
 	// 番号の設定
 	pPlayer->m_nNumber = nCount;
-
 
 	pPlayer->SetPos(pos);
 	pPlayer->SetRot(rot);
@@ -89,6 +89,7 @@ CPlayer::CPlayer(PRIORITY Priority)
 	m_fBaseSpeed = 0.0f;
 	m_bArmor = false;
 	m_nStarNum = 0;
+    m_nFlyTime = 0;
 }
 
 //=============================================================================
@@ -124,7 +125,7 @@ HRESULT CPlayer::Init(void)
 
 	m_fBaseSpeed = PLAYER_FLY_SPEED;		// 元のスピード保持
 	m_fBaseRadius = PLAYER_RADIUS;			// 半径
-
+    m_nFlyTime = MAX_FLY_TIME;              // 飛行時間
 
 
 	return S_OK;
@@ -159,9 +160,6 @@ void CPlayer::Update(void)
 
 	// プレイヤーの制御
 	PlayerControl();
-
-	//// アイテムの削除処理
-	//ItemErase();
 
 	// 親クラスの更新処理
 	CCharacter::Update();
@@ -382,6 +380,7 @@ void CPlayer::Jump(void)
 		{
 			m_rotDest.x -= D3DXToRadian(90.0f);
 			SetMove(ZeroVector3);
+
 			m_bFly = true;
 		}
 		else
@@ -396,6 +395,8 @@ void CPlayer::Jump(void)
 			// ジャンプモーションの再生
 			SetMotion(MOTION_JUMP);
 			SetLanding(false);
+            m_nFlyTime = MAX_FLY_TIME;              // 飛行時間の回復
+
 		}
 	}
 }
@@ -411,13 +412,26 @@ void CPlayer::Fly(void)
 	D3DXMATRIX mtxRot;										// 回転計算用行列
 	ZeroMemory(&mtxRot, sizeof(mtxRot));
 	CCamera* pCamera = CGame::GetCamera(m_nNumber);
+    
+    // 飛行時間が0以下のときは飛べない
+    if (m_nFlyTime <= 0)
+    {
+        //m_bFly = false;
+        if (!GetUseGravity())
+        {
+            SetUseGravity(true);
+        }
+        return;
+    }
 
 	// 重力を無効化
 	if (GetUseGravity())
 	{
 		SetUseGravity(false);
 	}
-	
+	// 飛行時間を減らす
+    m_nFlyTime--;
+
 	//プレイヤーの上方向に移動
 	move = D3DXVECTOR3(0.0f, GetSpeed(), 0.0f);
 	// スティックが押し込まれたら上下反転する

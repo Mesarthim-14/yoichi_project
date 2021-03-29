@@ -147,6 +147,7 @@ private:
 	int m_nStarNum;					// 星の数
 	float m_fBaseSpeed;				// 元のスピード
 	float m_fBaseRadius;			// 元の半径
+    int m_nFlyTime;                 // 飛行時間
     CPlayer_UI *m_pPlayerUI;        // プレイヤーごとのUI
 };
 #endif
