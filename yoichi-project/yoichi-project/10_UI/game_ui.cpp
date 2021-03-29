@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// ゲーム画面のUIヘッダ[game_ui.cpp]
+// ゲーム画面のUIクラス[game_ui.cpp]
 // Author : AYANO KUDO
 //
 //=============================================================================
@@ -78,7 +78,6 @@ HRESULT CGame_UI::Init(void)
         m_pUI[nCntUI]->BindTexture(pTexture->GetTexture(m_UI_DATA[nCntUI].FileName));
     }
 
-    // テクスチャの設定
     return S_OK;
 }
 

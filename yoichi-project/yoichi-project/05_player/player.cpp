@@ -50,6 +50,7 @@
 #define FLY_ROT_X_MAX			(-D3DXToRadian(10.0f))	// 飛行の最大角
 #define FLY_ROT_X_MIN			(-D3DXToRadian(170.0f))	// 飛行の最小角
 #define FLY_GRAVITY_RATE		(0.5f)					// 飛行時の重力
+
 // エフェクトパーツ
 #define BLADE_EFFECT_INTER		(190)					// 刀身のパーティクルの間隔
 #define WEAPON_TIP_NUM			(20)					// 剣先のパーツ番号

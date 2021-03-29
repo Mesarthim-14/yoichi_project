@@ -197,6 +197,7 @@
     <ClInclude Include="08_3D\stage_map.h" />
     <ClInclude Include="08_3D\star.h" />
     <ClInclude Include="08_3D\star_manager.h" />
+    <ClInclude Include="10_UI\Fly_ui.h" />
     <ClInclude Include="10_UI\game_ui.h" />
     <ClInclude Include="10_UI\number_2d.h" />
     <ClInclude Include="10_UI\number_3d.h" />
@@ -262,6 +263,7 @@
     <ClCompile Include="08_3D\star.cpp" />
     <ClCompile Include="08_3D\star_manager.cpp" />
     <ClCompile Include="08_3D\wind.cpp" />
+    <ClCompile Include="10_UI\Fly_ui.cpp" />
     <ClCompile Include="10_UI\game_ui.cpp" />
     <ClCompile Include="10_UI\number_2d.cpp" />
     <ClCompile Include="10_UI\number_3d.cpp" />
