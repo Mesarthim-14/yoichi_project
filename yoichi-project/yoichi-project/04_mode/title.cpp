@@ -20,12 +20,12 @@
 #include "joypad.h"
 #include "resource_manager.h"
 #include "game.h"
-
+#include "playerselectbutton.h"
 //=============================================================================
 // マクロ定義
 //=============================================================================
 #define ROTATION_NUM		(0.1f)		// 回転の速さ
-
+#define BUTTON_POS_Y		(SCREEN_HEIGHT * 3/4)
 //=============================================================================
 //リザルトクラスのコンストラクタ
 //=============================================================================
@@ -35,6 +35,9 @@ CTitle::CTitle()
 	m_pScene2D = NULL;
 	m_pPress = NULL;
 	m_pTitleName = NULL;
+	m_bDisplayButton = false;
+	m_nSelectButton = 0;
+	ZeroMemory(m_apPlayerSelectButton, sizeof(m_apPlayerSelectButton));
 }
 
 //=============================================================================
@@ -128,6 +131,14 @@ void CTitle::Uninit(void)
 		m_pPress = NULL;
 	}
 
+	for (int nCount = 0; nCount < MAX_PLAYER_NUM - MIN_PLAYER_NUM + 1; nCount++)
+	{
+		if (m_apPlayerSelectButton[nCount] != NULL)
+		{
+			m_apPlayerSelectButton[nCount]->Uninit();
+			m_apPlayerSelectButton[nCount] = NULL;
+		}
+	}
 	//オブジェクトの破棄
 	delete this;
 }
@@ -137,18 +148,26 @@ void CTitle::Uninit(void)
 //=============================================================================
 void CTitle::Update(void)
 {
-	
 	CInputKeyboard* pKey = CManager::GetKeyboard();
 	CFade::FADE_MODE mode = CManager::GetFade()->GetFade();
 	CSound *pSound = GET_SOUND_PTR;
 	CScene::UpdateAll();
+
+	SelectButton();
+
 	// コントローラのstartを押したときか、エンターキーを押したとき
-	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_START, 0) && mode == CFade::FADE_MODE_NONE
-		|| pKey->GetTrigger(DIK_RETURN) && mode == CFade::FADE_MODE_NONE)
+	if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_START, 0)|| pKey->GetTrigger(DIK_RETURN))
 	{
-		CFade *pFade = CManager::GetFade();
-		pFade->SetFade(CManager::MODE_TYPE_GAME);
+		if (!m_bDisplayButton)
+		{
+			m_bDisplayButton = true;
+			for (int nCount = 0; nCount < MAX_PLAYER_NUM - MIN_PLAYER_NUM + 1; nCount++)
+			{
+				m_apPlayerSelectButton[nCount] = CPlayerSelectButton::Create(D3DXVECTOR3(SCREEN_WIDTH / MAX_PLAYER_NUM * (nCount + 1), BUTTON_POS_Y, 0), PLAYER_SELECT_BUTTON, nCount + MIN_PLAYER_NUM);
+			}
+		}
 	}
+
 
 	// プレイヤーのナンバー設定
 	SetPlayerNum();
@@ -189,5 +208,38 @@ void CTitle::SetPlayerNum(void)
 	{
 		// プレイヤーの設定
 		CGame::SetPlayerNum(4);
+	}
+}
+
+void CTitle::SelectButton(void)
+{
+	CInputJoypad* pJoy = CManager::GetJoypad();
+	if (pJoy->GetPushCross(CROSS_KEY_RIGHT, 0))
+	{
+		if (MAX_PLAYER_NUM - MIN_PLAYER_NUM + 1 >  m_nSelectButton + 1)
+		{
+			m_nSelectButton++;
+		}
+	}
+	if (pJoy->GetPushCross(CROSS_KEY_LEFT, 0))
+	{
+		if (0 < m_nSelectButton)
+		{
+			m_nSelectButton--;
+		}
+	}
+	for (int nCount = 0; nCount < MAX_PLAYER_NUM - MIN_PLAYER_NUM + 1; nCount++)
+	{
+		if (m_apPlayerSelectButton[nCount] != NULL)
+		{
+			if (nCount == m_nSelectButton)
+			{
+				m_apPlayerSelectButton[nCount]->SetSelect(true);
+			}
+			else
+			{
+				m_apPlayerSelectButton[nCount]->SetSelect(false);
+			}
+		}
 	}
 }

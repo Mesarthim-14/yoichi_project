@@ -32,10 +32,15 @@
 #define TEXTURE_NAME_ITEM_MHAND		("data/Texture/item_mhand.png")		// アイテムMハンド
 #define TEXTURE_NAME_ITEM_VORTEX	("data/Texture/item_vortex.png")	// アイテム渦
 #define TEXTURE_NAME_SEA			("data/Texture/sea000.jpeg")		// 海
-#define TEXTURE_FILE_ITEM_RESULT_1ST	("data/Texture/1st.png")		// リザルト1位
-#define TEXTURE_FILE_ITEM_RESULT_2ND	("data/Texture/2nd.png")		// リザルト2位
-#define TEXTURE_FILE_ITEM_RESULT_3RD	("data/Texture/3rd.png")		// リザルト3位
-#define TEXTURE_FILE_ITEM_RESULT_4TH	("data/Texture/4th.png")		// リザルト4位
+#define TEXTURE_NAME_RESULT_1ST	("data/Texture/1st.png")		// リザルト1位
+#define TEXTURE_NAME_RESULT_2ND	("data/Texture/2nd.png")		// リザルト2位
+#define TEXTURE_NAME_RESULT_3RD	("data/Texture/3rd.png")		// リザルト3位
+#define TEXTURE_NAME_RESULT_4TH	("data/Texture/4th.png")		// リザルト4位
+#define TEXTURE_NAME_BUTTON_2P	("data/Texture/2Player.png")			// 人数指定ボタン
+#define TEXTURE_NAME_BUTTON_3P	("data/Texture/3Player.png")			// 人数指定ボタン
+#define TEXTURE_NAME_BUTTON_4P	("data/Texture/4Player.png")			// 人数指定ボタン
+
+
 // 分割テクスチャの名前
 #define SEPARATE_TEX_NAME_NUMBER	("data/Texture/number000.png")	// ナンバー
 #define SEPARATE_TEX_NAME_LIGHTNINGSTRIKE	("data/Texture/thunder.jpg")			// 落雷
@@ -97,11 +102,14 @@ HRESULT CTexture::Load(void)
     D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_LACKRING, &m_apTexture[TEXTURE_NUM_LACKRING]);
     D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_SMOKE, &m_apTexture[TEXTURE_NUM_SMOKE]);
     D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_KIRAKIRA, &m_apTexture[TEXTURE_NUM_KIRAKIRA]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_BUTTON_2P, &m_apTexture[TEXTURE_NUM_BUTTON_2P]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_BUTTON_3P, &m_apTexture[TEXTURE_NUM_BUTTON_3P]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_BUTTON_4P, &m_apTexture[TEXTURE_NUM_BUTTON_4P]);
 
-    D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_ITEM_RESULT_1ST, &m_apTexture[TEXTURE_NUM_RESULT_1ST]);
-    D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_ITEM_RESULT_2ND, &m_apTexture[TEXTURE_NUM_RESULT_2ND]);
-    D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_ITEM_RESULT_3RD, &m_apTexture[TEXTURE_NUM_RESULT_3RD]);
-    D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_ITEM_RESULT_4TH, &m_apTexture[TEXTURE_NUM_RESULT_4TH]);
+    D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RESULT_1ST, &m_apTexture[TEXTURE_NUM_RESULT_1ST]);
+    D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RESULT_2ND, &m_apTexture[TEXTURE_NUM_RESULT_2ND]);
+    D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RESULT_3RD, &m_apTexture[TEXTURE_NUM_RESULT_3RD]);
+    D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_RESULT_4TH, &m_apTexture[TEXTURE_NUM_RESULT_4TH]);
     return S_OK;
 }
 
