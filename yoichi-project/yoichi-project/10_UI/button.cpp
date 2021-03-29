@@ -20,7 +20,6 @@
 //静的メンバ変数初期化
 //・・・・・・・・・・・・・・・・・・・・・・・・・・・
 CButton::BUTTON_TYPE CButton::m_eSelectingButton = BUTTON_TYPE_2P;
-int CButton::nUsingButtons = 0;
 
 //・・・・・・・・・・・・・・・・・・・・・・・・・・・
 //コンストラクタ
@@ -28,7 +27,6 @@ int CButton::nUsingButtons = 0;
 CButton::CButton()
 {
     m_bSelect = false;
-	nUsingButtons++;
 	m_eButtonType = BUTTON_TYPE_NONE;
 }
 
@@ -37,7 +35,6 @@ CButton::CButton()
 //・・・・・・・・・・・・・・・・・・・・・・・・・・・
 CButton::~CButton()
 {
-	nUsingButtons--;
 }
 
 //・・・・・・・・・・・・・・・・・・・・・・・・・・・

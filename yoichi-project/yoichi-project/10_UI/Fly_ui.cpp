@@ -40,7 +40,7 @@ const D3DXVECTOR3 CFly_UI::m_UIPos[MAX_PLAYER_NUM] =
 //=============================================================================
 // [CFly_UI] コンストラクタ
 //=============================================================================
-CFly_UI::CFly_UI(void)
+CFly_UI::CFly_UI(PRIORITY Priority) : CScene(Priority)
 {
 }
 

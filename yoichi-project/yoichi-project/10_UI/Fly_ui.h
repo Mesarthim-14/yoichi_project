@@ -22,7 +22,7 @@ class CFly_UI : public CScene
 {
 
 public:
-    CFly_UI();
+    CFly_UI(PRIORITY Priority = PRIORITY_UI);
     ~CFly_UI();
 
     static CFly_UI* Create(void);

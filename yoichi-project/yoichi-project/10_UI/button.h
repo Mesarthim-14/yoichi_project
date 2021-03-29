@@ -46,7 +46,6 @@ public:
 private:
 	
 	static BUTTON_TYPE m_eSelectingButton;
-	static int nUsingButtons;
 	BUTTON_TYPE m_eButtonType;
 	bool m_bSelect;	//‘I‘ð‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©
 	bool m_bSelectOld;

@@ -134,7 +134,7 @@ void CScene::UpdateAll(void)
 }
 
 //=============================================================================
-//全ての描画処理
+//UI以外の描画処理
 //=============================================================================
 void CScene::DrawAll(void)
 {
@@ -152,7 +152,7 @@ void CScene::DrawAll(void)
 				CScene *pSceneCur = pScene->m_pNext;
 
 				// 死亡フラグがない時
-				if (pScene->m_bDeath != true)
+				if (pScene->m_bDeath != true && pScene->m_nPriority != PRIORITY_UI)
 				{
 					pScene->Draw();
 				}
@@ -160,6 +160,34 @@ void CScene::DrawAll(void)
 				// 次のシーンへ
 				pScene = pSceneCur;
 			} 
+		}
+	}
+}
+
+void CScene::DrawUI(void)
+{
+	for (int nCount = 0; nCount < PRIORITY_MAX; nCount++)
+	{
+		// !nullcheck
+		if (m_pTop[nCount] != NULL)
+		{
+			// 先頭を取得
+			CScene *pScene = m_pTop[nCount];
+
+			while (pScene != NULL)
+			{
+				// 次のシーン取得
+				CScene *pSceneCur = pScene->m_pNext;
+
+				// 死亡フラグがない時
+				if (pScene->m_bDeath != true && pScene->m_nPriority == PRIORITY_UI)
+				{
+					pScene->Draw();
+				}
+
+				// 次のシーンへ
+				pScene = pSceneCur;
+			}
 		}
 	}
 }

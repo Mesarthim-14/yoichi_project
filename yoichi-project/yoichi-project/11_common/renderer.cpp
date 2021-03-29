@@ -217,21 +217,7 @@ void CRenderer::Draw(void)
 				// バックバッファ＆Ｚバッファのクリア
 				m_pD3DDevice->Clear(0, nullptr, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DCOLOR_RGBA(0, 255, 255, 0), 1.0f, 0);
 			}
-			else
-			{
-				D3DVIEWPORT9 ViewPortClear;
 
-				ViewPortClear.X = 0;
-				ViewPortClear.Y = 0;
-				ViewPortClear.Width = SCREEN_WIDTH;
-				ViewPortClear.Height = SCREEN_HEIGHT;
-				ViewPortClear.MinZ = 0;
-				ViewPortClear.MaxZ = 1;
-
-				m_pD3DDevice->SetViewport(&ViewPortClear);
-			}
-			CTitle* pTitle = CManager::GetTitle();
-			CTutorial* pTutorial = CManager::GetTutorial();
 			CGame* pGame = CManager::GetGame();
 
 			if (CManager::GetMode() == CManager::MODE_TYPE_GAME)
@@ -281,6 +267,8 @@ void CRenderer::Draw(void)
 		ViewPortClear.MaxZ = 1;
 
 		m_pD3DDevice->SetViewport(&ViewPortClear);
+
+		CScene::DrawUI();
 
 		//環境光（アンビエント）の設定
 		D3DMATERIAL9 material;
