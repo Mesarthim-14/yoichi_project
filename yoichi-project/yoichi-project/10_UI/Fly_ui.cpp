@@ -9,6 +9,9 @@
 #include "texture.h"
 #include "manager.h"
 #include "resource_manager.h"
+#include "game.h"
+#include "player.h"
+#include "polygon.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -19,7 +22,9 @@
 #define FLYUI_POS_PLAYER3 {SCREEN_WIDTH/4,SCREEN_HEIGHT/4+(SCREEN_HEIGHT/2)-150.0f,0.0f}
 #define FLYUI_POS_PLAYER4 {SCREEN_WIDTH/4+(SCREEN_WIDTH/2),SCREEN_HEIGHT/4+(SCREEN_HEIGHT/2)-150.0f,0.0f}
 
-#define FLY_UI_SIZE_000 {128.0f,128.0f,0.0f}                        // UIのサイズ
+#define FLY_UI_SIZE_X (128.0f)                        // UIのサイズ
+#define FLY_UI_SIZE_Y (32.0f)                        // UIのサイズ
+#define FLY_UI_SIZE_Z (0.0f)                          // UIのサイズ
 
 //*****************************************************************************
 // マクロ定義
@@ -82,8 +87,11 @@ void CFly_UI::Init(int nPlayerNum)
     // プレイヤー番号を保存
     m_nPkayerNum = nPlayerNum;
 
-    m_pUI = CUi::Create(m_UIPos[m_nPkayerNum], FLY_UI_SIZE_000);
-    m_pUI->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_SIDE_LINE));
+    //m_pUI = CUi::Create(m_UIPos[m_nPkayerNum], { FLY_UI_SIZE_X ,FLY_UI_SIZE_Y ,FLY_UI_SIZE_Z });
+    //m_pUI->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_SIDE_LINE));
+
+    m_pGauge = CPolygon::Create(m_UIPos[m_nPkayerNum], { FLY_UI_SIZE_X ,FLY_UI_SIZE_Y ,FLY_UI_SIZE_Z });
+    m_pGauge->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_SIDE_LINE));
 
 }
 
@@ -92,14 +100,23 @@ void CFly_UI::Init(int nPlayerNum)
 //=============================================================================
 void CFly_UI::Uninit(void)
 {
+        //// !nullcheck
+        //if (m_pUI != nullptr)
+        //{
+        //    // UIの終了処理
+        //    m_pUI->Uninit();
+        //    m_pUI = NULL;
+        //}
 
         // !nullcheck
-        if (m_pUI != nullptr)
+        if (m_pGauge != nullptr)
         {
-            // UIの終了処理
-            m_pUI->Uninit();
-            m_pUI = NULL;
+            // ゲージの終了処理
+            m_pGauge->Uninit();
+            delete m_pGauge;
+            m_pGauge = NULL;
         }
+
     Release();
 }
 
@@ -108,6 +125,7 @@ void CFly_UI::Uninit(void)
 //=============================================================================
 void CFly_UI::Update(void)
 {
+    SetFly();
 }
 
 //=============================================================================
@@ -115,6 +133,7 @@ void CFly_UI::Update(void)
 //=============================================================================
 void CFly_UI::Draw(void)
 {
+    m_pGauge->Draw();
 }
 
 //=============================================================================
@@ -122,5 +141,20 @@ void CFly_UI::Draw(void)
 //=============================================================================
 void CFly_UI::SetFly(void)
 {
+    // 飛行時間の取得
+   int FliTime = CGame::GetPlayer(m_nPkayerNum)->GetFlyTime();
+
+   // プレイヤーのエネルギー残量を確認して長さを変える
+   float nPercentage = (float)FliTime / (float)MAX_FLY_TIME;
+
+   // サイズの更新
+   D3DXVECTOR3 size = D3DXVECTOR3(FLY_UI_SIZE_X * nPercentage, FLY_UI_SIZE_Y, 0.0f);
+
+   // 位置の更新
+   D3DXVECTOR3 pos = D3DXVECTOR3(m_UIPos[m_nPkayerNum].x - size.x / 2, m_UIPos[m_nPkayerNum].y, 0.0f);
+
+   // 位置とサイズを反映
+   m_pGauge->UpdateVertex(pos, size);
+
 }
 
