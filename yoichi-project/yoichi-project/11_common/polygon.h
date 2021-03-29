@@ -31,6 +31,7 @@ public:
 	virtual void BindTexture(LPDIRECT3DTEXTURE9 pTexture);								// テクスチャ割当
 	virtual void SetColor(const D3DXCOLOR color);										// 色の設定
 	
+    void UpdateVertex(D3DXVECTOR3 pos, D3DXVECTOR3 size);       // 頂点の更新
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
 	void SetSize(D3DXVECTOR3 size) { m_size = size; }
 

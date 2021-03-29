@@ -96,7 +96,7 @@ void CStar_UI::Uninit(void)
 //=============================================================================
 void CStar_UI::Update(void)
 {
-    SetNumber();
+    SetStarNum();
 }
 
 //=============================================================================
@@ -111,12 +111,15 @@ void CStar_UI::Draw(void)
 //=============================================================================
 void CStar_UI::SetPosition(int nPlayerNum)
 {
-
+    // 変数宣言
     D3DXVECTOR3 pos;
    int nPlayerTotal = CGame::GetPlayerNum();
    CTexture *pTexture = GET_TEXTURE_PTR;
 
    // プレイヤー番号を保存
+   m_nPlayerNum = nPlayerNum;
+
+   // プレイヤー番号の保存
    m_nPlayerNum = nPlayerNum;
 
    // ナンバー生成
@@ -127,22 +130,21 @@ void CStar_UI::SetPosition(int nPlayerNum)
        m_apNumber[nCntNum]->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_NUMBER));
    }
 }
+
 //=============================================================================
-// [SetNumber] 数字の設定
+// [SetStarNum] 星の数の設定
 //=============================================================================
-void CStar_UI::SetNumber(void)
+void CStar_UI::SetStarNum(void)
 {
-    // 星の所持数を取得
-    // ナンバーの更新
+    // プレイヤーの星の所持数を取得
+   int nStarNum = CGame::GetPlayer(m_nPlayerNum)->GetStarNum();
+
+    // ナンバーの分解
     for (int nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
     {
-        int nStar = CGame::GetPlayer(m_nPlayerNum)->GetStarNum();
-        m_apNumber[nCntNum]->SetNumber(nStar);
-
-        // 桁ごとに分解
-        int nDrawRenge = (int)powf(NUM_RADIX, (float)nCntNum + 1);
-        int nDrawRenge2 = (int)powf(NUM_RADIX, (float)nCntNum);
-        int nAnswer = nStar % nDrawRenge / nDrawRenge2;
+        int nDrawRenge = (int)powf(10.0f, (float)nCntNum + 1);
+        int nDrawRenge2 = (int)powf(10.0f, (float)nCntNum);
+        int nAnswer = nStarNum % nDrawRenge / nDrawRenge2;
         // 1桁ずつ設定
         m_apNumber[nCntNum]->SetNumber(nAnswer);
     }

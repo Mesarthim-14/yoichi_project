@@ -16,6 +16,7 @@
 // マクロ定義
 //***************************************************************************************
 #define STAGE_LIMIT_Y		(-2000.0f)
+#define TIME_RETURN_TITLE	(120)
 
 //***************************************************************************************
 // 前方宣言
@@ -27,9 +28,10 @@ class CPause;
 class CItemBoxManager;
 class CStarManager;
 class CStageMap;
-
 class CTime_UI;
 class CResult;
+class CGame_UI;
+
 //***************************************************************************************
 // ゲームクラス
 //***************************************************************************************
@@ -61,7 +63,7 @@ public:
 	CStageMap *GetStageMap(void)					{ return m_pStageMap; }		// マップの情報
 
     void GameEnd(void) { m_bGameEnd = true; }  // ゲーム終了
-private:	
+private:
 	static CCamera *m_pCamera[MAX_PLAYER_NUM];	// カメラのポインタ	
 	static CLight *m_pLight;					// ライトのポインタ
 	static CPlayer *m_pPlayer[MAX_PLAYER_NUM];	// プレイヤーのポインタ
@@ -71,11 +73,14 @@ private:
 	CStageMap *m_pStageMap;						// マップの生成
 	static CPause *m_pPause;					// ポーズのポインタ
     static CTime_UI *m_pTimeUI;                 // タイマーへのポインタ
+    static CGame_UI *m_pGameUI;                 // ゲームUI
+
 
 	LPD3DXFONT m_pFont;							// デバック用フォント
 	int m_nTimeCounter;							// ゲームのカウンター
 	bool m_bGameEnd;							// ゲームのエンドフラグ
 	static int m_nPlayerNum;					// プレイヤーの人数
+	int m_nTimer;								// タイトル画面に戻るまでのタイマー
 
 };
 #endif

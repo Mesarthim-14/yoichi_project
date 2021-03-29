@@ -24,6 +24,9 @@
 #define PLAYER_SIZE_Y				(1)			// サイズ
 #define PLAYER_SIZE_Z				(1)			// サイズ
 #define PLAYER_BASE_POS_Y			(200.0f)	// プレイヤーの座標のベース
+#define MAX_FLY_TIME            (10*60)                 // 飛行時間(フレーム)
+
+
 
 #define PLAYER_COLLISION_X			(200)		// 当たり判定
 #define PLAYER_COLLISION_Y			(175)		// 当たり判定
@@ -131,7 +134,7 @@ public:
 	bool  GetArmor(void)				{ return m_bArmor; }				// 無敵状態
     int   GetPlayerNum(void)            { return m_nNumber; }               // プレイヤーの番号
     int  GetStarNum(void)               { return m_nStarNum; }              // 星の取得数取得
-
+    int GetFlyTime(void)                { return m_nFlyTime; }              // 飛行時間の取得
 
 private:
 	float InputToAngle(void);		// 入力を角度に変換
@@ -146,6 +149,7 @@ private:
 	int m_nStarNum;					// 星の数
 	float m_fBaseSpeed;				// 元のスピード
 	float m_fBaseRadius;			// 元の半径
+    int m_nFlyTime;                 // 飛行時間
     CPlayer_UI *m_pPlayerUI;        // プレイヤーごとのUI
 };
 #endif

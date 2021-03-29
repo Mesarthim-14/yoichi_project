@@ -252,6 +252,10 @@
     <ClInclude Include="10_UI\playerselectbutton.h">
       <Filter>10_UI</Filter>
     </ClInclude>
+    <ClInclude Include="10_UI\game_ui.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="10_UI\Fly_ui.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp">
@@ -458,5 +462,9 @@
     <ClCompile Include="10_UI\playerselectbutton.cpp">
       <Filter>10_UI</Filter>
     </ClCompile>
+    <ClCompile Include="10_UI\game_ui.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\Fly_ui.cpp" />
   </ItemGroup>
 </Project>

@@ -217,48 +217,37 @@ void CRenderer::Draw(void)
 				// バックバッファ＆Ｚバッファのクリア
 				m_pD3DDevice->Clear(0, nullptr, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DCOLOR_RGBA(0, 255, 255, 0), 1.0f, 0);
 			}
-			else
-			{
-				D3DVIEWPORT9 ViewPortClear;
 
-				ViewPortClear.X = 0;
-				ViewPortClear.Y = 0;
-				ViewPortClear.Width = SCREEN_WIDTH;
-				ViewPortClear.Height = SCREEN_HEIGHT;
-				ViewPortClear.MinZ = 0;
-				ViewPortClear.MaxZ = 1;
-
-				m_pD3DDevice->SetViewport(&ViewPortClear);
-			}
-			CTitle* pTitle = CManager::GetTitle();
-			CTutorial* pTutorial = CManager::GetTutorial();
 			CGame* pGame = CManager::GetGame();
-			switch (CManager::GetMode())
+
+			if (CManager::GetMode() == CManager::MODE_TYPE_GAME)
 			{
-				// タイトル
-			case CManager::MODE_TYPE_TITLE:
-				if (CManager::GetTitle() != nullptr)
-				{
-					pTitle->Draw();
-				}
-				break;
-
-				// チュートリアル
-			case CManager::MODE_TYPE_TUTORIAL:
-				if (pTutorial != nullptr)
-				{
-					pTutorial->Draw();
-				}
-				break;
-
-				// ゲーム
-			case CManager::MODE_TYPE_GAME:
 				if (pGame != nullptr)
 				{
 					pGame->Draw();
 				}
-				break;
 			}
+		}
+
+		CTitle* pTitle = CManager::GetTitle();
+		CTutorial* pTutorial = CManager::GetTutorial();
+		switch (CManager::GetMode())
+		{
+			// タイトル
+		case CManager::MODE_TYPE_TITLE:
+			if (CManager::GetTitle() != nullptr)
+			{
+				pTitle->Draw();
+			}
+			break;
+
+			// チュートリアル
+		case CManager::MODE_TYPE_TUTORIAL:
+			if (pTutorial != nullptr)
+			{
+				pTutorial->Draw();
+			}
+			break;
 		}
 
 		if (CGame::GetPlayerNum() == 3)
@@ -278,6 +267,8 @@ void CRenderer::Draw(void)
 		ViewPortClear.MaxZ = 1;
 
 		m_pD3DDevice->SetViewport(&ViewPortClear);
+
+		CScene::DrawUI();
 
 		//環境光（アンビエント）の設定
 		D3DMATERIAL9 material;

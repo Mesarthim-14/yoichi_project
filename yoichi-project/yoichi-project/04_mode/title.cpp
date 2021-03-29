@@ -33,8 +33,6 @@ CTitle::CTitle()
 {
 	//メンバ変数のクリア
 	m_pScene2D = NULL;
-	m_pPress = NULL;
-	m_pTitleName = NULL;
 	m_bDisplayButton = false;
 	m_nSelectButton = 0;
 	ZeroMemory(m_apPlayerSelectButton, sizeof(m_apPlayerSelectButton));
@@ -80,30 +78,8 @@ HRESULT CTitle::Init(void)
 
 		if (m_pScene2D != NULL)
 		{
-			m_pScene2D->BindTexture(NULL);
+			m_pScene2D->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_TITLE));
 		}
-	}
-
-	// PRESSロゴのポインタ
-	if (m_pPress == NULL)
-	{
-		m_pPress = CScene2D::Create(D3DXVECTOR3((SCREEN_SIZE / 2).x, (SCREEN_SIZE / 2).y + TITLE_PRESS_POS_Y, 0.0f), D3DXVECTOR3(TITLE_PRESS_SIZE_X, TITLE_PRESS_SIZE_Y, 0.0f));
-		m_pPress->BindTexture(NULL);
-	}
-
-	// nullcheck
-	if (m_pTitleName == NULL)
-	{
-		//2Dオブジェクトの生成
-		m_pTitleName = CScene2D::Create(D3DXVECTOR3((SCREEN_SIZE / 2).x, (SCREEN_SIZE / 2).y - 125.0f, 0.0f), D3DXVECTOR3(TITLE_SIZE_X, TITLE_SIZE_Y, 0.0f));
-
-		// !nullcheck
-		if (m_pTitleName != NULL)
-		{
-			// テクスチャのポインタ
-			m_pTitleName->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_TITLE_LOGO));
-		}
-
 	}
 	return S_OK;
 }
@@ -117,18 +93,6 @@ void CTitle::Uninit(void)
 	{
 		m_pScene2D->Uninit();
 		m_pScene2D = NULL;
-	}
-
-	if (m_pTitleName != NULL)
-	{
-		m_pTitleName->Uninit();
-		m_pTitleName = NULL;
-	}
-	
-	if (m_pPress != NULL)
-	{
-		m_pPress->Uninit();
-		m_pPress = NULL;
 	}
 
 	for (int nCount = 0; nCount < MAX_PLAYER_NUM - MIN_PLAYER_NUM + 1; nCount++)

@@ -18,6 +18,7 @@
 //*****************************************************************************
 class CItem;
 class CStar_UI;
+class CFly_UI;
 
 //*****************************************************************************
 // クラス定義
@@ -44,7 +45,7 @@ public:
     CItem *GetItem(void) { return m_apItem[0]; }				// アイテムのポインタ
 private:
     vector<CItem*> m_apItem;	// アイテムボックスのポインタ
-    CStar_UI *m_pStarUI;     // 星の取得数へのポインタ
-
+    CStar_UI *m_pStarUI;            // 星の取得数へのポインタ
+    CFly_UI *m_pFlyUI;              // 飛行時間のUI
 };
 #endif // ! _PLAYER_UI_H_

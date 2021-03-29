@@ -353,7 +353,8 @@ void CManager::SetMode(MODE_TYPE mode)
 	case MODE_TYPE_TUTORIAL:
 		if (m_pTutorial != NULL)
 		{
-			pSound->Stop(CSound::SOUND_LABEL_BGM_TITLE);
+			//pSound->Stop(CSound::SOUND_LABEL_BGM_TITLE);
+			m_pTutorial->Uninit();
 			m_pTutorial = NULL;
 		}
 		break;
@@ -362,7 +363,8 @@ void CManager::SetMode(MODE_TYPE mode)
 	case MODE_TYPE_GAME:
 		if (m_pGame != NULL)
 		{
-			pSound->Stop(CSound::SOUND_LABEL_BGM_GAME);
+			//pSound->Stop(CSound::SOUND_LABEL_BGM_GAME);
+			m_pGame->Uninit();
 			m_pGame = NULL;
 		}
 		break;
