@@ -43,7 +43,7 @@ public:
     int GetItemNum(void) { return m_apItem.size(); }			// アイテムのサイズ
     CItem *GetItem(void) { return m_apItem[0]; }				// アイテムのポインタ
 private:
-    std::vector<CItem*> m_apItem;	// アイテムボックスのポインタ
+    vector<CItem*> m_apItem;	// アイテムボックスのポインタ
     CStar_UI *m_pStarUI;     // 星の取得数へのポインタ
 
 };

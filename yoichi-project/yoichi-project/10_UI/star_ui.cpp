@@ -114,7 +114,7 @@ void CStar_UI::SetPosition(int nPlayerNum)
 
     D3DXVECTOR3 pos;
    int nPlayerTotal = CGame::GetPlayerNum();
-   CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
+   CTexture *pTexture = GET_TEXTURE_PTR;
 
    // ƒvƒŒƒCƒ„[”Ô†‚ğ•Û‘¶
    m_nPlayerNum = nPlayerNum;

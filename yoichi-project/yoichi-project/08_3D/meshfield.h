@@ -28,7 +28,7 @@
 class CMeshField : public CMesh3d
 {
 public:
-	CMeshField(PRIORITY = PRIORITY_UI);	// コンストラクタ
+	CMeshField(PRIORITY = PRIORITY_0);	// コンストラクタ
 	~CMeshField();						// デストラクタ
 
 	HRESULT Init(void);									// 初期化処理

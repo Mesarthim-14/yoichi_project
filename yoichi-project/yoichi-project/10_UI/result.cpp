@@ -40,7 +40,7 @@ CResult::~CResult()
 HRESULT CResult::Init(void)
 {
 	CPolygon::Init();
-	BindTexture(CManager::GetResourceManager()->GetTextureClass()->GetTexture((CTexture::TEXTURE_TYPE)(m_nRank + CTexture::TEXTURE_NUM_RESULT_1ST)));
+	BindTexture(GET_TEXTURE_PTR->GetTexture((CTexture::TEXTURE_TYPE)(m_nRank + CTexture::TEXTURE_NUM_RESULT_1ST)));
 
 	return S_OK;
 }

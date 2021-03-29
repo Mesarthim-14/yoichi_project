@@ -52,7 +52,7 @@ CMagichand * CMagichand::Create(D3DXVECTOR3 Distance, int nTexInfo, int nPlayerN
 		// 初期化処理
 		pEffect->Init(CGame::GetPlayer(nPlayerNum)->GetPos() + Distance, DEFAULT_SIZE);
 
-		CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
+		CTexture *pTexture = GET_TEXTURE_PTR;
 
 		// アニメーションテクスチャ設定
 		pEffect->BindTexture(pTexture->GetSeparateTexture((CTexture::SEPARATE_TEX_TYPE)nTexInfo));

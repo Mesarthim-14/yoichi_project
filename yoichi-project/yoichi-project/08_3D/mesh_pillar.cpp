@@ -37,7 +37,7 @@ CMeshPillar * CMeshPillar::Create(D3DXVECTOR3 pos, MESH_TYPE MeshNum)
 {
 	// ƒƒ‚ƒŠŠm•Û
 	CMeshPillar *pMeshPillar = new CMeshPillar;
-	CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
+	CTexture *pTexture = GET_TEXTURE_PTR;
 
 	// ‰Šú‰»ˆ—
 	if (pMeshPillar != nullptr)

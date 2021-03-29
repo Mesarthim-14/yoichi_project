@@ -44,7 +44,7 @@ public:
 	static CStar::STAR_COLOR_TYPE GetGameStarColor(void) { return m_GameColor; }	// 色の情報
 
 private:
-	std::vector<CStar*> m_pStar;													// アイテムボックスのポインタ
+	vector<CStar*> m_pStar;													// アイテムボックスのポインタ
 	bool m_bMapFlag[STAR_CREATE_SIZE][STAR_CREATE_SIZE][STAR_CREATE_SIZE];			// 座標のフラグ
 	int m_nCounter;																	// カウンター
 	static CStar::STAR_COLOR_TYPE m_GameColor;										// ゲームの色

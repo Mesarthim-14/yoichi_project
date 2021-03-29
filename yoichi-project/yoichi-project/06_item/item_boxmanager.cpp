@@ -55,7 +55,7 @@ void CItemBoxManager::Uninit(void)
 	}
 
 	// 配列があれば
-	if (m_pItemBox.size() != NULL)
+	if (m_pItemBox.size() != 0)
 	{
 		// 配列のクリア
 		m_pItemBox.clear();

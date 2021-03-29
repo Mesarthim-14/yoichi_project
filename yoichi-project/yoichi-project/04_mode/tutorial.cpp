@@ -78,7 +78,7 @@ HRESULT CTutorial::Init()
 		m_pScene->BindTexture(m_pTexture[0]);
 	}
 	
-	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
+	CSound *pSound = GET_SOUND_PTR;
 	//pSound->Play(CSound::SOUND_LABEL_BGM_TITLE);
 
 	return S_OK;

@@ -278,6 +278,13 @@ void CManager::Update(void)
 		//フェードクラスの更新処理呼び出し
 		m_pFade->Update();
 	}
+
+	if (m_pRenderer != NULL)
+	{
+		//レンダラークラスの描画処理呼び出し
+		m_pRenderer->Update();
+	}
+
 }
 
 //=============================================================================
@@ -327,7 +334,7 @@ void CManager::UnloadAll(void)
 //=============================================================================
 void CManager::SetMode(MODE_TYPE mode)
 {
-	CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
+	CSound *pSound = GET_SOUND_PTR;
 
 	//現在モードの終了
 	switch (m_mode)

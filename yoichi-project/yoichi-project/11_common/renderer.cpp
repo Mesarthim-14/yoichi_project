@@ -23,7 +23,7 @@
 //=============================================================================
 CRenderer::CRenderer()
 {
-	m_pD3D = NULL;			// Direct3Dオブジェクト
+	m_pD3D = nullptr;			// Direct3Dオブジェクト
 	m_fillMode = D3DFILL_SOLID;
 }
 
@@ -46,7 +46,7 @@ HRESULT CRenderer::Init(HWND hWnd, bool bWindow)
 	// Direct3Dオブジェクトの作成
 	m_pD3D = Direct3DCreate9(D3D_SDK_VERSION);
 
-	if (m_pD3D == NULL)
+	if (m_pD3D == nullptr)
 	{
 		return E_FAIL;
 	}
@@ -71,7 +71,7 @@ HRESULT CRenderer::Init(HWND hWnd, bool bWindow)
 	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;		// インターバル
 
 	m_pD3DInterface = Direct3DCreate9(D3D_SDK_VERSION);
-	if (m_pD3DInterface == NULL)
+	if (m_pD3DInterface == nullptr)
 	{
 		// 作成失敗
 
@@ -140,17 +140,17 @@ HRESULT CRenderer::Init(HWND hWnd, bool bWindow)
 void CRenderer::Uninit(void)
 {
 	// デバイスの破棄
-	if (m_pD3DDevice != NULL)
+	if (m_pD3DDevice != nullptr)
 	{
 		m_pD3DDevice->Release();
-		m_pD3DDevice = NULL;
+		m_pD3DDevice = nullptr;
 	}
 
 	// Direct3Dオブジェクトの破棄
-	if (m_pD3D != NULL)
+	if (m_pD3D != nullptr)
 	{
 		m_pD3D->Release();
-		m_pD3D = NULL;
+		m_pD3D = nullptr;
 	}
 }
 
@@ -159,9 +159,6 @@ void CRenderer::Uninit(void)
 //=============================================================================
 void CRenderer::Update(void)
 {
-	// 全ての更新
-	CScene::UpdateAll();
-
 	// キーボード情報
 	CInputKeyboard *pKeyboard = CManager::GetKeyboard();
 	
@@ -189,7 +186,7 @@ void CRenderer::Update(void)
 //=============================================================================
 void CRenderer::Draw(void)
 {
-	m_pD3DDevice->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DCOLOR_RGBA(0, 255, 255, 0), 1.0f, 0);
+	m_pD3DDevice->Clear(0, nullptr, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DCOLOR_RGBA(0, 255, 255, 0), 1.0f, 0);
 
 	// Direct3Dによる描画の開始
 	if (SUCCEEDED(m_pD3DDevice->BeginScene()))
@@ -201,7 +198,7 @@ void CRenderer::Draw(void)
 			D3DXMATRIX matProj, matView, matWorld;
 			D3DXMATRIX trans;
 
-			if (CGame::GetCamera(nCount) != NULL)
+			if (CGame::GetCamera(nCount) != nullptr)
 			{
 				CCamera *pCamera = CGame::GetCamera(nCount);
 				pCamera->SetCamera();
@@ -218,7 +215,7 @@ void CRenderer::Draw(void)
 				SetUpViewport(nCount);
 
 				// バックバッファ＆Ｚバッファのクリア
-				m_pD3DDevice->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DCOLOR_RGBA(0, 255, 255, 0), 1.0f, 0);
+				m_pD3DDevice->Clear(0, nullptr, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DCOLOR_RGBA(0, 255, 255, 0), 1.0f, 0);
 			}
 			else
 			{
@@ -240,7 +237,7 @@ void CRenderer::Draw(void)
 			{
 				// タイトル
 			case CManager::MODE_TYPE_TITLE:
-				if (CManager::GetTitle() != NULL)
+				if (CManager::GetTitle() != nullptr)
 				{
 					pTitle->Draw();
 				}
@@ -248,7 +245,7 @@ void CRenderer::Draw(void)
 
 				// チュートリアル
 			case CManager::MODE_TYPE_TUTORIAL:
-				if (pTutorial != NULL)
+				if (pTutorial != nullptr)
 				{
 					pTutorial->Draw();
 				}
@@ -256,7 +253,7 @@ void CRenderer::Draw(void)
 
 				// ゲーム
 			case CManager::MODE_TYPE_GAME:
-				if (pGame != NULL)
+				if (pGame != nullptr)
 				{
 					pGame->Draw();
 				}
@@ -299,20 +296,20 @@ void CRenderer::Draw(void)
 
 		CFade *pFade = CManager::GetFade();
 
-		if (pFade != NULL)
+		if (pFade != nullptr)
 		{
 			pFade->Draw();
 		}
 
 		// バックバッファとフロントバッファの入れ替え
-		m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
+		m_pD3DDevice->Present(nullptr, nullptr, nullptr, nullptr);
 
 		// Direct3Dによる描画の終了
 		m_pD3DDevice->EndScene();
 	}
 
 	// バックバッファとフロントバッファの入れ替え
-	m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
+	m_pD3DDevice->Present(nullptr, nullptr, nullptr, nullptr);
 }
 
 //=============================================================================

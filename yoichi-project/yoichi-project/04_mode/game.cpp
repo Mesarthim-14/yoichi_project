@@ -88,7 +88,6 @@ CGame* CGame::Create(void)
 //=======================================================================================
 HRESULT CGame::Init(void)
 {
-
 	//ライトクラスの生成
 	m_pLight = new CLight;
 
@@ -164,7 +163,6 @@ HRESULT CGame::Init(void)
 //=======================================================================================
 void CGame::Uninit(void)
 {
-
 	// ライトの終了処理
 	if (m_pLight != nullptr)
 	{
@@ -237,7 +235,7 @@ void CGame::Uninit(void)
 	if (CManager::GetResourceManager() != nullptr)
 	{
 		//サウンド情報取得
-		CSound *pSound = CManager::GetResourceManager()->GetSoundClass();
+		CSound *pSound = GET_SOUND_PTR;
 
 		// !nullcheck
 		if (pSound != nullptr)
@@ -259,30 +257,14 @@ void CGame::Update(void)
     CInputKeyboard *pKeyboard = CManager::GetKeyboard();
     if (m_bGameEnd)
     {
-        // リザルトが生成されていなければ生成する
-        if (m_apResult[0] == nullptr)
-        {
-            D3DXVECTOR3 pos;
-            D3DXVECTOR3 size;
-            for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
-            {
-                if (m_nPlayerNum == 2)
-                {
-                    pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2)*nCount, SCREEN_HEIGHT / 2, 0.0f);
-                }
-                else
-                {
-                    pos = D3DXVECTOR3(SCREEN_WIDTH / 4 + (SCREEN_WIDTH / 2) * (nCount % 2), SCREEN_HEIGHT / 4 + (SCREEN_HEIGHT / 2) * (nCount / 2), 0.0f);
-                }
-                size = SCREEN_SIZE / 2;
-                m_apResult[nCount] = CResult::Create(pos, size, nCount);	// TODO 順位が設定できるようになったら順位を取得して第3引数をそれにする
-            }
-        }
-        // リザルトのアップデート
-        for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
-        {
-            m_apResult[nCount]->Update();
-        }
+		// リザルトUiの表示
+		SetResultUi();
+
+		// リザルトのアップデート
+		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+		{
+			m_apResult[nCount]->Update();
+		}
     }
     else
     {
@@ -304,11 +286,17 @@ void CGame::Update(void)
             // 更新処理
             m_pStarManager->Update();
         }
-        // 時間切れだったら
-        if (m_pTimeUI->GetTimer()->IsTimeOver())
-        {
-            GameEnd();// ゲームを終了
-        }
+
+		if (m_pTimeUI != nullptr)
+		{
+			// 時間切れだったら
+			if (m_pTimeUI->GetTimer()->IsTimeOver())
+			{
+				// ゲームを終了
+				GameEnd();
+			}
+		}
+
 
 #ifdef _DEBUG
         if (pKeyboard->GetTrigger(DIK_P))
@@ -340,6 +328,68 @@ void CGame::Draw(void)
 	}
 }
 
+//=======================================================================================
+// リザルトのUiを設定
+//=======================================================================================
+void CGame::SetResultUi(void)
+{
+	// リザルトが生成されていなければ生成する
+	if (m_apResult[0] == nullptr)
+	{
+		D3DXVECTOR3 pos;
+		D3DXVECTOR3 size;
+		vector<int> aStarNum(m_nPlayerNum);		// 星の取得数用変数(配列はプレイヤー数分確保)
+		vector<int> aRank(m_nPlayerNum);		// ランク付け用変数(配列はプレイヤー数分確保)
+
+		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+		{
+			// 星の数を取得
+		//	aStarNum.at(nCount) = GetPlayer(nCount)->GetStarNum();
+
+			aStarNum.at(nCount) = rand() % 90;	// 確認のためランダム
+
+			// ランキングの初期設定
+			aRank.at(nCount) = 0;
+		}
+
+		// 順位の設定
+		SetRanking(&aStarNum, &aRank);
+
+		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+		{
+			if (m_nPlayerNum == 2)
+			{
+				pos = D3DXVECTOR3(SCREEN_WIDTH / 4.0f + (SCREEN_WIDTH / 2.0f) * (float)nCount, (SCREEN_HEIGHT / 2.0f), 0.0f);
+			}
+			else
+			{
+				pos = D3DXVECTOR3(SCREEN_WIDTH / 4.0f + (SCREEN_WIDTH / 2.0f) * (float)(nCount % 2), SCREEN_HEIGHT / 4.0f + (SCREEN_HEIGHT / 2.0f) * (float)(nCount / 2), 0.0f);
+			}
+			size = SCREEN_SIZE / 2;
+
+			m_apResult[nCount] = CResult::Create(pos, size, aRank.at(nCount));	// TODO 順位が設定できるようになったら順位を取得して第3引数をそれにする
+		}
+	}
+}
+
+//=======================================================================================
+// ランキングの設定
+//=======================================================================================
+void CGame::SetRanking(vector<int> *apStarNum, vector<int> *apRank)
+{
+	for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
+	{
+		for (int nSortCnt = 0; nSortCnt < m_nPlayerNum; nSortCnt++)
+		{
+			// 自分以外を比較
+			if (apStarNum->at(nSortCnt) > apStarNum->at(nCount))
+			{
+				// 順位加算
+				apRank->at(nCount)++;
+			}
+		}
+	}
+}
 
 //=======================================================================================
 // カメラの情報

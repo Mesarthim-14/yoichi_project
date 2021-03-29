@@ -310,6 +310,9 @@ void CBillboard::Draw(void)
 
 	pDevice->SetMaterial(&OldMaterial);					// マテリアルを元に戻す
 
+	// アルファテスト基準値の設定
+	pDevice->SetRenderState(D3DRS_ALPHAREF, 0);
+
 	pDevice->LightEnable(0, TRUE);
 }
 

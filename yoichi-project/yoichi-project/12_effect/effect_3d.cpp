@@ -65,7 +65,7 @@ CEffect3D * CEffect3D::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 		// 初期化処理
 		pEffect->Init();
 
-		CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
+		CTexture *pTexture = GET_TEXTURE_PTR;
 
 		// アニメーション情報
 		if (Particle.bAnimation == false)
