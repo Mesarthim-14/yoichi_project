@@ -36,6 +36,7 @@
 #include "barrier_effect.h"
 #include "magichand.h"
 #include "player_ui.h"
+#include "wind_effect.h"
 
 //=============================================================================
 // マクロ定義
@@ -223,17 +224,6 @@ void CPlayer::Update(void)
 		// 死んだとき
 		Death();
 	}
-
-	//// 重りのエフェクト
-	//CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
-	//	GetModelAnime(21)->GetMtxWorld()._42,
-	//	GetModelAnime(21)->GetMtxWorld()._43),
-	//	CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
-
-	// 星がとられたときのエフェクト
-	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
-		GetModelAnime(21)->GetMtxWorld()._42,
-		GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_KIRAKIRA);
 }
 
 //=============================================================================
@@ -460,6 +450,14 @@ void CPlayer::Fly(void)
 			SetUseGravity(true);
 		}
 	}
+
+	// 飛んでいるときの風のエフェクト
+	CWindEffect::Create(GetPos(), m_rotDest, D3DXVECTOR3(100.0f, 100.0f, 100.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_PARTICLE);
+
+	// 飛んでいるときのキラキラのエフェクト
+	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+		GetModelAnime(21)->GetMtxWorld()._42,
+		GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_KIRAKIRA);
 }
 
 //=============================================================================

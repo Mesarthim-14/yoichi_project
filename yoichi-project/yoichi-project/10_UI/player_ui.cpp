@@ -173,10 +173,6 @@ void CPlayer_UI::UseItem(void)
         }
     }
 
-    //    //ジャンプモーションの再生
-    //    SetMotion(4);
-    //    SetLanding(false);
-    //}
     ////=============================================================================
     //// Author : Ito Yogo
     ////=============================================================================
@@ -201,33 +197,33 @@ void CPlayer_UI::UseItem(void)
     //    //CEffectFactory::CreateEffect(GetPos()/* + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f)*/, CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SHOCKWAVE);
     //}
 
-    //if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L_TRIGGER, m_nNumber))
-    //{
-    //    // 速度が落ちた時のエフェクト
-    //    CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
-    //        GetModelAnime(21)->GetMtxWorld()._42,
-    //        GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f),
-    //        CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWN);
+	//if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L_TRIGGER, m_nNumber))
+	//{
+	//	// 速度が落ちた時のエフェクト
+	//	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(0)->GetMtxWorld()._41,
+	//		GetModelAnime(0)->GetMtxWorld()._42,
+	//		GetModelAnime(0)->GetMtxWorld()._43),
+	//		CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWN);
 
-    //    CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
-    //        GetModelAnime(21)->GetMtxWorld()._42,
-    //        GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f),
-    //        CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWNPARTICLE);
+	//	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(0)->GetMtxWorld()._41,
+	//		GetModelAnime(0)->GetMtxWorld()._42,
+	//		GetModelAnime(0)->GetMtxWorld()._43),
+	//		CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWNPARTICLE);
 
-    //}
-    //if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, m_nNumber))
-    //{
-    //    // 速度が上がった時のエフェクト
-    //    CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
-    //        GetModelAnime(21)->GetMtxWorld()._42,
-    //        GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f),
-    //        CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSUP);
+	//}
+	//if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_R_TRIGGER, m_nNumber))
+	//{
+	//	// 速度が上がった時のエフェクト
+	//	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(0)->GetMtxWorld()._41,
+	//		GetModelAnime(0)->GetMtxWorld()._42,
+	//		GetModelAnime(0)->GetMtxWorld()._43),
+	//		CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSUP);
 
-    //    CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
-    //        GetModelAnime(21)->GetMtxWorld()._42,
-    //        GetModelAnime(21)->GetMtxWorld()._43) + D3DXVECTOR3(sinf(GetRot().y) * -300.0f, 0.0f, cosf(GetRot().y) * -300.0f),
-    //        CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATESUPPARTICLE);
-    //}
+	//	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(0)->GetMtxWorld()._41,
+	//		GetModelAnime(0)->GetMtxWorld()._42,
+	//		GetModelAnime(0)->GetMtxWorld()._43),
+	//		CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATESUPPARTICLE);
+	//}
 
     //if (CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_L2_TRIGGER, m_nNumber))
     //{
@@ -265,7 +261,7 @@ void CPlayer_UI::UseItem(void)
     //    for (int nCount = 0; nCount < 100; nCount++)
     //    {
     //        // バリアが壊されたときのエフェクト
-    //        CBARRIEREFFECT::Create(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+    //        CBarriereffect::Create(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
     //            GetModelAnime(21)->GetMtxWorld()._42,
     //            GetModelAnime(21)->GetMtxWorld()._43),
     //            D3DXVECTOR3(50.0f, 50.0f, 50.0f), D3DXVECTOR3(30.0f, 30.0f, 30.0f), 10.0f);
@@ -279,8 +275,12 @@ void CPlayer_UI::UseItem(void)
     //    CMagichand::Create(MAGICHAND_DISTANCE, CTexture::SEPARATE_TEX_MAGICHANDRIGHT, m_nNumber);
     //}
     ////=============================================================================
-//}
 
+	//// 重りのエフェクト
+	//CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+	//	GetModelAnime(21)->GetMtxWorld()._42,
+	//	GetModelAnime(21)->GetMtxWorld()._43),
+	//	CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
 }
 
 //=============================================================================

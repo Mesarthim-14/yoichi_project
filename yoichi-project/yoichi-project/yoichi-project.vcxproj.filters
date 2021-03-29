@@ -219,9 +219,6 @@
     <ClInclude Include="10_UI\result.h">
       <Filter>10_UI</Filter>
     </ClInclude>
-    <ClInclude Include="12_effect\barrier_effect.h">
-      <Filter>12_effect</Filter>
-    </ClInclude>
     <ClInclude Include="12_effect\magichand.h">
       <Filter>12_effect</Filter>
     </ClInclude>
@@ -242,6 +239,12 @@
     </ClInclude>
     <ClInclude Include="11_common\timer.h">
       <Filter>11_common</Filter>
+    </ClInclude>
+    <ClInclude Include="12_effect\wind_effect.h">
+      <Filter>12_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="12_effect\barrier_effect.h">
+      <Filter>12_effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -441,6 +444,9 @@
       <Filter>08_3D</Filter>
     </ClCompile>
     <ClCompile Include="12_effect\magichand.cpp">
+      <Filter>12_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="12_effect\wind_effect.cpp">
       <Filter>12_effect</Filter>
     </ClCompile>
   </ItemGroup>
