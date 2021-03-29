@@ -23,7 +23,7 @@
 #define TEXTURE_NAME_SMOKE	("data/Texture/smoke.png")			// 煙
 #define TEXTURE_NAME_LACKRING	("data/Texture/lackring.png")	// 欠けた輪
 #define TEXTURE_NAME_KIRAKIRA	("data/Texture/kirakira.png")	// キラキラ
-#define TEXTURE_NAME_TITLE_LOGO		("data/Texture/titlelogo001.png")	// タイトルのロゴ
+#define TEXTURE_NAME_TITLE_LOGO		("data/Texture/titleimage.png")	// タイトルのロゴ
 #define TEXTURE_NAME_ITEM_BLUE_WING	("data/Texture/item_bluewind.png")	// アイテム青い羽根
 #define TEXTURE_NAME_ITEM_RED_WING	("data/Texture/item_redwind.png")	// アイテム赤い羽根
 #define TEXTURE_NAME_ITEM_BOMB		("data/Texture/item_bomb.png")		// アイテムボム
@@ -88,7 +88,7 @@ HRESULT CTexture::Load(void)
     //テクスチャの読み込み
     D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_EFFECT, &m_apTexture[TEXTURE_NUM_EFFECT]);
     D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_FLOOR, &m_apTexture[TEXTURE_NUM_FLOOR]);
-    D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_TITLE_LOGO, &m_apTexture[TEXTURE_NUM_TITLE_LOGO]);
+    D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_TITLE_LOGO, &m_apTexture[TEXTURE_NUM_TITLE]);
     D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_ITEM_BLUE_WING, &m_apTexture[TEXTURE_NUM_ITEM_BLUE_WING]);
     D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_ITEM_RED_WING, &m_apTexture[TEXTURE_NUM_ITEM_RED_WING]);
     D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_ITEM_BOMB, &m_apTexture[TEXTURE_NUM_ITEM_BOMB]);

@@ -15,7 +15,7 @@
 //・・・・・・・・・・・・・・・・・・・・・・・・・・・
 //マクロ定義
 //・・・・・・・・・・・・・・・・・・・・・・・・・・・
-#define PLAYER_SELECT_BUTTON D3DXVECTOR3(150.0f,40.0f,0.0f)
+#define PLAYER_SELECT_BUTTON D3DXVECTOR3(300.0f,80.0f,0.0f)
 
 //・・・・・・・・・・・・・・・・・・・・・・・・・・・
 //クラス定義

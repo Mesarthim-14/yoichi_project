@@ -24,7 +24,7 @@ public:
 		TEXTURE_NUM_NONE = -1,			// 初期値
 		TEXTURE_NUM_EFFECT,				// 炎
 		TEXTURE_NUM_FLOOR,				// 床テクスチャ
-		TEXTURE_NUM_TITLE_LOGO,			// タイトルロゴ
+		TEXTURE_NUM_TITLE,				// タイトル
 		TEXTURE_NUM_ITEM_BLUE_WING,		// アイテム青い羽根
 		TEXTURE_NUM_ITEM_RED_WING,		// アイテム赤い羽
 		TEXTURE_NUM_ITEM_BOMB,			// アイテム爆弾
