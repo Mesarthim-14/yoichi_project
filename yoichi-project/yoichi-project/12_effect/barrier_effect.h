@@ -25,18 +25,18 @@
 //=============================================================================
 // 背景クラス
 //=============================================================================
-class CBARRIEREFFECT: public CModel
+class CBarriereffect: public CModel
 {
 public:
-	CBARRIEREFFECT();		// コンストラクタ
-	~CBARRIEREFFECT();		// デストラクタ
+	CBarriereffect();		// コンストラクタ
+	~CBarriereffect();		// デストラクタ
 
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXVECTOR3 move);		// 初期化処理
 	void Uninit(void);										// 終了処理
 	void Update(void);										// 更新処理
 	void Draw(void);										// 描画処理
 
-	static CBARRIEREFFECT *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXVECTOR3 move, float fAngle);	// インスタンス生成
+	static CBarriereffect *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXVECTOR3 move, float fAngle);	// インスタンス生成
 
 private:
 	D3DXVECTOR3 m_RotQuantity;	// 回転量

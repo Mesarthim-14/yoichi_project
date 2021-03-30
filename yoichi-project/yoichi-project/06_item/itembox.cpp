@@ -201,7 +201,7 @@ void CItemBox::Collision(void)
 void CItemBox::ItemCreate(int nCount)
 {
 	// 乱数のナンバー
-	int nNumber = ITEM_TYPE_MHAND /*rand() % (int)ITEM_TYPE_MAX*/;
+	int nNumber = rand() % (int)ITEM_TYPE_MAX;
 
 		// プレイヤーの関数
 	CPlayer *pPlayer = CGame::GetPlayer(nCount);

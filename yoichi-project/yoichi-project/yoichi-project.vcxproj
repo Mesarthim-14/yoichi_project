@@ -214,13 +214,14 @@
     <ClInclude Include="11_common\fade.h" />
     <ClInclude Include="11_common\polygon.h" />
     <ClInclude Include="11_common\renderer.h" />
-    <ClInclude Include="12_effect\barrier_effect.h" />
     <ClInclude Include="11_common\timer.h" />
     <ClInclude Include="12_effect\barrier_effect.h" />
     <ClInclude Include="12_effect\effect_3d.h" />
     <ClInclude Include="12_effect\effect_factory.h" />
     <ClInclude Include="12_effect\effect.h" />
     <ClInclude Include="12_effect\magichand.h" />
+    <ClInclude Include="12_effect\shadow.h" />
+    <ClInclude Include="12_effect\wind_effect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp" />
@@ -288,6 +289,8 @@
     <ClCompile Include="12_effect\effect_factory.cpp" />
     <ClCompile Include="12_effect\effect.cpp" />
     <ClCompile Include="12_effect\magichand.cpp" />
+    <ClCompile Include="12_effect\shadow.cpp" />
+    <ClCompile Include="12_effect\wind_effect.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

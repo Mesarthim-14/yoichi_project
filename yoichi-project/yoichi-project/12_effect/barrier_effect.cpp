@@ -18,10 +18,10 @@
 //=================================================================================
 // インスタンス生成
 //=================================================================================
-CBARRIEREFFECT * CBARRIEREFFECT::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXVECTOR3 move, float fAngle)
+CBarriereffect * CBarriereffect::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXVECTOR3 move, float fAngle)
 {
 	// メモリ確保
-	CBARRIEREFFECT *pBarriereffect = new CBARRIEREFFECT;
+	CBarriereffect *pBarriereffect = new CBarriereffect;
 
 	// !nullcheck
 	if (pBarriereffect != NULL)
@@ -57,7 +57,7 @@ CBARRIEREFFECT * CBARRIEREFFECT::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXV
 //=================================================================================
 // コンストラクタ
 //=================================================================================
-CBARRIEREFFECT::CBARRIEREFFECT()
+CBarriereffect::CBarriereffect()
 {
 	m_RotQuantity = ZeroVector3;	// 回転量の初期化
 	m_Scale = ZeroVector3;			// 拡大率の初期化
@@ -66,14 +66,14 @@ CBARRIEREFFECT::CBARRIEREFFECT()
 //=================================================================================
 // デストラクタ
 //=================================================================================
-CBARRIEREFFECT::~CBARRIEREFFECT()
+CBarriereffect::~CBarriereffect()
 {
 }
 
 //=================================================================================
 // 初期化処理
 //=================================================================================
-HRESULT CBARRIEREFFECT::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXVECTOR3 move)
+HRESULT CBarriereffect::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXVECTOR3 move)
 {
 	// Xファイルのポインタ
 	CXfile *pXFile = GET_XFILE_PTR;
@@ -97,7 +97,7 @@ HRESULT CBARRIEREFFECT::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXVECTOR3 move
 //=================================================================================
 // 終了処理
 //=================================================================================
-void CBARRIEREFFECT::Uninit(void)
+void CBarriereffect::Uninit(void)
 {
 	// 終了処理
 	CModel::Uninit();
@@ -106,7 +106,7 @@ void CBARRIEREFFECT::Uninit(void)
 //=================================================================================
 // 更新処理
 //=================================================================================
-void CBARRIEREFFECT::Update(void)
+void CBarriereffect::Update(void)
 {
 	// 更新処理
 	CModel::Update();
@@ -120,7 +120,7 @@ void CBARRIEREFFECT::Update(void)
 //=================================================================================
 // 描画処理
 //=================================================================================
-void CBARRIEREFFECT::Draw(void)
+void CBarriereffect::Draw(void)
 {
 	// Rendererクラスからデバイスを取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();

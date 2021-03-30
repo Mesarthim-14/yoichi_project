@@ -36,6 +36,8 @@
 #include "barrier_effect.h"
 #include "magichand.h"
 #include "player_ui.h"
+#include "wind_effect.h"
+#include "shadow.h"
 
 //=============================================================================
 // マクロ定義
@@ -127,6 +129,8 @@ HRESULT CPlayer::Init(void)
 	m_fBaseRadius = PLAYER_RADIUS;			// 半径
     m_nFlyTime = MAX_FLY_TIME;              // 飛行時間
 
+	// 影生成
+	CShadow::Create(CTexture::TEXTURE_NUM_SHADOW, m_nNumber);
 	return S_OK;
 
 }
@@ -225,17 +229,6 @@ void CPlayer::Update(void)
 		// 死んだとき
 		Death();
 	}
-
-	//// 重りのエフェクト
-	//CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
-	//	GetModelAnime(21)->GetMtxWorld()._42,
-	//	GetModelAnime(21)->GetMtxWorld()._43),
-	//	CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
-
-	// 星がとられたときのエフェクト
-	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
-		GetModelAnime(21)->GetMtxWorld()._42,
-		GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_KIRAKIRA);
 }
 
 //=============================================================================
@@ -364,7 +357,6 @@ void CPlayer::Walk(void)
 
 	// 座標設定
 	SetPos(pos);
-
 }
 
 //=============================================================================
@@ -478,6 +470,14 @@ void CPlayer::Fly(void)
 			SetUseGravity(true);
 		}
 	}
+
+	// 飛んでいるときの風のエフェクト
+	CWindEffect::Create(GetPos(), m_rotDest, D3DXVECTOR3(100.0f, 100.0f, 100.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_PARTICLE);
+
+	// 飛んでいるときのキラキラのエフェクト
+	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+		GetModelAnime(21)->GetMtxWorld()._42,
+		GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_KIRAKIRA);
 }
 
 //=============================================================================

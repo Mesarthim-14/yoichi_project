@@ -216,9 +216,6 @@
     <ClInclude Include="10_UI\result.h">
       <Filter>10_UI</Filter>
     </ClInclude>
-    <ClInclude Include="12_effect\barrier_effect.h">
-      <Filter>12_effect</Filter>
-    </ClInclude>
     <ClInclude Include="12_effect\magichand.h">
       <Filter>12_effect</Filter>
     </ClInclude>

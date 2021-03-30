@@ -181,6 +181,11 @@ void CPlayer_UI::UseItem(void)
         }
     }
 
+	//// 重りのエフェクト
+	//CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+	//	GetModelAnime(21)->GetMtxWorld()._42,
+	//	GetModelAnime(21)->GetMtxWorld()._43),
+	//	CEffectFactory::EFFECT_TYPE::EFFECT_NUM_SINKER);
 }
 
 //=============================================================================

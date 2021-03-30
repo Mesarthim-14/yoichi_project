@@ -32,6 +32,7 @@
 #define TEXTURE_NAME_ITEM_MHAND		("data/Texture/item_mhand.png")		// アイテムMハンド
 #define TEXTURE_NAME_ITEM_VORTEX	("data/Texture/item_vortex.png")	// アイテム渦
 #define TEXTURE_NAME_SEA			("data/Texture/sea000.jpeg")		// 海
+#define TEXTURE_FILE_SHADOW			("data/Texture/shadow.png")			// 影
 #define TEXTURE_NAME_RESULT_1ST	("data/Texture/1st.png")		// リザルト1位
 #define TEXTURE_NAME_RESULT_2ND	("data/Texture/2nd.png")		// リザルト2位
 #define TEXTURE_NAME_RESULT_3RD	("data/Texture/3rd.png")		// リザルト3位
@@ -45,6 +46,7 @@
 #define TEXTURE_FILE_VERTICAL_LLINE     ("data/Texture/Vertical_lline.png")  // 縦線
 #define TEXTURE_FILE_FRAME              ("data/Texture/frame.png")           // 中央の枠
 #define TEXTURE_FILE_POINT_UI           ("data/Texture/pointup.png")         // ポイントアップのテクスチャ
+
 
 // 分割テクスチャの名前
 #define SEPARATE_TEX_NAME_NUMBER	("data/Texture/number000.png")	// ナンバー
@@ -107,6 +109,7 @@ HRESULT CTexture::Load(void)
     D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_LACKRING, &m_apTexture[TEXTURE_NUM_LACKRING]);
     D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_SMOKE, &m_apTexture[TEXTURE_NUM_SMOKE]);
     D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_KIRAKIRA, &m_apTexture[TEXTURE_NUM_KIRAKIRA]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_SHADOW, &m_apTexture[TEXTURE_NUM_SHADOW]);
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_BUTTON_2P, &m_apTexture[TEXTURE_NUM_BUTTON_2P]);
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_BUTTON_3P, &m_apTexture[TEXTURE_NUM_BUTTON_3P]);
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_NAME_BUTTON_4P, &m_apTexture[TEXTURE_NUM_BUTTON_4P]);

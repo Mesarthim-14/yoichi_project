@@ -63,8 +63,6 @@ CEffect * CEffect::Create(D3DXVECTOR3 pos, CEffectFactory::EFFECT Particle,
 
 		// ‰Šú‰»ˆ—
 		pEffect->Init();
-		pEffect->SetPos(TargetPos);		// ‰ñ“]‚Ìİ’è
-		pEffect->SetSizeBase(Particle.size);					// F‚Ìİ’è
 
 		CTexture *pTexture = GET_TEXTURE_PTR;
 
