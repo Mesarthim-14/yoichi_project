@@ -89,12 +89,11 @@ void CFly_UI::Init(int nPlayerNum)
     // プレイヤー番号を保存
     m_nPkayerNum = nPlayerNum;
 
-    m_pUI = CUi::Create(m_UIPos[m_nPkayerNum], { FLY_UI_SIZE_X/2 ,FLY_UI_SIZE_Y ,FLY_UI_SIZE_Z });
-    m_pUI->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_ITEM_BLUE_WING));
+    m_pUI = CUi::Create(m_UIPos[m_nPkayerNum], { FLY_UI_SIZE_X ,FLY_UI_SIZE_Y ,FLY_UI_SIZE_Z });
+    m_pUI->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_FLY_FRAME));
 
     m_pGauge = CPolygon::Create(m_UIPos[m_nPkayerNum], { FLY_UI_SIZE_X ,FLY_UI_SIZE_Y ,FLY_UI_SIZE_Z });
-    m_pGauge->SetColor(FLY_UI_COLOR);
-    //m_pGauge->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_SIDE_LINE));
+    m_pGauge->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_FLY_GAUGE));
 
 }
 
@@ -151,13 +150,14 @@ void CFly_UI::SetFly(void)
    float nPercentage = (float)FliTime / (float)MAX_FLY_TIME;
 
    // サイズの更新
-   D3DXVECTOR3 size = D3DXVECTOR3(FLY_UI_SIZE_X * nPercentage, FLY_UI_SIZE_Y, 0.0f);
-
+   //D3DXVECTOR3 size = D3DXVECTOR3(FLY_UI_SIZE_X * nPercentage, FLY_UI_SIZE_Y, 0.0f);
+   //m_pGauge->SetSize(size);
    // 位置の更新
-   D3DXVECTOR3 pos = D3DXVECTOR3(m_UIPos[m_nPkayerNum].x - size.x / 2, m_UIPos[m_nPkayerNum].y, 0.0f);
+   //D3DXVECTOR3 pos = D3DXVECTOR3(m_UIPos[m_nPkayerNum].x , m_UIPos[m_nPkayerNum].y, 0.0f);
+   //m_pGauge->SetPos(pos);
 
    // 位置とサイズを反映
-   m_pGauge->UpdateVertex(pos, size);
+   m_pGauge->UpdateVertex(FliTime, MAX_FLY_TIME);
 
 }
 

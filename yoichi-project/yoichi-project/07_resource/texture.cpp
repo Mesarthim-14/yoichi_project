@@ -47,6 +47,8 @@
 #define TEXTURE_FILE_FRAME              ("data/Texture/frame.png")           // 中央の枠
 #define TEXTURE_FILE_POINT_UI           ("data/Texture/pointup.png")         // ポイントアップのテクスチャ
 
+#define TEXTURE_FILE_FLY_FRAME            ("data/Texture/StaminaUI.png")           // 飛行ゲージ枠
+#define TEXTURE_FILE_FLY_GAUGE           ("data/Texture/StaminaGageUI.png")       // 飛行ゲージ
 
 // 分割テクスチャの名前
 #define SEPARATE_TEX_NAME_NUMBER	("data/Texture/number000.png")	// ナンバー
@@ -123,6 +125,9 @@ HRESULT CTexture::Load(void)
     D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_VERTICAL_LLINE, &m_apTexture[TEXTURE_NUM_VERTICAL_LLINE]);
     D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_FRAME, &m_apTexture[TEXTURE_NUM_FRAME]);
     D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_POINT_UI, &m_apTexture[TEXTURE_NUM_POINT_UP]);
+
+    D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_FLY_FRAME, &m_apTexture[TEXTURE_NUM_FLY_FRAME]);
+    D3DXCreateTextureFromFile(pDevice, TEXTURE_FILE_FLY_GAUGE, &m_apTexture[TEXTURE_NUM_FLY_GAUGE]);
 
 	return S_OK;
 }

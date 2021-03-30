@@ -41,6 +41,8 @@ public:
         TEXTURE_NUM_VERTICAL_LLINE,     // 縦の枠線
         TEXTURE_NUM_FRAME,              // 枠
         TEXTURE_NUM_POINT_UP,           // ポイントアップ
+        TEXTURE_NUM_FLY_FRAME,          // 飛行ゲージ枠
+        TEXTURE_NUM_FLY_GAUGE,          // 飛行ゲージ
 		TEXTURE_NUM_STAR,			// 星
 		TEXTURE_NUM_RING,			// 輪
 		TEXTURE_NUM_LACKRING,		// 欠けた輪
