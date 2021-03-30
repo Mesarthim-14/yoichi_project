@@ -18,7 +18,7 @@
 #include "game.h"
 #include "player.h"
 #include "collision.h"
-#include "wind.h"
+
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -54,8 +54,8 @@ CItemVortex * CItemVortex::Create(const int nNumber)
 	if (pItemVortex != nullptr)
 	{
 		// 初期化処理
-		pItemVortex->Init();
 		pItemVortex->SetNumber(nNumber);
+		pItemVortex->Init();
 	}
 
 	return pItemVortex;
@@ -67,7 +67,7 @@ CItemVortex * CItemVortex::Create(const int nNumber)
 HRESULT CItemVortex::Init(void)
 {
 	// メモリ確保
-	CUi *pUi = CUi::Create(CItem::SetPosition(GetPlayerNum()), ITEM_UI_SIZE);
+	CUi *pUi = CUi::Create(SetPosition(this->GetPlayerNum()), ITEM_UI_SIZE);
 
 	// UIのポインタ設定
 	SetUi(pUi);
@@ -76,7 +76,7 @@ HRESULT CItemVortex::Init(void)
 	if (pUi != nullptr)
 	{
 		// テクスチャのポインタ取得
-		CTexture *pTexture = GET_TEXTURE_PTR;
+		CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 
 		// テクスチャの設定
 		pUi->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_ITEM_VORTEX));
@@ -171,19 +171,6 @@ void CItemVortex::SetItem(void)
 {
 	// 使用状態にする
 	SetUse(true);
-	CPlayer *pPlayer = CGame::GetPlayer(GetPlayerNum());
-	int nNum = GetPlayerNum();
-	CModelAnime* pModelAnime = pPlayer->GetModelAnime(21);
-	D3DXVECTOR3 Rot = pPlayer->GetRot();
-	D3DXVECTOR3 EffectCenter = D3DXVECTOR3(pModelAnime->GetMtxWorld()._41,
-		pModelAnime->GetMtxWorld()._42,
-		pModelAnime->GetMtxWorld()._43);
-
-	CWind::Create(EffectCenter,
-		ZeroVector3, 10.0f, D3DXVECTOR3(10.0f, 10.0f, 10.0f), nNum);
-
-	CWind::Create(EffectCenter,
-		ZeroVector3, 10.0f, D3DXVECTOR3(10.0f, 10.0f, 10.0f), nNum);
 
 	// Uiの終了処理
 	UiUninit();

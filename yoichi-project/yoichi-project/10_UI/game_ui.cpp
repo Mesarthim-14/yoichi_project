@@ -35,7 +35,7 @@ const CGame_UI::GEME_UI_DATA CGame_UI::m_UI_DATA[CGame_UI::GAME_UI_MAX] =
 //=============================================================================
 // [CGame_UI] コンストラクタ
 //=============================================================================
-CGame_UI::CGame_UI()
+CGame_UI::CGame_UI() : CScene(PRIORITY_UI)
 {
 
 }

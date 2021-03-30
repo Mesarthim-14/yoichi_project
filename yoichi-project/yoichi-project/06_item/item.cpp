@@ -16,13 +16,26 @@
 #include "ui.h"
 #include "game.h"
 
+//*****************************************************************************
+// マクロ定義
+//*****************************************************************************
+//プレイヤごとのUIの位置
+#define ITEM_POS_PLAYER1 {SCREEN_WIDTH/4-250,SCREEN_HEIGHT/4-100.0f,0.0f}
+#define ITEM_POS_PLAYER2 {SCREEN_WIDTH/4+(SCREEN_WIDTH/2)+250,SCREEN_HEIGHT/4-100.0f,0.0f}
+#define ITEM_POS_PLAYER3 {SCREEN_WIDTH/4-250,SCREEN_HEIGHT/4+(SCREEN_HEIGHT/2)-100.0f,0.0f}
+#define ITEM_POS_PLAYER4 {SCREEN_WIDTH/4+(SCREEN_WIDTH/2)+250,SCREEN_HEIGHT/4+(SCREEN_HEIGHT/2)-100.0f,0.0f}
 
 //*****************************************************************************
-// コンストラクタ
-// Author : AYANOKUDO
+// 静的メンバ変数
 //*****************************************************************************
-// プレイヤーの位置定数
-const D3DXVECTOR3 CItem::m_position[MAX_PLAYER_NUM] = { ITEM_UI_POS_PLAYER_1,ITEM_UI_POS_PLAYER_2,ITEM_UI_POS_PLAYER_3,ITEM_UI_POS_PLAYER_4 };
+const D3DXVECTOR3 CItem::m_UI_DATA[MAX_PLAYER_NUM] =
+{
+    { ITEM_POS_PLAYER1 },
+    { ITEM_POS_PLAYER2 },
+    { ITEM_POS_PLAYER3 },
+    { ITEM_POS_PLAYER4 }
+};// UIの位置
+
 
 //=============================================================================
 // コンストラクタ
@@ -103,20 +116,9 @@ void CItem::UiUninit()
 }
 
 //=============================================================================
-// [SetPosition] UIの位置を設定
-// Author : AYANOKUDO
-// 引数
-// nPlayer : プレイヤーの番号
+// [SetPosition] UIの位置設定
 //=============================================================================
-D3DXVECTOR3 CItem::SetPosition(int nPlayer)
-{
-    D3DXVECTOR3 pos;
-    int nPlayerTotal = CGame::GetPlayerNum();
-
-    //自分のプレイヤー番号とプレイヤーの総数を取得
-    
-    // プレイヤー番号を保存
-    //m_nPlayerNum = nPlayerNum;
-    pos = m_position[nPlayer];
-    return pos;
+D3DXVECTOR3 CItem::SetPosition(int nPlayerNum)
+{  
+    return m_UI_DATA[nPlayerNum];
 }

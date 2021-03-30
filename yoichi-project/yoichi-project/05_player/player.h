@@ -24,7 +24,7 @@
 #define PLAYER_SIZE_Y				(1)			// サイズ
 #define PLAYER_SIZE_Z				(1)			// サイズ
 #define PLAYER_BASE_POS_Y			(200.0f)	// プレイヤーの座標のベース
-#define MAX_FLY_TIME            (10*60)                 // 飛行時間(フレーム)
+#define MAX_FLY_TIME            (30*60)                 // 飛行時間(フレーム)
 
 
 
