@@ -478,10 +478,36 @@ void CPlayer::Fly(void)
 	// 飛んでいるときの風のエフェクト
 	CWindEffect::Create(GetPos(), m_rotDest, D3DXVECTOR3(100.0f, 100.0f, 100.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_PARTICLE);
 
-	// 飛んでいるときのキラキラのエフェクト
-	CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
-		GetModelAnime(21)->GetMtxWorld()._42,
-		GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_KIRAKIRA);
+	switch (m_nNumber)
+	{
+	case 0:	// 飛んでいるときのキラキラのエフェクト
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_KIRAKIRA_RED);
+		break;
+
+	case 1:	// 飛んでいるときのキラキラのエフェクト
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_KIRAKIRA_BLUE);
+		break;
+
+	case 2:	// 飛んでいるときのキラキラのエフェクト
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_KIRAKIRA_YELLOW);
+		break;
+
+	case 3:	// 飛んでいるときのキラキラのエフェクト
+		CEffectFactory::CreateEffect(D3DXVECTOR3(GetModelAnime(21)->GetMtxWorld()._41,
+			GetModelAnime(21)->GetMtxWorld()._42,
+			GetModelAnime(21)->GetMtxWorld()._43), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_KIRAKIRA_GREEN);
+		break;
+
+	default:
+		break;
+	}
+
 }
 
 //=============================================================================

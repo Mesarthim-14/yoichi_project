@@ -178,11 +178,38 @@ void CEffectFactory::CreateEffect(D3DXVECTOR3 pos, EFFECT_TYPE type)
 			}
 			break;
 
-		case EFFECT_NUM_KIRAKIRA:
+		case EFFECT_NUM_KIRAKIRA_RED:
 			// 状態が悪くなったときのパーティクル
-			for (int nCount = 0; nCount < m_Effect[EFFECT_NUM_KIRAKIRA].nNum; nCount++)
+			for (int nCount = 0; nCount < m_Effect[EFFECT_NUM_KIRAKIRA_RED].nNum; nCount++)
 			{
-				CEffect::Create(pos, m_Effect[EFFECT_NUM_KIRAKIRA],
+				CEffect::Create(pos, m_Effect[EFFECT_NUM_KIRAKIRA_RED],
+					CTexture::TEXTURE_NUM_KIRAKIRA);
+			}
+			break;
+
+		case EFFECT_NUM_KIRAKIRA_BLUE:
+			// 状態が悪くなったときのパーティクル
+			for (int nCount = 0; nCount < m_Effect[EFFECT_NUM_KIRAKIRA_BLUE].nNum; nCount++)
+			{
+				CEffect::Create(pos, m_Effect[EFFECT_NUM_KIRAKIRA_BLUE],
+					CTexture::TEXTURE_NUM_KIRAKIRA);
+			}
+			break;
+
+		case EFFECT_NUM_KIRAKIRA_YELLOW:
+			// 状態が悪くなったときのパーティクル
+			for (int nCount = 0; nCount < m_Effect[EFFECT_NUM_KIRAKIRA_YELLOW].nNum; nCount++)
+			{
+				CEffect::Create(pos, m_Effect[EFFECT_NUM_KIRAKIRA_YELLOW],
+					CTexture::TEXTURE_NUM_KIRAKIRA);
+			}
+			break;
+
+		case EFFECT_NUM_KIRAKIRA_GREEN:
+			// 状態が悪くなったときのパーティクル
+			for (int nCount = 0; nCount < m_Effect[EFFECT_NUM_KIRAKIRA_GREEN].nNum; nCount++)
+			{
+				CEffect::Create(pos, m_Effect[EFFECT_NUM_KIRAKIRA_GREEN],
 					CTexture::TEXTURE_NUM_KIRAKIRA);
 			}
 			break;

@@ -25,7 +25,7 @@
 //=====================================================
 #define DEFAULT_SIZE		(D3DXVECTOR3(150.0f, 150.0f, 0.0f))				// 基本の大きさ
 #define DEFAULT_ROT			(D3DXVECTOR3(D3DXToRadian(90.0f), 0.0f, 0.0f))	// 基本の角度
-#define DEFAULT_COLOR		(D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f))				// 基本の色
+#define DEFAULT_COLOR		(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f))				// 基本の色
 #define DEFAULT_POS_Y		(-2000.0f)										// 基本の座標
 #define PILLAR_POS_Y		(0.0f)											// 柱の座標
 #define DIVIDE_NUM			(2000.0f)										// 距離を割る数

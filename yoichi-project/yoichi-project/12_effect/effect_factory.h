@@ -67,7 +67,10 @@ public:
 		EFFECT_NUM_SINKER,				// 重り
 		EFFECT_NUM_STATESUPPARTICLE,	// 状態が良くなったときの粒子
 		EFFECT_NUM_STATUSDOWNPARTICLE,	// 状態が悪くなったときの粒子
-		EFFECT_NUM_KIRAKIRA,			// 飛んでいるときのキラキラ
+		EFFECT_NUM_KIRAKIRA_RED,		// 飛んでいるときのキラキラ(赤)
+		EFFECT_NUM_KIRAKIRA_BLUE,		// 飛んでいるときのキラキラ(青)
+		EFFECT_NUM_KIRAKIRA_YELLOW,		// 飛んでいるときのキラキラ(黄)
+		EFFECT_NUM_KIRAKIRA_GREEN,		// 飛んでいるときのキラキラ(緑)
 		EFFECT_NUM_MAX
 	}EFFECT_TYPE;
 
