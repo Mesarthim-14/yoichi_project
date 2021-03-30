@@ -20,10 +20,10 @@
 // マクロ定義
 //*****************************************************************************
 //プレイヤごとのUIの位置
-#define STARUI_POS_PLAYER1 {SCREEN_WIDTH/4-150.0f,SCREEN_HEIGHT/4+130.0f,0.0f}
-#define STARUI_POS_PLAYER2 {SCREEN_WIDTH/4+(SCREEN_WIDTH/2)+100.0f,SCREEN_HEIGHT/4+130.0f,0.0f}
-#define STARUI_POS_PLAYER3 {SCREEN_WIDTH/4-150.0f,SCREEN_HEIGHT/4+(SCREEN_HEIGHT/2)+130.0f,0.0f}
-#define STARUI_POS_PLAYER4 {SCREEN_WIDTH/4+(SCREEN_WIDTH/2)+100.0f,SCREEN_HEIGHT/4+(SCREEN_HEIGHT/2)+130.0f,0.0f}
+#define STARUI_POS_PLAYER1 {SCREEN_WIDTH/4-250.0f,SCREEN_HEIGHT/4+130.0f,0.0f}
+#define STARUI_POS_PLAYER2 {SCREEN_WIDTH/4+(SCREEN_WIDTH/2)+300.0f,SCREEN_HEIGHT/4+130.0f,0.0f}
+#define STARUI_POS_PLAYER3 {SCREEN_WIDTH/4-250.0f,SCREEN_HEIGHT/4+(SCREEN_HEIGHT/2)+130.0f,0.0f}
+#define STARUI_POS_PLAYER4 {SCREEN_WIDTH/4+(SCREEN_WIDTH/2)+300.0f,SCREEN_HEIGHT/4+(SCREEN_HEIGHT/2)+130.0f,0.0f}
 
 //*****************************************************************************
 // 静的メンバ変数
@@ -46,7 +46,6 @@ CStar_UI::CStar_UI()
 }
 
 //=============================================================================
-// [~CStar_UI] デストラクタ
 //=============================================================================
 CStar_UI::~CStar_UI()
 {
@@ -113,22 +112,35 @@ void CStar_UI::SetPosition(int nPlayerNum)
 {
     // 変数宣言
     D3DXVECTOR3 pos;
-   int nPlayerTotal = CGame::GetPlayerNum();
-   CTexture *pTexture = GET_TEXTURE_PTR;
+    int nPlayerTotal = CGame::GetPlayerNum();
+    CTexture *pTexture = GET_TEXTURE_PTR;
 
-   // プレイヤー番号を保存
-   m_nPlayerNum = nPlayerNum;
+    // プレイヤー番号の保存
+    m_nPlayerNum = nPlayerNum;
 
-   // プレイヤー番号の保存
-   m_nPlayerNum = nPlayerNum;
+    // ナンバー生成
+    // 2人以下でプレイ
+    if (nPlayerTotal <= 2)
+    {
+            for (int nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
+            {
+                pos = { m_posUI[nPlayerNum+ nPlayerTotal].x - (nCntNum*50.0f), m_posUI[nPlayerNum + nPlayerTotal].y ,m_posUI[nPlayerNum + nPlayerTotal].z };
+                m_apNumber[nCntNum] = CNumber2d::Create(pos, { 50.0f,80.0f,0.0f });
+                m_apNumber[nCntNum]->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_NUMBER));
+            }
 
-   // ナンバー生成
-   for (int nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
-   {
-       pos = { m_posUI[nPlayerNum].x - (nCntNum*50.0f), m_posUI[nPlayerNum].y ,m_posUI[nPlayerNum].z };
-       m_apNumber[nCntNum] = CNumber2d::Create(pos, { 50.0f,80.0f,0.0f });
-       m_apNumber[nCntNum]->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_NUMBER));
-   }
+
+    }
+    else
+    {
+        for (int nCntNum = 0; nCntNum < STAR_NUM; nCntNum++)
+        {
+            pos = { m_posUI[nPlayerNum].x - (nCntNum*50.0f), m_posUI[nPlayerNum].y ,m_posUI[nPlayerNum].z };
+            m_apNumber[nCntNum] = CNumber2d::Create(pos, { 50.0f,80.0f,0.0f });
+            m_apNumber[nCntNum]->BindTexture(pTexture->GetSeparateTexture(CTexture::SEPARATE_TEX_NUMBER));
+        }
+    }
+
 }
 
 //=============================================================================
