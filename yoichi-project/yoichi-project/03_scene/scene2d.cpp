@@ -88,10 +88,10 @@ HRESULT CScene2D::Init(void)
 	pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
 
 	// 頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(pos.x - size.x, pos.y - size.y, 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(pos.x + size.x, pos.y - size.y, 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(pos.x - size.x, pos.y + size.y, 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(pos.x + size.x, pos.y + size.y, 0.0f);
+	pVtx[0].pos = D3DXVECTOR3(pos.x - size.x / 2, pos.y - size.y / 2, 0.0f);
+	pVtx[1].pos = D3DXVECTOR3(pos.x + size.x / 2, pos.y - size.y / 2, 0.0f);
+	pVtx[2].pos = D3DXVECTOR3(pos.x - size.x / 2, pos.y + size.y / 2, 0.0f);
+	pVtx[3].pos = D3DXVECTOR3(pos.x + size.x / 2, pos.y + size.y / 2, 0.0f);
 
 	// rhwの設定
 	pVtx[0].rhw = 1.0f;
@@ -128,6 +128,7 @@ void CScene2D::Uninit(void)
 //=======================================================================================
 void CScene2D::Update(void)
 {
+
 }
 
 //=======================================================================================
@@ -319,10 +320,10 @@ void CScene2D::ScaleUp(float fScaleUp)
 	GetVtxBuff()->Lock(0, 0, (void**)&pVtx, 0);
 
 	// 頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(GetPos().x - (GetSize().x * m_fScaleNum), GetPos().y - (GetSize().y * m_fScaleNum), 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(GetPos().x + (GetSize().x * m_fScaleNum), GetPos().y - (GetSize().y * m_fScaleNum), 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(GetPos().x - (GetSize().x * m_fScaleNum), GetPos().y + (GetSize().y * m_fScaleNum), 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(GetPos().x + (GetSize().x * m_fScaleNum), GetPos().y + (GetSize().y * m_fScaleNum), 0.0f);
+	pVtx[0].pos = D3DXVECTOR3(GetPos().x - (GetSize().x * m_fScaleNum) / 2, GetPos().y - (GetSize().y * m_fScaleNum) / 2, 0.0f);
+	pVtx[1].pos = D3DXVECTOR3(GetPos().x + (GetSize().x * m_fScaleNum) / 2, GetPos().y - (GetSize().y * m_fScaleNum) / 2, 0.0f);
+	pVtx[2].pos = D3DXVECTOR3(GetPos().x - (GetSize().x * m_fScaleNum) / 2, GetPos().y + (GetSize().y * m_fScaleNum) / 2, 0.0f);
+	pVtx[3].pos = D3DXVECTOR3(GetPos().x + (GetSize().x * m_fScaleNum) / 2, GetPos().y + (GetSize().y * m_fScaleNum) / 2, 0.0f);
 
 	//頂点データをアンロック
 	GetVtxBuff()->Unlock();

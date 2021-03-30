@@ -158,6 +158,9 @@ void CBillboard::Update(void)
 		// 透明度の更新
 		UpdateTransparency();
 	}
+
+	// 色の更新
+	UpdateColor();
 	//=====================================================
 
 	// アニメーションの設定がされたとき
@@ -167,13 +170,16 @@ void CBillboard::Update(void)
 		UpdateAnimation();
 	}
 
-	// 体力を減らしていく
-	m_nLife--;
-
-	if (m_nLife <= 0)
+	if (m_nLife > 0)
 	{
-		// 終了処理
-		Uninit();
+		// 体力を減らしていく
+		m_nLife--;
+
+		if (m_nLife <= 0)
+		{
+			// 終了処理
+			Uninit();
+		}
 	}
 }
 
@@ -406,6 +412,33 @@ void CBillboard::UpdateTransparency(void)
 	// 透明度の設定
 	D3DXCOLOR col = GetColor();
 	col.a -= m_Transparency;
+
+	//頂点カラーの設定
+	pVtx[0].col = col;
+	pVtx[1].col = col;
+	pVtx[2].col = col;
+	pVtx[3].col = col;
+
+	SetColor(col);
+
+	// 頂点バッファをアンロックする
+	GetVtxBuff()->Unlock();
+}
+
+//=============================================
+// 色の更新関数
+// Author : Ito Yogo
+//=============================================
+void CBillboard::UpdateColor(void)
+{
+	// 頂点情報を設定
+	VERTEX_3D *pVtx = NULL;
+
+	// 頂点バッファをロックし、頂点情報へのポインタを取得
+	GetVtxBuff()->Lock(0, 0, (void**)&pVtx, 0);
+
+	// 透明度の設定
+	D3DXCOLOR col = GetColor();
 
 	//頂点カラーの設定
 	pVtx[0].col = col;

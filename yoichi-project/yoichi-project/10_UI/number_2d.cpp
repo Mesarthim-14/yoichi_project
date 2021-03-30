@@ -102,7 +102,7 @@ HRESULT CNumber2d::Init(void)
 	pVtx[2].col = D3DCOLOR_RGBA(255, 255, 255, 255);	// 左下頂点の色	透明度255
 	pVtx[3].col = D3DCOLOR_RGBA(255, 255, 255, 255);	// 右下頂点の色	透明度255
 
-	// テクスチャ座標の設定
+														// テクスチャ座標の設定
 	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
 	pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
 	pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
@@ -158,7 +158,7 @@ void CNumber2d::Draw(void)
 		0,
 		NUM_POLYGON);				// プリミティブの数
 
-	// テクスチャの設定
+									// テクスチャの設定
 	pDevice->SetTexture(0, NULL);
 }
 

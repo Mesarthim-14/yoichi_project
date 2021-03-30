@@ -1,8 +1,8 @@
-#ifndef _MAGICHAND_H_
-#define _MAGICHAND_H_
+#ifndef _SHADOW_H_
+#define _SHADOW_H_
 //=====================================================
 //
-// マジックハンドクラスヘッダー [magichand.h]
+// シャドウクラスヘッダー [shadow.h]
 // Author : Ito Yogo
 //
 //=====================================================
@@ -13,29 +13,23 @@
 #include "billboard.h"
 
 //=====================================================
-// マクロ定義
-//=====================================================
-#define MAGICHAND_DISTANCE	(D3DXVECTOR3(150.0f ,0.0f, 0.0f))	// プレイヤーとの距離
-
-//=====================================================
 // パーティクルクラス
 //=====================================================
-class CMagichand : public CBillboard
+class CShadow : public CBillboard
 {
 public:
-	CMagichand(PRIORITY Priority = PRIORITY_PARTICLE);		// コンストラクタ
-	~CMagichand();											// デストラクタ
+	CShadow(PRIORITY Priority = PRIORITY_PARTICLE);		// コンストラクタ
+	~CShadow();											// デストラクタ
 
 	HRESULT Init(void);	// 初期化処理
 	void Uninit(void);	// 終了処理
 	void Update(void);	// 更新処理
 	void Draw(void);	// 描画処理
 
-	static CMagichand*Create(D3DXVECTOR3 Distance, int nTexInfo, int nPlayerNum);	// インスタンス生成
+	static CShadow*Create(int nTexInfo, int nPlayerNum);	// インスタンス生成
 
 private:
 	int m_nPlayerNum;		// 追従させるプレイヤーの番号
-	D3DXVECTOR3 m_Distance; // 距離
 };
 
 #endif

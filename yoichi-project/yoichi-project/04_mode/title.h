@@ -35,7 +35,7 @@
 //前方宣言
 //=============================================================================
 class CScene2D;
-
+class CPlayerSelectButton;
 //=============================================================================
 //リザルトクラス
 //=============================================================================
@@ -54,8 +54,12 @@ public:
 
 	void SetPlayerNum(void);								// プレイヤー数の設定
 private:
+
+	void SelectButton(void);
+
 	CScene2D* m_pScene2D;									// シーン2Dのポインタ
-	CScene2D* m_pPress;										// シーン2Dのポインタ
-	CScene2D* m_pTitleName;									// シーン2Dのポインタ
+	bool m_bDisplayButton;
+	CPlayerSelectButton* m_apPlayerSelectButton[MAX_PLAYER_NUM - MIN_PLAYER_NUM + 1];
+	int m_nSelectButton;
 };
 #endif

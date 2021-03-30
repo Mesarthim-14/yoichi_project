@@ -36,7 +36,8 @@ public:
 	virtual ~CScene();											// デストラクタ
 	static void ReleaseAll(void);								// 全てのオブジェクトをリリース
 	static void UpdateAll(void);								// 全てのオブジェクトを更新
-	static void DrawAll(void);									// 全てのオブジェクトを描画
+	static void DrawAll(void);									// UI以外のオブジェクトを描画
+	static void DrawUI(void);									// UIを描画
 
 	virtual HRESULT Init(void) = 0;	// 初期化処理
 	virtual void Uninit(void) = 0;								// 終了処理

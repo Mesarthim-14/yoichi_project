@@ -17,6 +17,7 @@
 #include "texture.h"
 #include "game.h"
 #include "player.h"
+#include "barrier.h"
 
 //=============================================================================
 // マクロ定義
@@ -120,6 +121,7 @@ void CItemBarrier::SetItem(void)
 	{
 		// 無敵状態にする
 		pPlayer->SetArmor(true);
+		CBARRIER::Create(pPlayer->GetPos(), BARRIER_MAX_SIZE, 0.0f, BARRIER_MAX_SIZE, GetPlayerNum());
 	}
 
 	// 使用状態にする

@@ -30,6 +30,8 @@
 #include "time_ui.h"
 #include "result.h"
 #include "timer.h"
+#include "fade.h"
+#include "game_ui.h"
 
 //=======================================================================================
 // static初期化
@@ -42,6 +44,8 @@ CItemBoxManager *CGame::m_pItemManager = nullptr;
 int CGame::m_nPlayerNum = 1;
 CResult *CGame::m_apResult[MAX_PLAYER_NUM] = {};
 CTime_UI *CGame::m_pTimeUI = nullptr;
+CGame_UI *CGame::m_pGameUI = nullptr;                 // ゲームUI
+
 
 //=======================================================================================
 // コンストラクタ
@@ -52,7 +56,7 @@ CGame::CGame()
 	m_nTimeCounter = 0;
 	m_pStarManager = nullptr;
 	m_pStageMap = nullptr;
-
+	m_nTimer = 0;
 	// 0だったら
 	if (m_nPlayerNum == 0)
 	{
@@ -130,6 +134,10 @@ HRESULT CGame::Init(void)
     // タイマーのセット
     m_pTimeUI = CTime_UI::Create();
 
+    // 共通UIの表示
+    m_pGameUI = CGame_UI::Create();
+
+    
 	//BGM
 //	CSound *pSound = CManager::GetSound();
 //	pSound->Play(CSound::SOUND_LABEL_BGM_GAME);
@@ -205,6 +213,12 @@ void CGame::Uninit(void)
 		}
 	}
 
+    if (m_pGameUI != nullptr)
+    {
+        m_pGameUI->Uninit();
+        m_pGameUI = nullptr;
+    }
+
 	// !nullcheck
 	if (m_pStageMap != nullptr)
 	{
@@ -259,6 +273,12 @@ void CGame::Update(void)
     {
 		// リザルトUiの表示
 		SetResultUi();
+
+		//タイトル画面に戻る
+		if (m_nTimer++ == TIME_RETURN_TITLE)
+		{
+			CManager::GetFade()->SetFade(CManager::MODE_TYPE_TITLE);
+		}
 
 		// リザルトのアップデート
 		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)

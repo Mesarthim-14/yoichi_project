@@ -189,6 +189,10 @@ void CItemBombBox::Collision(void)
 
 						// ‘ŠŽè‚Ì‘¬“x‚ð–³‚­‚·
 						pPlayer->SetSpeed(BOMB_SPEED_NUM);
+						D3DXVECTOR3 pos = GetPos();
+						CEffectFactory::CreateEffect(pos, CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSION);
+						CEffectFactory::CreateEffect(pos, CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSIONCIRCLE);
+						CEffectFactory::CreateEffect(pos, CEffectFactory::EFFECT_TYPE::EFFECT_NUM_EXPLOSIONSPARK);
 
 						// Armor‚ª–³‚¯‚ê‚Î
 						pPlayer->SetArmor(true);

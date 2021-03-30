@@ -35,7 +35,6 @@ CResourceManager::~CResourceManager()
 {
 	// アンロード処理
 	UnloadAll();
-
 	// nullcheck
 	if (m_pTexture != NULL)
 	{
@@ -132,8 +131,6 @@ void CResourceManager::UnloadAll(void)
 	if (m_pTexture != NULL)
 	{
 		// テクスチャアンロード
-		m_pTexture->Unload();
-		m_pTexture->SeparateTexUnload();
 	}
 
 	// !nullcheck

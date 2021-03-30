@@ -37,7 +37,7 @@ CWind * CWind::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, float fAngle, D3DXVECTO
 		}
 
 		pWind->m_Scale = scale;	// Šg‘å—¦
-
+		pWind->SetPos(pos);
 		// ‰Šú‰»ˆ—
 		pWind->Init(pos, size);
 	}
@@ -107,6 +107,7 @@ void CWind::Update(void)
 	D3DXVECTOR3 rot = CModel::GetRot();
 	rot += m_RotQuantity;
 	CModel::SetRot(rot);
+	
 }
 
 //=================================================================================

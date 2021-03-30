@@ -150,9 +150,6 @@
     <ClInclude Include="12_effect\effect.h">
       <Filter>12_effect</Filter>
     </ClInclude>
-    <ClInclude Include="barrier.h">
-      <Filter>08_3D</Filter>
-    </ClInclude>
     <ClInclude Include="06_item\item_bluewing.h">
       <Filter>06_item</Filter>
     </ClInclude>
@@ -219,9 +216,6 @@
     <ClInclude Include="10_UI\result.h">
       <Filter>10_UI</Filter>
     </ClInclude>
-    <ClInclude Include="12_effect\barrier_effect.h">
-      <Filter>12_effect</Filter>
-    </ClInclude>
     <ClInclude Include="12_effect\magichand.h">
       <Filter>12_effect</Filter>
     </ClInclude>
@@ -242,6 +236,23 @@
     </ClInclude>
     <ClInclude Include="11_common\timer.h">
       <Filter>11_common</Filter>
+    </ClInclude>
+    <ClInclude Include="12_effect\barrier_effect.h" />
+    <ClInclude Include="12_effect\barrier_effect.h" />
+    <ClInclude Include="10_UI\button.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="12_effect\barrier_effect.h" />
+    <ClInclude Include="10_UI\playerselectbutton.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="10_UI\game_ui.h">
+      <Filter>10_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="10_UI\Fly_ui.h" />
+    <ClInclude Include="12_effect\barrier_effect.h" />
+    <ClInclude Include="08_3D\barrier.h">
+      <Filter>08_3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -443,5 +454,15 @@
     <ClCompile Include="12_effect\magichand.cpp">
       <Filter>12_effect</Filter>
     </ClCompile>
+    <ClCompile Include="10_UI\button.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\playerselectbutton.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\game_ui.cpp">
+      <Filter>10_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="10_UI\Fly_ui.cpp" />
   </ItemGroup>
 </Project>

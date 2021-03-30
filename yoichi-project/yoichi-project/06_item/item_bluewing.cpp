@@ -122,6 +122,17 @@ void CItemBlueWing::SetItem(void)
 		// スピードを上昇
 		pPlayer->SetSpeed(pPlayer->GetBaseSpeed() * BLUE_WING_SPEED_UP_NUM);
 
+		CModelAnime* pModelAnime = pPlayer->GetModelAnime(21);
+		D3DXVECTOR3 Rot = pPlayer->GetRot();
+		D3DXVECTOR3 EffectCenter = D3DXVECTOR3(pModelAnime->GetMtxWorld()._41,
+			pModelAnime->GetMtxWorld()._42,
+			pModelAnime->GetMtxWorld()._43) + D3DXVECTOR3(sinf(Rot.y) * -300.0f, 0.0f, cosf(Rot.y) * -300.0f);
+
+		// 速度が上がった時のエフェクト
+		CEffectFactory::CreateEffect(EffectCenter,CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSUP);
+
+		CEffectFactory::CreateEffect(EffectCenter,CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATESUPPARTICLE);
+
 		// 使用状態にする
 		SetUse(true);
 

@@ -1,5 +1,5 @@
-#ifndef _MAGICHAND_H_
-#define _MAGICHAND_H_
+#ifndef _WIND_EFFECT_H_
+#define _WIND_EFFECT_H_
 //=====================================================
 //
 // マジックハンドクラスヘッダー [magichand.h]
@@ -20,22 +20,20 @@
 //=====================================================
 // パーティクルクラス
 //=====================================================
-class CMagichand : public CBillboard
+class CWindEffect : public CBillboard
 {
 public:
-	CMagichand(PRIORITY Priority = PRIORITY_PARTICLE);		// コンストラクタ
-	~CMagichand();											// デストラクタ
+	CWindEffect(PRIORITY Priority = PRIORITY_PARTICLE);		// コンストラクタ
+	~CWindEffect();											// デストラクタ
 
 	HRESULT Init(void);	// 初期化処理
-	void Uninit(void);	// 終了処理
-	void Update(void);	// 更新処理
-	void Draw(void);	// 描画処理
+	void Uninit(void);									// 終了処理
+	void Update(void);									// 更新処理
+	void Draw(void);									// 描画処理
 
-	static CMagichand*Create(D3DXVECTOR3 Distance, int nTexInfo, int nPlayerNum);	// インスタンス生成
+	static CWindEffect*Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 Distance, int nTexInfo);	// インスタンス生成
 
 private:
-	int m_nPlayerNum;		// 追従させるプレイヤーの番号
-	D3DXVECTOR3 m_Distance; // 距離
 };
 
 #endif

@@ -18,7 +18,7 @@
 #include "game.h"
 #include "player.h"
 #include "collision.h"
-
+#include "wind.h"
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -171,6 +171,19 @@ void CItemVortex::SetItem(void)
 {
 	// 使用状態にする
 	SetUse(true);
+	CPlayer *pPlayer = CGame::GetPlayer(GetPlayerNum());
+	int nNum = GetPlayerNum();
+	CModelAnime* pModelAnime = pPlayer->GetModelAnime(21);
+	D3DXVECTOR3 Rot = pPlayer->GetRot();
+	D3DXVECTOR3 EffectCenter = D3DXVECTOR3(pModelAnime->GetMtxWorld()._41,
+		pModelAnime->GetMtxWorld()._42,
+		pModelAnime->GetMtxWorld()._43);
+
+	CWind::Create(EffectCenter,
+		ZeroVector3, 10.0f, D3DXVECTOR3(10.0f, 10.0f, 10.0f), nNum);
+
+	CWind::Create(EffectCenter,
+		ZeroVector3, 10.0f, D3DXVECTOR3(10.0f, 10.0f, 10.0f), nNum);
 
 	// Uiの終了処理
 	UiUninit();
