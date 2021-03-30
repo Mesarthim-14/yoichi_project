@@ -18,9 +18,9 @@
 #define GAME_UI_POS_001 {SCREEN_WIDTH/2-60.0f,SCREEN_HEIGHT/2,0.0f} // UIの位置
 #define GAME_UI_POS_002 {SCREEN_WIDTH/2+30.0f,SCREEN_HEIGHT/2,0.0f} // UIの位置
 
-#define GAME_UI_SIZE_000 {128.0f,128.0f,0.0f} // UIのサイズ
-#define GAME_UI_SIZE_001 {32.0f,32.0f,0.0f} // UIのサイズ
-#define GAME_UI_SIZE_002 {64.0f,32.0f,0.0f} // UIのサイズ
+#define GAME_UI_SIZE_000 {256.0f,256.0f,0.0f} // UIのサイズ
+#define GAME_UI_SIZE_001 {64.0f,64.0f,0.0f} // UIのサイズ
+#define GAME_UI_SIZE_002 {128.0f,64.0f,0.0f} // UIのサイズ
 //*****************************************************************************
 // 静的メンバ変数
 //*****************************************************************************
