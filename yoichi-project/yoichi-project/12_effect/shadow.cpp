@@ -16,13 +16,19 @@
 #include "game.h"
 #include "player.h"
 #include "camera.h"
+#include "stage_map.h"
+#include "mesh_pillar.h"
+#include "meshfield.h"
 
 //=====================================================
 // マクロ定義
 //=====================================================
-#define DEFAULT_SIZE		(D3DXVECTOR3(150.0f, 150.0f, 0.0f))	// 基本の大きさ
+#define DEFAULT_SIZE		(D3DXVECTOR3(150.0f, 150.0f, 0.0f))				// 基本の大きさ
 #define DEFAULT_ROT			(D3DXVECTOR3(D3DXToRadian(90.0f), 0.0f, 0.0f))	// 基本の角度
-#define DEFAULT_COLOR		(D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f))	// 基本の色
+#define DEFAULT_COLOR		(D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f))				// 基本の色
+#define DEFAULT_POS_Y		(-2000.0f)										// 基本の座標
+#define PILLAR_POS_Y		(0.0f)											// 柱の座標
+#define DIVIDE_NUM			(2000.0f)										// 距離を割る数
 
 //=====================================================
 // コンストラクタ
@@ -101,15 +107,58 @@ void CShadow::Update(void)
 	CBillboard::Update();
 
 	// 座標の更新
-	D3DXVECTOR3 pos =
-		D3DXVECTOR3(CGame::GetPlayer(m_nPlayerNum)->GetPos().x,
-			0.0f,
-			CGame::GetPlayer(m_nPlayerNum)->GetPos().z);
+	D3DXVECTOR3 pos = CGame::GetPlayer(m_nPlayerNum)->GetPos();
+
+	// ポインタ情報取得
+	CStageMap *pStageMap = CManager::GetGame()->GetStageMap();
+
+	// !nullcheck
+	if (pStageMap != nullptr)
+	{
+		// ローカル変数宣言
+		int mMeshPillarNum = pStageMap->GetMeshPillarNum();		// 柱の数
+
+		for (int nCount = 0; nCount < mMeshPillarNum; nCount++)
+		{
+			// 柱の情報
+			CMeshPillar *pMeshPiller = pStageMap->GetMeshPillar(nCount);
+
+			// !nullcheck
+			if (pMeshPiller != nullptr)
+			{
+				D3DXVECTOR3 PillerPos = pMeshPiller->GetPos() * 2;	// 柱の座標
+				float fRadius = pMeshPiller->GetSize().x;
+
+				// プレイヤーの情報取得
+				D3DXVECTOR3 PlayerPos = CGame::GetPlayer(m_nPlayerNum)->GetPos();		// 座標取得
+				float fPlayerRadius = CGame::GetPlayer(m_nPlayerNum)->GetRadius();		// 半径
+
+				// 二点の距離、二点の角度設定
+				float fLength = sqrtf(
+					powf((PlayerPos.x - PillerPos.x), 2) +
+					powf((PlayerPos.z - PillerPos.z), 2));
+
+				// 離す距離
+				float fDistance = fRadius;
+
+				// 当たり判定
+				if (fLength <= fDistance)
+				{
+					pos.y = PILLAR_POS_Y + 0.1f;
+					break;
+				}
+				else
+				{
+					pos.y = DEFAULT_POS_Y + 0.1f;
+				}
+			}
+		}
+	}
 	SetPos(pos);
 
 	// 色の更新
 	D3DXCOLOR col = GetColor();
-	float fAlphaSub = (CGame::GetPlayer(m_nPlayerNum)->GetPos().y - pos.y) / 2000.0f;
+	float fAlphaSub = (CGame::GetPlayer(m_nPlayerNum)->GetPos().y - pos.y) / DIVIDE_NUM;
 	col.a = 1.0f - fAlphaSub;
 	SetColor(col);
 }

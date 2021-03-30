@@ -53,8 +53,8 @@ CItemRedWing * CItemRedWing::Create(const int nNumber)
 	if (pItemRedWing != nullptr)
 	{
 		// 初期化処理
-		pItemRedWing->Init();
 		pItemRedWing->SetNumber(nNumber);
+		pItemRedWing->Init();
 	}
 
 	return pItemRedWing;
@@ -66,7 +66,7 @@ CItemRedWing * CItemRedWing::Create(const int nNumber)
 HRESULT CItemRedWing::Init(void)
 {
 	// メモリ確保
-	CUi *pUi = CUi::Create(CItem::SetPosition(GetPlayerNum()), ITEM_UI_SIZE);
+	CUi *pUi = CUi::Create(SetPosition(this->GetPlayerNum()), ITEM_UI_SIZE);
 
 	// UIのポインタ設定
 	SetUi(pUi);
@@ -75,7 +75,7 @@ HRESULT CItemRedWing::Init(void)
 	if (pUi != nullptr)
 	{
 		// テクスチャのポインタ取得
-		CTexture *pTexture = GET_TEXTURE_PTR;
+		CTexture *pTexture = CManager::GetResourceManager()->GetTextureClass();
 
 		// テクスチャの設定
 		pUi->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_ITEM_RED_WING));
@@ -133,18 +133,6 @@ void CItemRedWing::SetItem(void)
 					{
 						// 相手の速度を低下
 						pPlayer->SetSpeed(pPlayer->GetBaseSpeed() / RED_WING_SPEED_DOWN_NUM);
-
-						CModelAnime* pModelAnime = pPlayer->GetModelAnime(21);
-						D3DXVECTOR3 Rot = pPlayer->GetRot();
-						// 速度が落ちた時のエフェクト
-						CEffectFactory::CreateEffect(D3DXVECTOR3(pModelAnime->GetMtxWorld()._41, pModelAnime->GetMtxWorld()._42,
-							pModelAnime->GetMtxWorld()._43) + D3DXVECTOR3(sinf(pPlayer->GetRot().y) * -300.0f, 0.0f, cosf(Rot.y) * -300.0f),
-							CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWN);
-
-						CEffectFactory::CreateEffect(D3DXVECTOR3(pModelAnime->GetMtxWorld()._41,
-							pModelAnime->GetMtxWorld()._42,
-							pModelAnime->GetMtxWorld()._43) + D3DXVECTOR3(sinf(Rot.y) * -300.0f, 0.0f, cosf(Rot.y) * -300.0f),
-							CEffectFactory::EFFECT_TYPE::EFFECT_NUM_STATUSDOWNPARTICLE);
 
 						// 効果を有効にする
 						m_bValid[nCount] = true;

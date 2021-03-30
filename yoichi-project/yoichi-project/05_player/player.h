@@ -24,7 +24,7 @@
 #define PLAYER_SIZE_Y				(1)			// サイズ
 #define PLAYER_SIZE_Z				(1)			// サイズ
 #define PLAYER_BASE_POS_Y			(200.0f)	// プレイヤーの座標のベース
-#define MAX_FLY_TIME            (10*60)                 // 飛行時間(フレーム)
+#define MAX_FLY_TIME            (30*60)                 // 飛行時間(フレーム)
 
 
 
@@ -99,6 +99,7 @@ public:
 		MOTION_IDOL,				// アイドルモーション
 		MOTION_WALK,				// 歩行モーション
 		MOTION_JUMP,				// ジャンプモーション
+		MOTION_FLY,					// 飛行モーション
 		MOTION_MAX,					// モーション最大数
 	};
 

@@ -68,8 +68,7 @@ public:
 	bool GetUse(void)		{ return m_bUse; }				// 使用フラグ
 
 private:
-    static const D3DXVECTOR3 m_position[MAX_PLAYER_NUM];// アイテムのUIの位置
-
+    static const D3DXVECTOR3 m_UI_DATA[MAX_PLAYER_NUM];// UIの位置
 	CUi *m_pUi;				// UIのポインタ
 	int m_nPlayerNumber;	// ブレイヤーの番号
 	bool m_bEnd;			// アイテムの削除フラグ

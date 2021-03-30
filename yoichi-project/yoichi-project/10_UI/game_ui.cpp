@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// ゲーム画面のUIクラス[game_ui.cpp]
+// ゲーム画面のUIヘッダ[game_ui.cpp]
 // Author : AYANO KUDO
 //
 //=============================================================================
@@ -18,9 +18,9 @@
 #define GAME_UI_POS_001 {SCREEN_WIDTH/2-60.0f,SCREEN_HEIGHT/2,0.0f} // UIの位置
 #define GAME_UI_POS_002 {SCREEN_WIDTH/2+30.0f,SCREEN_HEIGHT/2,0.0f} // UIの位置
 
-#define GAME_UI_SIZE_000 {128.0f,128.0f,0.0f} // UIのサイズ
-#define GAME_UI_SIZE_001 {32.0f,32.0f,0.0f} // UIのサイズ
-#define GAME_UI_SIZE_002 {64.0f,32.0f,0.0f} // UIのサイズ
+#define GAME_UI_SIZE_000 {256.0f,256.0f,0.0f} // UIのサイズ
+#define GAME_UI_SIZE_001 {64.0f,64.0f,0.0f} // UIのサイズ
+#define GAME_UI_SIZE_002 {128.0f,64.0f,0.0f} // UIのサイズ
 //*****************************************************************************
 // 静的メンバ変数
 //*****************************************************************************
@@ -35,7 +35,7 @@ const CGame_UI::GEME_UI_DATA CGame_UI::m_UI_DATA[CGame_UI::GAME_UI_MAX] =
 //=============================================================================
 // [CGame_UI] コンストラクタ
 //=============================================================================
-CGame_UI::CGame_UI()
+CGame_UI::CGame_UI() : CScene(PRIORITY_UI)
 {
 
 }
@@ -78,6 +78,7 @@ HRESULT CGame_UI::Init(void)
         m_pUI[nCntUI]->BindTexture(pTexture->GetTexture(m_UI_DATA[nCntUI].FileName));
     }
 
+    // テクスチャの設定
     return S_OK;
 }
 

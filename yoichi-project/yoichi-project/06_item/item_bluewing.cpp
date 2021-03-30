@@ -52,8 +52,8 @@ CItemBlueWing * CItemBlueWing::Create(const int nNumber)
 	if (pItemBlueWing != nullptr)
 	{
 		// 初期化処理
-		pItemBlueWing->Init();
 		pItemBlueWing->SetNumber(nNumber);
+		pItemBlueWing->Init();
 	}
 
 	return pItemBlueWing;
@@ -65,7 +65,7 @@ CItemBlueWing * CItemBlueWing::Create(const int nNumber)
 HRESULT CItemBlueWing::Init(void)
 {
 	// メモリ確保
-	CUi *pUi = CUi::Create(CItem::SetPosition(GetPlayerNum()), ITEM_UI_SIZE);
+	CUi *pUi = CUi::Create(SetPosition(this->GetPlayerNum()), ITEM_UI_SIZE);
 
 	// UIのポインタ設定
 	SetUi(pUi);

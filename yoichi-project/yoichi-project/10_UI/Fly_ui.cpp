@@ -26,6 +26,8 @@
 #define FLY_UI_SIZE_Y (32.0f)                        // UIのサイズ
 #define FLY_UI_SIZE_Z (0.0f)                          // UIのサイズ
 
+
+#define FLY_UI_COLOR {0.0f,1.0f,1.0f,1.0f}          // UIの色
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -87,11 +89,12 @@ void CFly_UI::Init(int nPlayerNum)
     // プレイヤー番号を保存
     m_nPkayerNum = nPlayerNum;
 
-    //m_pUI = CUi::Create(m_UIPos[m_nPkayerNum], { FLY_UI_SIZE_X ,FLY_UI_SIZE_Y ,FLY_UI_SIZE_Z });
-    //m_pUI->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_SIDE_LINE));
+    m_pUI = CUi::Create(m_UIPos[m_nPkayerNum], { FLY_UI_SIZE_X/2 ,FLY_UI_SIZE_Y ,FLY_UI_SIZE_Z });
+    m_pUI->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_ITEM_BLUE_WING));
 
     m_pGauge = CPolygon::Create(m_UIPos[m_nPkayerNum], { FLY_UI_SIZE_X ,FLY_UI_SIZE_Y ,FLY_UI_SIZE_Z });
-    m_pGauge->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_SIDE_LINE));
+    m_pGauge->SetColor(FLY_UI_COLOR);
+    //m_pGauge->BindTexture(pTexture->GetTexture(CTexture::TEXTURE_NUM_SIDE_LINE));
 
 }
 
