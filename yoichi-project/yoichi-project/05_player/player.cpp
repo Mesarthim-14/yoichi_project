@@ -218,6 +218,13 @@ void CPlayer::Update(void)
 		rot.x += D3DXToRadian(360);
 	}
 
+    // 着地フラグONのとき
+    if (GetLanding())
+    {
+        m_nFlyTime = MAX_FLY_TIME;              // 飛行時間の回復
+
+    }
+
 	// 角度の設定
 	SetRot(rot);
 
@@ -391,7 +398,6 @@ void CPlayer::Jump(void)
 			// ジャンプモーションの再生
 			SetMotion(MOTION_JUMP);
 			SetLanding(false);
-            m_nFlyTime = MAX_FLY_TIME;              // 飛行時間の回復
 
 		}
 	}

@@ -146,16 +146,6 @@ void CFly_UI::SetFly(void)
     // 飛行時間の取得
    int FliTime = CGame::GetPlayer(m_nPkayerNum)->GetFlyTime();
 
-   // プレイヤーのエネルギー残量を確認して長さを変える
-   float nPercentage = (float)FliTime / (float)MAX_FLY_TIME;
-
-   // サイズの更新
-   //D3DXVECTOR3 size = D3DXVECTOR3(FLY_UI_SIZE_X * nPercentage, FLY_UI_SIZE_Y, 0.0f);
-   //m_pGauge->SetSize(size);
-   // 位置の更新
-   //D3DXVECTOR3 pos = D3DXVECTOR3(m_UIPos[m_nPkayerNum].x , m_UIPos[m_nPkayerNum].y, 0.0f);
-   //m_pGauge->SetPos(pos);
-
    // 位置とサイズを反映
    m_pGauge->UpdateVertex(FliTime, MAX_FLY_TIME);
 
