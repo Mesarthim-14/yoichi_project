@@ -15,7 +15,7 @@
 #include "renderer.h"
 #include "sound.h"
 #include "joypad.h"
-
+#include "resource_manager.h"
 //・・・・・・・・・・・・・・・・・・・・・・・・・・・
 //静的メンバ変数初期化
 //・・・・・・・・・・・・・・・・・・・・・・・・・・・
@@ -63,16 +63,21 @@ void CButton::Update(void)
     D3DXVECTOR3 pos  = GetPos();
     D3DXVECTOR3 size = GetSize();
 	CUi::Update();
-
+	CSound* pSound = GET_SOUND_PTR;
     //選ばれていれば
     if(m_bSelect)
     {
-        //選択したときの処理
-        Select();
+		if (m_bSelectOld)
+		{
+			//選択したときの処理
+			Select();
+			pSound->Play(CSound::SOUND_LABEL_SE_BUTTON_SELECT);
+		}
         //その状態でボタン入力された時の処理
         if(CManager::GetJoypad()->GetJoystickTrigger(CInputJoypad::JOY_BUTTON_A,0))
         {
             Push();
+			pSound->Play(CSound::SOUND_LABEL_SE_BUTTON_PUSH);
         }
     }
     else

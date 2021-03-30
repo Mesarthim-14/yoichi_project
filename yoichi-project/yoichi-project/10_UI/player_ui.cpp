@@ -17,7 +17,8 @@
 #include "Fly_ui.h"
 #include "effect.h"
 #include "effect_factory.h"
-
+#include "sound.h"
+#include "resource_manager.h"
 //=============================================================================
 // [CPlayer_UI] コンストラクタ
 //=============================================================================
@@ -176,6 +177,8 @@ void CPlayer_UI::UseItem(void)
                 // アイテムを使う
                 m_apItem[nCount]->SetItem();
 
+				CSound* pSound = GET_SOUND_PTR;
+				pSound->Play(CSound::SOUND_LABEL_SE_USE_ITEM);
                 break;
             }
         }

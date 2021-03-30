@@ -17,7 +17,7 @@
 #include "collision.h"
 #include "star_manager.h"
 #include "renderer.h"
-
+#include "sound.h"
 //=============================================================================================
 // マクロ定義
 //=============================================================================================
@@ -142,7 +142,9 @@ bool CStar::Collision(void)
 				// 星の加算
 				pPlayer->AddStarNum(DEFAULT_ADD_STAR_NUM);
 			}
+			CSound* pSound = GET_SOUND_PTR;
 
+			pSound->Play(CSound::SOUND_LABEL_SE_GET_POINT);
 			// 終了処理
 			Uninit();
 

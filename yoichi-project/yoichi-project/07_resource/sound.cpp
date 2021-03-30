@@ -15,13 +15,15 @@
 //====================================================
 CSound::PARAM CSound::m_aParam[SOUND_LABEL_MAX] =
 {
-//	{ "data/BGM/title001.wav", SOUND_LOOP_ON },			// タイトルBGM
-//	{ "data/BGM/game001.wav", SOUND_LOOP_ON },			// ゲームBGM
-//	{ "data/BGM/slash.wav", SOUND_LOOP_OFF },			// 斬撃音
-//	{ "data/BGM/stomp.wav", SOUND_LOOP_OFF },			// 叩きつけ
-//	{ "data/BGM/sword_skill.wav", SOUND_LOOP_OFF },		// ソードスキル
-//	{ "data/BGM/roar_cry.wav", SOUND_LOOP_OFF },		// 叫び
-//	{ "data/BGM/roar_fire.wav", SOUND_LOOP_OFF },		// 叫び炎
+	{ "data/Sound/BGM/titlebgm.wav", SOUND_LOOP_ON },		
+	//{ "data/Sound/BGM/gamebgm.wav", SOUND_LOOP_ON },		
+	{ "data/Sound/BGM/resultbgm.wav", SOUND_LOOP_ON },			
+	{ "data/Sound/SE/button_push.wav", SOUND_LOOP_OFF },	
+	{ "data/Sound/SE/button_select.wav", SOUND_LOOP_OFF },	
+	{ "data/Sound/SE/itemget.wav", SOUND_LOOP_OFF },		
+	{ "data/Sound/SE/starget.wav", SOUND_LOOP_OFF },		
+	{ "data/Sound/SE/timeup.wav", SOUND_LOOP_OFF },			
+	{ "data/Sound/SE/useitem.wav", SOUND_LOOP_OFF },		
 };
 
 //================================================
@@ -190,8 +192,6 @@ HRESULT CSound::Init(void)
 		CloseHandle(hFile);
 	}
 
-	//斬撃音のボリュームを設定
-	m_apSourceVoice[SOUND_LABEL_SE_SLASH]->SetVolume(0.1f);
 	return S_OK;
 }
 

@@ -107,13 +107,6 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 		m_pResourceManager = CResourceManager::GetInstance();
 	}
 
-	//サウンドのインスタンス生成
-	//m_pSound = new CSound;
-	//if (m_pSound != NULL)
-	//{
-	//	m_pSound->Init(hWnd);
-	//}
-
 	//フェードクラスのクリエイト
 	m_pFade = CFade::Create();
 
@@ -336,6 +329,7 @@ void CManager::SetMode(MODE_TYPE mode)
 {
 	CSound *pSound = GET_SOUND_PTR;
 
+	
 	//現在モードの終了
 	switch (m_mode)
 	{
@@ -372,7 +366,7 @@ void CManager::SetMode(MODE_TYPE mode)
 
 	// シーン情報のリリース
 	CScene::ReleaseAll();
-
+	pSound->Stop();
 	//モードを設定
 	m_mode = mode;
 

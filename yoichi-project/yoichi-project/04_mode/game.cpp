@@ -103,7 +103,6 @@ HRESULT CGame::Init(void)
 			return -1;
 		}
 	}
-
 	// nullcheck
 	if (m_pStageMap == nullptr)
 	{
@@ -356,6 +355,10 @@ void CGame::SetResultUi(void)
 	// リザルトが生成されていなければ生成する
 	if (m_apResult[0] == nullptr)
 	{
+		CSound* pSound = GET_SOUND_PTR;
+		pSound->Stop();
+		pSound->Play(CSound::SOUND_LABEL_SE_TIME_UP);
+		pSound->Play(CSound::SOUND_LABEL_BGM_RESULT);
 		D3DXVECTOR3 pos;
 		D3DXVECTOR3 size;
 		vector<int> aStarNum(m_nPlayerNum);		// 星の取得数用変数(配列はプレイヤー数分確保)

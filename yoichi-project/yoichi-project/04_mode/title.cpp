@@ -70,7 +70,9 @@ HRESULT CTitle::Init(void)
 {
 	// テクスチャのポインタ
 	CTexture *pTexture = GET_TEXTURE_PTR;
-
+	CSound* pSound = GET_SOUND_PTR;
+	
+	pSound->Play(CSound::SOUND_LABEL_BGM_TITLE);
 	if (m_pScene2D == NULL)
 	{
 		//2Dオブジェクトの生成
@@ -114,7 +116,6 @@ void CTitle::Update(void)
 {
 	CInputKeyboard* pKey = CManager::GetKeyboard();
 	CFade::FADE_MODE mode = CManager::GetFade()->GetFade();
-	CSound *pSound = GET_SOUND_PTR;
 	CScene::UpdateAll();
 
 	SelectButton();

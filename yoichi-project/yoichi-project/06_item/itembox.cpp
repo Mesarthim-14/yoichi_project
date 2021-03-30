@@ -25,7 +25,7 @@
 #include "item_mhand.h"
 #include "item.h"
 #include "player_ui.h"
-
+#include "sound.h"
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -203,7 +203,11 @@ void CItemBox::ItemCreate(int nCount)
 	// 乱数のナンバー
 	int nNumber = rand() % (int)ITEM_TYPE_MAX;
 
-		// プレイヤーの関数
+	CSound* pSound = GET_SOUND_PTR;
+
+	pSound->Play(CSound::SOUND_LABEL_SE_GET_ITEM);
+
+	// プレイヤーの関数
 	CPlayer *pPlayer = CGame::GetPlayer(nCount);
     CPlayer_UI *pPlayerUI = pPlayer->GetPlayerUI();
 	// ナンバー
