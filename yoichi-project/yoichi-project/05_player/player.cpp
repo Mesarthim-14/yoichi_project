@@ -42,17 +42,18 @@
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define PLAYER_SPEED				(20.0f)					// プレイヤーの移動量
+#define PLAYER_SPEED			(20.0f)					// プレイヤーの移動量
 #define PLAYER_JUMP				(17.0f)					// ジャンプの処理
 #define STICK_DEADZONE			(50.0f)					// スティック感度
-#define PLAYER_ROT_SPEED			(0.1f)					// キャラクターの回転する速度
+#define PLAYER_ROT_SPEED		(0.1f)					// キャラクターの回転する速度
 #define PLAYER_RADIUS			(200.0f)					// 4半径の大きさ
-#define PLAYER_PARTS				(22)						// プレイヤーのパーツ数
+#define PLAYER_PARTS			(22)						// プレイヤーのパーツ数
 #define GAME_END_FLAME			(100)					// ゲームが終わるフレーム
-#define PLAYER_FLY_SPEED			(30.0f)					// 飛行時のプレイヤーの移動量
+#define PLAYER_FLY_SPEED		(30.0f)					// 飛行時のプレイヤーの移動量
 #define FLY_ROT_X_MAX			(-D3DXToRadian(10.0f))	// 飛行の最大角
 #define FLY_ROT_X_MIN			(-D3DXToRadian(170.0f))	// 飛行の最小角
 #define FLY_GRAVITY_RATE		(0.5f)					// 飛行時の重力
+#define SUB_STAR_FLOODED_NUM	(3)						// 浸水
 
 // エフェクトパーツ
 #define BLADE_EFFECT_INTER		(190)					// 刀身のパーティクルの間隔
@@ -585,6 +586,7 @@ float CPlayer::InputToAngle(void)
 
 	return fInputAngle;
 }
+
 //=============================================================================
 // リポップの処理
 //=============================================================================
@@ -634,5 +636,11 @@ void CPlayer::Repop(void)
 		SetPos(pMeshPiller->GetPos()*2);
 		SetFly(false);
 		SetUseGravity(true);
+		m_nStarNum -= SUB_STAR_FLOODED_NUM;
+
+		if (m_nStarNum <= 0)
+		{
+			m_nStarNum = 0;
+		}
 	}
 }
