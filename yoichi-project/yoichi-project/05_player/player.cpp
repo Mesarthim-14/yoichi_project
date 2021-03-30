@@ -523,6 +523,10 @@ void CPlayer::MapLimit(void)
 		// ƒŠƒ|ƒbƒv‚Ìˆ—
 		Repop();
 	}
+	if (pos.y > MAP_LIMIT_SKY)
+	{
+		SetPos(D3DXVECTOR3(pos.x, MAP_LIMIT_SKY, pos.z));
+	}
 }
 
 //=============================================================================

@@ -84,19 +84,19 @@ void CItemBoxManager::Update(void)
 void CItemBoxManager::CreateItemBox(void)
 {
 	// アイテムボックスのメモリを確保
-	m_pItemBox.push_back(CItemBox::Create(D3DXVECTOR3(1500.0f, 1000.0f, -3000.0f), D3DXVECTOR3(MODEL_DEFAULT_SIZE)));
+	m_pItemBox.push_back(CItemBox::Create(D3DXVECTOR3(1500.0f, 4000.0f, -3000.0f), D3DXVECTOR3(MODEL_DEFAULT_SIZE)));
 
 	// アイテムボックスのメモリを確保
-	m_pItemBox.push_back(CItemBox::Create(D3DXVECTOR3(-2000.0f, 250.0f, 3500.0f), D3DXVECTOR3(MODEL_DEFAULT_SIZE)));
+	m_pItemBox.push_back(CItemBox::Create(D3DXVECTOR3(-2000.0f, 2000.0f, 3500.0f), D3DXVECTOR3(MODEL_DEFAULT_SIZE)));
 
 	// アイテムボックスのメモリを確保
-	m_pItemBox.push_back(CItemBox::Create(D3DXVECTOR3(900.0f, 250.0f, -1500.0f), D3DXVECTOR3(MODEL_DEFAULT_SIZE)));
+	m_pItemBox.push_back(CItemBox::Create(D3DXVECTOR3(900.0f, 4000.0f, -1500.0f), D3DXVECTOR3(MODEL_DEFAULT_SIZE)));
 
 	// アイテムボックスのメモリを確保
-	m_pItemBox.push_back(CItemBox::Create(D3DXVECTOR3(5000.0f, 200.0f, 5000.0f), D3DXVECTOR3(MODEL_DEFAULT_SIZE)));
+	m_pItemBox.push_back(CItemBox::Create(D3DXVECTOR3(5000.0f, 3000.0f, 5000.0f), D3DXVECTOR3(MODEL_DEFAULT_SIZE)));
 
 	// アイテムボックスのメモリを確保
-	m_pItemBox.push_back(CItemBox::Create(D3DXVECTOR3(-4000.0f, 500.0f, -7000.0f), D3DXVECTOR3(MODEL_DEFAULT_SIZE)));
+	m_pItemBox.push_back(CItemBox::Create(D3DXVECTOR3(-4000.0f, 3000.0f, -7000.0f), D3DXVECTOR3(MODEL_DEFAULT_SIZE)));
 }
 
 //=============================================================================
