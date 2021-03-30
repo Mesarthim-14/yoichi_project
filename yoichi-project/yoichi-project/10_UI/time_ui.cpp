@@ -70,8 +70,8 @@ HRESULT CTime_UI::Init(void)
     CTexture *pTexture = GET_TEXTURE_PTR;
     // タイマーのセット
     m_Timer = CTimer::Create();
-    //m_Timer->SetTimer(GAME_TIME);
-	m_Timer->SetTimer(10);
+    m_Timer->SetTimer(GAME_TIME);
+	//m_Timer->SetTimer(10);
 
     // ナンバーの生成
     for (unsigned int nCntNum = 0; nCntNum < MAX_NAM; nCntNum++)

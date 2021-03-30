@@ -50,20 +50,26 @@ CMagichand * CMagichand::Create(D3DXVECTOR3 Distance, int nTexInfo, int nPlayerN
 	if (pEffect != NULL)
 	{
 		// 初期化処理
-		pEffect->Init(CGame::GetPlayer(nPlayerNum)->GetPos() + Distance, DEFAULT_SIZE);
-
 		CTexture *pTexture = GET_TEXTURE_PTR;
 
 		// アニメーションテクスチャ設定
-		pEffect->BindTexture(pTexture->GetSeparateTexture((CTexture::SEPARATE_TEX_TYPE)nTexInfo));
-		pEffect->InitAnimation(
-			pTexture->GetSparateTexInfo((CTexture::SEPARATE_TEX_TYPE)nTexInfo),
-			pTexture->GetSparateTexLoop((CTexture::SEPARATE_TEX_TYPE)nTexInfo));
+
 
 		pEffect->SetLife(DEFAULT_LIFE);		// 体力の設定
 		pEffect->SetAlpha(true);			// アルファテストの設定
 		pEffect->m_nPlayerNum = nPlayerNum; // 追従させるプレイヤーの番号
 		pEffect->m_Distance = Distance;		// 距離
+		pEffect->SetPos(CGame::GetPlayer(nPlayerNum)->GetPos() + Distance);
+		pEffect->SetSize(DEFAULT_SIZE);
+
+		pEffect->Init(CGame::GetPlayer(nPlayerNum)->GetPos() + Distance, DEFAULT_SIZE);
+
+		pEffect->InitAnimation(
+			pTexture->GetSparateTexInfo((CTexture::SEPARATE_TEX_TYPE)nTexInfo),
+			pTexture->GetSparateTexLoop((CTexture::SEPARATE_TEX_TYPE)nTexInfo));
+
+		pEffect->BindTexture(pTexture->GetSeparateTexture((CTexture::SEPARATE_TEX_TYPE)nTexInfo));
+
 	}
 
 	return pEffect;
