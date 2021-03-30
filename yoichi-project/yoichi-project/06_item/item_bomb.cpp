@@ -51,8 +51,8 @@ CItemBomb * CItemBomb::Create(const int nNumber)
 	if (pItemBomb != nullptr)
 	{
 		// 初期化処理
-		pItemBomb->Init();
 		pItemBomb->SetNumber(nNumber);
+		pItemBomb->Init();
 	}
 
 	return pItemBomb;
@@ -64,7 +64,7 @@ CItemBomb * CItemBomb::Create(const int nNumber)
 HRESULT CItemBomb::Init(void)
 {
 	// メモリ確保
-	CUi *pUi = CUi::Create(ITEM_UI_POS, ITEM_UI_SIZE);
+	CUi *pUi = CUi::Create(SetPosition(this->GetPlayerNum()), ITEM_UI_SIZE);
 
 	// UIのポインタ設定
 	SetUi(pUi);

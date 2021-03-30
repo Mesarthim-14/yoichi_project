@@ -53,8 +53,8 @@ CItemThunder * CItemThunder::Create(const int nNumber)
 	if (pItemThunder  != nullptr)
 	{
 		// 初期化処理
-		pItemThunder->Init();
 		pItemThunder->SetNumber(nNumber);
+		pItemThunder->Init();
 	}
 
 	return pItemThunder;
@@ -66,7 +66,7 @@ CItemThunder * CItemThunder::Create(const int nNumber)
 HRESULT CItemThunder::Init(void)
 {
 	// メモリ確保
-	CUi *pUi = CUi::Create(ITEM_UI_POS, ITEM_UI_SIZE);
+	CUi *pUi = CUi::Create(SetPosition(this->GetPlayerNum()), ITEM_UI_SIZE);
 
 	// UIのポインタ設定
 	SetUi(pUi);

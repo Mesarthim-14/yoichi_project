@@ -55,6 +55,7 @@ public:
 	void SetNumber(int nNumber)	{ m_nPlayerNumber = nNumber; }				// プレイヤーの番号設定
 	void SetEnd(bool bEnd)		{ m_bEnd = bEnd; }							// エンドフラグの設定
 	void SetUse(bool bUse)		{ m_bUse = bUse; }							// 使用フラグ
+    D3DXVECTOR3 CItem::SetPosition(int nPlayerNum);
 
 	// Get関数
 	CUi *GetUi(void)		{ return m_pUi; }				// UIのポインタ
@@ -63,6 +64,7 @@ public:
 	bool GetUse(void)		{ return m_bUse; }				// 使用フラグ
 
 private:
+    static const D3DXVECTOR3 m_UI_DATA[MAX_PLAYER_NUM];// UIの位置
 	CUi *m_pUi;				// UIのポインタ
 	int m_nPlayerNumber;	// ブレイヤーの番号
 	bool m_bEnd;			// アイテムの削除フラグ

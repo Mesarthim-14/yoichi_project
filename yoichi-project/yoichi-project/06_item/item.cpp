@@ -15,6 +15,27 @@
 #include "xfile.h"
 #include "ui.h"
 
+//*****************************************************************************
+// マクロ定義
+//*****************************************************************************
+//プレイヤごとのUIの位置
+#define ITEM_POS_PLAYER1 {SCREEN_WIDTH/4-250,SCREEN_HEIGHT/4-100.0f,0.0f}
+#define ITEM_POS_PLAYER2 {SCREEN_WIDTH/4+(SCREEN_WIDTH/2)+250,SCREEN_HEIGHT/4-100.0f,0.0f}
+#define ITEM_POS_PLAYER3 {SCREEN_WIDTH/4-250,SCREEN_HEIGHT/4+(SCREEN_HEIGHT/2)-100.0f,0.0f}
+#define ITEM_POS_PLAYER4 {SCREEN_WIDTH/4+(SCREEN_WIDTH/2)+250,SCREEN_HEIGHT/4+(SCREEN_HEIGHT/2)-100.0f,0.0f}
+
+//*****************************************************************************
+// 静的メンバ変数
+//*****************************************************************************
+const D3DXVECTOR3 CItem::m_UI_DATA[MAX_PLAYER_NUM] =
+{
+    { ITEM_POS_PLAYER1 },
+    { ITEM_POS_PLAYER2 },
+    { ITEM_POS_PLAYER3 },
+    { ITEM_POS_PLAYER4 }
+};// UIの位置
+
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -91,4 +112,12 @@ void CItem::UiUninit()
 		m_pUi->Uninit();
 		m_pUi = NULL;
 	}
+}
+
+//=============================================================================
+// [SetPosition] UIの位置設定
+//=============================================================================
+D3DXVECTOR3 CItem::SetPosition(int nPlayerNum)
+{  
+    return m_UI_DATA[nPlayerNum];
 }

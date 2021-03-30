@@ -54,8 +54,8 @@ CItemVortex * CItemVortex::Create(const int nNumber)
 	if (pItemVortex != nullptr)
 	{
 		// 初期化処理
-		pItemVortex->Init();
 		pItemVortex->SetNumber(nNumber);
+		pItemVortex->Init();
 	}
 
 	return pItemVortex;
@@ -67,7 +67,7 @@ CItemVortex * CItemVortex::Create(const int nNumber)
 HRESULT CItemVortex::Init(void)
 {
 	// メモリ確保
-	CUi *pUi = CUi::Create(ITEM_UI_POS, ITEM_UI_SIZE);
+	CUi *pUi = CUi::Create(SetPosition(this->GetPlayerNum()), ITEM_UI_SIZE);
 
 	// UIのポインタ設定
 	SetUi(pUi);

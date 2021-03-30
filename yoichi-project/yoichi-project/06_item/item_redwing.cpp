@@ -53,8 +53,8 @@ CItemRedWing * CItemRedWing::Create(const int nNumber)
 	if (pItemRedWing != nullptr)
 	{
 		// 初期化処理
-		pItemRedWing->Init();
 		pItemRedWing->SetNumber(nNumber);
+		pItemRedWing->Init();
 	}
 
 	return pItemRedWing;
@@ -66,7 +66,7 @@ CItemRedWing * CItemRedWing::Create(const int nNumber)
 HRESULT CItemRedWing::Init(void)
 {
 	// メモリ確保
-	CUi *pUi = CUi::Create(ITEM_UI_POS, ITEM_UI_SIZE);
+	CUi *pUi = CUi::Create(SetPosition(this->GetPlayerNum()), ITEM_UI_SIZE);
 
 	// UIのポインタ設定
 	SetUi(pUi);

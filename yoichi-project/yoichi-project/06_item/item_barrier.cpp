@@ -51,8 +51,8 @@ CItemBarrier * CItemBarrier::Create(const int nNumber)
 	if (pItemBarrier != nullptr)
 	{
 		// 初期化処理
-		pItemBarrier->Init();
 		pItemBarrier->SetNumber(nNumber);
+		pItemBarrier->Init();
 	}
 
 	return pItemBarrier;
@@ -64,7 +64,7 @@ CItemBarrier * CItemBarrier::Create(const int nNumber)
 HRESULT CItemBarrier::Init(void)
 {
 	// メモリ確保
-	CUi *pUi = CUi::Create(ITEM_UI_POS, ITEM_UI_SIZE);
+	CUi *pUi = CUi::Create(SetPosition(this->GetPlayerNum()), ITEM_UI_SIZE);
 
 	// UIのポインタ設定
 	SetUi(pUi);
