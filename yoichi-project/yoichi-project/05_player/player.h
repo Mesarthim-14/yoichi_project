@@ -99,6 +99,7 @@ public:
 		MOTION_IDOL,				// アイドルモーション
 		MOTION_WALK,				// 歩行モーション
 		MOTION_JUMP,				// ジャンプモーション
+		MOTION_FLY,					// 飛行モーション
 		MOTION_MAX,					// モーション最大数
 	};
 

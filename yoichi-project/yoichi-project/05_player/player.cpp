@@ -471,6 +471,9 @@ void CPlayer::Fly(void)
 		}
 	}
 
+	// 飛行モーションの再生
+	SetMotion(MOTION_FLY);
+
 	// 飛んでいるときの風のエフェクト
 	CWindEffect::Create(GetPos(), m_rotDest, D3DXVECTOR3(100.0f, 100.0f, 100.0f), CEffectFactory::EFFECT_TYPE::EFFECT_NUM_PARTICLE);
 

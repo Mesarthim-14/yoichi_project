@@ -31,6 +31,7 @@ public:
 
 	// Get関数
 	D3DXVECTOR3 GetPos(void) { return CSceneBase::GetPos(); }		// 座標情報
+	D3DXVECTOR3 GetSize(void) { return CSceneBase::GetSize(); }		// サイズ情報
 private:
 };
 
