@@ -138,8 +138,8 @@ HRESULT CGame::Init(void)
 
     
 	//BGM
-//	CSound *pSound = CManager::GetSound();
-//	pSound->Play(CSound::SOUND_LABEL_BGM_GAME);
+    CSound *pSound = GET_SOUND_PTR;
+	pSound->Play(CSound::SOUND_LABEL_BGM_GAME);
 
 	// !nullcheck
 	if (m_pStarManager == nullptr)
@@ -367,9 +367,9 @@ void CGame::SetResultUi(void)
 		for (int nCount = 0; nCount < m_nPlayerNum; nCount++)
 		{
 			// 星の数を取得
-		//	aStarNum.at(nCount) = GetPlayer(nCount)->GetStarNum();
+			aStarNum.at(nCount) = GetPlayer(nCount)->GetStarNum();
 
-			aStarNum.at(nCount) = rand() % 90;	// 確認のためランダム
+			//aStarNum.at(nCount) = rand() % 90;	// 確認のためランダム
 
 			// ランキングの初期設定
 			aRank.at(nCount) = 0;

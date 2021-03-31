@@ -45,7 +45,7 @@
 #define PLAYER_SPEED			(20.0f)					// プレイヤーの移動量
 #define PLAYER_JUMP				(17.0f)					// ジャンプの処理
 #define STICK_DEADZONE			(50.0f)					// スティック感度
-#define PLAYER_ROT_SPEED		(0.1f)					// キャラクターの回転する速度
+#define PLAYER_ROT_SPEED		(0.15f)					// キャラクターの回転する速度
 #define PLAYER_RADIUS			(200.0f)					// 4半径の大きさ
 #define PLAYER_PARTS			(22)						// プレイヤーのパーツ数
 #define GAME_END_FLAME			(100)					// ゲームが終わるフレーム

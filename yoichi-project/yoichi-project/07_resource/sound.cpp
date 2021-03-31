@@ -16,7 +16,7 @@
 CSound::PARAM CSound::m_aParam[SOUND_LABEL_MAX] =
 {
 	{ "data/Sound/BGM/titlebgm.wav", SOUND_LOOP_ON },		
-	//{ "data/Sound/BGM/gamebgm.wav", SOUND_LOOP_ON },		
+	{ "data/Sound/BGM/gamebgm.wav", SOUND_LOOP_ON },		
 	{ "data/Sound/BGM/resultbgm.wav", SOUND_LOOP_ON },			
 	{ "data/Sound/SE/button_push.wav", SOUND_LOOP_OFF },	
 	{ "data/Sound/SE/button_select.wav", SOUND_LOOP_OFF },	
@@ -185,8 +185,8 @@ HRESULT CSound::Init(void)
 		m_apSourceVoice[nCntSound]->SubmitSourceBuffer(&buffer);
 
 		// オーディオバッファの登録
-		//m_apSourceVoice[nCntSound]->SetVolume(0.5f);
-		m_apSourceVoice[nCntSound]->SetVolume(0.01f);
+		m_apSourceVoice[nCntSound]->SetVolume(1.0f);
+	//	m_apSourceVoice[nCntSound]->SetVolume(0.01f);
 
 		// ファイルをクローズ
 		CloseHandle(hFile);

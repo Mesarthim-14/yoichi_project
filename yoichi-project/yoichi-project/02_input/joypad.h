@@ -17,7 +17,7 @@
 //=======================================================================
 //マクロ定義
 //=======================================================================
-#define MAX_JOYSTICK_NUM		(4)			// JOYPAD接続上限
+#define MAX_JOYSTICK_NUM		(5)			// JOYPAD接続上限
 #define	NUM_JOY_MAX				(32)		// ボタンの最大数
 #define CROSS_KEY_UP			(0)			// 十字キー上
 #define CROSS_KEY_TOP_RIGHT		(4500)		// 十字キー右上

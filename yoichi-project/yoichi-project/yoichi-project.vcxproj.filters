@@ -254,6 +254,8 @@
     <ClInclude Include="08_3D\barrier.h">
       <Filter>08_3D</Filter>
     </ClInclude>
+    <ClInclude Include="12_effect\shadow.h" />
+    <ClInclude Include="12_effect\wind_effect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="00_main\main.cpp">
@@ -464,5 +466,7 @@
       <Filter>10_UI</Filter>
     </ClCompile>
     <ClCompile Include="10_UI\Fly_ui.cpp" />
+    <ClCompile Include="12_effect\shadow.cpp" />
+    <ClCompile Include="12_effect\wind_effect.cpp" />
   </ItemGroup>
 </Project>

@@ -53,8 +53,9 @@ CItemMhand * CItemMhand::Create(const int nNumber)
 	if (pItemMhand != nullptr)
 	{
 		// ‰Šú‰»ˆ—
+        pItemMhand->SetNumber(nNumber);
 		pItemMhand->Init();
-		pItemMhand->SetNumber(nNumber);
+
 	}
 
 	return pItemMhand;
